@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 1 Chapter 1 - Exploring the Network</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Introduction to Networks</h2>
+					<h3>Chapter 1: Exploring the Network</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>What this 1st chapter is about</h2>
+						<p>Realize the significance of what we're trying to do here, really.</p>
+						<p>By the way, The Internet is <strong>awesome</strong>. Did you notice?</p>
+						<p>Here's an awesome fact about the Internet: news about earthquakes can <em>overtake</em> them.</p>
+					</section>
+					<section>
+						<img src="http://imgs.xkcd.com/comics/seismic_waves.png">
+						<p>Please do not tweet about earthquakes during earthquakes.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>(Very) Short story of the Internet</h2>
+						<ul>
+							<li>Someone very clever built a very smart communication system.</li>
+							<li>They had a reason</li>
+							<li>Even smarter people started using it for all kinds of <em>different</em> reasons. And then some more.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>(Very) Short profile of the Internet</h2>
+							<p>As an invention, the Internet is both an <strong>enabler</strong> and an <em>amplifier</em>. Almost never in a predictable way.</p>
+							<p>As developers of networks, by pushing the limits of the network we design, we <em>enable</em>. To what, it's for our users to figure out.</p>
+							<p>The improvements we make in terms of <strong>speed, features, stability, security, easyness of use, and more</strong> directly or indirectly <em>amplify</em> the scope of the Internet as an invention.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Internet of Things (IoT)</h2>
+					<!-- <p><iframe src="http://player.vimeo.com/video/94011734" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></p> -->
+					<img src="http://theconnectivist-img.s3.amazonaws.com/wp-content/uploads/2014/05/Unknown.png">
+					<small>Infographic by <a href="http://www.theconnectivist.com/2014/05/infographic-the-growth-of-the-internet-of-things/">The Connectivist</a> // <a href="http://vimeo.com/94011734">Video</a></small>
+				</section>
+
+				<section>
+					<h2>IoT: How on earth did we get here?</h2>
+					<ul>
+						<li>We used to <strong>go to the connected device</strong>. Think PCs.</li>
+						<li>Now we bring our <strong>own device with us, and it connects us</strong>. Think Smartphones, tablets.</li>
+						<li>Soon you won't feel any difference, because <strong>everything will be a connected device</strong>.</li>
+						<li>And then? Cisco thinks everything and everyone, material and asbtract, will be connected, and calls this <strong><em>Internet of Everything</em></strong>.</li>
+						<p><u>Beware</u>: Cisco has its own term for <em>anything</em>. No, seriously.</p>
+					</ul>
+				</section>
+
+				<section>
+					<h2>The Human Network</h2>
+					<p>Think for 1 minute about how much just the first 25 years of the Internet have changed, and then for another minute about what <strong>the impact of the next 25 years</strong> could possibly be.</p>
+					<p>Cisco calls the study of such an impact networks can make on people, businesses, ideas, the <strong><em>Human Network</em></strong>.</p>
+					<p>You were warned about Cisco and terminology, weren't you?</p>
+				</section>
+
+				<section>
+					<h2>Impact on how we learn</h2>
+					<p>This would be you, by the way.</p>
+					<p>First of all, just look at the sheer <strong>amount of material</strong>: it's self-learning paradise.</p>
+					<p>We have grown out of textbook, schedule, teachers: <strong>audio, video and interactivity</strong> mean we can learn about anything, anywhere, on our own pace, and reach any level we want to.</p>
+					<p>No fixed roles, <strong>you can contribute</strong> back: the only thing stopping you from sharing your knowledge with the same effectiveness, is an internet connection.</p>
+				</section>
+
+				<section>
+					<h2>MOOC: Massive Open Online Course</h2>
+					<p>or: <em>Let's graduate at MIT for free!</em>. Kind of.</p>
+					<img src="http://whatsup.crossknowledge.com/files/2013/12/2013-12-17_161544.png">
+				</section>
+
+				<section>
+					<h2>Impact on how we communicate</h2>
+					<p>There's been a switch on the Internet, that is long completed: from Web 1.0 (the content is provided to us) to <strong>Web 2.0 (User Generated Content, UCG)</strong>.</p>
+					<img src="http://upload.wikimedia.org/wikipedia/commons/b/bb/Herramientas_web_2.0.jpg">
+					<p>Some of the keywords for the Web 2.0: <strong>Social Media, Istant Messaging, Podcasting, File Sharing, Blog, RSS</strong>.</p>
+				</section>
+
+				<section>
+					<h2>Impact on how we work</h2>
+					<p>An ever increasing number of <strong>people can work from home</strong> thanks to the improved capabilities of networks and the quality of the tool at their disposal.</p>
+					<p>For many tasks, you went from needing several tools, persons and facilities, to <strong>just one</strong>: a network connection.</p>
+					<iframe src="http://player.vimeo.com/video/107569286?loop=1" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+					<small><a href="http://vimeo.com/107569286">the evolution of the desk</a> by <a href="http://www.designboom.com/technology/evolution-desk-harvard-innovation-lab-09-30-2014/">the harvard innovation lab</a>.</small>
+				</section>
+
+				<section>
+					<h2>Impact on how we're entertained</h2>
+					<p>More videos of cute cats and dogs than you need in a lifetime.</p>
+					<p>It's also worth mentioning:</p>
+					<ul>
+						<li>Throw <strong>your destination at your phone</strong> and see what happens.</li>
+						<li>5D Graphics are worthless if you can't do <strong>online gaming / multiplaying</strong>.</li>
+						<li>Any niche market, no matter how small, can prosper with <strong>eCommerce and online payments</strong>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>All sizes of Networks</h2>
+					<ul>
+						<li><strong>Small networks</strong>: think about your home.</li>
+						<li><strong>Small Office/Home Office (SOHO)</strong>: centralized resourced and dedicated devices.</li>
+						<li><strong>Medium Networks</strong>: think about the Unical island.</li>
+						<li><strong>Large Networks</strong>: let's talk about GARR.</li>
+						<li><strong>World Wide Networks</strong>: well, the Internet.</li>
+					</ul>
+						<p><strong>Internet is literally <em>Network of Networks</em></strong>. It's the largest network there is.</p>
+				</section>
+
+				<section>
+					<h2>Client-Server</h2>
+					<img src="http://www.webclasses.net/3ComU/intro/units/media/figures/unit01/ClientServer.gif">
+					<ul>
+						<li><strong>Host</strong>: generic name for a device that participates in a network's communications.</li>
+						<li><strong>Server</strong>: hosts that <em>provide</em> information through server software.</li>
+						<li><strong>Client</strong>: hosts that <em>request and display</em> this information through client software.</li>
+				</section>
+
+				<section>
+					<h2>Client-Server: no clear-cut</h2>
+					<ul>
+						<li>One host can be <strong>both</strong> a client and a server.</li>
+						<li>Multiple <strong>kinds of informations</strong> provided or requested at the same time.</li>
+						<li>Server functions are usually logically grouped, while clients are <strong>general purpose</strong>.
+					</ul>
+				</section>
+
+				<section>
+					<h2>Peer to Peer (P2P)</h2>
+					<img src="http://pixabay.com/static/uploads/photo/2014/05/10/19/14/laptop-341419_640.png" width="320" height="240">
+					<p>A network where hosts acts simultaneously as client and server for a specific type of information is called a <strong>Peer to Peer</strong> network.</p>
+					<p>This is much more a <strong>software</strong> distinction.</p>
+				</section>
+
+				<section>
+					<h2>Peer to Peer (P2P)</h2>
+					<p><strong>Advantages</strong></p>
+					<ul>
+						<li>Easy configuration</li>
+						<li>Less complexity</li>
+						<li>Lower cost, doesn't need dedicated devices</li>
+						<li>Better for simple tasks</li>
+					</ul>
+					<p><strong>Disadvantages</strong></p>
+					<ul>
+						<li>No centralized administration</li>
+						<li>Security</li>
+						<li>Scalability</li>
+						<li>Slow performances of devices.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Network Components</h2>
+					<p>Every network infrastructures has components that falls in one of these 3 categories:</p>
+					<ul>
+						<li>Devices</li>
+						<li>Media</li>
+						<li>Services</li>
+					</ul>
+					<p>Even the smaller one has them all. Let's say: this very room!</p>
+				</section>
+
+				<section>
+					<h2>(End) Devices</h2>
+					<p>An <strong>(end) host device</strong> is a device that can be the source or the destination of a network communication.</p>
+					<p>End devices can be distinguished and reached on a network by their <strong>addresses</strong></p>
+					<p>Examples?</p>
+				</section>
+
+				<section>
+					<h2>Intermediary Devices</h2>
+					<p><strong>Intermediary devices</strong> carry the task to <strong>ensure data flows</strong> through the network to reach end devices, connecting them.</p>
+					<p><strong>Network Access</strong> (switches, AP, hubs), <strong>Internetworking</strong> (routers), <strong>Security</strong> (firewalls) devices are all intermediary devices.</p>
+				</section>
+
+				<section>
+					<h2>Functions of Intermediary Devices</h2>
+					<ul>
+						<li>Regenerate and retransmit signals</li>
+						<li>Maintain information about pathways</li>
+						<li>Notify communication errors and failures</li>
+						<li>Direct data along alternate pathways</li>
+						<li>Classify and direct messages according to Quality of Service (QoS) priorities</li>
+						<li>Permit or deny the flow of data, based on security settings</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Network Media</h2>
+					<p>The <strong>medium</strong> is the physical object that carries the signal from one point of the network to the other.</p>
+					<p>There are mostly 3 types of media:</p>
+					<ul>
+						<li>Metallic wires/cables</li>
+						<li>Glass/Plastic fibers</li>
+						<li>Wireless</li>
+					</ul>
+					<p>Signal must be <em>encoded</em> in a way that is appropriate to each media.</p>
+				</section>
+
+				<section>
+					<h2>How do you choose a media?</h2>
+					<p>Different media have <strong>different features, PROs and CONs</strong>. The most common criteria for choosing a media are:</p>
+					<ul>
+						<li><strong>Distance</strong> that can be covered by the media</li>
+						<li><strong>Environment</strong> in which the media will be operating.</strong></li>
+						<li><strong>Amount</strong> of data and requires <strong>speed</strong> of tranmission.</li>
+						<li><strong>Costs</strong>, of media itself and its installation.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Topology Diagrams</h2>
+						<p>A <strong>Network Topology</strong> is a visual representation of a network or one specific aspect of it.</p>
+						<p>It easily allows to <strong>document</strong> network connections.</p>
+						<p>Mainly 2 types of topology diagrams:</p>
+						<ul>
+							<li><strong>Physical Topology</strong>: its purpose is to highlight the <strong>location</strong> of each devices, configuration of ports and cables path.</li>
+							<li><strong>Logical Topology</strong>: you can visualize <strong>devices by their functions</strong>, addressing schemes, ports and other network parameters.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Physical Topology</h2>
+							<img src="http://beautbelsblog.files.wordpress.com/2009/11/physical-toplogy1.jpg">
+					</section>
+					<section>
+							<h2>Logical Topology</h2>
+							<img src="http://beautbelsblog.files.wordpress.com/2009/11/logical.jpg">
+					</section>
+				</section>
+
+				<section>
+					<h2>Networks by Geograophic Scale</h2>
+					<p>A network can be <strong>characterized by its physical capacities</strong> (size of the area, number of users) and also by the services it provides. The most commond types based on this parameters are:</p>
+					<ul>
+						<li>LAN: Local Area Network</li>
+						<li>WAN: Wide Area Network</li>
+						<li>MAN: Metropolitan Area Network</li>
+						<li>WLAN: Wireless Local Area Network</li>
+						<li>SAN: Storage Area Network</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>LAN: Local Area Networks</h2>
+					<p>It's a network that covers a relatively small, <strong>limited geographical area</strong>. LANs share these characteristics:</p>
+					<ul>
+						<li>Devices participating in a LAN are located in a <strong>self-containing area</strong>, like a home, school, building.</li>
+						<li>They are <strong>administered by a single entity</strong> that controls access, features and policies in general.</li>
+						<li>Almost every time they provide the <strong>fastest bandwidth</strong> to end and intermediare devices, when compared to other type of networks.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>WAN: Wide Area Networks</h2>
+					<p>The <strong>textbook definition</strong> is: a computer network spanning cities, regions, countries, or even the world.</p>
+					<p>WAN are more generally referred to as a <strong>set of technologies for trasmitting datas over long distances, between more localized types of networks</strong>. Typically LANs.</p>
+					<p>Another common (but not mandatory) feature of WANs: they're built using <strong>leased lines</strong> (often multiple kinds of them).</p>
+					<p>Either they're <strong>slower than LANs</strong>, or much <strong>more expensive</strong> for the same bandwidth.</p>
+					<p>Managed by <strong>single entities</strong>, they can be meant for the <strong>private use</strong> of a single organization or for end users of <strong>service providers</strong></p>
+				</section>
+
+				<section>
+					<h2>Networks by scope:</h2>
+					<h2>Intranet and Extranet</h2>
+					<p><strong>Intranet</strong> is defined as the ensemble of private connections of LANs and WANs belonging and only accessible to a <strong>single entity</strong>.</p>
+					<p><strong>Extranet</strong>s are also under a single administration, but supports connection and (limited) access from <strong>specific external networks</strong>.</p>
+				</section>
+
+				<section>
+					<h2>Networks by scope: The Internet</h2>
+					<p>The Internet is a network formed by a staggering amount of <strong>inter</strong>connected <strong>net</strong>works.</p>
+					<p>How do you make a network composed of billions of different devices, users and medium, work flawlessly? <strong>Standards</strong>.</p>
+					<p>No single entity, government, organization owns The Internet. But it all works because of <strong>consistent, internationally recognized and available technologies and protocols</strong>.</p>
+					<p>There are many organizazions that were purposefully created to <strong>maintain and produce</strong> these standards.</p>
+				</section>
+
+				<section>
+					<h2>Connecting to the Internet: Users</h2>
+					<ul>
+						<li class="fragment"><strong>DSL</strong>: Internet over telephone lines.</li>
+						<li class="fragment"><strong>Cable</strong>: Internet over TV cable (not italian stuff, really).</li>
+						<li class="fragment"><strong>Cellular</strong>: Internet over cell towers.</li>
+						<li class="fragment"><strong>Satellite</strong>: Internet over parabolic dishes.</li>
+						<li class="fragment"><strong>Dial-up</strong>: Internet over 20 years ago.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Connecting to the Internet: Businesses</h2>
+					<ul>
+						<li class="fragment"><strong>Dedicated Leased Lines</strong>: This is my circuit. There are many circuits like this, but this one is mine.</li>
+						<li class="fragment"><strong>Metro Ethernet</strong>: Ethernet over Copper or Fiber, from 10 Mb/s to 10 Gb/s.</li>
+						<li class="fragment"><strong>DSL</strong>: like the one before, but symmetrical and/or high speed.</li>
+						<li class="fragment"><strong>Satellite</strong>: like the one for the regular user, but you can upload stuff in space.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Converged Networks</h2>
+						<p>Telephone, television, radio, data, are all examples of communications that <strong>used to require a dedicated, separate network</strong> for each one of them.</p>
+						<p>Digital age and the ubiquity of the Internet is changing all that, making it possible to <strong>deliver everything over a single network</strong>.</p>
+						<p>Cisco calls this the <em>Converging Network</em></p>
+				</section>
+
+				<section>
+					<h2>Cisco's 4 basic network features</h2>
+					<ul>
+						<li>Fault Tolerance</li>
+						<li>Scalability</li>
+						<li>Quality of Service (QoS)</li>
+						<li>Security</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>#1: Fault Tolerance</h2>
+					<p><strong>Fault Tolerance</strong> is the ability to <strong>limit the impact of a failure</strong> in a network and to quickly recover from it.</p>
+					<p>Networks achieve this by having <strong>multiple paths</strong> on which communication can occur.</p>
+					<p>This is called <strong>redundancy. redundancy. redundancy</strong>.
+				</section>
+
+				<section>
+					<section>
+						<h2>Circuit-Switching and Fault Tolerance</h2>
+						<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Photograph_of_Women_Working_at_a_Bell_System_Telephone_Switchboard_%283660047829%29.jpg/640px-Photograph_of_Women_Working_at_a_Bell_System_Telephone_Switchboard_%283660047829%29.jpg" width="465" height="381">
+						<p>First there's the <strong>setup process</strong>, that involes creating a <strong>temporary path/circuit</strong> between source and destination.</p>
+					</section>
+					<section>
+						<h2>Circuit-Switching and Fault Tolerance</h2>
+						<img src="http://www.louiewong.com/wp-content/uploads/2010/09/Circuit_Switching.jpg">
+						<p><strong>Any failure</strong> along the circuit means the communication is dropped and a <strong>new setup process</strong> has to begin.</p>
+						<p><strong>Existing communications are at the expense of new ones</strong>: even if a circuit is unused, you get the busy signals.</p>
+						<p><strong>No-go</strong> for the Internet.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Packet-Switching and Fault Tolerance</h2>
+						<img src="http://computernetworkingsimplified.com/wp-content/uploads/2013/11/DatagramSwitching.jpg" width="672" height="305">
+						<p>Key concept is that <strong>a single message can be splitted</strong> into pieces, each one containing <strong>information identifying source and destination</strong>.</p>
+					</section>
+					<section>
+						<h2>Packet-Switching and Fault Tolerance</h2>
+						<p>Message can be sent along a <strong>multitude of paths</strong> and then <strong>reassembled</strong> at its destination.</p>
+						<p>At each intermediary device location, <strong>a switching/routing decision</strong> is made about the path of each packet.</p>
+						<p>Fault Tolerance lies in the ability to <strong>dinamically choose alternative/best path</strong> with ease.</p>
+						<p>Failures are dealt with by <strong>retransmission</strong> only of the packets involved.</p>
+					</section>
+					<section>
+						<h2>Circuit vs. Packet Switching</h2>
+						<img src="http://computing.dcu.ie/~humphrys/Notes/Networks/tanenbaum/2-40.jpg">
+					</section>
+				</section>
+
+				<section>
+					<h2>#2: Scalability</h2>
+					<p><strong>Scalability</strong> is the ability of a network to grow in users, devices, traffic, etc without affecting performance levels.</p>
+					<p>The Internet could grow this much precisely because <strong>its architecture is scalable</strong> technically and politically.</p>
+					<p>The Internet is structured in <strong>Network Tiers (1+2+3)</strong>, exchanging <strong>peering or transit traffic</strong> between them.</p>
+					<p>Scalability without <strong>standards</strong> would be just too painful to achieve.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Internet Tiers, Peering and Transit</h2>
+						<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Internet_Connectivity_Distribution_%26_Core.svg/1024px-Internet_Connectivity_Distribution_%26_Core.svg.png" width="680" height="400">
+						<p>The Internet is based on the principle of <strong>general reachability</strong>, which means that every Internet user should be able to reach any other Internet user. But how is that possible?</p>
+					</section>
+					<section>
+						<h2>Internet Tiers, Peering and Transit</h2>
+						<ul>
+							<li><strong><u>Tier 1</u></strong>: they're the <strong>backbone</strong> of the Internet, providing international and trans-oceanic connectivity. Tier 1 ISPs treat each other as <strong>peers</strong>.</li>
+							<li><strong><u>Tier 2</u></strong>: smaller ISPs but still operating at a scale, they can <strong>buy transit</strong> to the rest of the Internet and <strong>peer</strong> with other Tier 2 providers, and <strong>sell transit</strong> to Tier 3 ISPs.</li>
+							<li><strong><u>Tier 3</u></strong>: these are the more local ISPs that directly <strong>provide Internet access to the final users</strong>.They mostly buy transit from Tier 2 providers.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>#3: Quality of Service (QoS)</h2>
+						<img src="http://25.media.tumblr.com/tumblr_lxyzmufhr81r5lqooo1_500.gif">
+						<small>What's this? A cat farting or a team of surgeons liveconferencing from the hospital? We'll find out soon (?)...</small>
+						<p>When you want <strong>predictable, measurable and guaranteed</strong> services on a network, you need to implement <strong>Quality of Service</strong> solutions.</p>
+					</section>
+					<section>
+						<h2>#3: Quality of Service (QoS)</h2>
+						<p>Packet-switched network means there's <strong>no guarantee packets will arrive on time. Or at all.</strong>.</p>
+						<p>When the amount and size of the packets exceed <strong>network bandwidth</strong>, packets are <strong>queued in memory</strong>. Until it's full...</p>
+						<p>Achieving QoS is all about <strong>managing delay and packet loss</strong>.</p>
+						<p>We can do that through <strong>classification and priority rules</strong> based on our own criteria.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>#4: Security</h2>
+					<p>Not just physical security but also <strong>information security</strong>.</p>
+					<p>Security is a matter of 3 basic requirements:</p>
+					<ul>
+						<li class="fragment"><strong>Confidentiality</strong>: data, processes, resources can only be <strong>accessed by authorized</strong> users. Authentication and Encryption to the rescue.<strong</li>
+						<li class="fragment"><strong>Integrity</strong>: It's about ensuring the <strong>data haven't been altered during transmission</strong>, either by accident or maliciously. Checksum and signatures can be involved in this process.</li>
+						<li class="fragment"><strong>Availability</strong>: data and resources must be accessible to the legitimate users when they need them. <strong>Denial of Service (DoS)</strong> attacks can damage you without even breaking into your network.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Network Trends for Businesses</h2>
+					<ul>
+						<li class="fragment"><strong>BYOD (Bring Your Own Device)</strong> means that you can use any device, with any ownership, in any IT organization.</li>
+						<li class="fragment"><strong>Cloud Computing</strong> refers to the <strong>offloading of computing</strong> resources and data storage, then <strong>delivered as a service</strong> over a network.</li>
+						<ul>
+							<li class="fragment">Benefits: usable anywhere, rapid deployment, reduced costs, refocused resourced, new business models.</li>
+							<li class="fragment">4 primary types of clouds: <strong>Public, Private, Custom, Hybrid</strong></li>
+						</ul>
+						<li class="fragment"><strong>Virtualization</strong> is running a virtual version of something on a computer, <strong>like an entire hardware platform, an operating system</strong>, a single device, storage or networks.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Network Trends for Home Users</h2>
+					<ul>
+						<li class="fragment"><strong>Smart home technology</strong> integrates computing capabilities into every-day machinery, interconnecting and automating them.</li>
+						<li class="fragment"><strong>Powerline Networking</strong> uses electrical wiring to transfer data on a network; works very similarly to DSL.</li>
+						<li class="fragment"><strong>Wireless Internet Service Provider</strong>s sell Internet access through wireless technology. The connection to the provider's backbone requires the installation of an <strong>antenna</strong>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Network Security: Threats</h2>
+						<p>These are among the most common dangers a network has to be guarded from:</p>
+						<ul>
+							<li class="fragment">Viruses, worms, and Trojan horses</li>
+							<li class="fragment">Spyware and adware</li>
+							<li class="fragment">0-day vulnerabilities</li>
+							<li class="fragment">Hackers (but they mean: <em>crackers</em>)</li>
+							<li class="fragment">Denial of Service</li>
+							<li class="fragment">Data theft</li>
+							<li class="fragment">Identity theft</li>
+						</ul>
+						<p>But keep in mind that, most of the time, your enemy is <strong>already inside</strong>.</p>
+					</section>
+					<section>
+						<h2>Network Security: Solutions</h2>
+						<p><strong>Security is a process, not a solution</strong>. Solutions works best when they are carefully combined and layered.</p>
+						<ul>
+							<li class="fragment">Basic: <strong>Antivirus and antispyware</strong>.</li>
+							<li class="fragment">Basic: <strong>Firewall filtering</strong> on end devices and home routers.</li>
+							<li class="fragment">Advanced: <strong>Dedicated Firewalls</strong> and <strong>Access Control Lists (ACL)</strong>.</li>
+							<li class="fragment">Advanced: <strong>Intrusion Prevention Systems (IPS)</strong>.</li>
+							<li class="fragment">Advanced: <strong>Virtual Private Networks (VPN)</strong>.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
