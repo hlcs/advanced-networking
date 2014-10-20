@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 1 Chapter 2 - Configuring Cisco IOS and GNU/Linux Network Operating Systems</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Introduction to Networks</h2>
+					<h3>Chapter 2: Configuring Cisco IOS and GNU/Linux Network Operating Systems</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>What is a Network Device</h2>
+					<ul>
+						<li class="fragment"><strong>Router</strong>: forwards data packets between different networks.</li>
+						<li class="fragment"><strong>Switch</strong>: connects end devices using network cables</li>
+						<li class="fragment"><strong>Wireless Access Point</strong>: consists of a radio transmitter and receiver capable of connecting end devices wirelessly</li>
+						<li class="fragment"><strong>Firewall Appliance</strong>: Can control traffic by filtering. Secures outgoing traffic and restricts incoming traffic.</li>
+						<p class="fragment">These function are performed by an <strong>Operating System</strong> such as <strong>Cisco IOS</strong> or <strong>GNU/Linux</strong>.</p>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Operating Systems</h2>
+					<p>An OS is the <em>interface</em> between hardware and the shell, the user interface.</p>
+					<p>A <strong>shell</strong> can be <strong>graphical</strong> (GUI, Graphical User Interface) of <strong>text-based</strong> (CLI, Command-Line Interface).</p>
+					<p>Examples of OS accessed by GUI are Microsoft Windows, MacOS X, Linux, Apple iOS, Android...</p>
+					<p>The OS on home routers and other embedded devices is usually called <strong>firmware</strong>.</p>
+					<p>The <strong>Network OS</strong> on a switch or router provides the network technician with an interface.</p>
+				</section>
+
+				<section>
+					<h2>Cisco IOS</h2>
+					<p>Cisco IOS is a term that encompasses a number of different operating systems that run on various networking devices.</p>
+					<p>There are many distinct <strong>variations of Cisco IOS</strong>:</p>
+					<ul>
+						<li>IOS for switches, routers, and other Cisco networking devices</li>
+						<li>IOS numbered versions for a given Cisco networking device</li>
+						<li>IOS feature sets providing distinct packages of features and services</li>
+					</ul>
+					<p>In this course, you will focus primarily on Cisco IOS Release 15.x.</p>
+				</section>
+
+				<section>
+					<h2>GNU/Linux Operating System</h2>
+					<p>Gnu/Linux is a <strong>general purpose</strong> free operating system <strong>based on Linux Kernel</strong>.</p>
+					<p>The are other free operating systems based on many <strong>flavours of BSD kernel</strong>.</p>
+					<p>Different packaged OS are called <em>distributions</em>, like Fedora, Red Hat, Ubuntu, Debian, Arch and many more.</p>
+					<p>Some are for <strong>networking purpose</strong>, like: IPCop, PFSense, ZeroShell, CertOS, OpenWRT and many more.</p>
+					<p>In this course, you will focus on general purpose free OS.</p>
+				</section>
+
+				<section>
+					<h2>OS and Memory</h2>
+					<p><strong>The OS file</strong> itself is several megabytes in size and is stored in a semi-permanent non-volatile memory area called <strong>flash</strong>, like a <em>compact flash card</em> or an <em>embedded chipset</em>.</p>
+					<p>At boot the kernel and some portions of OS are loaded into <strong>random access memory</strong> (RAM) when the device is powered on.</p>
+					<p><strong>RAM is a volatile memory</strong> because data is lost during a power cycle.</p>
+					<p>The quantity of flash memory and RAM memory required for a given OS varies dramatically. For the purposes of network maintenance and planning, it is important to determine the <strong>flash and RAM requirements</strong> for each device, including the maximum flash and RAM configurations</p>
+				</section>
+
+				<section>
+					<h2>Network OS functions</h2>
+					<p>Major functions performed or enabled by routers and switches
+include:</p>
+					<ul>
+						<li>Providing network <strong>security</strong></li>
+						<li><strong>IP addressing</strong> of virtual and physical interfaces</li>
+						<li>Enabling <strong>interface-specific</strong> configurations to optimize connectivity of the respective media</li>
+						<li><strong>Routing</strong></li>
+						<li>Enabling <strong>Quality of Service (QoS)</strong> technologies</li>
+						<li>Supporting <strong>network management</strong> technologies</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Download the OS</h2>
+					<p>Free and open source (FOSS) OS can be freely downloaded from Internet at no cost.</p>
+					<p>Some advanced features and support can be subject to payments.</p>
+					<p>Cisco IOS must be downloaded from <strong>Cisco website</strong>,</p>
+					<p>Cisco Connection Online (CCO) has a lot of informations available regarding Cisco products and services</p>
+				</section>
+
+				<section>
+					<h2>Accessing an IOS Device</h2>
+					<p>There are several ways to access the CLI environment. The most common methods are:</p>
+						<ul>
+							<li>Console</li>
+							<li>Telnet or SSH</li>
+							<li>AUX port</li>
+						</ul>
+					<p>The <strong>console port</strong> is a management port that provides <strong>out-of-band</strong> access to Cisco device.</p>
+					<p>Out-of-band access refers to <strong>access via a dedicated management channel</strong> that is used for device maintenance purposes only. </p>
+					<p>It's used for performing an initial configuration of the networking device and for recovering purposes</p>
+				</section>
+
+				<section>
+					<h2>Telnet and SSH</h2>
+					<p><strong>Telnet</strong> is a <u>in-band</u> method for remotely <strong>establishing a CLI session</strong> of a device, through a virtual interface, <strong>over a network</strong>.</p>
+					<p>Unlike the console connection, Telnet sessions <strong>require active networking services</strong> on the device</p>
+					<p>The <strong>Secure Shell (SSH)</strong> protocol provides a remote login similar to Telnet, except that it uses more secure network services. </p>
+					<p>SSH provides <strong>stronger password authentication</strong> than Telnet and <strong>uses encryption</strong> when transporting session data</p>
+					<p>An older way to establish a CLI session remotely is via a <strong>telephone dialup connection</strong> using a modem connected to the <strong>auxiliary (AUX) port</strong> of a router</p>
+				</section>
+
+				<section>
+					<h2>Terminal emultors</h2>
+					<p>There are many terminal emulation programs available for connecting to a networking device either by a serial connection over a console port or by a Telnet/SSH connection.</p>
+					<p>Some of these include:</p>
+					<ul>
+						<li>PuTTY (Open Source)</li>
+						<li>Tera Term (Open Source)</li>
+						<li>SecureCRT</li>
+						<li>HyperTerminal</li>
+						<li>OS X Terminal</li>
+						<li>Minicom (Open Source)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Cisco CLI modes of operation</h2>
+					<p>The CLI uses a <strong>hierarchical structure for the modes.</strong>.</p>
+					<p>In hierarchical order from most basic to most specialized, the major modes are:</p>
+					<ul>
+						<li><strong>User executive</strong> (User EXEC) mode</li>
+						<li><strong>Privileged executive</strong> (Privileged EXEC) mode</li>
+						<li><strong>Global configuration</strong> mode</li>
+						<li><strong>Other specific configuration modes</strong>, such as interface configuration mode.</li>
+					</ul>
+					<p>Each mode has a <strong>distinctive prompt</strong> and is used to accomplish particular tasks with a specific set of commands that are available only to that mode.</p>
+					<p>On GNU/Linux modes can be emulated by <strong>Quagga</strong> software.</p>
+				</section>
+
+				<section>
+					<h2>User EXEC Mode</h2>
+					<p>The user EXEC mode is at the most basic level of the modal hierarchical structure.</p>
+					<p>This mode is the first mode encountered upon entrance into the CLI of an IOS device.</p>
+					<p>The user EXEC mode allows only a limited number of basic monitoring commands. </p>
+					<p>This is often referred to as view-only mode.</p>
+					<p>The user EXEC mode is identified by the CLI prompt that ends with the ">" symbol:</p>
+					<pre><code data-trim class="bash">
+						Switch>
+					</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>Privileged EXEC Mode (1/2)</h2>
+						<p>The <strong>execution of configuration and management commands</strong> requires that the network administrator use the privileged EXEC mode or a more specific mode in the hierarchy.</p>
+						<p>The privileged EXEC mode can be identified by the prompt ending with the "<code>#</code>" symbol.</p>
+						<pre><code data-trim class="bash">
+							Switch#
+						</code></pre>
+					</section>
+					<section>
+						<h2>Privileged EXEC Mode (2/2)</h2>
+						<p><strong>Global configuration mode</strong> and all other more specific configuration modes <u>can only be reached from the privileged EXEC mode.</u></p>
+						<p>By default, privileged EXEC mode does not require authentication. <strong>It is a good practice to ensure that authentication is configured</strong>.</p>
+						<p>The <code>enable</code> and <code>disable</code> commands are used to change the CLI <strong>between the user EXEC mode and the privileged EXEC mode</strong>, respectively.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Global Configuration Mode</h2>
+					<p>From global configuration mode, CLI configuration changes are made that affect the operation of the device as a whole.</p>
+					<p>The following CLI command is used to take the device from privileged EXEC mode to the global configuration mode:</p>
+					<pre><code data-trim class="bash">
+						Switch# configure terminal
+					</code></pre>
+					<p>After the command is executed, the prompt changes to show that the switch is in global configuration mode.</p>
+					<pre><code data-trim class="bash">
+						Switch(config)#
+					</code></pre>
+					<p>See examples on Packet Tracer.</p>
+				</section>
+
+				<section>
+					<h2>Specific Configuration Modes</h2>
+					<p>From the global configuration mode, the user can enter different sub-configuration modes. For example:</p>
+					<ul>
+						<li><strong>Interface mode</strong> - to configure one of the network interfaces (Fa0/0, S0/0/0)</li>
+						<li><strong>Line mode</strong> - to configure one of the physical or virtual lines (console, AUX, VTY)</li>
+					</ul>
+					<p>To exit a specific configuration mode and return to global configuration mode, enter <code>exit</code> at a prompt. </p>
+					<p>To leave configuration mode completely and <strong>return to privileged EXEC mode</strong>, enter end or use the key sequence <code>Ctrl-Z</code>.</p>
+				</section>
+
+				<section>
+					<h1>Practice on IOS Modes</h1>
+				</section>
+
+				<section>
+					<h2>Basic IOS Commands</h2>
+					<p>The <code>show</code> command is used to display information about the device.</p>
+					<p>This command <strong>has various keywords</strong> that must be used to define what particular output should be displayed. </p>
+					<p>For example the following command specifies that the running configuration is to be displayed as the output:</p>
+					<pre><code data-trim class="bash">
+						Switch# show running-config
+					</code></pre>
+					<p>A command might require one or more <strong>arguments</strong>. Unlike a keyword, an argument <u>is generally not a predefined word</u>. An argument is a value or variable defined by the user.</p>
+					<p>For instance the syntax for using the description command is:</p>
+					<pre><code data-trim class="bash">
+						Switch(config-if)# description string
+					</code></pre>
+					<pre><code data-trim class="bash">
+						Switch> ping 10.10.10.5
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Command Reference</h2>
+					<p>The Cisco IOS Command Reference is a collection of online documentation which describes in detail the IOS commands used on Cisco devices.</p>
+					<p><a href="http://www.cisco.com/cisco/web/support">http://www.cisco.com/cisco/web/support</a></p>
+					<p>There are lots of resources for Gnu/Linux, for example:</p>
+					<p><a href="https://wiki.debian.org/NetworkConfiguration">https://wiki.debian.org/NetworkConfiguration</a></p>
+				</section>
+
+				<section>
+					<h2>Context-Sensitive Help</h2>
+					<p>The context-sensitive help provides a list of commands and the arguments associated with those commands within the context of the current mode. </p>
+					<p>To access context-sensitive help on Cisco IOS, enter a question mark, <strong>?</strong>, at any prompt.</p>
+					<p>There is an immediate response without the need to use the Enter key.</p>
+					<p>On Gnu/Linux press TAB for command completion, or use <code>man</code> command for a detailed guide for a command</p>
+					<p>Try them on Packet tracer and Linux console.</p>
+				</section>
+
+				<section>
+					<h2>IOS Hot Keys and Shortcuts (1/2)</h2>
+					<ul>
+						<li><strong>Down Arrow</strong> - Allows the user to scroll forward through former commands.</li>
+						<li><strong>Up Arrow</strong> - Allows the user to scroll backward through former commands.</li>
+						<li><strong>Tab</strong> - Completes the remainder of a partially typed command or keyword.</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>IOS Hot Keys and Shortcuts (2/2)</h2>
+					<ul>
+						<li><strong>Ctrl-A</strong> - Moves to the beginning of the line.</li>
+						<li><strong>Ctrl-E</strong> - Moves to the end of the line.</li>
+						<li><strong>Ctrl-R</strong> - Redisplays a line.</li>
+						<li><strong>Ctrl-Z</strong> - Exits the configuration mode and returns to user EXEC.</li>
+						<li><strong>Ctrl-C</strong> - Exits the configuration mode or aborts the current command.</li>
+						<li><strong>Ctrl-Shift-6</strong> - Allows the user to interrupt an IOS process such as ping or traceroute.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>The show command</h2>
+					<img src="http://www.highteck.net/images/298-Testing-IOS-show-commands.jpg">
+				</section>
+
+				<section>
+					<h2>Practice on basic commands</h2>
+					<p>Test the IOS <code>show</code> command in Packet Tracer</p>
+					<p>Test on Gnu/Linux the commands</p>
+					<ul>
+						<li><code>uname -a</code></li>
+						<li><code>ip link</code></li>
+						<li><code>ip addr</code></li>
+						<li><code>ip route</code></li>
+						<li><code>arp</code></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Practice: create a small network</h2>
+					<p>Let's <strong>create a small network</strong> using a switch and few PCs.</p>
+					<p>This is the <u>simplest</u> network setup. It's very easy to configure.</p>
+					<p><strong>Make tests in lab or on Packet tracer</strong>.</p>
+					<ul>
+						<li>Take a switch and <strong>turn it on</strong>.</li>
+						<li>Observe the <strong>boot process</strong>.</li>
+						<li>From <strong>user exec mode</strong> enter the <strong>privileged exec mode</strong>.</li>
+						<li>Access the <strong>global configuration mode</strong></li>
+						<li>Now you can start <strong>configuring the switch</strong>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Device Hostname</h2>
+					<p>Hostnames allow devices to be identified by network administrators over a network or the Internet.</p>
+					<p>Define a naming convention for all the network machines. For example if we have three switches at different floors, name it as <code>Sw-Floor-1</code>, <code>Sw-Floor-2</code>, and <code>Sw-Floor-3</code>.</p>
+					<p>in the global configuration mode, enter the hostname:</p>
+					<pre><code data-trim class="bash">
+						Switch(config)# hostname Sw-Floor-1
+					</code></pre>
+					<p>After the command is executed, the prompt will change to:</p>
+					<pre><code data-trim class="bash">
+						Sw-Floor-1 (config)#
+					</code></pre>
+					<p>To remove the name of a device, use:</p>
+					<pre><code data-trim class="bash">
+						Sw-Floor-1 (config)# no hostname
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Securing privileged access</h2>
+					<p>To secure privileged EXEC access, use:</p>
+					<pre><code data-trim class="bash">
+						enable secret mypassword
+					</code></pre>
+					<p>An older not encrypted variation of this command is the </p>
+					<pre><code data-trim class="bash">
+						enable password mypassword
+					</code></pre>
+					<p><strong>Gnu/Linux</strong> is a <em>general purpose multi-user Operating System</em>. Many users can be created with different privileges.</p>
+					<p>To change the password of a user use passwd command:</p>
+					<pre><code data-trim class="bash">passwd [name of the user]</code></pre>
+				</section>
+
+				<section>
+					<h2>Secure console access</h2>
+					<p>To set a password for the console line use the following commands in global configuration mode:</p>
+					<pre><code data-trim class="bash">
+						Switch(config)# line console 0
+					</code></pre>
+					<pre><code data-trim class="bash">
+						Switch(config-line)# password cisco
+					</code></pre>
+					<pre><code data-trim class="bash">
+						Switch(config-line)# login
+					</code></pre>
+					<p>The command <code>line console 0</code> is used to enter line configuration mode for the console. The zero is used to represent the first (and in most cases only) console interface.</p>
+				</section>
+
+				<section>
+					<h2>VTY Password</h2>
+					<p>The vty lines allow access to a Cisco device via Telnet. </p>
+					<p>By default, many Cisco switches support up to 16 vty lines that are numbered 0 to 15. </p>
+					<p>The number of vty lines supported on a Cisco router varies with the type of router and the IOS version. </p>
+					<p>However, 5 is the most common number of vty lines configured.</p>
+					<p>To set a password on vty lines use the following commands:</p>
+					<pre><code data-trim class="bash">
+						Switch(config)# line vty 0 15
+					</code></pre>
+					<pre><code data-trim class="bash">
+						Switch(config-line)# password cisco
+					</code></pre>
+					<pre><code data-trim class="bash">
+						Switch(config-line)# login
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Encrypting Passwords</h2>
+					<p>By default passwords are unencrypted. Try:</p>
+					<pre><code data-trim class="bash">
+						Switch# show running-config
+					</code></pre>
+					<p>The <code>service password-encryption</code> command applies weak encryption to all unencrypted passwords. </p>
+					<p>This encryption applies only to passwords in the configuration file, not to passwords as they are sent over media. </p>
+					<p>The purpose of this command is to keep unauthorized individuals from viewing passwords in the configuration file.</p>
+					<p>Run <ode>show running-config</code> again and see the difference.</p>
+					<p>In Linux the encrypted passwords are stored in <strong>/etc/shadow</strong> file.</p>
+				</section>
+
+				<section>
+					<h2>Banner Messages</h2>
+					<p>It is vital to provide a method for declaring that only authorized personnel should attempt to gain entry into the device. To do this, add a banner to the device output.</p>
+					<p>The IOS provides multiple types of banners. One common banner is the message of the day (MOTD). It is often used for legal notification because it is displayed to all connected terminals.</p>
+					<p>To configure a MOTD from global configuration mode:</p>
+					<pre><code class="bash">Switch(config)# banner motd #</code></pre>
+					<pre><code class="bash">message #</code></pre>
+					<p>On Linux there are many ways, one is to edit the file <strong>/etc/motd</strong>.</p>
+				</section>
+
+				<section>
+					<h2>Save configuration</h2>
+					<p>The <strong>running configuration file</strong> is stored in the working memory of the device, or <strong>random access memory (RAM)</strong>. </p>
+					<p>If the device is restarted, <strong>all configuration changes will be lost</strong> unless they have been saved.</p>
+					<p>The <strong>startup configuration file</strong> reflects the configuration that will be used by the device upon reboot. </p>
+					<p>The startup configuration file is stored in <strong>NVRAM</strong>.</p>
+					<p> The command to <strong>save the running configuration</strong> to startup configuration file is:</p>
+					<pre><code class="bash">Switch# copy running-config startup-config</code></pre>
+					<p>To restore a saved configuration the command is:</p>
+					<pre><code class="bash">Switch# copy startup-config running-config</code></pre>
+				</section>
+
+				<section>
+					<h2>Delete configuration</h2>
+					<p>The startup configuration is removed on both Switches and Routers by using</p>
+					<pre><code class="bash">Switch# erase startup-config</code></pre>
+					<p>On a switch you must also issue the command</p>
+					<pre><code class="bash">Switch# delete vlan.dat</code></pre>
+				</section>
+
+				<section>
+					<h2>Backup configuration via console</h2>
+					<p>The IOS configuration can be saved on your PC using the capture capabilities of the terminal.</p>
+					<p>HyperTerminal, Minicom, Tera term and the other terminals have a <em>log</em> or <em>capture</em> function to get the output as text.</p>
+					<p>Enable logging, execute  a show running-config command and save the output in a file.</p>
+					<p>You can edit the file and restore it on the Switch or Router.</p>
+				</section>
+
+				<section>
+					<h1>Practice on IOS configuration</h1>
+				</section>
+
+				<section>
+					<h2>IP Addressing</h2>
+					<p>The structure of an IPv4 address is called <strong>dotted decimal notation</strong> and is represented with four <strong>decimal numbers</strong> between 0 and 255.</p>
+					<p>IPv4 addresses are numbers assigned to individual devices connected to a network to <strong>uniquely identify them</strong>.</p>
+					<p>With the IP address, a <strong>subnet mask</strong> is also necessary.</p>
+					<p>A subnet mask is a special type of IPv4 address that, coupled with the IP address, determines which particular subnet of a larger network the device is a member.</p>
+					<p>For example:</p>
+					<ul>
+						<li>IP: 192.168.1.1</li>
+						<li>Subnet mask: 255.255.255.0</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Ethernet Basics</h2>
+					<p><strong>Ethernet</strong> is the most common <strong>local area network</strong> (LAN) technology used today.</p>
+					<p>Ethernet ports are <strong>found on end user devices, switch devices, and other networking devices</strong> that can physically connect to the network using a cable.</p>
+					<p>For a cable to connect devices using an Ethernet port, the cable must have the correct <strong>connector</strong>, an <strong>RJ-45</strong>.</p>
+				</section>
+
+				<section>
+					<h2>Switch Virtual Interfaces</h2>
+					<p>Cisco IOS switches have physical ports for devices to connect to, but also have one or more <strong>switch virtual interfaces (SVIs)</strong>.</p>
+					<p>These are virtual interfaces, because <strong>there is no physical hardware</strong> on the device associated with it;</p>
+					<p><u>An SVI is created in software</u>.</p>
+					<p><strong>Each switch comes with one SVI</strong> appearing in the default configuration <em>out-of-the-box</em>.</p>
+					<p>The default SVI is interface <strong>VLAN1</strong>.</p>
+				</section>
+
+				<section>
+					<h2>Configuring VLAN 1</h2>
+					<p>To access the switch remotely, <strong>an IP address and a subnet mask must be configured on the SVI</strong>.</p>
+					<p>To configure the SVI the commands are:</p>
+					<ul>
+						<li>(enter the interface configuration mode)
+						<pre><code class="bash">interface vlan 1</code></pre>
+						</li>
+						<li>(set IP address)
+						<pre><code class="bash">ip address 192.168.10.2 255.255.255.0</code></pre>
+						</li>
+						<li>(enable the interface)</li>
+						<pre><code class="bash">no shutdown</code></pre>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>PC Network Settings</h2>
+					<p>In order for an end device to communicate over the network, it must be configured with the correct IP address information.</p>
+					<p>The <strong>IP address, Subnet Mask, Default Gateway and DNS server</strong> must be provided.</p>
+					<p>The <strong>default gateway</strong> address is the IP address of the router interface used for <strong>network traffic to exit the local network</strong>.</p>
+					<p>The <strong>DNS server</strong> is used to <strong>maintain the mapping between the IP addresses and names</strong> of various devices.</p>
+					<p>IP address information can be entered into the PC manually (<strong>static</strong> addressing), or using <strong>Dynamic Host Configuration Protocol (DHCP)</strong>.</p>
+					<p>DHCP allows end devices to have IP information automatically configured.</p>
+				</section>
+
+				<section>
+					<h1>Practice: Implement Basic Connectivity between PCs</h1>
+				</section>
+
+				<section>
+					<h2>Verifying Connectivity with Loopback</h2>
+					<p>The <code>ping</code> command is used to <strong>verify the internal IP configuration</strong> on a local host.</p>
+					<p>This test is accomplished by using the ping command on a <strong>reserved address called the <em>loopback</em></strong>.</p>
+					<p>The loopback address, <strong>127.0.0.1</strong>, is defined by the TCP/IP protocol as a <strong>reserved address that routes packets back to the host</strong>.</p>
+					<p>The command is:</p>
+					<pre><code class="bash">ping 127.0.0.1</code></pre>
+				</section>
+
+				<section>
+					<h2>Verify switch interfaces</h2>
+					<p>	Use the <code>show ip interface brief</code> command to verify the condition of the switch interfaces.</p>
+					<pre>
+S1# show ip interface brief
+Interface          IP-Address      OK?   Method   Status   Protocol
+FastEthernet0/1    unassigned      YES   manual   up       up
+FastEthernet0/2    unassigned      YES   manual   up       up      
+[output omitted]   
+Vlan1              192.168.10.2   YES   manual   up       up 
+</pre>
+				</section>
+
+				<section>
+					<h2>Testing end-to-end Connectivity</h2>
+					<p>From both PCs ping the IP of the other PC.</p>
+					<p>From PC1:</p>
+					<pre><code class="bash">ping 192.168.1.10</code></pre>
+					<p>From PC2:</p>
+					<pre><code class="bash">ping 192.168.1.11</code></pre>
+					<p>Ping the IP of Switch VLANs from PCs.</p>
+					<pre><code class="bash">ping 192.168.1.1</code></pre>
+					<pre><code class="bash">ping 192.168.1.2</code></pre>
+					<p>If all packets are received the network is correctly working.</p>
+				</section>
+
+				<section>
+					<h1>Practice: test connectivity</h1>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
