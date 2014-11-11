@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 1 Chapter 3 - Network Protocols and Communications</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Introduction to Networks</h2>
+					<h3>Chapter 3: Network Protocols and Communications</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>What is Communication?</h2>
+					<p>What are the elements of a communication?</p>
+					<ul>
+						<li>The <strong>message</strong>, of course.
+						<li>The <strong>source</strong> of the message, the <em>sender</em>
+						<li>The <strong>destination</strong> of the message, the <em>receiver</em>
+						<li>The <strong>channel</strong> in which communication occurs.
+						<li>The <strong>rules</strong>, or <em>protocols</em> to which both sender and receiver have to agree.
+					</ul>
+					<p>These elements belongs to every kind of communication.</p>
+				</section>
+
+				<section>
+					<h2>Rules of a communication</h2>
+					<p>By following established <strong>protocols</strong> that governs communications, it is possible to deliver and understand a message reliably.</p>
+					<p>There can be many protocols. Each one provides an agreement on the following requirements:</p>
+					<ul>
+						<li>Identifying sender and receiver
+						<li>Commong language and grammar structures
+						<li>Speed and timing
+						<li>Confirmation or acknowledgment of delivery
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>What Protocols do</h2>
+						<h3>Message Encoding</h3>
+						<p><em>Encoding</em> is converting information between two different forms.</p>
+						<p><em>Decoding</em> is the reverse process.</p>
+						<p>Examples: words -> sounds; bits -> impulses</p>
+					</section>
+					<section>
+						<h2>What Protocols do</h2>
+						<h3>Message Formatting and Encapsulation</h3>
+						<p>Now that we have an encoded message, we must send it with appropriate <strong>structure</strong></p>
+						<p><u>Letters</u>' recipient, greeting, content, closing, signature are perfect examples.</p>
+						<p>Most of the times is convenient to <em>enclose</em> the message for delivery, like we do with <u>envelopes</u> for letters.</p>
+						<p>Enclosing one message format in another is called <strong>Encapsulation</strong>. <strong>De-encapsulation</strong> is the reverse process.</p>
+						<p>Computers' envelopes are called <strong>frames</strong>.</p>
+					</section>
+					<section>
+						<h2>What Protocols do</h2>
+						<h3>Message Size</h3>
+						<p>Messages are usually <strong>divided into smaller parts</strong>, suited for how much the receiver can <strong>process at one time</strong>.</p>
+						<p>This division process is called <strong>segmenting</strong>.
+						<p>Each segment must abide to both a <strong>minimum and maximum</strong> size.</p>
+					</section>
+					<section>
+						<h2>What Protocols do</h2>
+						<h3>Message Timing</h3>
+						<ul>
+							<li><strong>Access Method</strong>: <em>when can I speak?</em></li>
+							<li><strong>Flow Control</strong>: <em>how fast/slow and for how long can I speak?</em></li>
+							<li><strong>Response Timeout</strong>: <em>how long do I wait for a response before reacting?</em></li>
+						</ul>
+					</section>
+					<section>
+						<h2>What Protocols do</h2>
+						<h3>Message Delivery Options</h3>
+						<ul>
+							<li><strong>Unicast</strong>: one-to-one delivery.
+							<li><strong>Multicast</strong>: one-to-many delivery.
+							<li><strong>Broadcast</strong>: one-to-all delivery.
+						</ul>
+						<p>Sometimes the receiver is required to send confirmation (<strong><em>acknowdlegment</em></strong> or ack) that he actually received the message.
+					</section>
+				</section>
+
+				<section>
+					<h2>Protocols in Stacks: Theory</h2>
+					<p><strong>Protocol Suite</strong>: several protocols that needs to interact toghether for a communication to occour.</p>
+					<p>This interactions is best thought (<em>model</em>) in terms of <strong>layers</strong> in a <strong>stack</strong>.</p>
+					<p>Each upper layer protocols <strong>depends on the functionality</strong> provided by lower level protocols.</p>
+					<p><u>Rule of thumb</u>: lower layer protocols are more concerned with <em>moving data</em>, upper layer ones with <em>message content</em>.</p>
+				</section>
+
+				<section>
+					<h2>Protocols in Stacks: Practice</h2>
+					<p>We can see the protocol stack model in action even in a simple communication between a web server and a browser.</p>
+					<ul>
+						<li><strong>Application Protocol</strong>: HTTP (Hypertext Transfer Protocol)</li>
+						<li><strong>Transport Protocol</strong>: TCP (Transmission Control Protocol)</li>
+						<li><strong>Internet Protocol</strong>: IP</li>
+						<li><strong>Network Access Protocol</strong>: eg. Ethernet</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Protocol Suites</h2>
+					<p>Protocol suites can be developed by <strong>a standards organization</strong> or by a <strong>vendor</strong>.</p>
+					<p>The TCP/IP Protocol Suite (IP, HTTP, DHCP and others) is a standard-based protocol suite. This means they are freely available to the public for <strong>implementation</strong>.</p>
+					<p>Following standards-based protocols allows for <strong>interoperability</strong>. Hw and Sw from different vendors are guaranteed to work together.</p>
+					<p>Some protocols are <strong>proprietary</strong>, that is only one vendor controls and knows how the protocol operates.</p>
+				</section>
+
+				<section>
+					<h2>TCP/IP Protocol Suite</h2>
+					<img src="http://i.imgur.com/bDGSrfQ.png">
+				</section>
+
+				<section>
+					<h2>TCP/IP Communication Process</h2>
+					<img src="http://i.imgur.com/D98yrCJ.gif">
+				</section>
+
+				<section>
+					<h2>Open Standards Organizations</h2>
+					<p>Standards are essentials for an open Internet, and they wouldn't happen without <strong>vendor-neutral, non-profit standard organizations</strong>.</p>
+					<p>By <strong>producing freely available protocol specification</strong> they ensure that no single vendor can hold the Internet hostage of their own interests.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>The Internet Society</h2>
+						<p><strong>ISOC</strong> is an ensemble mainly focused on the development of the <strong>technical structure of the Internet</strong>.</p>
+						<p>This organization is run by a board of 13 respected <strong>individuals</strong>, and involves people not tied to any specific company, agency, etc.</p>
+						<img src="http://i.imgur.com/QiQn6Z7.jpg">
+						<p>The <strong>IETF (Internet Engineering Task Force)</strong> maintain Internet technologies in the form of <strong>RFCs (<em>Requests for Comments</em>)</strong>. The <strong>IRTF (Internet Research Task Force)</strong> is more focused on <strong>forward-thinking research</strong> to explore future directions.</p>
+					</section>
+					<section>
+						<h2>IEEE</h2>
+						<p>The <strong>Institute of Electrical and Electronics Engineers</strong> (pronounced <em>I-triple-E</em>) is dedicated to standards and innovation in <strong>electrical engineering and electronics</strong>.</p>
+						<p>Its standards <strong>affects whole industries</strong> besides just networking.</p>
+						<p>Standard are grouped in <strong>families</strong>, which are referred to by a number, followed by a dot and another number identifying a more specific area and its <strong>working group</strong>.</p>
+						<p><strong>IEEE 802</strong> family of standard deals with LANs and MANs. Particularly interesting to us are <strong>802.3 (Ethernet)</strong> and <strong>802.11 (Wireless LAN)</strong> standards.</p>
+					</section>
+					<section>
+						<h2>ISO</h2>
+						<p>The <strong>Internation Organization for Standardization</strong> is the largest developer of standards, covering almost every possible field, products and services.</p>
+						<p>ISO is best known in networking for developing the <strong>OSI, Open System Interconnection reference model</strong>.</p>
+						<p>Its purposes was to produce a <strong>layered framework for networking protocols</strong> but also applying in a full protocol suite for the Internet. But <strong>TCP/IP already won</strong>...</p>
+						<p><strong>ISO 9660</strong> should ring a bell if you ever burned a CD. Also: routing protocols.</p>
+					</section>
+					<section>
+						<h2>EIA, TIA, ITU-T</h2>
+						<p>The <strong>EIA, Electonic Induestries Alliance</strong>, is best known for standardizing wiring and connectors and <strong>mounting racks</strong>.</p>
+						<p>The <strong>TIA, Telecommunications Industry Association</strong>, collaborates with the EIA and produces standards for radio, cellular and satellite equipment, and also VoIP devices.</p>
+						<p>The <strong>International Telecommunications Union-Telecommunication Standardization Sector (ITU-T)</strong> is responsible for country codes for international dialing and broadband communication standards.</p>
+					</section>
+					<section>
+						<h2>ICANN and IANA</h2>
+						<p>The <strong>Internet Assigned Numbers Authority (IANA)</strong> is an organizations originally run by the US government for managing</p>
+						<ul>
+							<li>IP address allocation,
+							<li>domain names
+							<li>protocol identifiers
+							<li>port numbers
+						</ul>
+						<p>and <strong>Internet namespaces in general at the higher level</strong>.</p>
+						<p>The <strong>Internet Corporation for Assigned Names and Numbers
+(ICANN)</strong> is the non-profit that, over time, has carried over the IANA functions under a contract with the US Government.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Layered Model</h2>
+					<img src="http://i.imgur.com/a0omhOa.gif">
+					<p>A <strong>layered model</strong> for protocols helps to visualize what are their operation and the interactions between them.</p>
+					<p>A <strong>protocol model</strong> describes how an actual protocol suite operates. A <strong>reference model</strong> describes no particular protocol suite, focusing on the highest possible level of <strong>abstraction</strong>.</p>
+				</section>
+
+				<section>
+					<h2>OSI Reference Model</h2>
+					<p>ISO's intention was to develop a <strong>framework for protocol suites</strong>, and also recommending a <strong>protocol suite for Internetworking</strong>. It was half a success, TCP/IP taking the second half.</p>
+					<p>OSI 7 Layers Model, defining <strong>functions, domains and interactions between each layer and the ones directly below and above</strong>, has helped developed all types of protocols and networks.</p>
+					<p>Its <strong>7 Layers</strong> are: Physical, Data Link, Network, Transport, Session, Presentation, Application.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>OSI Reference Model</h2>
+						<h3>L1: Physical</h3>
+						<p>The Physical Layer deals with the hardware: it describes the mechanics of the actual, practical, <strong>activation and maintainance of a physical connection</strong> for transmitting and receiving digital bits.</p>
+					</section>
+					<section>
+						<h2>OSI Reference Model</h2>
+						<h3>L2: Data Link</h3>
+						<p>Once you are can trasmit your bits from two points on a common media, they can't be random bits. They need to have a <strong>structure</strong>, they need to <strong>access the channel</strong> reliably. Data link protocols deals with producing the bits into frames for transmission over the physical media.</p>
+					</section>
+					<section>
+						<h2>OSI Reference Model</h2>
+						<h3>L3: Network</h3>
+						<p>The Network Layer describes procols to <strong>identify</strong> whatever two end devices that needs to communicate and making individual <strong>packets of data travelling</strong> from one to the other.</p>
+					</section>
+					<section>
+						<h2>OSI Reference Model</h2>
+						<h3>L4: Transport</h3>
+						<p>The transport layer protocols defines <strong>how to segment the data</strong> belonging to each communication, transfer them and them reassembling them at another end device.</p>
+					</section>
+					<section>
+						<h2>OSI Reference Model</h2>
+						<h3>L5: Session</h3>
+						<p>The first four layer can successfully delivers data from one end device to the other, but it's the session layer that allows to the next two final layers to <strong>coordinate their dialogue and data exchange</strong>.</p>
+					</section>
+					<section>
+						<h2>OSI Reference Model</h2>
+						<h3>L6: Presentation</h3>
+						<p>Applications want to transfer their data, but that raises the problem of having <strong>established and common way to represent those data</strong>. Session layer takes care of this.</p>
+					</section>
+					<section>
+						<h2>OSI Reference Model</h2>
+						<h3>L7: Application</h3>
+						<p>The Application is the <strong>interface between people and the transmission of data over a network</strong>. It initiates the process of running through the stack of protocols on behalf of the user.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>TCP/IP Protocol Model</h2>
+					<img src="http://i.imgur.com/DrBlKz8.gif">
+					<p>TCP/IP only defines 4 layers: <strong>Network Access, Internet, Transport and Application</strong>.</p>
+					<p>It closely match OSI model in Network and Transport layers, but it aggregates many functions in Network Access and Application layers.</p>
+				</section>
+
+				<section>
+					<h2>Why Segmenting Data?</h2>
+					<p>One long, continuous stream of bits would mean:</p>
+					<ul>
+						<li>Busy channels for a long time
+						<li>Full retransmission in case of errors
+					</ul>
+					<p>Segmenting data into smaller pieces makes them <strong>more managable</strong>.</p>
+					<p>By segmenting you then need <strong>multiplexing</strong> to interleave different communication's segments over a channel.</p>
+				</section>
+
+				<section>
+					<h2>Protocol Data Units (PDU)</h2>
+					<p>During the encapsulation process, application data passing through each layer gets <strong>added information by each protocol</strong>.</p>
+					<p>After protocols add information to the data, the data as a whole will assume <strong>a form closely related to the protocol</strong>, called PDU (<em>Protocol Data Unit</em>).</p>
+					<p>PDU at each layer have a different name to reflect their functions:</p>
+					<ul>
+						<li><strong>Data</strong> - General term for Application Layer
+						<li><strong>Segment</strong> - PDU of the Transport Layer
+						<li><strong>Packet</strong> - PDU of the Network Layer
+						<li><strong>Frame</strong> - PDU of the Data Link Layer
+						<li><strong>Bits</strong> - Physical Layer PDU
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Addresses</h2>
+						<p>Network and Data Link Layer are those responsible for <strong>uniquely identifying the source and destination</strong> of the data exchange.</p>
+						<p>They <strong>both do that using addresses</strong>, but of different kind and for different purposes.</p>
+						<img src="http://i.imgur.com/xDdU0zT.gif">
+					</section>
+					<section>
+						<h2>Network Address: IP Addresses</h2>
+						<p>Network addresses are <strong>logical</strong> addresses (meaning they are not tied to a specific device) required to deliver a packet when the 2 end devices are on <strong>different networks</strong>.</p>
+						<p><strong>IP addresses</strong> consist of two parts, a <em>network part</em> and an <em>host part</em>.</p>
+						<ul>
+							<li>The network part is used by router to identify and <strong>reach the destination network</strong>.
+							<li>The host part is used by the <strong>last router</strong> to reach the destination host.
+						</ul>
+						<p>You need two of those IP address: source and destination.</p>
+					</section>
+					<section>
+						<h2>Data Link  Address: MAC Addresses</h2>
+						<p>Data Link addresses, also known as <strong>physical addresses</strong> (because they are tied to the NIC), are used to <strong>reach another network interface in the same network</strong>.</p>
+						<p>Data Link addresses, like <strong>MAC addresses</strong>, are required because you can't really skip <em>communicating in the same network</em>:</p>
+						<ul>
+							<li>Either you're trying to actually communicating with a device on the same network
+							<li>or even if you're trying to reach another network, you need to reach at least another device of your own network to get to it
+						</ul>
+						<p>MAC addresses are the <strong>48-bit (eg: C0:4A:00:34:50:91) long Data Link addresses for Ethernet networks</strong>. You need two: source and destination.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>How do I get to know these addresses?</h2>
+					<p>A host needs to <storng>know both the logical and physical addresses of the destination host</strong> to be able to generate and send the frame.</p>
+					<p>For IP addresses, you probably know IP addresses on your own network and you enter them <strong>manually</strong>.</p>
+					<p>For remote networks, you can learn IP address by configuring you r device to use <strong>DNS</strong> (<em>Domain Name System</em>).</p>
+					<p>Remembering MAC Addresses would be much more trickier, but fortunally <strong>ARP</strong> (<em>Address Resolution Protocol</em>) relieves you of that need.</p>
+				</section>
+
+				<section>
+					<h2>Default Gateway</h2>
+					<p>The <strong>default gateway</strong> is the router to which a host on a network will send <strong>every packet that it doesn't already know where to forward to</strong>.</p>
+					<p>The default gateway is <em>presumed</em> to know what to do.</p>
+					<p>Default gateway either <strong>routes the packet</strong> to final destination or to another router, called <strong>next hop</strong>.</p>
+					<p>If default gateway is misconfigured or missing, hosts cannot deliver packets to remote networks.</p>
+				</section>
+
+				<section>
+					<h2>"Inside" and "outside" Networking</h2>
+					<img src="http://i.imgur.com/FOeBqGv.jpg">
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
