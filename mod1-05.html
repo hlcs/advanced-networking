@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 1 Chapter 5 - Ethernet</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Introduction to Networks</h2>
+					<h3>Chapter 5: Ethernet</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Chapter Goals</h2>
+					<ul>
+						<li>Describe the operation of the Ethernet sublayer</li>
+						<li>Identify the major fields of the Ethernet frame</li>
+						<li>Describe the purpose and characteristic of Ethernet MAC address</li>
+						<li>Describe the purpose of ARP</li>
+						<li>Explain how ARP requests impact network and host performance</li>
+						<li>Explain basic switching concepts</li>
+						<li>Compare fixed Configuration and modular switches</li>
+						<li>Configure Layer 3 switch</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>LLC and MAC</h2>
+					<p>Ethernet is the most widely used LAN technology used today</p>
+					<p>Ethernet operates in the data link layer and the physical layer</p>
+					<p>IEEE 802.2 and 802.3 standards</p>
+					<p>LLC sublayer</p>
+					<ul>
+						<li>handles the communication between the upper layers and the lower layers  and adds control information to help deliver the packet to the destination node</li>
+						<li>takes the network protocol data</li>
+					</ul>
+					<p>MAC sublayer</p>
+					<ul>
+						<li>MAC is implemented by hardware</li>
+						<li>MAC constitutes the lower sublayer of the data link layer</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>MAC</h2>
+					<img src="http://i.imgur.com/MQJ1hQu.jpg" style="float:right;">
+					<p>Ethernet MAC sublayer has two primary responsibilities:</p>
+					<ul>
+						<li>Data encapsulation
+						<li>Media access control
+					</ul>
+					<p>Data encapsulation</p>
+					<ul>
+						<li>Data encapsulation
+						<li>Addressing
+						<li>Error detection
+					</ul>
+					<p>Media Access Control</p>
+					<ul>
+						<li>Is responsible for the placement of frames on the media and the removal of frames from the media
+						<li>Carrier Sense Multiple Access
+					</ul>
+				</section>
+
+				<section>
+					<section>
+					<h2>CSMA</h2>
+					<p>Is used to first detect if the media is carrying a signal</p>
+					<p>Do not require mechanisms for tracking whose turn it is to access the media</p>
+					<p>As use and the number of nodes increases, the probability of successful media access without a collision decreases</p>
+					</section>
+					<section>
+						<h2>CSMA/Collision Detection</h2>
+						<ul>
+							<li>The device monitors the media for the presence of a data signal.
+							<li>If a data signal is absent  the device transmits the data
+						</ul>
+					</section>
+					<section>
+						<h2>CSMA/Collision Avoidance</h2>
+						<ul>
+							<li>Used in wireless
+							<li>The device examines the media for the presence of a data signal
+							<li>If the media is free, the device sends a notification across the media of its intent to use it
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>MAC Addressing</h2>
+					<p>MAC address was created to identify the actual source and destination nodes within an Ethernet network</p>
+					<p>Provided a method for device identification at the lower level of the OSI model</p>
+					<p>Is a 48-bit binary value expressed as 12 hexadecimal digits</p>
+					<p>Must be globally unique</p>
+					<p>First 3 byte OUI – last 3 byte unique value for OUI</p>
+					<p>All devices connected to an Ethernet LAN have MAC-addressed interfaces</p>
+				</section>
+
+				<section>
+					<h2>Ethernet Frame</h2>
+					<img src="http://i.imgur.com/29Df40t.jpg">
+					<p>Early versions of Ethernet were relatively slow at 10 Mbps. The latest versions of Ethernet operate at 10 Gigabits/s</p>
+					<p>Both the Ethernet II and IEEE 802.3 standards define the minimum frame size as 64 bytes and the maximum as 1518 bytes</p>
+					<p>Any frame less than 64 bytes is considered a <em>collision fragment</em></p>
+					<p>The IEEE 802.3ac extended the maximum allowable frame size to 1522 bytes for Virtual Local Area Network (VLAN)</p>
+				</section>
+
+				<section>
+					<h2>MAC Address</h2>
+					<p>Is Hexadecimal</p>
+					<p><code>Ipconfig</code>, <code>ifconfig</code>, <code>ip</code>
+					<p>Unicast address and Broadcast address (FF-FF-FF-FF-FF-FF)</p>
+					<p>Multicast Address: allow a source device to send a packet to a group of devices</p>
+					<p>Starts with 01-00-5E</p>
+				</section>
+
+				<section>
+					<h2>MAC and IP</h2>
+					<p>Physical address (the MAC address)</p>
+					<p>Logical address (the IP address)</p>
+					<p>On Ethernet networks, MAC addresses are used to identify, at a lower level, the source and destination hosts</p>
+					<p>IP addressing determines the end-to-end behavior of an IP packet.</p>
+				</section>
+
+				<section>
+					<h2>Address Resolution Protocol</h2>
+					<p>Each node on an IP network has both a MAC and an IP address</p>
+					<p>The ARP protocol provides two basic functions:</p>
+					<ul>
+						<li>Resolving IPv4 addresses to MAC addresses
+						<li>Maintaining a table of mappings
+					</ul>
+					<p>When  a node do when it needs to create a frame and the ARP cache does not contain a map of an IP address to a destination MAC address generates an ARP request!</p>
+					<p>If the destination IPv4 host is not on the local network, the source node needs to deliver the frame to the router interface that is the gateway or next hop used to reach that destination</p>
+					<p>ARP cache timer removes ARP entries that have not been used for a specified period of time</p>
+					<p>On a Cisco router, the show ip arp command is used to display the ARP table</p>
+				</section>
+
+				<section>
+					<h2>ARP Issues</h2>
+					<ul>
+						<li>Overhead on the Media
+						<li>Security
+						<li>Broadcast and security issues related to ARP can be mitigated with modern switches
+						<li>Switches provide segmentation of a LAN, dividing the LAN into independent collision domains
+				</section>
+
+				<section>
+					<h2>Switching</h2>
+					<p>A Layer 2 LAN switch performs switching and filtering based only on the OSI data link layer (Layer 2) MAC address</p>
+					<p>Layer 2 switches depend on routers to pass data between independent IP subnetworks.</p>
+					<p>A switch determines how to handle incoming data frames by using its MAC address table. </p>
+					<p>Switch builds its MAC address table by recording the MAC addresses of the nodes connected to each of its ports</p>
+				</section>
+
+				<section>
+					<h2>Duplex Settings</h2>
+					<p>Half Duplex</p>
+					<ul>
+						<li>communication relies on unidirectional data flow where sending and receiving data are not performed at the same time</li>
+						<li>communication relies on unidirectional data flow where sending and receiving data are not performed at the same time
+					</ul>
+					<p>Full Duplex</p>
+					<ul>
+						<li>data flow is bidirectional, so data can be sent and received at the same time</li>
+						<li>In full-duplex mode, the collision detect circuit is disabled</li>
+					</ul>
+					<p>Auto-MDIX</p>
+				</section>
+
+				<section>
+					<h2>Forwarding Methods</h2>
+					<h3>Store-and-forward switching</h3>
+					<ul>
+						<li>when the switch receives the frame, it stores the data in buffers until the complete frame has been received</li>
+						<li>the switch also performs an error check using the Cyclic Redundancy Check (CRC) trailer portion of the Ethernet frame.</li>
+					</ul>
+					<h3>Cut-through switching</h3>
+					<ul>
+						<li>the switch acts upon the data as soon as it is received, even if the transmission is not complete</li>
+						<li>Fast-forward switching</li>
+						<ul>
+							<li>Fast-forward switching immediately forwards a packet after reading the destination address</li>
+						</ul>
+						<li>Fragment-free switching</li>
+						<ul>
+							<li>the switch stores the first 64 bytes of the frame before forwarding
+</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Memory Buffering on Switches</h2>
+					<p>Switch may use a buffering technique to store frames before forwarding them</p>
+					<p>Buffering may also be used when the destination port is busy due to congestion and the switch stores the frame until it can be transmitted</p>
+					<p>Port-based Memory Buffering: frames are stored in queues that are linked to specific incoming and outgoing ports</p>
+					<p>Shared Memory Buffering: deposits all frames into a common memory buffer that all the ports on the switch share</p>
+				</section>
+
+				<section>
+					<h2>Switch Configuration</h2>
+					<h3>Fixed Configuration Switches</h3>
+						<p>Cannot add features or options to the switch beyond those that originally came with the switch</p>
+					<h3>Modular Switches</h3>
+						<p>More flexibility in their configuration</p>
+				</section>
+
+				<section>
+					<h2>Layer 2 vs Layer 3 Switching</h2>
+					<p>Layer 2 LAN switch</p>
+					<ul>
+						<li>performs switching and filtering based only on the OSI data link layer (Layer 2) MAC address</li>
+						<li>depends upon routers to pass data between independent IP subnetworks</li>
+					</ul>
+					<p>Layer 3 switches</p>
+					<ul>
+						<li>are also capable of performing Layer 3 routing functions</li>
+						<li>reducing the need for dedicated routers on a LAN</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Cisco Express Forwardings</h2>
+					<p>Decouples the usual strict interdependence between Layer 2 and Layer 3 decision making</p>
+					<p>The two main components of CEF operation are</p>
+					<ul>
+						<li>Forwarding Information Base (FIB)</li>
+						<ul>
+							<li>FIB is conceptually similar to a routing table</li>
+							<li>FIB is updated when changes occur in the network and contains all routes known at the time</li>
+						</ul>
+						<li>Adjacency tables</li>
+						<ul>
+							<li>maintain Layer 2 next-hop addresses for all FIB entries</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Type of Layer 3 Interfaces</h2>
+					<h3>Switch Virtual Interface (SVI)</h3>
+					<p>Logical interface on a switch associated with a virtual local area network (VLAN)</p>
+					<h3>Routed Port</h3>
+					<p>Physical port on a Layer 3 switch configured to act as a router port.</p>
+					<h3>Layer 3 EtherChannel</h3>
+					<p>Logical interface on a Cisco device associated with a bundle of routed ports</p>
+				</section>
+
+				<section>
+					<h2>Configuring port on layer 3 switch</h2>
+					<pre><code class="bash">S1(config)#interface f0/6
+S1(config-if)#no switchport
+S1(config-if)#ip address 192.168.200.1 255.255.255.0
+S1(config-if)#no shutdown
+S1(config-if)#end
+S1# show ip interface brief
+Interface         IP-Address     OK?  Method  Status                  Protocol
+Vlan1             unassigned     YES  unset   administratively down   down
+FastEthernet0/1   unassigned     YES  unset   down                    down
+FastEthernet0/2   unassigned     YES  unset   down                    down
+FastEthernet0/3   unassigned     YES  unset   down                    down
+FastEthernet0/4   unassigned     YES  unset   down                    down
+FastEthernet0/5   unassigned     YES  unset   down                    down
+FastEthernet0/6   192.168.200.1  YES  manual  up                      up
+FastEthernet0/7   unassigned     YES  unset   up                      up
+FastEthernet0/8   unassigned     YES  unset   up                      up
+[...]</code></pre>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
