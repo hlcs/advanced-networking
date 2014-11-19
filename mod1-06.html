@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 1 Chapter 6 - Network Layer</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Introduction to Networks</h2>
+					<h3>Chapter 6: Network Layer</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>The OSI L3: Network</h2>
+					<p>The network layer provides the means for <strong>end-to-end connectivity</strong> through the network.</p>
+					<p>To serve its purpose, it carries 4 basic operations:</p>
+					<ul>
+						<li><strong>Addressing</strong> for the sender and receiver end of the network communication.</li>
+						<li><strong>Encapsulation</strong> of the transport layer (L4) Protocol Data Unit (PDU) in a <em>packet</em>.</li>
+						<li><strong>Routing</strong> packets through networks, selecting paths and <em>hops</em>.</li>
+						<li><strong>De-encapsulation</strong> of the packet into a L4 PDU at the receiver end.</li>
+					</ul>
+					<p>L2 is for link-to-link, L3 is for end-to-end.</p>
+				</section>
+
+				<section>
+					<h2>The IP Protocol</h2>
+					<p>IP was designed as a protocol with <strong>low overhead</strong>. It <strong>doesn't track nor manage the flow of packets</strong> (delegates to upper layers). Its basic characteristics are:</p>
+					<ul>
+						<li><strong>Connectionless</strong>: no connection with the destination is established before sending data packets (like with a paper letter).</li>
+						<li><strong>Best Effort (unreliable)</strong>: There is no acknowledgment or error control. Packet delivery and ordering are not guaranteed.</li>
+						<li><strong>Media Independent</strong>: Operation is independent of the medium carrying the data (except for the <strong>MTU (Maximum Transmission Unit)</strong>, which L3 must coordinate with L2.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>IPv4 Packet Header</h2>
+						<img src="http://i.imgur.com/8narbYh.jpg">
+						<p><small><strong>Options</strong> and <strong>Padding</strong> are almost never used.</small></p>
+					</section>
+					<section>
+						<h2>IPv4 Packet Fields</h2>
+						<p>An IPv4 packet has two sections:</p>
+						<ul>
+							<li><strong>IP Header</strong> - Identifies the packet characteristics.</li>
+							<li><strong>Payload</strong> - contains the encapsulated L4 segment, with the actual data.</li>
+						</ul>
+						<p>Let's dissect an IPv4 header:</p>
+						<ul>
+							<li><strong>Version</strong> - 4 bit value identifying the IP protocol version. It's 0100 for IPv4 packets.</li>
+							<li><strong>Type of Service (ToS)</strong> - Now called <strong>Differentiated Services (DS)</strong>, it helps in determining the priority of each package.</li>
+							<li><strong>Time-to-Live (TTL)</strong> - 8-bit counter used to specify the lifetime of a packet. It's set by the sender in terms of <strong>hop count</strong>.</li>
+							<li><strong>Protocol</strong>: 8-bit value expressing which encapsulated protocol the payload consists of. Common values are 0x01 for ICMP, 0x06 for TCP, 0x17 fot UDP.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>IPv4 Packet Fields</h2>
+						<ul>
+							<li><strong>Internet Header Length (IHL)</strong> - The number of 32-bit words in the header (5-15).</li>
+							<li><strong>Total Length</strong> - Defines the entire packet (fragment) size in bytes, including header and data.<u>Minimum</u> is 20 bytes (20-byte header + 0 byte data), <u>maximum</u> is 65535 bytes.</li>
+							<li><strong>Header Checksum</strong> - 16-bit used for error control.</li>
+						</ul>
+						<p>Used when an IP packet has to be fragmented because transmission on media with smaller MTUs:</p>
+						<ul>
+							<li><strong>Identification</strong> - 16 bits to uniquely identify fragments.</li>
+							<li><strong>Flags</strong> - 3 bits identifying how the packet is fragmented.</li>
+							<li><strong>Fragment Offset</strong>: 13 bits identifying the order of the fragments when reconstructing the original unfragmented packet.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h1>Practice IPv4 Packets</h1>
+					<h1>with WireShark</h1>
+				</section>
+
+				<section>
+					<h2>IPv4 Limitations</h2>
+					<h3>Scarcity of IPv4 Addresses</h3>
+					<p>The IPv4 addressing uses a <strong>32-bit address space</strong> for a total 4924967296 addresses (3.7 billions really allocatable). <strong>They are not enough</strong> for IoT, always-on connections.</p>
+					<h3>NAT (Network Address Translation)</h3>
+					<p>Slows down IPv4 addresses depletion, providing <strong>a way to share a single public IP address</strong>. The internal IP address is hidden, and that's problematic for end-to-end connectivity.</p>
+					<h3>Internet Routing Table Expansion</h3>
+					<p>The growth of the Internet has lead to <strong>an increase of the number of paths router must keep track of</strong>. The way IPv4 works it consumes a lot of memory and computing resources.</p>
+				</section>
+
+				<section>
+					<h2>IPv6 Protocol Introduction</h2>
+					<p>IPv6 was developed to fix the IPv4 address exhaustion and deal with present and future needs. How it is <strong>different from IPv4</strong>?</p>
+					<ul>
+						<li><strong>Increased address space</strong> with 128-bit hierarchical addressing.</li>
+						<li><strong>Simplified but extendable header</strong> with fewer fields (8 fields in 40 bytes instead of IPv4's 12-in-20).</li>
+						<li><strong>No required</strong> fragmentation and header checksum.</li>
+						<li><strong>No need for NAT</strong>, every host gets a <strong>public IPv6</strong> address.</li>
+						<li><strong>More and integrated security</strong> with authentication and privacy extensions, and mandatory <strong>IPsec</strong> in the protocol suite.</li>
+						<li><strong>Improved packet handling</strong> without the need to de-encapsulate the transport layer to identify the various traffic flows, thanks to a <strong>Flow Label</strong> field.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>IPv6 Packet Header</h2>
+						<img src="http://i.imgur.com/hXuxw2p.png">
+					</section>
+					<section>
+						<h2>IPv4 vs IPv6 Packet Headers</h2>
+						<img src="http://i.imgur.com/I7KQqds.jpg">
+					</section>
+					<section>
+						<h2>IPv6 Packet Header Fields</h2>
+						<ul>
+							<li><strong>Version</strong> (4 bits) - always set to 0110 for IPv6 packets.</li>
+							<li><strong>Traffic Class</strong> (8 bits) - equivalent to IPv4 Differentiated Sercices (DS) field.</li>
+							<li><strong>Flow Label</strong> (20 bits) - Can be used to inform intermediary device to maintain the same path so that packets are not reordered.</li>
+							<li><strong>Payload Length</strong> (16 bits) - Size of EH + payload in bytes.</li>
+							<li><strong>Next Header</strong> (8 bits) - Normally this is equivalent to IPv4 Protocol field, values are the same.</li>
+							<ul>
+								<li>When <strong>extension headers are present</strong> in the packet this field indicates which extension header follows.</li>
+							</ul>
+							<li><strong>Hop Limit</strong> (8 bits) - Equivalent to IPv4's Time-to-Live.</li>
+							<li><strong>Extension Headers (EH)</strong> (Optional) - Placed between the header and the payload.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h1>Practice IPv6 Packets</h1>
+					<h1>with WireShark</h1>
+				</section>
+
+				<section>
+					<h2>Routing for the host</h2>
+					<p>An host can send (<em>forward</em>) a packet to:</p>
+					<ul>
+						<li><strong>Itself</strong> - every host as a special IP address, 127.0.0.1, known as the <strong>loopback interface</strong>, that is useful for testing purposes. Any IP in the network 127.0.0.0/8 is a loopback IP.</li>
+						<li><strong>Local host</strong> - any host on the same network as the sending host.</li>
+						<li><strong>Remote host</strong> - hosts that are beyond the local network segment.</li>
+					</ul>
+					<p><strong>Destination IP address</strong> and <strong>Subnet Mask</strong> combined allow an host to distinguish between local and remote hosts.</p>
+					<p>A <strong>router</strong> is needed to forward a packet to a remote network.</p>
+					<p>The (interface of the) router connected to the local network segment and used to reach any other network is called <strong>default gateway</strong>.</p>
+				</section>
+
+				<section>
+					<h2>Host Routing Table</h2>
+					<p>An host decides where to forward its traffic based on its routing table, which tipically presents three kind of entries:</p>
+					<ul>
+						<li><strong>Direct Connection(s)</strong>: IP addresses assigned to the host, such as the loopback.</li>
+						<li><strong>Local Network Route</strong>: the network the host belongs to is <strong>automatically added</strong> to its routing table.</li>
+						<li><strong>Local Default Route</strong>: the route used to <strong>reach any other network</strong>. It is added, manually or automatically, when a default gateway is present.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>IPv4 Host Routing Table</h2>
+						<h3>Linux</h3>
+						<pre>stefanauss@barney:~$ route -n
+Tabella di routing IP del kernel
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         10.87.23.1      0.0.0.0         UG    0      0        0 eth0
+10.87.23.0      0.0.0.0         255.255.255.0   U     1      0        0 eth0
+stefanauss@barney:~$ 
+stefanauss@barney:~$ ip route show
+default via 10.87.23.1 dev eth0  proto static 
+10.87.23.0/24 dev eth0  proto kernel  scope link  src 10.87.23.2  metric 1 
+stefanauss@barney:~$ 
+stefanauss@barney:~$ netstat -r
+Tabella di routing IP del kernel
+Destination     Gateway         Genmask        Flags   MSS Window  irtt Iface
+default         StefanaussGR.la 0.0.0.0        UG        0 0          0 eth0
+10.87.23.0      *               255.255.255.0  U         0 0          0 eth0
+					</pre>
+					</section>
+					<section>
+						<h2>IPv4 Host Routing Table</h2>
+						<h3>Windows</h3>
+						<pre>C:\Document and Settings\Stefanauss\>route print
+===========================================================================
+Elenco interfacce
+0x1 ........................... MS TCP Loopback interface
+0x2 ...08 00 27 3b 1b 39 ...... Scheda Ethernet PCI AMD PCNET Family
+===========================================================================
+===========================================================================
+Route attive:
+Indirizzo rete     Mask             Gateway       Interfac.     Metric
+   0.0.0.0         0.0.0.0          192.168.1.1   192.168.1.15  20
+   192.168.1.0     255.255.255.0    192.168.1.15  192.168.1.15  20
+   192.168.1.15    255.255.255.255  127.0.0.1     127.0.0.1     20
+   192.168.10.255  255.255.255.255  192.168.1.15  192.168.1.15  20
+   127.0.0.0       255.0.0.0        127.0.0.1     127.0.0.1     1
+   224.0.0.0       240.0.0.0        192.168.1.15  192.168.1.15  20
+   255.255.255.255 255.255.255.255  192.168.1.15  192.168.1.15  1
+Gateway predefinito:       192.168.1.1
+===========================================================================
+Route permanenti:
+  Nessuno
+						</pre>
+					</section>
+					<section>
+						<h2>IPv6 Host Routing Table</h2>
+						<pre>stefanauss@barney:~$ ifconfig
+eth0	Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
+		indirizzo inet:10.87.23.2  Bcast:10.87.23.255  Maschera:255.255.255.0
+		indirizzo inet6: fe80::ea11:32ff:fe4e:486b/64 Scope:Link
+		indirizzo inet6: fd17:8869:6a40::e24/128 Scope:Global
+		[...]
+lo		Link encap:Loopback locale
+		indirizzo inet:127.0.0.1  Maschera:255.0.0.0
+		indirizzo inet6: ::1/128 Scope:Host
+		[...]
+stefanauss@barney:~$ ip -6 route show
+fd17:8869:6a40::e24 dev eth0  proto kernel  metric 256
+fe80::/64 dev eth0  proto kernel  metric 256
+						</pre>
+						<ul>
+							<li><strong>::/0</strong> - IPv6 equivalent of 0.0.0.0 default route.</li>
+							<li><strong>::1/128</strong> - IPv6 loopback address.</li>
+							<li><strong>fe80::/64</strong> - Local link network route. </li>
+							<li><strong>ff00::8</strong> - Multicast, equivalent to 224.x.x.x.</li>
+							<li>Interface have 2 addresses with IPv6: a <strong>link local</strong> and a <strong>global unicast</strong> address. Also, no broadcast address with IPv6.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Routing for the router</h2>
+					<p>The routing table of a router contains:</p>
+					<ul>
+						<li><strong>Directly-connected routes</strong> - Added when a router interface is configured with an IP address and activated. With theses, router maintain information about the network segments they belong to.</li>
+						<li><strong>Remote Routes</strong> - Manually added (<em>static routes</em>) or automatically learned (with <em>routing protocols</em>) from other routers connected to other networks.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Cisco IOS Routing Table</h2>
+					<!-- <img src="http://i.imgur.com/UJWLyz3.png" width="50%" height="50%"> -->
+					<pre>R0# show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+   10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+D     10.1.1.0/24 [90/2170112] via 209.165.200.226, 00:00:05, Serial0/0/0
+D     10.1.2.0/24 [90/2170112] via 209.165.200.226, 00:00:05, Serial0/0/0
+   192.168.10.0/24 is variably subnetted, 2 subnets, 3 masks
+C     192.168.10.0/24 is directly connected, GigabitEthernet0/0
+L     192.168.10.1/32 is directly connected, GigabitEthernet0/0
+   192.168.11.0/24 is variably subnetted, 2 subnets, 3 masks
+C     192.168.11.0/24 is directly connected, GigabitEthernet0/1
+L     192.168.11.1/32 is directly connected, GigabitEthernet0/1
+   209.165.200.0/24 is variably subnetted, 2 subnets, 3 masks
+C     209.165.200.224/30 is directly connected, Serial0/0/0
+L     209.165.200.225/32 is directly connected, Serial0/0/0
+R0#</pre>
+				</section>
+
+				<section>
+					<h2>Cisco IOS Routing Table</h2>
+					<p>On a Cisco Router the routing table is obtained with the command <code>show ip route</code>. It shows in a table:</p>
+					<ul>
+						<li><strong>Route source</strong> - Identifies how the route was learned.</li>
+						<li><strong>Destination network</strong> - Identifies the address of the remote network.</li>
+						<li><strong>Administrative distance</strong> - Identifies the trustworthiness of the route source.</li>
+						<li><strong>Metric</strong> - Identifies the value assigned to reach the remote network. Lower values indicate preferred routes.</li>
+						<li><strong>Next-hop</strong> - Identifies the IP address of the next router (gateway to the network) to forward the packet.</li>
+						<li><strong>Route timestamp</strong> - Identifies when the route was last heard.</li>
+						<li><strong>Outgoing interface</strong> - Identifies the exit interface to use to forward a packet toward the final destination</li>
+				</section>		
+
+				<section>
+					<h2>Inside a Router</h2>
+					<img src="http://i.imgur.com/sM72B4N.jpg" width="75%" height="75%">
+					<p>A router is a proper computer, only with <strong>tailored hardware to perform routing functions</strong>. It has a CPU, an OS, and memories.</p>
+				</section>
+
+				<section>
+					<h2>Router Memory</h2>
+					<table style="margin-left:auto; margin-right:auto; border: 1px solid white; 	vertical-align: center;">
+						<tr>
+							<td><strong>Memory</strong></td>
+							<td><strong>Type</strong></td>
+							<td><strong>Content</strong></td>
+						</tr>
+						<tr>
+							<td>RAM</td>
+							<td>Volatile</td>
+							<td>Running Cisco IOS; Running configuration file; Routing and ARP tables; Packet buffer.</td>
+						</tr>
+						<tr>
+							<td>ROM</td>
+							<td>Non-Volatile</td>
+							<td>Bootup code; Basic diagnostic; Limited IOS</td>
+						</tr>
+						<tr>
+							<td>NVRAM</td>
+							<td>Non-Volatile</td>
+							<td>Startup configuration file</td>
+						</tr>
+						<tr>
+							<td>Flash</td>
+							<td>Non-Volatile</td>
+							<td>Cisco IOS</td>
+						</tr>
+					</table>
+				</section>
+
+				<section>
+					<h2>Behind a Router</h2>
+					<img src="http://i.imgur.com/n8J6bjl.jpg">
+					<p>Management ports don't forward packets, router interfaces do!</p>
+					<img src="http://i.imgur.com/W0h8gIt.png">
+				</section>
+
+				<section>
+					<h2>Cisco IOS Boot Process</h2>
+					<img src="http://i.imgur.com/pHOiSud.jpg" width="43%" height="43%">
+				</section>
+
+				<section>
+					<h2>Cisco IOS "show version"</h2>
+					<pre><code class="bash">Cisco3845Router# show version
+Cisco IOS Software, 3800 Software (C3845-IPBASE-M), 
+Version 12.3(11)T7, RELEASE SOFTWARE (fc3)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2005 by Cisco Systems, Inc.
+Compiled Sat 30-Jul-05 03:12 by dchih
+
+ROM: System Bootstrap, Version 12.3(11r)T2, RELEASE SOFTWARE (fc1)
+
+Cisco3845Router uptime is 10 weeks, 6 days, 9 hours, 30 minutes
+System returned to ROM by power-on
+System restarted at 05:09:07 CDT Thu Oct 20 2005
+System image file is "flash:c3845-ipbase-mz.123-11.T7.bin"
+
+Cisco 3845 (revision 1.0) with 419839K/104448K bytes of memory.
+Processor board ID FTX0938A5PE
+2 Gigabit Ethernet interfaces
+27 Serial interfaces
+1 ISDN Basic Rate interface
+1 Subrate T3/E3 port
+DRAM configuration is 64 bits wide with parity enabled.
+479K bytes of NVRAM.
+62720K bytes of ATA System CompactFlash (Read/Write)
+
+Configuration register is 0x2102
+(will be 0x2102 at the next reload)</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>Initial Config of a Cisco Router</h2>
+						<p>Pretty much the same as the switch we configured in Lesson 2:</p>
+						<ul>
+							<li>Assign a device name.</li>
+							<li>Set passwords.</li>
+							<li>Provide legal notification.</li>
+							<li>Save the configuration.</li>
+							<li>Verify the configuration.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Initial Config of a Cisco Router</h2>
+						<pre><code class="bash">Router>enable
+Router#configure terminal
+Ented configuration commands, one per line. End with CNTL/Z
+Router(config)# hostname R1
+R1(config)#
+R1(config)#enable secret hlcs
+R1(config)#
+R1(config)#line console 0
+R1(config-line)#password hlcsconsole
+R1(config-line)#login
+R1(config-line)#exit
+R1(config)#
+R1(config)#line vty 0 4
+R1(config-line)#password hlcsvty
+R1(config-line)#login
+R1(config-line)#exit
+R1(config)#
+R1(config)#service password-encryption
+R1(config)#
+R1(config)#banner motd #
+Enter TEXT message. End with the character '#'.
+*****************************************************
+WARNING: Lasciate ogni speranza, voi che vi loggate!
+*****************************************************
+#
+R1(config)#
+R1(config)#exit
+R1#copy running-config startup-config
+Destination filename [startup config]?
+Building configuration...
+[OK]
+R1#</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Configuring interfaces on Cisco IOS</h2>
+						<p>Interfaces on Cisco IOS have a <em>type-and-number</em> nomenclature.</p>
+						<ul>
+							<li>GigabitEthernet0/0 (G0/0); GigabitEthernet0/1 (G0/1)</li>
+							<li>Serial/0/0/0 (S0/0/0); Serial/0/0/1 (S0/0/1)</li>
+						</ul>
+						<pre><code class="bash">R1#conf t
+Enter configuration commands, one per line.
+End with CNTL/Z.
+R1(config)#
+R1(config)#interface gigabitethernet 0/0
+R1(config-if)#ip address 192.168.1.1 255.255.255.0
+R1(config-if)#description LAN del Corso Adv. Networking
+R1(config-if)#no shutdown
+%LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0,
+changed state to up
+R1(config-if)#exit
+R1(config)#
+R1(config)#interface g0/1
+R1(config-if)#ip add 192.168.2.1 255.255.255.0
+R1(config-if)#des LAN supplementare
+R1(config-if)#no shut
+%LINK-5-CHANGED: Interface GigabitEthernet0/1, changed state to up
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1,
+changed state to up
+R1(config-if)#exit
+R1(config)#
+						</code></pre>
+					</section>
+					<section>
+						<h2>Verifying the configuration</h2>
+						<pre><code class="bash">Router123# show ip interface brief
+Interface   IP-Address     OK?  Method  Status                  Protocol
+Ethernet0   10.108.0.5     YES  NVRAM   up                      up
+Ethernet1   unassigned     YES  unset   administratively down   down
+Loopback0   10.108.200.5   YES  NVRAM   up                      up
+Serial0     10.108.100.5   YES  NVRAM   up                      up
+Serial1     10.108.40.5    YES  NVRAM   up                      up
+Serial2     10.108.100.5   YES  manual  up                      up
+Serial3     unassigned     YES  unset   administratively down   down
+Router123#
+Router123#ping 10.108.100.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.108.100.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/6/8 ms
+</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Default Gateway in action</h2>
+						<img src="http://i.imgur.com/vIz6XYd.jpg">
+						<p><small>When does the default gw intervene?</small></p>
+						<p>Routers have a <strong>minimum of two interfaces</strong>, each configured with an IP address of separate networks.</p>
+						<p>Most of the times the default gateway address of a network is <strong>the router interface address attached to the local network</strong>.</p>
+					</section>
+					<section>
+						<h2>Configuring L3 switch default gw</h2>
+						<p>We assign an IP address to the <strong>switch virtual interface (SVI)</strong>:</p>
+						<pre><code class="bash">S1(config)# interface vlan1
+S1(config-if)# ip address 192.168.1.123 255.255.255.0
+S1(config-if)# no shut</code></pre>
+						<p>If the switch needs to be accessed remotely:</p>
+						<pre><code class="bash">S1(config)# ip default-gateway 192.168.1.1</code></pre>
+						<p>Without a default gw, the response <strong>packets originating from the switch won't know how to exit the local network</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
