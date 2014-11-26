@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 1 Chapter 7 - Transport Layer</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Introduction to Networks</h2>
+					<h3>Chapter 7: Transport Layer</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>The OSI L4: Transport</h2>
+					<p>The transport layer provides the means for <strong>process-to-process connectivity</strong> through the network. Its functions are:</p>
+					<ul>
+						<li><strong>Tracking the individual communications</strong> initiated by applications on sender and receiver hosts.</li>
+						<li><strong>Segmenting and reassembling data streams</strong> for better manageability.</li>
+						<li><strong>Identifying the application</strong> each particular stream belongs to.</li>
+					</ul>
+					<p>L2: link-to-link; L3: end-to-end; L4: process-to-process.</p>
+				</section>
+
+				<section>
+					<h2>Segmentation and Multiplexing</h2>
+					<img src="http://i.imgur.com/PLD8Zq4.jpg" width="55%" height="55%">
+					<img src="http://i.imgur.com/IThNYoO.jpg" width="55%" height="55%">
+				</section>
+
+				<section>
+					<section>
+						<h2>TCP and UDP</h2>
+						<img src="http://i.imgur.com/5knyqyg.png">
+						<p>TCP/IP protocol suite provides 2 very different alternative as transport layer protocols: the <strong>TCP (Transmission Control Protocol)</strong> and <strong>UDP (User Datagram Protocol)</strong>.</p>
+						<p>TCP is the full-featured, reliable alternative, while UDP is the simpler and low-overhead choice.</p>
+					</section>
+					<section>
+						<h2>TCP and UDP</h2>
+						<p>TCP is considered a reliable transport protocol because it uses <strong>acknowledged delivery</strong>. It performs all the Layer 4 functions seen before, plus:</p>
+						<ul>
+							<li>It establishes a <strong>connection</strong> before doing anything.</li>
+							<li>It <strong>sequences</strong> (order) the data.</li>
+							<li><strong>it acknowledges received data</strong>.</li>
+							<li><strong>it retransmits any unacknowledge data</strong>.</li>
+							<li>It manages the <strong>ongoing</strong> connection.</li>
+						</ul>
+						<p>UDP doesn't do any of this, it just provides the basic L4 functions.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>TCP or UDP?</h2>
+					<p><u>There is no single answer</u>. Both are valid protocols. It depends on the <strong>application requirements</strong> to use one, the other, or even both. If, for example,:</p>
+					<ul>
+						<li><strong>all data must be received</strong> before any of it would be useful;</li>
+						<li>the application <strong>can't process unordered</strong> data;</li>
+					</ul>
+					<p>like email client or web browsers, then <u>TCP is the right choice</u>.</p>
+					<p>If, on the other hand, the application:</p>
+					<ul>
+						<li>Needs the fastest possibile communication;</li>
+						<li>Partial data loss is acceptable, but delays are not tolerated;</li>
+					</ul>
+					<p><u>UDP might be the better choice</u>, like it is for streaming audiovideo and most real-time applications.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>How TCP and UDP track data streams</h2>
+						<p>Both use <strong>port addressing</strong>, which means they assign a <strong>port number</strong> to specific applications and services to the client (source port) and the server (destination port).</p>
+						<ul>
+							<li><strong>Destination Port</strong>: it's placed in the header by the client, either by configuration or because it's a well-known and established port associated to the service being requested.</li>
+							<li><strong>Source Port</strong>: randomly generated by the client application to identify a specific application conversation, it is <strong>used as a return address</strong> by the server.</li>
+							<li>They are <strong>used in reverse</strong> by the server.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>TCP+UDP Well-Known Ports and Ranges</h2>
+						<img src="http://i.imgur.com/3cI9cJF.jpg">
+						<img src="http://i.imgur.com/GnKtlBg.png">
+					</section>
+					<section>
+						<h2>Sockets</h2>
+						<p>What uniquely identifies each particular process on any single host is <strong>the combination of transport layer port numbers, and network layer IP address</strong>. This combination is called a <strong>socket</strong>.</p>
+						<p>A <strong>socket pair</strong> is the coupled source and destination IP addresses and port numbers, that <strong>uniquely identifies specific conversations</strong> between the two hosts.</p>
+						<p>A socket is commonly expressed in the <code>address:port</code> format.</p>
+						<ul>
+							<li>213.92.16.101:80 (web server)</li>
+							<li>188.165.254.131:25 (smtp mail server)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Active connections on a host</h2>
+						<pre><code class="bash">stefanauss@barney:~$ netstat -tun
+Connessioni Internet attive (senza server)
+Proto CodaRic CodaInv Indirizzo locale        Indirizzo remoto       Stato
+tcp       28      0 10.87.23.2:47290        91.189.92.23:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:44180       91.189.92.23:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:44183       91.189.92.23:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:56717       91.189.92.11:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:59277        91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:52056        78.98.23.227:26050      ESTABLISHED
+tcp       28      0 10.87.1.134:45380       91.189.92.10:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:43491        188.165.254.131:143     CLOSE_WAIT
+tcp       28      0 10.87.23.2:59269        91.189.92.11:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:53684        91.189.92.10:443        CLOSE_WAIT
+tcp        1      0 10.87.23.2:56509        91.189.94.25:80         CLOSE_WAIT
+tcp        0      0 10.87.23.2:58865        79.50.31.156:30774      ESTABLISHED
+tcp        0      0 10.87.23.2:55113        95.244.65.27:50607      ESTABLISHED
+tcp       28      0 10.87.1.134:55560       91.189.92.11:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:56463       91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 127.0.0.1:45740         127.0.0.1:54099         ESTABLISHED
+tcp       28      0 10.87.23.2:49183        91.189.92.24:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:53679        74.125.195.16:993       ESTABLISHED
+tcp        0      0 10.87.23.2:60076        188.125.69.63:993       CLOSE_WAIT
+tcp        0      0 10.87.23.2:41260        157.56.53.40:12350      ESTABLISHED
+tcp        0      0 10.87.23.2:40233        108.160.167.167:80      ESTABLISHED
+tcp        0      0 127.0.0.1:35363         127.0.0.1:39587         ESTABLISHED
+tcp        0      0 10.87.23.2:48389        188.125.69.43:993       CLOSE_WAIT
+tcp       28      0 10.87.23.2:59283        91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:56480        173.194.116.0:443       ESTABLISHED
+tcp        0      0 10.87.23.2:43863        188.165.254.131:143     ESTABLISHED
+tcp        0      0 10.87.23.2:53654        74.125.206.16:993       ESTABLISHED
+tcp        1      0 127.0.0.1:38608         127.0.0.1:56675         CLOSE_WAIT
+tcp        0      0 127.0.0.1:45749         127.0.0.1:54099         ESTABLISHED
+tcp        0      0 10.87.23.2:43492        188.165.254.131:143     CLOSE_WAIT
+tcp       28      0 10.87.1.134:46308       91.189.92.10:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:59275        91.189.92.11:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:44182       91.189.92.23:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:58640        198.199.65.215:443      ESTABLISHED
+tcp       28      0 10.87.1.134:46305       91.189.92.10:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:46561       91.189.92.10:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:53676        91.189.92.10:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:47293        91.189.92.23:443        CLOSE_WAIT
+tcp        0      0 127.0.0.1:54099         127.0.0.1:45743         ESTABLISHED
+tcp       28      0 10.87.1.134:43930       91.189.92.23:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:55527       91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 127.0.0.1:54099         127.0.0.1:45740         ESTABLISHED
+tcp        0      0 10.87.23.2:48015        173.194.78.189:443      ESTABLISHED
+tcp       28      0 10.87.1.134:56479       91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:43482        188.165.254.131:143     ESTABLISHED
+tcp       28      0 10.87.1.134:46307       91.189.92.10:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:47628        173.194.78.189:443      TIME_WAIT
+tcp       28      0 10.87.1.134:46559       91.189.92.10:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:49181        91.189.92.24:443        CLOSE_WAIT
+tcp        0      0 127.0.0.1:45745         127.0.0.1:54099         ESTABLISHED
+tcp        0      0 10.87.23.2:60740        78.141.75.220:22466     ESTABLISHED
+tcp        0      0 127.0.0.1:45743         127.0.0.1:54099         ESTABLISHED
+tcp        0      0 10.87.23.2:40371        79.51.51.216:37192      ESTABLISHED
+tcp        0      0 127.0.0.1:45744         127.0.0.1:54099         ESTABLISHED
+tcp        0      0 127.0.0.1:39587         127.0.0.1:35363         ESTABLISHED
+tcp        0      0 10.87.23.2:43490        188.165.254.131:143     CLOSE_WAIT
+tcp       28      0 10.87.23.2:47294        91.189.92.23:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:54872       91.189.92.24:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:46323       91.189.92.10:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:36275        173.194.112.226:443     ESTABLISHED
+tcp       28      0 10.87.1.134:44181       91.189.92.23:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:51836        74.125.195.16:993       ESTABLISHED
+tcp       28      0 10.87.23.2:53682        91.189.92.10:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:43838        188.165.254.131:143     ESTABLISHED
+tcp       28      0 10.87.1.134:46321       91.189.92.10:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:36595        157.56.193.37:443       ESTABLISHED
+tcp        0      0 10.87.23.2:40480        157.55.235.165:40013    ESTABLISHED
+tcp       28      0 10.87.1.134:56481       91.189.92.11:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:59267        91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 127.0.0.1:54099         127.0.0.1:45745         ESTABLISHED
+tcp        0      0 127.0.0.1:54099         127.0.0.1:45744         ESTABLISHED
+tcp        1      0 10.87.23.2:60475        91.198.174.208:80       CLOSE_WAIT
+tcp        1      0 127.0.0.1:38608         127.0.0.1:56677         CLOSE_WAIT
+tcp        0      0 127.0.0.1:54099         127.0.0.1:45749         ESTABLISHED
+tcp        0      0 10.87.23.2:56117        87.6.187.238:64540      ESTABLISHED
+tcp        0      0 10.87.23.2:53650        74.125.206.16:993       ESTABLISHED
+tcp6       1      0 ::1:44104               ::1:631                 CLOSE_WAIT</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>TCP Header</h2>
+						<img src="http://i.imgur.com/zac7kmY.jpg">
+					</section>
+					<section>
+						<h2>TCP Header</h2>
+						<ul>
+							<li>Sequence number (32 bits) - Used for data reassembly purposes.
+							<li>Acknowledgement number (32 bits) - Indicates the data that has been received.</li>
+							<li>Header length (4 bits) - Known as ʺdata offsetʺ. Indicates the length of the TCP segment header.</li>
+							<li>Reserved (6 bits) - This field is reserved for the future.</li>
+							<li>Control bits (6 bits) - Includes bit codes, or flags, that indicate the purpose and function of the TCP segment.</li>
+							<li>Window size (16 bits) - Indicates the number of segments that can be accepted at one time.</li>
+							<li>Checksum (16 bits) - Used for error checking of the segment header and data.</li>
+							<li>Urgent (16 bits) - Indicates if data is urgent.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>TCP Flags/Control Bits</h2>
+						<ul>
+							<li><strong>URG</strong> (1 bit) – indicates that the Urgent pointer field is significant.</li>
+							<li><strong>ACK</strong> (1 bit) – indicates that the Acknowledgment field is significant. All packets after the initial SYN packet sent by the client should have this flag set.</li>
+							<li><strong>PSH</strong> (1 bit) – Push function. Asks to push the buffered data to the receiving application.</li>
+							<li><strong>RST</strong> (1 bit) – Reset the connection</li>
+							<li><strong>SYN</strong> (1 bit) – Synchronize sequence numbers. Only the first packet sent from each end should have this flag set. Some other flags and fields change meaning based on this flag, and some are only valid for when it is set, and others when it is clear.</li>
+							<li><strong>FIN</strong> (1 bit) – No more data from sender</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>UDP Header</h2>
+						<img src="http://i.imgur.com/cHTDUXN.png">
+						<p><small>TCP overhead for carrying its functions it's really clear now.</small></p>
+						<p>UDP Payload is called a <em>datagram</em>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>TCP 3-Way Handshake</h2>
+						<p>It's the process through which <strong>TCP establishes a connection</strong> before any data can be exchanged. What it does is:</p>
+						<ol>
+							<li>The initiating client requests a client-to-server communication session with the server.</li>
+							<li>The server acknowledges the client-to-server session and requests a server-to-client session.</li>
+							<li>The initiating client acknowledges the server-to-client session.</li>
+						</ol>
+						<p>The 3-way handshake sets up the <strong>2 one-way data streams</strong> that form a full-duplex TCP conversation.</p>
+						<p>It relies on <strong>SYN, ACK flags and sequence and acknowledgment numbers</strong> of the TCP Header.</p>
+					</section>
+					<section>
+						<h2>TCP 3-Way Handshake</h2>
+						<img src="http://i.imgur.com/zy76Rp5.gif">
+					</section>
+					<section>
+						<h2>TCP 3-Way Handshake</h2>
+						<img src="http://i.imgur.com/ghaC3KL.png">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>TCP 3-Way Handshake - Step 1 (SYN)</h2>
+							<p>A TCP client begins the three-way handshake by
+sending a segment with:</p>
+						<ul>
+							<li><strong>SYN control flag set to 1</strong>, to validate the ISN.</li>
+							<li>Initial sequence number <strong>(ISN) randomly chosen</strong> (A) and beginning to track data flow.</li>
+						</ul>
+						<p>The ISN in the header of each segment will be <strong>increased by one for each byte of data</strong> sent from the client to the server as the data conversation continues.</p>
+						<p><strong>In Wireshark sequence numbers are relative</strong> to ISN always shown as 0 </li>
+						</ul>
+					</section>
+					<section>
+						<h2>TCP 3-Way Handshake - Step 2 (SYN ACK)</h2>
+						<ul>
+							<li>The <strong>server replies with SYN control bit set to 1</strong>, to validate server's ISN.</li>
+							<li>The <strong>server replies with ACK control bit set to 1</strong>, to validate server's acknowledge number.</li>
+							<li>The acknowledgment number is set to Client ISN + 1 (A+1)</li>
+							<li>The new sequence number that the server chooses for the segment is another random number (B)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>TCP 3-Way Handshake - Step 3 (ACK)</h2>
+						<ul>
+							<li>Finally, <strong>the client sends an ACK back</strong> to the server.</li>
+							<li>The sequence number is set to the received acknowledgement value (A+1)</li>
+							<li>and the acknowledgement number is set to one more than the received sequence number (B+1)</li>
+						</ul>
+						<p>Data conversation is now in place, and the <strong>client and the server exchange (one's) data and ACKs (of the other host's data)</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>TCP Connection Termination</h2>
+						<p>The connection termination phase uses a 4-way handshake, with <strong>each side of the connection terminating independently</strong>.</p>
+						<p>Termination <strong>can be initiated by any side</strong>.</p>
+						<ol>
+							<li>When the "client" has no more data to send in the stream, it <strong>sends a segment with the FIN flag set</strong>.</li>
+							<li>The "server" sends <strong>an ACK to acknowledge the receipt of the FIN</strong> to terminate the session from client to server.</li>
+							<li>The <strong>server keeps sending data until it has them, then it sends a FIN</strong> to the client, to terminate the server to client session.</li>
+							<li>The <strong>client responds with an ACK to acknowledge the FIN</strong> from the server.</li>
+						</ol>
+						<p>These steps can be combined into a 3-way handshake if both the <em>initiator</em> and the <em>terminated</em> have no more data to send.</p>
+					</section>
+					<section>
+						<h2>TCP Connection Termination</h2>
+						<h3>4-Way Handshake</h3>
+						<img src="http://i.imgur.com/a3dWHUc.png" width="60%" height="60%">
+					</section>
+				</section>
+
+				<section>
+					<h1>Practice</h1>
+					<h2>TCP 3-Way and 4-Way Handshake</h2>
+					<h2>with Wireshark</h2>
+				</section>
+
+				<section>
+					<h2>ACK and SEQ numbers</h2>
+					<p>The <strong>SEQ number indicates the relative number of bytes</strong> that have been transmitted in this session</p>
+					<p>TCP uses the ACK number sent back to the source to indicate the next byte that the receiver expects to receive. This is called <strong><em>expectational acknowledgement</em></strong>.</p>
+					<p>The sending host is expected to send a segment that uses <strong>a new sequence number that is equal to the ACK number</strong>.</p>
+					<p>SEQ and ACK numbers are being <strong>exchanged in both directions</strong>.</p>
+				</section>
+
+				<section>
+					<h2>TCP Combined ACK</h2>
+					<p>To <strong>reduce the overhead</strong> of the acknowledgements, multiple segments of data can be sent and <strong>acknowledged with a single TCP message</strong> in the opposite direction.</p>
+					<p>This acknowledgement <strong>contains an ACK number based on the total number of bytes received</strong> in the session.</p>
+					<p>For example, starting with a sequence number of 2000, if 10 segments of 1,000 bytes each were received, an ACK number of 12001 would be returned to the source.</p>
+				</section>
+
+				<section>
+					<h2>TCP Retransmissions</h2>
+					<p>When TCP at the source host has not received an acknowledgement <strong>after a predetermined amount of time, it returns to the last ACK number received</strong> and retransmits the data from that point forward.</p>
+					<p>The retransmission process is not specified by the TCP's RFC, but is left up to the particular implementation of TCP.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Flow Control and Window Size</h2>
+						<p>Flow control helps maintain the reliability of TCP transmission by <strong>adjusting the rate of data flow</strong> between source and destination for a given session.</p>
+						<p>The TCP header includes a 16-bit field called the <strong>window size. This is the number of bytes</strong> that the destination device of a TCP session is able to <strong>accept and process at one time</strong>.</p>
+						<p>The initial window size is agreed upon during the three-way handshake.</p>
+					</section>
+					<section>
+						<h2>TCP Flow Control</h2>
+						<h3>Window Size Management</h3>
+						<img src="http://i.imgur.com/zapGiTx.gif">
+					</section>
+					<section>
+						<h2>TCP Flow Control</h2>
+						<h3>Window Size Management and Combined ACK</h3>
+						<img src="http://i.imgur.com/Amb71xv.gif">
+					</section>
+				</section>
+
+				<section>
+					<h1>Practice</h1>
+					<h2>UDP with Wireshark</h2>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+				<!-- Port Numbers as identifications
+				Stateful vs stateless protocol
+				-->
+				
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
