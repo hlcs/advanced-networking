@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 1 Chapter 11 - It's a Network</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Introduction to Networks</h2>
+					<h3>Chapter 11: It's A Network</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Small Business' Networks</h2>
+					<p>The knowledge required to run a small network is similar to the one for a larger network. It is the number of devices involved that changes.</p>
+					<p>Small network typically involve a single router, a single WAN connection, one or more switches and APs (often integrated in one device).</p>
+					<p>The management can be done by an employee or a contractor.</p>
+				</section>
+
+				<section>
+					<h2>Factors in Selecting a Device</h2>
+					<ul>
+						<li><strong>Cost</strong>: capacity, features, available ports, type of ports, backplane speed, they all influence how expensive a device is. But there are device-independent costs like:</li>
+						<ul>
+							<li><strong>Cable Runs</strong>: the devices have to be connected together.</li>
+							<li><strong>Redundancy</strong>: no matter which devices are selected, redundancy requires more of them.</li>
+						</ul>
+						<li><strong>Speed/Type/Number of Ports</strong>: We have to decide whether to choose based on present or future needs also.</li>
+						<ul>
+							<li><strong>Expandability</strong>: additional modules offer flexibility, but you still have to think about your needs.</li>
+						</ul>
+						<li><strong>Software Features</strong>: has the NOS every functionality I need from it? VPNs, QoS, routing protocols, NAT, etc.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Redundancy</h2>
+					<img src="http://i.imgur.com/xma5uuw.jpg">
+					<p>Redundancy provides networks with <strong>reliability</strong>.</p>
+					<p>It is achieved by <strong>duplicating</strong>: devices, links, power supplies, services.</p>
+					<p>Redundancy can be introduces progressively, starting with a second connection between multiple intermediary devices.</p>
+					<p>Small networks have typically one gateway to the Internet. A backup connection to a second ISP has to be considered.</p>
+				</section>
+
+				<section>
+					<h2>Small Network Design Checklist</h2>
+					<ol>
+						<li>Create centralized locations for network resources and intermediary devices.</li>
+						<li>Secure unauthorized <em>physical</em> access.</li>
+						<li>Secure unauthorized <em>logical</em> access.</li>
+						<li>Create <em>physical</em> redundancy.</li>
+						<li>Create <em>logical</em> redundancy.</li>
+						<li>Understand the traffic flowing in the network in order to implement necessary priorities.</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Software in a Small Network</h2>
+					<p>Software that makes use of the network can be divided in:</p>
+					<ul>
+						<li><strong>Network Applications</strong>: these are the applications that know how to use the network directly (<em>network-aware</em>) because they implement L7 protocols themselves (email clients and browsers are common examples).</li>
+						<li><strong>Network Services</strong>: these are stand-alone Application Layer protocols implementations that can be used by other applications that need to send data over the network. Print spooling, network file systems are good examples of L7 Services.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Real-Time Applications</h2>
+					<p>Real-time applications are the ones that stress the most the need for a good network design.</p>
+					<p>They rely on <strong>priority delivery</strong>, which needs careful planning, a capable infrastructure, proper equipment and configurations.</p>
+					<p>Typical real-time applications in a small network are <strong>Voice Over IP (VoIP)</strong> and <strong>IP Telephony</strong>. The difference stands in whether the phone performs the voice-to-IP conversion or not.</p>
+					<p>However, <strong>VoIP</strong> is the term universally used.</p>
+					<p>Real-Time applications need protocols that supports <em><strong>delay-sensitive delivery</strong></em> and QoS, like the <strong>Real-Time Transport Protocol (RTP)</strong> or the <strong>Real-Time Transport Control Protocol (RTCP)</strong>.</p>
+					<p>Often <strong>QoS is implemented in-hardware</strong>.</p>
+				</section>
+
+				<section>
+					<h2>From Small to Larger Network</h2>
+					<p>Networks can grow either <em>reactively</em> (responding to needs) or <em>proactively</em> (anticipating needs). It is clearly better to grow the network alongside its needs.</p>
+					<p>To carefully plan the <strong><em>scaling</em></strong> of a network you need: <strong>documentation, inventory, budget, traffic analysis</strong>.</p>
+					<p><strong>Traffic/Protocol analysis</strong> allows an administrator to collect statistics about the traffic flowing in the network. With the right data, optimizations can be made. Some suggestions:</p>
+					<ul>
+						<li>Analyze the traffic in the <strong>peak hours</strong>.</li>
+						<li>Analyze traffic globally, but also in <strong>each specific segment</strong>.</li>
+						<li>Document employee-<em>snapshots</em> over time.</li>
+					</ul>
+					<p>Analysis could reveal <strong>optimization paths that are trivial</strong>, or others requiring <strong>major overhaul</strong> of the network design.</p>
+				</section>
+
+				<section>
+					<h2>Types of Network Threats</h2>
+					<ul>
+						<li><strong>Information Theft</strong>: information is obtained that was supposed to be confidential and that is now out of control and can be used or sold or otherwise damage the original owner.</li>
+						<li><strong>Identity Theft</strong>: like the above, but the information allows the attacker to assume someone else's identity in order to achieve access or other type of unauthorized usage.</li>
+						<li><strong>Data Loss or Tampering</strong>: computer data that is purposefully damaged to harm the owener of the data, or altered to obtain an advantage.</li>
+						<li><strong>Disruption of Service</strong>: even without breaking into a system, attackers can impede legitimate users of a service to access it.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Physical Security</h2>
+					<img src="http://i.imgur.com/KNahJGB.jpg" width="35%" height="35%">
+					<p>Device physical protection is as important as protecting the software stack. The Attacker can be an outsider, but <strong>we can also play our (negative) part</strong> in these categories of threats:</p>
+					<ul>
+						<li><strong>Hardware</strong>: intentional physical damage to hosts or links.</li>
+						<li><strong>Environmental</strong>: making a device operate outside of its temperature window.</li>
+						<li><strong>Electrical</strong>: over/under-voltage, partial/unstable/total power loss, incorrect grounding, electrostatic discharge.</li>
+						<li><strong>Maintenance</strong>: no labeling, poor cabling, lack of spares.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Vulnerabilities</h2>
+					<p>Vulnerabilities can be found in:</p>
+					<ul>
+						<li><strong>Technology</strong> - Protocols, software, operating systems, they all have flaws which can be exploited.</li>
+						<li><strong>Configuration</strong> - Unsecured, unused user accounts; weak passwords; unused and unsecured software and services; weak default settings; general misconfigurations.</li>
+						<li><strong>Policy</strong> - Unwritten security policies; politics; unapplied security policies; inadequate monitoring; unauthorized and undocumented changes; lack of a recovery plan.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Network Attacks - Malicious Code</h2>
+					<p>There are programs created for the purpose of causing harm:</p>
+					<ul>
+						<li><strong>Viruses</strong> - software included in another programs to perform malicious functions. Often human interactions is required.</li>
+						<li><strong>Worms</strong> - Stand-alone applications written to exploit targeted vulnerabilities. They don't need human interaction.</li>
+						<li><strong>Trojan Horses</strong> - Applications that are written to appear normal, while performing attacks on the system.</li>
+					</ul>
+					<p>In order to be executed, malicious code attacks need:</p>
+					<ul>
+						<li>Some <strong>vulnerability to exploit</strong>, whether software or human.</li>
+						<li>A <strong>propagation mechanism</strong> to spread themselves.</li>
+						<li>The actual <strong>payload</strong> to propagate and execute.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Network Attacks - Reconnaissance</h2>
+						<p>Reconnaissance (<em>ricognizione</em>, in Italian) involves the <strong>search, discovery and mapping</strong> of vulnerabilities in victim's systems.</p>
+						<ul>
+							<li><strong>Queries</strong> - Tools like <code>nslookup</code> or <code>whois</code> can be used to determine the address space belonging to the victim.</li>
+							<li><strong>Mass Pings</strong> - The attacker can use tools to automatically ping large block of addresses to discover which one are active.</li>
+							<li><strong>Port Scanning</strong> - Using automated tools like <code>nmap</code> an attacker can discover the transport layer ports that are opened on a system.</li>
+							<li><strong>Packet Sniffing</strong> - If an attacker takes control of a system along the traffic paths, He can monitor traffic using software like Wireshark.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Network Attacks - Reconnaisance</h2>
+						<pre><code class="bash">stefanauss@barney:~$ nslookup hlcs.it
+Server:		127.0.1.1
+Address:	127.0.1.1#53
+
+Non-authoritative answer:
+Name:	hlcs.it
+Address: 188.165.254.131
+
+stefanauss@barney:~$ nslookup 188.165.254.131
+Server:		127.0.1.1
+Address:	127.0.1.1#53
+
+Non-authoritative answer:
+131.254.165.188.in-addr.arpa	name = ks381122.kimsufi.com.
+
+Authoritative answers can be found from:
+
+stefanauss@barney:~$ whois hlcs.it
+
+*********************************************************************
+* Please note that the following result could be a subgroup of      *
+* the data contained in the database.                               *
+*                                                                   *
+* Additional information can be visualized at:                      *
+* http://www.nic.it/cgi-bin/Whois/whois.cgi                         *
+*********************************************************************
+
+Domain:             hlcs.it
+Status:             ok
+Created:            2012-10-02 22:07:03
+Last Update:        2014-10-18 00:43:12
+Expire Date:        2015-10-02
+
+Registrant
+  Organization:     SOCIETA' COOPERATIVA COOPYLEFT A R.L.
+
+Admin Contact
+  Name:             Vincenzo Bruno
+  Organization:     SOCIETA' COOPERATIVA COOPYLEFT A R.L.
+
+Technical Contacts
+  Name:             Unità Tecnica Tophost
+  Organization:     Tophost srl
+  Address:          Piazza della Libertà 10
+                    Roma
+                    00192
+                    RM
+                    IT
+  Created:          2009-09-28 11:25:11
+  Last Update:      2011-08-18 13:47:40
+
+Registrar
+  Organization:     Seeweb S.r.l.
+  Name:             TOPHOST-REG
+  Web:              http://www.tophost.it
+
+Nameservers
+  ns1.th.seeweb.it
+  ns2.th.seeweb.it
+
+stefanauss@barney:~$ nmap scanme.nmap.org
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2014-12-05 01:10 CET
+Nmap scan report for scanme.nmap.org (74.207.244.221)
+Host is up (0.23s latency).
+Not shown: 997 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+9929/tcp open  nping-echo
+
+Nmap done: 1 IP address (1 host up) scanned in 20.66 seconds
+</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Network Attacks - Access</h2>
+						<p>Access attacks consist of  unauthorized (attempted or successful) access to systems and exploitation of user privileges.</p>
+						<ul>
+							<li><strong>Password Attacks</strong> - They can be performed with trojan horses, packet sniffers or as <em>brute force</em> attacks.</li>
+							<li><strong>Trust Exploitation</strong> - Instead of attacking a system directly, the attacker takes control of a system or service (e.g. Active Directory, or NFS) trusted by the victim.</li>
+							<li><strong>Port Redirection</strong> - A cas of trust exploitation where an attacker compromises an host to bypass firewall rules that drops direct attacks (see the next slides).</li>
+							<li><strong>Man-In-The-Middle</strong> - The attacker acquires the ability to monitor a comunication channel, altering traffic and injecting messages.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Network Attacks - Port Redirection</h2>
+						<img src="http://i.imgur.com/RuDvYTo.jpg">
+					</section>
+				</section>
+
+				<section>
+					<section>
+					<h2>Network Attacks - Denial of Service</h2>
+					<p>There are many types of DoS attacks, but they all have the purpose of <strong>exhausting system and network resources</strong> to the point where it's hard or impossible to legitimately use them.</p>
+					<p>Some kinds of Denial of Service attacks are:</p>
+					<ul>
+						<li><strong>Ping of Death</strong> - Malformed, large (more than IP max size) ICMP packets that are meant to crash receiving hosts.</li>
+						<li><strong>SYN Flood</strong> - The attacker begins (SYN) a lot of TCP 3-Way Handshakes without ever completing them (SYN ACK).</li>
+						<li><strong>Smurf Attack</strong> - The attacker directs large amount of traffic to a victim by using the <em>spoofed</em> address as the source, and a broadcast address as the destination of malformed packets.</li>
+						<li><strong>Distributed Denial of Service (DDoS)</strong> - When the attacker has a large number of compromised systems (<em>Handlers</em> and <em>Zombies</em>) at his disposal, simultaneously targeting a victim.</li>
+					</ul>
+					</section>
+					<section>
+						<h2>Network Attacks - Smurf</h2>
+						<img src="http://i.imgur.com/TvNS5xK.gif">
+					</section>
+				</section>
+
+				<section>
+					<h2>Network Attack Mitigation</h2>
+					<p>If an attack is successful, administrators have to perform these steps in order to regain control: <strong>containment, inoculation (<em>immunization</em>), quarantine, treatment</strong>.</p>
+					<p>A central patch server, automatic updates, and a standard software image can be good strategies to keep systems secure.</p>
+					<p>The <strong><em>Triple A</em></strong> governs access control by providing:</p>
+					<ul>
+						<li><strong>Authentication</strong> - Who is permitted to access the network. <em>Local</em> authentication, like authentication commands on IOS, doesn't scale. External authentication like RADIUS or TACACS+, is recommended for large networks.</li>
+						<li><strong>Authorization</strong> - What authorized users can or cannot do.</li>
+						<li><strong>Accounting</strong> - Keeping tracks (<em>logging</em>) of accessed resources and users' activity on a network.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Firewalls</h2>
+					<p>Firewalls are systems placed between networks, <strong>controlling the traffic flow</strong> between them using several techniques:</p>
+					<ul>
+						<li><strong>Packet Filtering</strong> based on L2 or L3 addresses.</li>
+						<li><strong>Application Filtering</strong> based on port numbers and associated applications.</li>
+						<li><strong>URL filtering</strong> targeted at specific websites or keywords.</li>
+						<li><strong>Stateful Packet Inspection (SPI)</strong> can recognize if incoming packets are responses or unsolicited traffic.</li>
+						<li><strong>Network Address Translation</strong> is often performed by firewalls, and it allows to hide internal IP addresses.</li>
+					</ul>
+					<p>Firewall can take differents forms, such as <strong>appliances</strong> (dedicated hardware), <strong>server software</strong> (running on a full OS), <strong>integrated</strong> (in multi-purpose devices) or <strong>personal firewalls</strong> (on each host).</p>
+				</section>
+
+				<section>
+					<h2>Basic Security Practices</h2>
+					<ul>
+						<li>Don't rely on <strong>default settings</strong> being secure, review them!</li>
+						<li>Change default username and passwords.</li>
+						<li><em>Principle of Least Priviledge</em>: configure users and permissions to provide access only to the minimum extent necessary.</li>
+						<li><em>Least Attack Surface</em>: uninstall or disable unused services.</li>
+						<li>New device != up-to-date device. Patch first!</li>
+						<li>The longer the password, the better. Use <strong>passphrases</strong>.</li>
+						<li>Avoid dictionary words, common or easily guessable patterns.</li>
+						<li><strong>Entropy</strong> is good: <strong>mispell</strong> the passwords, <strong>mix</strong> the letter case, symbols, numbers.</li>
+						<li>Change the password often to reduce opportunity window and <u>do not write it down</u>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Securing Cisco IOS - Attempts</h2>
+						<pre><code class="no-higlight">Router(config)# service password-encryption
+Router(config)# security password min-length 8
+Router(config)# login block-for 240 attempts 3 within 60
+Router(config)# line console 0
+Router(config-line)# exec-timeout 10
+Router(config-line)# end</code></pre>
+					</section>
+					<section>
+						<h2>Securing Cisco IOS - SSH</h2>
+						<pre><code class="no-higlight">Router# configure terminal
+Router(config)# ip domain-name hlcs.it
+Router(config)# crypto key generate rsa general-keys modulus 2048
+The name for the keys will be: Router.hlcs.it
+% The key modulus is 2048 bits
+% Generating 1024 RSA keys, keys will be non-exportable...[OK]
+Router(config)#
+*Dec 5 03:12:52.628: %SSH-5-ENABLED: SSH 1.99 has been enabled
+Router(config)# username HLCS secret cisco
+Router(config)# line vty 0 15
+Router(config-line)# login local
+Router(config-line)# transport input ssh
+Router(config-line)# exit</code></pre>
+						<ul>
+							<li><code>crypto key generate rsa</code> uses the RSA algorhythm to generate encryption keys.</li>
+							<li><code>login local</code> enables password checking against a user database on the device.</li>
+							<li><code>transport input [protocol]</code> specifies which protocol are enabled to access a specific configuration line with.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Network Baseline</h2>
+					<p>Establishing a <em>network baseline</em> means detailing network performances over time to create a <strong>reference point</strong>.</p>
+					<p>Basic performance tests like <code>ping</code> or <code>traceroute</code> should be executed at different times of the day, days of the week, and <strong>stored as documentation for future comparisons</strong>.</p>
+					<p>There are integrated softwares that manage the creation and storage of large and detailed baselines.</p>
+					<p>On Cisco IOS, by just typing <code>ping</code> in privileg EXEC mode, without an address, a mode called <strong>extended ping</strong> is accessed.</p>
+					<pre><code class="no-highlight" style="max-height: 125px;">R2# ping
+
+Protocol [ip]:
+Target IP address: 10.87.7.1
+Repeat count [5]:
+Datagram size [100]:
+Timeout in seconds [2]:
+Extended commands [n]: y
+Source address or interface: 10.87.23.1
+Type of service [0]:
+Set DF bit in IP header? [no]:
+Validate reply data? [no]:
+Data pattern [0xABCD]:
+Loose, Strict, Record, Timestamp, Verbose[none]:
+Sweep range of sizes [n]:
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.87.7.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 36/97/132 ms </code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>Cisco Discovery Protocol</h2>
+						<p>CDP is a <strong>proprietary protocol by Cisco</strong> that allows a device to learn hardware and software information about <strong>other devices directly connected</strong> to it.</p>
+						<p>CDP runs at L2, so it can operate <strong>even if there is no network layer connectivity</strong> or different L3 protocols are running.</p>
+						<p>It provides details like <strong>Device identifiers, address list, port identifiers, capabilities, platform</strong>.</p>
+						<p>CDP is <strong>enabled by default</strong> on Cisco IOS. It can be disabled globally with the command <code>no cdp run</code>, or per-interface with the command <code>no cdp enable</code>.</p>
+					</section>
+					<section>
+						<h2>Cisco Discovery Protocol</h2>
+						<pre><code class="no-highlight" style="max-height: 250px;">Router# show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce Holdtme  Capability  Platform  Port ID
+10.64.107.251    Gig 37/3      176            R I   CPT 600   Gig 36/41
+10.64.107.251    Gig 37/1      174            R I   CPT 600   Gig 36/43
+10.64.107.251    Gig 36/41     134            R I   CPT 600   Gig 37/3
+10.64.107.251    Gig 36/43     134            R I   CPT 600   Gig 37/1
+10.64.107.251    Ten 3/2       132            R I   CPT 600   Ten 4/2
+10.64.107.251    Ten 4/2       174            R I   CPT 600   Ten 3/2</code></pre>
+						<pre><code class="no-highlight" style="max-height: 250px;">R2# show cdp neighbors detail
+-------------------------
+Device ID: R3
+Entry address(es):
+IP address: 10.2.2.3
+Platform: Cisco 3640, Capabilities: Router Switch IGMP
+Interface: FastEthernet1/0, Port ID (outgoing port): FastEthernet0/0
+Holdtime : 125 sec
+
+Version :
+Cisco IOS Software, 3600 Software (C3640-JK9S-M), Version 12.4(16), RELEASE SOFTWARE (fc1)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2007 by Cisco Systems, Inc.
+Compiled Wed 20-Jun-07 11:43 by prod_rel_team
+
+advertisement version: 2
+VTP Management Domain: '
+Duplex: full
+
+-------------------------
+Device ID: R1
+Entry address(es):
+IP address: 10.1.1.1
+Platform: Cisco 3640, Capabilities: Router Switch IGMP
+Interface: FastEthernet0/0, Port ID (outgoing port): FastEthernet0/0
+Holdtime : 158 sec
+
+Version :
+Cisco IOS Software, 3600 Software (C3640-JK9S-M), Version 12.4(16), RELEASE SOFTWARE (fc1)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2007 by Cisco Systems, Inc.
+Compiled Wed 20-Jun-07 11:43 by prod_rel_team
+
+advertisement version: 2
+VTP Management Domain: '
+Duplex: full</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Cisco IOS File System (IFS)</h2>
+						<p>The Cisco IOS File System is a <strong>unified interface to every file system</strong> that is available on a switch or a router.</p>
+						<p>Cisco IFS allows an administrator to operate on directory and files seamlessly, <strong>even when the file system is remote</strong>.</p>
+						<p>Cisco IOS supports <strong>standard UNIX commands</strong> to operate on files, like <code>cd</code>, <code>pwd</code> or <code>dir</code>.</p>
+						<p>The command <code>show file systems</code> list all available file system with their <strong>prefixes and permissions</strong> (e.g. ro/rw/wo)</p>
+					</section>
+					<section>
+						<h2>Cisco IOS File System (IFS)</h2>
+						<pre><code class="no-highlight">Router# show file systems
+
+File Systems:
+
+     Size(b)        Free(b)   Type     Flags  Prefixes
+           -           -    opaque     rw     null:
+           -           -    opaque     rw     system:
+           -           -    opaque     ro     xmodem:
+           -           -    opaque     ro     ymodem:
+           -           -   network     rw     tftp:
+           -           -   network     rw     rcp:
+           -           -   network     rw     ftp
+*    4194304     4190616     flash     rw     flash: flash:#
+      131066      129185     nvram     rw     nvram:
+           -           -    opaque     wo     lex:
+
+Router# pwd
+flash:
+Router# cd nvram:
+Router# dir
+Directory of nvram:/
+
+   27  -rw-           0                startup-config
+   28  ----           0                private-config
+
+29688 bytes total (29636 bytes free)
+Router#</code></pre>
+					<p>A pound (<code>#</code>) means a <strong>bootable</strong> filesystem, an asterisk (<code>*</code>) stands for the <strong>default</strong> file system.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Backup & Restore IOS Configuration</h2>
+					<ul>
+						<li><strong>Using Text Files</strong> - The output of <code>show running-config</code> is basically a list of IOS command that generates the current configuration. Using our <strong>terminal emulator</strong> we can backup this output to a <strong>plain text file</strong>. We can also restore a configuration from that file, albeit it will <strong>require some editing</strong> for non-commands and encrypted passwords.</li>
+						<li>
+							<strong>Using a TFTP Server or USB</strong>
+							<pre><code class="no-highlight" style="max-height: 250px;">CE_2#copy running-config tftp:
+Address or name of remote host []? 64.104.207.171
+Destination filename [ce_2-confg]? backup_cfg_for_my_router
+!!
+1030 bytes copied in 2.489 secs (395 bytes/sec)
+CE_2#
+
+Router#copy tftp: running-config
+Address or name of remote host []? 64.104.207.171
+Source filename []? backup_cfg_for_my_router
+Destination filename [running-config]?
+Accessing tftp://10.66.64.10/backup_cfg_for_my_router...
+Loading backup_cfg_for_router from 64.104.207.171 (via FastEthernet0/0): !
+[OK - 1030 bytes]
+
+1030 bytes copied in 9.612 secs (107 bytes/sec)
+CE_2#</code></pre>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Wireless Settings and Security</h2>
+					<ul>
+						<li><strong>Wireless Mode</strong> - It's the wireless standard revision (<strong>802.11a/b/g/n/ac</strong>) that will be used. Many routers support <em>mixed</em> mode, and the standard themselves are backwards-compatible, but it can result in reduced performances.</li>
+						<li><strong>Service Set Identifier (SSID)</strong> - Alphanumeric, case-sensitive, unique name for a WLAN, up to 32 chars.</li>
+						<li><strong>Channel</strong> - The exact frequency range that the communication over that WLAN will use. There are multiple channels so that many WLANs can works in proximity.</li>
+						<li><strong>SSID Broadcast</strong> - As a security feature, <strong>WLAN names can be hidden</strong>. Only those who know its value can then connect to it.</li>
+						<li><strong>Encryption</strong> - WEP and WPA/WPA2 are protocols to encrypt WiFi data. WEP is old and very easily crackable, so you <strong>MUST use WPA</strong> (that uses dynamically-generated keys).</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Practice</h1>
+					<h2>Configuring Wireless on OpenWrt</h2>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
