@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 2 Chapter 2 - Basic Switching Concepts and Configuration</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Routing and Switching Essentials</h2>
+					<h3>Chapter 2:</h3>
+					<h3>Basic Switching Concepts and Configuration</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Cisco Switch Boot Sequence</h2>
+					<ul>
+						<li>Power-on self-test (<strong>POST</strong>) is loaded from ROM.</li>
+						<li>The <strong>bootloader</strong> is run and iniziatalizes CPU registers.</li>
+						<li>The bootloader initializes the flash file system.</li>
+						<li>The bootloader tries to locate a Cisco IOS image, boot it and switch control to it.</li>
+						<ul>
+							<li>First, it uses the <strong>BOOT environment variable</strong>, if set, to load the executable image.</li>
+							<li>If the BOOT variable is unset or points to the wrong location, it performs a <strong>depth-first recursive search</strong> starting at the root directory of the flash file system.</li>
+						</ul>
+					</ul>
+					<p>The BOOT environment variable is set using the <code>boot system [location]</code> command in global config mode. <code>show bootvar</code> can be used to display its content.</p>
+				</section>
+
+				<section>
+					<h2>Bootloader Recovery Mode</h2>
+					<p>If bootstrap fails because of <strong>missing/damaged system files</strong>, the bootloader has a <strong>CLI mode</strong> that can be accessed to fix them.</p>
+					<ul>
+						<li>Set up a console cable connection to the switch.</li>
+						<li>Unplug the switch power cord.</li>
+						<li>Reconnect the power and within the first 15s, <strong>press and hold down the Mode button</strong> while the system LED is flashing green, until it turns amber for a moment and then solid green.</li>
+						<li><strong>Release</strong> the Mode button.</li>
+					</ul>
+					<p>The <code>switch:</code> prompt will appear in the terminal emulator, and <strong>commands to operate on the flash file system</strong> will become available (format, reinstallation, etc).</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Cisco Switch LEDs</h2>
+						<img src="http://i.imgur.com/In7aorZ.jpg">
+					</section>
+					<section>
+						<h2>Cisco Switch LEDs</h2>
+						<p>Cisco switches have two kind of LEDs:</p>
+						<ul>
+							<li><strong>Status indicator LEDs</strong> that either <strong>directly provide a specific information</strong> or clarify the <strong>current meaning of the ports LEDs</strong>.</li>
+							<li><strong>Port indicator LEDs</strong> to show the <strong>per-port status</strong> concerning the type of information highlighted by the Status Indicator.</li>
+							<li>There's a <strong>Mode Button</strong> to flip through available LEDs modes.</li>
+						</ul>
+						<p>Available LEDs mode are:</p>
+						<ul>
+							<li>System Status (<strong><em>SYST</em></strong>), Redundant Power Supply (<strong><em>RPS</em></strong>). These modes are global and are not fipped through the Mode button.</li>
+							<li>Port Status (<strong><em>STAT</em></strong>, the default mode), Port Duplex (<strong><em>DUPLX</em></strong>), Port Speed (<strong><em>SPEED</em></strong>), Power Over Ethernet (<strong><em>POE</em></strong>).</li>
+							<li><strong><em>MASTR</em></strong>, <strong><em>STACK</em></strong>, <strong><em>UTL</em></strong> can also be found on specific models.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Cisco Switch LEDs: Example</h2>
+						<p>LEDs can be off, or lighted up in <strong>green</strong> and <strong>amber</strong> colours. They can also be <strong>solid</strong> or <strong>blinking</strong>, and they can alternate between colours with <strong>different timings</strong>.</p>
+						<p>All these combinations are used to provide a specific message.</p>
+						<p>Using the <strong><em>STAT</em></strong> LED as an example:</p>
+						<ul>
+							<li><strong>Off</strong>: no link or administratively shut down</li>
+							<li><strong>Green</strong>: link is active</li>
+							<li><strong>Blinking Green</strong>: link is active and there is traffic on the port</li>
+							<li><strong>Alternating Green/Amber</strong>: link fault.</li>
+							<li><strong>Amber</strong>: port is temporarily (30s after activation) blocked to ensure there is no switching loop.</li>
+							<li><strong>Blinking Amber</strong>: port is blocked because of possible loop(s).</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Switch Management Access</h2>
+						<p>A L3 switch has an <strong>SVI, Switch Virtual Interface</strong> that allows for remote management. </p>
+						<p>The SVI on a Cisco Switch is <strong>VLAN1</strong>.</p>
+						<p>VLANs can be thought of as groups of ports. By default, <strong>every switch port is a member of VLAN1</strong>.</p>
+						<p>To communicate with a remote network, a switch SVI must be activated and assigned an IP address and a default gateway.</p>
+					</section>
+					<section>
+						<h2>Switch Remote Management Access</h2>
+						<p>Obviously, this must first be setup from a console connection...</p>
+						<pre><code class="no-highlight">## Create VLAN ##
+S1(config)# vlan [vlan_id]
+## Create an alias for the VLAN ##
+S1(config-vlan)# name [vlan_name]
+S1(config-vlan)# exit
+## Make a port member of the specified VLAN ##
+S1(config)# interface [interface_id]
+S1(config-if)# switchport access vlan [vlan_id]
+S1(config-if)# exit
+## Assign IP address and defgw
+S1(config-if)# interface vlan [vlan_id]
+S1(config-if)# ip address [ip_address] [subnet_mask]
+S1(config-if)# no shutdown
+S1(config-if)# exit
+S1(config)# ip default-gateway [defgw_ip]
+S1(config)# end
+S1# copy run start</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Duplex Communication</h2>
+						<h3>Half-Duplex</h3>
+						<img src="http://i.imgur.com/i9TlQxC.jpg">
+						<p><strong>Half-Duplex</strong>: unidirectional transmission; TX and RX cannot occur simultaneously; collisions are possible; typically seen in legacy hardware; 50-60% bandwidth efficiency</p>
+					</section>
+					<section>
+						<h2>Duplex Communication</h2>
+						<h3>Full-Duplex</h3>
+						<img src="http://i.imgur.com/hIr9KJA.jpg">
+						<p><strong>Full-Duplex</strong>: Bidirectional transmission; simultaneous TX+RX; enabled in Ethernet LANs by switches; 100% bandwidth efficiency.</p>
+						<p>A device operating in full-duplex has a <strong>micro collision domain</strong> composed of the device itself, and is said to be <strong>collison-free</strong>.</p>
+						<p>New generation connections like <strong>10Gb Ethernet</strong> operate <strong>only in full-duplex</strong> mode.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Duplex and Speed Configuration</h2>
+					<p>In the interface configuration mode, the command:</p>
+					<ul>
+						<li><code>duplex [auto|half|full]</code> is used to set the duplex mode of the port. Default is: <code>duplex auto</code>.</li>
+						<li><code>speed [auto|10|100|1000]</code> is used to set the speed of the port. Default is: <code>speed auto</code>.</li>
+					</ul>
+					<p>If a port capable of 10/100/1000 speeds is operating in:</p>
+					<ul>
+						<li>half-duplex mode, it can be set to 10/100 Mbps speed.</li>
+						<li>full-duplex mode, it can only operate at 1 Gbps.</li>
+					</ul>
+					<p>The <strong>recommended settings</strong> is <code>auto</code> for both duplex and speed. If the autonegotiation fails, or incompatible settings are entered, there will be connectivity issues.</p>
+					<p><strong>Fiber optics Ethernet</strong> such as 100BASE-FX ports always operates at a predefined speed in full-duplex mode.</p>
+				</section>
+
+				<section>
+					<h2>Auto-MDIX</h2>
+					<p>The <strong>Automatic medium-dependent interface crossover</strong> is able to detect the <strong>type of Ethernet cable</strong> in use (straight/crossover) and "rewire" the internal circuit of the port to <strong>adapt to it</strong>.</p>
+					<p>To enable the feature on a switch port, the command <code>mdix auto</code> is entered in interface configuration mode.</p>
+					<p>When <code>mdix auto</code> is set, <code>speed</code> and <code>duplex</code> <strong>must</strong> also be set to <code>auto</code> for the feature to work as intented.</p>
+					<p>Auto-MDIX is enabled by default on newer switches, but not available at all on older ones. To display the current status:</p>
+					<pre><code class="no-highlight">S1# show controllers ethernet-controller fa0/0 phy | include Auto-MDIX
+ Auto-MDIX      :   On      [AdminState=1   Flags=0x00056248]</code></pre>
+				</section>
+
+				<section>
+					<h2>Useful Switch Commands</h2>
+					<ul>
+						<li><code>show mac-address-table</code> displays the switch CAM table.</li>
+						<li><code>show interfaces [interface-id]</code> display verbose status and stats information for every port.</li>
+					</ul>
+					<pre><code class="no-highlight">R1# show interfaces fa0/1
+  FastEthernet0/1 is up, line protocol is up
+  Hardware is MV96340 Ethernet, address is 001e.7ae0.4741 (bia 001e.7ae0.4741)
+  Internet address is 192.168.6.1/24
+  MTU 1500 bytes, BW 100000 Kbit, DLY 100 usec,
+     reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, loopback not set
+  Keepalive set (10 sec)
+  Full-duplex, 100Mb/s, 100BaseTX/FX
+  ARP type: ARPA, ARP Timeout 04:00:00
+  Last input 00:00:00, output 00:00:05, output hang never
+  Last clearing of "show interface" counters never
+  Input queue: 0/75/0/0 (size/max/drops/flushes); Total output drops: 0
+  Queueing strategy: fifo
+  Output queue: 0/40 (size/max)
+  5 minute input rate 43000 bits/sec, 86 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     155406 packets input, 9677011 bytes
+     Received 151563 broadcasts, 0 runts, 0 giants, 0 throttles
+     3 input errors, 3 CRC, 0 frame, 0 overrun, 0 ignored
+     0 watchdog
+     0 input packets with dribble condition detected
+     155509 packets output, 67569 bytes, 0 underruns
+     8 output errors, 1790 collisions, 10 interface resets
+     0 babbles, 235 late collision, 0 deferred
+     0 lost carrier, 0 no carrier
+     0 output buffer failures, 0 output buffers swapped out</code></pre>
+				</section>
+
+				<section>
+					<h2>Line and Protocol Status</h2>
+					<p>The <code>show interfaces [interface_id]</code> output first line reports the current status for the interface and line protocol.</p>
+					<ul>
+						<li>The first parameter ("<em>[interface_id] is [status]</em>") refers to the hardware layer: is the interface <strong>receiving a carrier signal</strong>?</li>
+						<li>The second one ("<em>line protocol is [status]</em>") refer to wether or not <strong>a data link layer protocol is operational</strong> on the link.</li>
+					</ul>
+					<p>Based on the output, following considerations are possible:</p>
+					<ul>
+						<li><strong>interface up, protocol up</strong> - all is well.</li>
+						<li><strong>both down</strong> - a cable isn't connected, or some other unknown issue regarding the interface is taking place.</li>
+						<li><strong>interface is up, protocol down</strong> - error-disabled interface on the other end, encapsulation mismatch, hardware problem.</li>
+						<li><strong>interface administratively down</strong> - manually disabled.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Interface Statistics</h2>
+					<p><strong>Input errors</strong> are those found in received frames.</p>
+					<ul>
+						<li><strong>Runt frames</strong>: frames shorter than the 64-byte minimum lenght. Usually caused by malfunctioning NICs.</li>
+						<li><strong>Giants</strong>: frames longer than the maximum length.</li>
+						<li><strong>CRC errors</strong>: checksum failed verification. Usually indicates error on the medium, maybe due to damage or interferences.</li>
+					</ul>
+					<p><strong>Output errors</strong> are those that blocked a transmission.</p>
+					<ul>
+						<li><strong>Collisions</strong>: normal in half-duplex mode, never to be seen on full-duplex links.</li>
+						<li><strong>Late collisions</strong>: a collision that occurs after the first 64 bytes have been transmitted. Probably caused by excessive cable lenght or duplex mismatch. Unlike collisions, <strong>late collisions are not re-sent</strong>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>MAC Flooding Attacks</h2>
+					<p>MAC Flooding attacks exploit the <strong>limited size of the MAC table</strong>, by sending a switch an enormous amount of frames with <strong>fake source MAC addresses</strong>.</p>
+					<p>This causes the switch to register useless associations in the MAC table and eventually fill it.</p>
+					<p>When it happens, the switch enters a <strong>fail-open mode</strong> and starts <strong>broadcasting every frame to every port</strong>.</p>
+					<p>The attacker can now <strong>intercept</strong> all traffic!</p>
+					<p>To mitigate this attack is necessary to <strong>configure port security</strong>.</p>
+				</section>
+
+				<section>
+					<h2>DHCP Attacks</h2>
+					<p>There are 2 kind of common security attacks on DHCP:</p>
+					<ul>
+						<li><strong>DHCP Starvation</strong> - The attacker acts as a DHCP client, but it floods the legitimate server with many fake requests for the purpose of <strong>exhausting the address pool</strong> and causing a DoS.</li>
+						<li><strong>DHCP Spofing</strong> - The attacker acts as a DHCP server. It provides legitimate IP addresses to the client, but a <strong>fake DNS server and default gateway addresses</strong>. This causes the attacker to intercept all the traffic.</li>
+						<li>Often <strong>DHCP starvation is executed before DHCP Spoofing</strong>, so that it is easier to act as a unlegitimate DHCP server.</li>
+					</ul>
+					<p>Mitigating DHCP attacks involves configuring port security and using the <strong>anti-DHCP snooping feature</strong> in Cisco IOS</p>
+				</section>
+
+				<section>
+					<h2>Auditing</h2>
+					<p>The process of analyzing a system in search of vulnerabilities that can be exploited is called <strong><em>(security) auditing</em></strong>.</p>
+					<p>When someone <strong>legitimately</strong> attack your/his own system to test its strength, a <strong><em>penetration testing</em></strong> is being performed.</p>
+					<p>There are network security tools that administrators can use to test their networks for vulnerabilities. Many are FOSS!</p>
+					<p>A lot of enterprises <strong>hire security firm to audit their systems</strong>, often on a regular basis (with <strong>very strict</strong> contract clauses!)</p>
+					<p>To perform auditing, it requires professionals with skills in networking, programming, operatins systems, protocols, specialized software tools.</p>
+				</section>
+
+				<section>
+					<h2>Switch Port Security Basics</h2>
+					<h3>Disable Unused Port</h3>
+					<pre><code class="no-highlight">Switch(config)# interface range [type/first - last]
+Switch(config-if)# shutdown</code></pre>
+					<h3>DHCP Snooping</h3>
+					<p>Enables to limit the ports allowed to respond to DHCP requests.</p>
+					<ul>
+						<li><strong>Trusted Ports</strong> - they can have a <strong>DHCP server behind them</strong>, either directly or behind other switches.</li>
+						<li><strong>Untrusted Ports</strong> - only allowed to forward <strong>DHCP requests</strong>, and gets shut down if any other DHCP message is detected.</li>
+					</ul>
+					<pre><code class="no-highlight" style="max-height:140px;"># Enables DHCP Snooping globally
+S1(config)# ip dhcp snooping
+# By default, it is inactive on every VLAN
+# To enable it for a VLAN range:
+S1(config)# ip dhcp snooping vlan [first_id]-[last_id]
+# Configure a port as trusted or untrusted
+S1(config)# interface [type] [slot/number]
+S1(config-if)# ip dhcp snooping trust
+# Optional: limit the rate of DHCP requests to prevent DHCP starvation
+S1(config-ig)# ip dhcp snooping limit rate [max_requests]</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>Secure MAC Addresses</h2>
+						<p><strong>Port Security</strong> is about restricting the MAC addresses allowed to communicate through a swich port.</p>
+						<p>The <strong>amount</strong> and also the <strong>specific</strong> addresses allowed can be set.</p>
+						<p>A <strong>security violation</strong> takes place if an unauthorized MAC tries to access it or if the maximum number of MACs is reached.</p>
+						<p>Secure MAC addresses, based on <strong>how they're learned and stored</strong>, can be of the following types:</p>
+						<ul>
+							<li><strong>Static Secure</strong> - Manually configured, stored in the security table and in the running config.</li>
+							<li><strong>Dynamic Secure</strong> - Learned "on-the-fly", stored in the security table, removed after restart or port shutdown.</li>
+							<li><strong>Sticky Secure</strong> - Learned manually or dinamically,  stored in the security table, added in the running configuration.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Sticky Learning</h2>
+						<p>Sticky Secure MAC addresses are a <strong>mix between static and dynamic</strong>: they are automatically added to the switch <u>running</u> configuration until the max amount is reached.</p>
+						<ul>
+							<li>If you enable <em>sticky learning</em>, all previously learned <strong>dynamic secure addresses become sticky</strong> secure.</li>
+							<li>If you disable it, all <strong>sticky secure are demoted</strong> to dynamic.</li>
+							<li>Enabling sticky learning stores <strong>all newly sticky secure MACs in the running config</strong>; disabling removes them.</li>
+							<li><strong>Lost after reboots</strong>, they have to be learned again, unless saved in startup config.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Violation Modes</h2>
+					<p><em>Violation Modes</em> specify the <strong>action to be taken</strong> if a security violation is detected. The possible ones are:</p>
+					<ul>
+						<li><strong>Protect</strong> - Traffic is dropped only for exceeding or unauthorized MACs. No syslog notification, no increase in violation counter.</li>
+						<li><strong>Restrict</strong> - Traffic is dropped only for exceeding or unauthorized MACs. There is a syslog notification and violation counter increases.</li>
+						<li><strong>Shutdown</strong> (default) - Interface becomes <em>error-disabled</em> and is shut down to all traffic. Must be brought back up with the <code>shutdown</code>/<code>no shutdown</code> commands. Link and line protocol changed to down. Port status appear as <code>err-disabled</code> or <code>SecureShutdown</code> in show commands.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Port Security Defaults</h2>
+					<p>These are the default configuration concerning port security features on a Cisco switch.</p>
+					<ul>
+						<li><strong>Port Security</strong> - Disabled</li>
+						<li><strong>Maximum number of secure MAC addresses</strong> - 1 (one)</li>
+						<li><strong>Violation Mode</strong> - Shutdown</li>
+						<li><strong>Sticky Learning</strong> - Disabled</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Configuring Port Security</h2>
+						<p>To enable port security on a specific port:</p>
+						<pre><code class="no-highlight">Switch(config-if)# switchport mode access
+Switch(config-if)# switchport port-security</code></pre>
+						<p>To set a maximun number of allowed MACs on a port:</p>
+						<pre><code class="no-highlight">Switch(config-if)# switchport port-security maximum [value]</code></pre>
+						<p>To set the violation mode of a port:</p>
+						<pre><code class="no-highlight">Switch(config-if)# switchport port-security violation [protect | restrict | shutdown]</code></pre>
+						<p>To add a static/sticky secure address to a port:</p>
+						<pre><code class="no-highlight">Switch(config-if)# switchport port-security mac-address [mac_address]
+Switch(config-if)# switchport port-security mac-address sticky [mac_address]</code></pre>
+						<p>Enable sticky learning on a port (disable with <code>no</code>):</p>
+						<pre><code class="no-highlight">Switch(config-if)# switchport port-security mac-address sticky</code></pre>
+					</section>
+					<section>
+						<h2>Verifying Port Security</h2>
+						<p>The output for a port where port security has just been enabled:</p>
+						<pre><code class="no-highlight" style="max-height:200px;">Switch# show port-security [interface interface_id]
+Port Security              : Enabled
+Port Status                : Secure-down
+Violation Mode             : Shutdown
+Aging Time                 : 0 mins
+Aging Type                 : Absolute
+SecureStatic Address Aging : Disabled
+Maximum MAC Addresses      : 1
+Total MAC Addresses        : 0
+Configured MAC Addresses   : 0
+Sticky MAC Addresses       : 0
+Last Source Address:Vlan   : 001b.d41b.a4d8:10
+Security Violation Count   : 0</code></pre>
+						<p>To show all the secure MAC addresses on a switch, their type and aging information:</p>
+						<pre><code class="no-highlight">Switch# show port-security address
+Secure Mac Address Table
+----------------------------------------------------------------
+Vlan Mac Address     Type           Ports   Remaining Age (mins)
+---- -----------     ----           -----   --------------------
+1    0004.00d5.285d  SecureDynamic  Fa0/18          -           
+1    0025.83e6.4015  SecureSticky   Fa0/19          -           
+----------------------------------------------------------------</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
