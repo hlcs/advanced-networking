@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 2 Chapter 3 - VLANs</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Routing and Switching Essentials</h2>
+					<h3>Chapter 3: VLANs</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>What We Know So Far</h2>
+					<ul>
+						<li>A switch connects every device attached to it in a <strong>single LAN</strong>.</li>
+						<li>It operates at Layer 1 and <strong>Layer 2</strong> of the ISO/OSI stack.</li>
+						<li>Switches propagates Ethernet <strong>broadcast frames to all ports</strong>.</li>
+						<li>A LAN therefore represents a <strong>single broadcast domain</strong>.</li>
+						<li>Multiple <strong>interconnected switches extend broadcast</strong> domains.</li>
+						<li>There is a <strong>1:1 relationship</strong> between interconnected switches, a LAN, and its broadcast domain.</li>
+						<li>Broadcast domains can be <strong>segmented by phisically separating</strong> switches and/or connecting switches/LANs to a router.</li>
+						<li>Broadcast is necessary (many broadcast-based protocols) but <strong>large broadcast domains reduce network efficiency</strong>.</li>
+						<li>VLANs are "<em>groups of ports on a switch</em>".</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Definition of VLAN</h2>
+					<p><strong>VLANs (<em>Virtual LANs</em>)</strong> are subsets of devices within a single physical LAN that behave <em><u>just like they are on their own, separate LAN</u></em>. What are the implications, exactly?</p>
+					<ul>
+						<li>The <strong>VLAN has its own, separate, <u>reduced</u> broadcast domain</strong>: broadcast frames will reach all other hosts in the VLAN...</li>
+						<li>... and none of those that are not in the VLAN.</li>
+						<li>Broadcast sent by hosts that are not part of the VLAN won't reach those that are part of the VLAN.</li>
+						<li><strong>L2-based protocols (including broadcast-</strong>based ones) will work inside the VLAN.</li>
+						<li>No need of routing through a gateway to communicate between hosts in the same VLAN.</li>
+						<li>Their own, separate ARP/MAC tables.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Why VLAN(s)?</h2>
+						<p>VLANs are <strong>best-defined by the problems they solve</strong>:</p>
+						<ul>
+							<li>They allow the creation of <strong>multiple, independent logical networks</strong> based on (and regardless of) the same, <strong>shared infrustrucure</strong> of physical devices and connections.</li>
+							<li>They segment and reduce <strong>single large broadcast domains into multiple</strong> smaller ones.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Why VLAN(s)?</h2>
+						<p>Other advantages of using VLANs:</p>
+						<ul>
+							<li><strong>Performances</strong> - Reduced broadcast domains increases network efficiency. </li>
+							<li><strong>Costs</strong> - Creating more networks without requiring additional/separate infrastructure.</li>
+							<li><strong>Flexibility</strong> - Networks can be (re)configured more easily, and on criterias other than physical locations and wirings (function, project, security level).</li>
+							<li><strong>Security</strong> - Traffic is completely segregated based on the agreed policies, that can be more easily implemented at L3.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Creating VLANs: Port-Based VLANs</h2>
+						<p>A VLAN is <strong>created by defining a logical group of switch ports</strong> and then making each of those ports a <em>member</em> of that group.</p>
+						<p><strong>That group is the VLAN</strong>, and it is identified by a number called <strong>VLAN ID</strong>, ranging from 0 to 4095.</p>
+						<p>Switches <strong>must support</strong> the creation of VLANs (<em>VLAN-aware</em>) and the <strong>VLAN standard 802.1Q</strong>.</p>
+						<p>All hosts connected to a given port <strong>become members of the VLAN(s)</strong> that port is a member of.</p>
+						<p>Creating VLANs is the equivalent of <strong>dividing a switch into multiple sub-switches, independent</strong> from one another.</p>
+						<p>When every port is a member of <u>exactly one</u> VLAN, we are creating <em>port-based VLANs</em> using <strong><em>access ports</em></strong>.</p>
+					</section>
+					<section>
+						<h2>Creating VLANs: Port-Based VLANs</h2>
+						<p><img src="http://i.imgur.com/qovQm1S.png"></p>
+						<small>A single switch, without any VLAN.</small>
+						<p><img src="http://i.imgur.com/WB5WZLF.png"></p>
+						<small>A single switch segmented into 2 port-based VLANs. The behaviour is the same of 2 independent switches.</small>
+					</section>
+					<section>
+						<h2>Creating VLANs: Port-Based VLANs</h2>
+						<p>VLANs can <strong>span multiple interconnected switches</strong> while still maintaining isolation. Simply setup VLANs on every switch and connect them with one cable for each VLAN you want to extend.</p>
+						<img src="http://i.imgur.com/IMZURZP.png">
+						<small>Without VLANs, this would require 2+2=4 switches.</small>
+						<p>These setups can quickly become <strong>a problem when you have many VLANs and many switches</strong>, since you need to waste ports and provide cables just for interconnecting switches.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>VLAN Trunking</h2>
+					<p>Ideally, we would like to use a <strong>single connection to distribute all the VLANs</strong> from switch to switch, like this:</p>
+					<img src="http://i.imgur.com/vzfojVR.png">
+					<p>A <em><strong>trunk</strong></em> is a point-to-point connection between VLAN-aware devices that is <strong>capable of transporting more than one VLAN</strong>.</p>
+					<p>Similarly, a <em>trunk port</em> is a switch port participating in a trunk.</p>
+					<p>There's <u>one problem</u>: when it receives frames from a trunk, <strong>how can a switch know to which VLAN a frame belongs</strong>?</p>
+				</section>
+
+				<section>
+					<h2>VLAN Tagging</h2>
+					<p>The solution if <strong>VLAN tagging</strong>. The frames travelling in the trunk are <em>tagged</em>: the <em>VLAN ID</em> of the VLAN the frame belongs to is added to the Ethernet frame.</p>
+					<p>Only frames in a trunk <em>needs</em> to be tagged. "Normal" Ethernet frames in the context of VLANs are called <strong><em>untagged</em></strong> frames.</p>
+					<p>Of course, adding VLAN tags required a modification to the Ethernet frames, that is standardised in <strong>IEEE 802.1Q</strong>.</p>
+				</section>
+
+				<section>
+					<h2>802.1q</h2>
+					<img src="http://i.imgur.com/fpJ9xUH.gif">
+					<p>The 4 bytes VLAN Tag fields are:</p>
+					<ul>
+						<li><strong>Type/TPID</strong> (2 bytes) - 0x8100, indicating it's a 802.1Q frame.</li>
+						<li><strong>Priority</strong> (3 bits) - Used to support 7-priorities QoS (802.1p).</li>
+						<li><strong>CFI</strong> (1 bit) - Enables Token Ring encapsulation.</li>
+						<li><strong>VID</strong> (12 bit) - The actual "tag", indentifies up to 4096 VLANs.</li>
+					</ul>
+					<p><strong>Maximum length</strong> for a 802.1Q frame is <strong>increased to 1522 bytes</strong> (4 bytes more than standard 802.3 Ethernet).</p>
+				</section>
+
+				<section>
+					<h2>Special-Function VLANs</h2>
+					<ul>
+						<li><strong>Data VLAN</strong> - The typical VLAN: manually configured by admins to divide one physical LAN into multiple ones, and transport traffic generated by final users.</li>
+						<li><strong>Default VLAN</strong> - The VLAN that every port belongs to when a switch is in its default configuration. On a Cisco Switch, the default VLAN has VID 1, it's called <em>default</em> and it's just like every other VLAN except it cannot be deleted or renamed.</li>
+						<li><strong>Management VLAN</strong> - The VLAN(s) that is/are used to access  a switch remotely for administration. A Management VLAN must have an address configuration provided to its associated SVI. It is strongly adviced to move the Management VLAN away from the default VLAN 1 on a Cisco Switch.</li>
+						<li><strong>Voice VLAN</strong> - One or more VLAN(s) reserved to IP telephony and VoIP.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Native VLAN</h2>
+					<p>Every VLAN on a trunk link has its frames <em>tagged</em>. There is one possible exception, a single VLAN allowed to have its frames <em>untagged</em>. This VLAN is called the <strong><em>Native VLAN</em></strong> of that <u>trunk</u> port.</p>
+					<p>There can be <u>only one</u> Native VLAN: if 2 VLANs were allowed to have untagged frame, how could the trunk distinguish the two?</p>
+					<p>Every trunk port has a parameter called <strong><em>Default Port VLAN ID (PVID)</em></strong>, which has the value of the Native VLAN ID assigned to it.</p>
+					<p><em>Tagged</em> frames with the Native VLAN ID are <u>rejected</u> on Cisco switches. All untagged traffic is forwarded to the Native VLAN.</p>
+					<p>It is mostly used for <strong>backward compatibility</strong> with non-VLAN compatible devices, but using them it's not recommended.</p>
+					<p>Best Practice: configure an unused VLAN as Native VLAN for all trunk ports.</p>
+				</section>
+
+				<section>
+					<h2>Voice VLAN</h2>
+					<p>It's best practice to <strong>reserve VLAN(s) for voice services</strong> with transmission priority over other VLAN(s).</p>
+					<p>It's very important to have <strong>less than 100ms</strong> end-to-end delay.</p>
+					<p><strong>Cisco IP Phones have integrated switched</strong> that are configured to send <em>tagged</em> Voice and Data VLAN traffic.</p>
+					<img src="http://i.imgur.com/1SKSmBG.jpg">
+					<small>The host is connected to the phone and send normal <em>untagged</em> frame. It's up to the phone to tag Data and Voice appropriately. The switch <em>access</em> port has to be configured with a Voice VLAN.</small>
+				</section>
+
+				<section>
+					<h2>VLANs on Cisco Switches</h2>
+					<ul>
+						<li><strong>Normal Range</strong> (VID 1-1005)</li>
+						<ul>
+							<li>VID 1, 1002-1005 cannot be removed.</li>
+							<li>VID 1002-1005 reserved for Token Ring and FDDI.</li>
+							<li>Configuration stored on flash memory root, in a file called <strong>vlan.dat</strong>.</li>
+							<li>Can be automatically learned and configured through the <em>VLAN Trunking Protocol</em>.</li>
+						</ul>
+						<li><strong>Extended Range</strong> (VID 1006-4094)</li>
+						<ul>
+							<li>Configuration doesn't use vlan.dat file, stores by default in the running configuration file.</li>
+							<li>VTP can't be enabled to learn VLAN in this range.</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>VLAN Configuration</h2>
+						<h3>VLAN creation</h3>
+						<pre><code class="no-highlight">Switch(config)# vlan [vlan_id | vlan_id,vlan_id,... | vlan_id - vlan_id]
+Switch(config-vlan)# name [vlan_name]</code></pre>
+						<h3>Assigning Ports</h3>
+						<pre><code class="no-highlight">Switch(config)# interface [interface_id]
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan [vlan_id]</code></pre>
+						<p>If the VLAN wasn't previously created, it will be now.</p>
+						<h3>Return to Default VLAN Membership</h3>
+						<pre><code class="no-highlight">Switch(config-if)# no switchport access vlan</code></pre>
+						<p>To change the membership of an access port, simply re-assign the port, <strong>it's not necessary to delete current membership first</strong>.</p>
+					</section>
+					<section>
+						<h2>VLAN Configuration</h2>
+						<h3>VLAN Deletion</h3>
+						<pre><code class="no-highlight">Switch(config)# no vlan [vlan_id]</code></pre>
+						<p>After deleting a VLAN, <strong>ports won't be able to communicate until they are reassigned</strong> to an active VLAN.</p>
+						<p>All the configured VLANs can be <strong>deleted at once</strong> by deleting the vlan.dat file:</p>
+						<pre><code class="no-highlight">Switch# delete flash:vlan.dat</code></pre>
+					</section>
+					<section>
+						<h2>VLAN Configuration</h2>
+						<h3>Veryfing: show vlan</h3>
+						<pre><code class="no-highlight">S2>enable
+S2#show vlan brief
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                Fa0/5, Fa0/7, Fa0/8, Fa0/9
+                                                Fa0/10, Fa0/12, Fa0/13, Fa0/14
+                                                Fa0/15, Fa0/16, Fa0/17, Fa0/19
+                                                Fa0/20, Fa0/21, Fa0/22, Fa0/23
+                                                Fa0/24, Gig0/1, Gig0/2
+10   Faculty/Staff                    active    
+20   Students                         active    Fa0/18
+30   Guest                            active    Fa0/6, Fa0/11
+99   Management+Native                active    
+1002 fddi-default                     active    
+1003 token-ring-default               active    
+1004 fddinet-default                  active    
+1005 trnet-default                    active    
+S2#show vlan id 20
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+20   Students                         active    Fa0/18
+
+VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
+---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
+20   enet  100020     1500  -      -      -        -    -        0      0
+
+S2#show vlan name Guest
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+30   Guest(Default)                   active    Fa0/6, Fa0/11
+
+VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
+---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
+30   enet  100030     1500  -      -      -        -    -        0      0
+
+S2#show vlan summary
+Number of existing VLANs                 : 9
+Number of existing VTP VLANs             : 9
+Number of existing extended VLANs        : 0
+</code></pre>
+					</section>
+					<section>
+						<h2>VLAN Configuration</h2>
+						<h3>Veryfing: show interfaces</h3>
+						<pre><code class="no-highlight">S2>show interfaces Fa0/5 switchport
+Name: Fa0/5
+Switchport: Enabled
+Administrative Mode: static access
+Operational Mode: down
+Administrative Trunking Encapsulation: dot1q
+Operational Trunking Encapsulation: native
+Negotiation of Trunking: Off
+Access Mode VLAN: 56 (Management&Native)
+Trunking Native Mode VLAN: 56 (Management&Native)
+Voice VLAN: none
+Administrative private-vlan host-association: none
+Administrative private-vlan mapping: none
+Administrative private-vlan trunk native VLAN: none
+Administrative private-vlan trunk encapsulation: dot1q
+Administrative private-vlan trunk normal VLANs: none
+Administrative private-vlan trunk private VLANs: none
+Operational private-vlan: none
+Trunking VLANs Enabled: ALL
+Pruning VLANs Enabled: 2-1001
+Capture Mode Disabled
+Capture VLANs Allowed: ALL
+Protected: false
+Appliance trust: none</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>VLAN Trunking Configuration</h2>
+					<h3>Trunk Creation</h3>
+					<p>Execute these commands on <strong>both ends</strong> of the trunk link.</p>
+					<pre><code class="no-highlight">S1(config)# interface [interface_id]
+S1(config-if)# switchport mode trunk
+S1(config-if)# switchport trunk native vlan [vlan_id]
+S1(config-if)# switchport trunk allowed vlan [vlan_list]</code></pre>
+					<p>There are other ways to configure trunk links, but we will only cover <code>switchport mode trunk</code> configurations.</p>
+					<h3>Reset to Default State</h3>
+					<pre><code class="no-highlight">S1(config)# interface [interface_id]
+S1(config-if)# no switchport trunk native vlan
+S1(config-if)# no switchport trunk allowed vlan
+S1(config-if)# switcport mode access</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>DTP - Dynamic Trunking Protocol</h2>
+						<p>DTP is a <strong>Cisco proprietary protocol</strong> that is able to automatically manage point-to-point trunk links.</p>
+						<p>A port can be put into different <strong>trunk and non-trunk modes</strong>. Some of these modes supports <strong>DTP autonegotiation</strong> of trunk status, by <strong></strong>sending and receiving DTP frames <strong>with the neighbour</strong>.</p>
+						<p>Non-Cisco devices don't support DTP, or even forward it correctly. In these cases it is recommended to disable DTP.</p>
+						<p>To enable trunking with a device that doesn't support DTP:</p>
+						<pre><code class="no-highlight">S1(config-if)# switchport mode trunk
+S1(config-if)# switchport nonegotiate</code></pre>
+					</section>
+					<section>
+						<h2>Interface Modes and DTP Negotiation</h2>
+						<ul>
+							<li><strong>switchport mode access</strong> - Turn a port into an access port and permanent nontrunking mode.</li>
+							<li><strong>switchport mode dynamic auto</strong> (default) -  Turn the interface into a trunk if needed (neighbour set to trunk or desirable).</li>
+							<li><strong>switchport mode dynamic desirable</strong> (default on older switches) - The interface sets itself as a trunk if the neighbour is set to trunk, desirable or auto mode.</li>
+							<li><strong>switchport mode trunk</strong> - Permanent trunking mode, only negotiates a trunk link.</li>
+							<li><strong>switchport nonegotiate</strong> - The interface won't send DTP frames, so no autonegotiation will happen. Only available in access or trunk mode.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Interface Modes and DTP Negotiation</h2>
+						<img src="http://i.imgur.com/3Xl9zAm.png">
+						<p>The best practice is:</p>
+						<ul>
+							<li>for links intended to be trunk links, to <strong>configure statically, disable trunk autonegotiation</strong> whenever possible.</li>
+							<li>for links not intended to be trunk, <strong>disable DTP</strong> altogether.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Verifying DTP</h2>
+						<pre><code class="no-highlight">SW1#show dtp interface f0/24
+DTP information for FastEthernet0/24:
+ TOS/TAS/TNS: TRUNK/NONEGOTIATE/TRUNK
+ TOT/TAT/TNT: 802.1Q/802.1Q/802.1Q
+ Neighbor address 1: 000AB7055158
+ Neighbor address 2: 000000000000
+ Hello timer expiration (sec/state): never/STOPPED
+ Access timer expiration (sec/state): never/STOPPED
+ Negotiation timer expiration (sec/state): never/STOPPED
+ Multidrop timer expiration (sec/state): never/STOPPED
+ FSM state: S6:TRUNK
+ # times multi & trunk 0
+ Enabled: yes
+ In STP: no
+Statistics
+ ----------
+ 246 packets received (238 good)
+ 8 packets dropped
+ 8 nonegotiate, 0 bad version, 0 domain mismatches,
+ 0 bad TLVs, 0 bad TAS, 0 bad TAT, 0 bad TOT, 0 other
+ 243 packets output (243 good)
+ 240 native, 3 software encap isl, 0 isl hardware native
+ 0 output errors
+ 0 trunk timeouts
+ 1 link ups, last link up on Mon Mar 01 1993, 00:01:01
+ 0 link downs</code></pre>
+						<small>TOS/TAS/TNS = Trunk Operational/Administrative/Negotiation Status.</small>
+						<small>TOT/TAT/TNT = Trunk Operational/Administrative/Negotiation Encapsulation.</small>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Troubleshooting VLANs</h2>
+						<ul>
+							<li>An <strong>unique subnet</strong> must be assigned to each VLAN.</li>
+							<li>The most common mistake is to <strong>assign the wrong VLAN</strong> to ports.</li>
+							<li>Ports become inactive if their VLAN is deleted, so always remember to <strong>reassign the port to another VLAN</strong> or recreate the VLAN.</li>
+							<li><strong><em>VLAN Leaking</em></strong> - When ports accept traffic from VLAN they are not intended to be a part of.</li>
+							<li>VLAN Leaking occurs when a trunk link has a <strong>native VLAN mismatch</strong> and <em>untagged</em> traffic is directed to the wrong VLAN. CDP generates debug messages in such a case.</li>
+							<li>Trunk links also must have <strong>compatible trunk modes and identical sets of allowed VLANs</strong>, otherwise no traffic or unexpected traffic issues could arise.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Troubleshooting VLAN Trunks</h2>
+						<pre><code class="no-highlight">Cat3550#show interfaces trunk 
+
+Port    Mode     Encapsulation  Status     Native vlan
+Fa0/17  auto     802.1q         trunking   1
+Fa0/18  trunk    802.1q         other      1
+Fa0/19  trunk    802.1q         other      1
+
+Port       Vlans allowed on trunk
+Fa0/17     1-4094
+Fa0/18     1-4094
+Fa0/19     1-4094
+
+Port      Vlans allowed and active in management domain
+Fa0/17    1-3,10
+Fa0/18    1-3,10
+Fa0/19    None
+
+Port      Vlans in spanning tree forwarding state and not pruned  
+Fa0/17    1-3,10
+Fa0/18    1-3,10
+Fa0/19    None
+
+Cat3550#show interface Fa0/17 switchport
+Name: Fa0/17
+Switchport: Enabled
+Administrative Mode: dynamic auto
+[output omitted]
+						</code></pre>
+						<p>Use these verification commands on both ends to...</p>
+						<ul>
+							<li>first, check for VLAN mismatches over the trunk link.</li>
+							<li>then, check for trunk modes mismatches.</li>
+							<li>lastly, check the VLAN allowed on the trunk.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>VLAN Security: Switch Spoofing</h2>
+						<p>The attacker that is able to physically access a switch can <strong>take advantage of the switchport default mode</strong>: dynamic auto.</p>
+						<p>After connecting to a dynamic auto port, the attacker emulates 802.1Q and DTP frames, <strong>forcing the link into a trunk link</strong>.</p>
+						<p>If the attacker succeeds, it can then <strong>access all the allowed VLANs</strong> on that port.</p>
+						<p>To avoid Switch Spoofing, you must <strong>disable trunking</strong> on all ports and then statically <strong>configure trunks only where required with DTP disabled</strong>.</p>
+					</section>
+					<section>
+						<h2>VLAN Security: Double Tagging</h2>
+						<img src="http://i.imgur.com/WS7F7v8.png">
+						<img src="http://i.imgur.com/SrQGaDI.gif">
+					</section>
+					<section>
+						<h2>VLAN Security: Double Tagging</h2>
+						<img src="http://i.imgur.com/WS7F7v8.png">
+						<img src="http://i.imgur.com/PswYzx3.gif">
+					</section>
+					<section>
+						<h2>VLAN Security: PVLAN Edge</h2>
+						<p>It's possible to elect specific port as <strong><em>protected</em></strong>: those ports <strong>don't allow any L2 traffic</strong> (unicast, broadcast, multicast) between them. This feature is called <em>Private VLAN Edge</em>.</p>
+						<p>Traffic <strong>between unprotected and protected</strong> port is treated in the usual way.</p>
+						<p>To configure a port as protected:</p>
+						<pre><code class="no-highlight">Switch(config-if)# switchport protected</code></pre>
+						<p>To restore a port as unprotected:</p>
+						<pre><code class="no-highlight">Switch(config-if)# no switchport protected</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
