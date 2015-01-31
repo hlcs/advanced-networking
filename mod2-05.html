@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 2 Chapter 5 - Inter-VLAN Routing</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Routing and Switching Essentials</h2>
+					<h3>Chapter 5: Inter-VLAN Routing</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Routing Between VLANs</h2>
+					<p>Members of different VLANs are <strong>not able to communicate with each other</strong> at the ISO/OSI Layer 2, using MAC addresses for instance.</p>
+					<p>They can still <strong>reach each other with a routing process</strong> performed by a Layer 3 device, such as a multi-layer switch or a router.</p>
+					<p>Performing traffic forwarding between otherwise separated VLANs is called <strong>inter-VLAN Routing</strong>.</p>
+				</section>
+
+				<section>
+					<h2>How to Route Between VLANs</h2>
+					<ul>
+						<li><strong>Legacy</strong> - the different VLANs to route would be connected to different physical router interfaces.</li>
+						<li><strong>Router-on-a-Stick</strong> - All the VLANs to be routed are connected to the router through a single interface, configured as a trunk link.</li>
+						<li><strong>Multi-Layer Switching</strong> - A separate router is replaced by a L3-capable switch, called multi-layer switch, that performs the basic routing function required.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Legacy Inter-VLAN Routing</h2>
+						<img src="http://i.imgur.com/99mPWPl.png">
+					</section>
+					<section>
+						<h2>Legacy Inter-VLAN Routing</h2>
+						<p>Each VLAN that must be routed is <strong>connected to a single, different, physical router interface</strong> that becomes a member of that VLAN.</p>
+						<p>In this configuration the switch(es) adjacent to the router have the ports connected to the router interfaces configured in <strong>access</strong> mode.</p>
+						<p>The members of each VLAN can then set the <strong>relevant router physical interface as their gateway</strong> to remote networks (and thus, the other VLANs).</p>
+						<p>This method <strong>isn’t used anymore</strong>. Routers have very few interfaces and thus are unable to support scenarios with more than a few VLANs.</p>
+					</section>
+					<section>
+						<h2>Legacy Inter-VLAN Routing</h2>
+						<h3>Switch Configuration</h3>
+						<pre><code class="no-highlight">S1(config)# vlan  [id_1]
+S1(config-vlan)# vlan [id_2]
+## Configuring port of first VLAN connected to router
+S1(config-vlan)# interface [id]
+S1(config-if)# switchport access vlan [id_1]
+## Configuring port of second VLAN connected to router
+S1(config-if)# interface [id]
+S1(config-if)# switchport access vlan [id_2]
+## Configuring other access ports for first VLAN
+S1(config-if)# interface [id]
+S1(config-if)# switchport access vlan [id_1]
+## Configuring other access ports for second VLAN
+S1(config-if)# interface [id]
+S1(config-if)# switchport access vlan [id_2]
+# saving
+S1(config-if)# end
+S1# copy running startup</code></pre>
+					</section>
+					<section>
+						<h2>Legacy Inter-VLAN Routing</h2>
+						<h3>Router Configuration</h3>
+						<pre><code class="no-highlight">## Configuring physical interfaces attached to first VLAN
+R1(config)# interface [id]
+R1(config-if)# ip address [ip_vlan_id1] [subnet_vlan_id1]
+R1(config-if)# no shutdown
+## Configuring physical interfaces attached to first VLAN
+R1(config-if)# interface [id]
+R1(config-if)# ip address [ip_vlan_id2] [subnet_vlan_id2]
+R1(config-if)# no shutdown
+## Saving
+R1(config-if)# end
+R1# copy running startup</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Router-on-a-Stick</h2>
+						<img src="http://i.imgur.com/bcOWj5k.png">
+						<p>We can let the router perform the routing between several VLANs even if traffic comes in and <strong>out of a single physical interface</strong>: this is called the <strong><em>router-on-a-stick</em></strong> configuration.</p>
+					</section>
+					<section>
+						<h2>Router-on-a-Stick</h2>
+						<p>The physical <strong>router interface is configured for a trunk link</strong>, and so is the switch port at the other end of the trunk link, which is configured for allowing all the VLANs to be routed.</p>
+						<p>The router interface will have <strong>subinterfaces</strong>, which are virtual, software-defined interfaces that are logically independent but <strong>tied to the same physical interface</strong> for their traffic.</p>
+						<p>Each VLAN allowed on the trunk will have <strong>its own subinterface</strong> (configured with the VLAN addressing) assigned to it.</p>
+						<p>Thanks to the tag, each subinterface will only see traffic of the VLAN they are assigned to, and route it accordingly.</p>
+						<p>Routing-on-a-Stick support <strong>much more VLANs than legacy</strong> inter-vlan routing, but the single link quickly becomes a <strong>bottleneck</strong>.</p>
+					</section>
+					<section>
+						<h2>Router-on-a-Stick</h2>
+						<h3>Switch Configuration</h3>
+						<pre><code class="no-highlight">S1(config)# vlan [id_1]
+S1(config-vlan)# vlan [id_2]
+## Configure the switch trunk port
+S1(config-vlan)# interface [id]
+S1(config-if)# switchport mode trunk</code></pre>
+						<p><strong>dynamic auto/desirable can’t be used</strong> because Dynamic Trunk Protocol isn’t available on routers.</p>
+					</section>
+					<section>
+						<h2>Router-on-a-Stick</h2>
+						<h3>Router Configuration</h3>
+						<ul>
+							<li><code>interface [id.sub_id]</code> - used to create subinterfaces. sub_id doesn’t have to match the VID, but it’s very convenient.</li>
+							<li><code>encapsulation dot1q [vlan_id]</code> - used to assign a router subinterface to a specific VLAN.</li>
+							<li><strong>Subinterfaces don’t need to be enabled</strong> with <code>no shutdown</code>, they're <u>all</u> automatically up when their parent interface is.</li>
+						</ul>
+						<pre><code class="no-highlight">R1(config)# interface g0/0.5
+R1(config-subif)# encapsulation dot1q 5
+## IP Addressing for first subinterface
+R1(config-subif)# ip address [ip_vlan5] [subnet_vlan5]
+## second subinterface
+R1(config-subif)# interface g0.0/6
+R1(config-subif)# encapsulation dot1q 6
+R1(config-subif)# ip address [ip_vlan6] [subnet_vlan6]
+R1(config-subif)# exit
+## activate physical interface and all its subinterfaces
+R1(config)# interface g0/0
+R1(config-if)# no shutdown</code></pre>
+					</section>
+					<section>
+						<h2>Mixed Legacy/On-a-Stick Configuration</h2>
+						<img src="http://i.imgur.com/lCFdCDu.png">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Multi-Layer Switching</h2>
+						<img src="http://i.imgur.com/kzZbsMY.png">
+					</section>
+					<section>
+						<h2>Multi-Layer Switching</h2>
+						<p><em>Multi-Layer Switches</em> (MLS) are <strong>switches capable of making forwarding decision at Layer 3</strong>. It is possible to use them for basic routing, both static and dynamic, and inter-vlan routing.</p>
+						<p><strong>Routers have limited</strong> number of ports and forwarding rate.</p>
+						<p><strong>MLSes perform both switching and <u>routing functions in hardware</u></strong> and so are much faster than routers (millions of packet-per-second vs 100k-1M pps on routers).</p>
+						<p>With MLS, there’s <strong>no need for external connections to a router</strong>, because the <strong>traffic is routed internally to the switch</strong>, resulting in improved latencies.</p>
+						<p>Also, MLS supports link aggregation between switches, improving bandwidth.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Multi-Layer Switches vs. Routers</h2>
+					<p>If MLS have all these advantages, <u>why do we even need routers</u>?</p>
+					<p>Being software-based, <strong><u>routers have much more features at a fraction of the cost</u></strong>. MLS are much more expensive.</p>
+					<p>For instance: while it's trivial for routers to have WAN connectivity and performing NAT over it, MLSes typically don't have them and require expensive hardware modules for doing NAT in hardware.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>MLS Interfaces: SVIs</h2>
+						<p><strong>MLS have two kinds of interfaces</strong>. The first kind is <em>Switch Virtual Interfaces</em> (SVIs).</p>
+						<p>An SVI is the <strong>virtual interface of the switch that is associated to a particular VLAN</strong> (but not a specific port) for routing and bridging purposes.</p>
+						<p>It is <strong>automatically created when a VLAN is created</strong>, using the same VID.</p>
+						<p>SVIs can be used to <strong>provide a gateway</strong> for the VLAN and/or <strong>remote management</strong> of the switches.</p>
+					</section>
+					<section>
+						<h2>MLS Interfaces: Routed Ports</h2>
+						<p>Routed ports are <strong>physical ports of the switch that behave like router physical interfaces</strong>, and are <strong>not associated to a particular VLAN</strong>.</p>
+						<p>To configure a port as Routed on a Cisco MLS, the command <code>no switchport</code> is used.</p>
+						<p>There is <strong>no Layer 2 functionality</strong>, so L2 protocols like the Spanning Tree Protocols can’t be enabled on routed ports.</p>
+						<p>The main difference with classic router interfaces is that <strong>routed ports on a switch can’t have subinterfaces</strong>.</p>
+						<p>Routed ports are <strong>mainly used for PtP links to L3 intermediary devices</strong> such MLS, firewalls, routers.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Cisco Multi-Layer Switches</h2>
+					<p><u>Cisco 2960 only supports static routing</u>, up to 16 static routes, not counting directly connected and default routes.</p>
+					<p>To <strong>enable static routing</strong>, execute the <code>sdm prefer lanbase-routing</code> global configuration command and <code>reload</code>.</p>
+					<p>Cisco Catalyst 3560 switches supports more extended routing.</p>
+					<p>Generally, specific versions of Cisco IOS are available for purchase to <strong>obtain additional routing functionality</strong>.</p>
+					<p>Different switch families have <strong>different defaults about whether a port is Routed or a L2</strong> interface/switchport.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Configuring a Multi-Layer Switch</h2>
+						<p>Cisco MLS have a <strong>Cisco Switch Database Manager</strong> (<strong>SDM</strong>) that allows to manage <strong><em>templates</em></strong> of switch settings.</p>
+						<p>Templates are <strong>pre-defined settings that optimizes the switch hardware towards certain functions</strong>. For example, an administrator might want to privilege L2 functionality over L3, or viceversa.</p>
+						<p>To show the default template <em>bias</em>:</p>
+						<pre><code class="no-highlight">Switch# show sdm prefer
+ The current template is "default" template.
+ The selected template optimizes the resources in
+  the switch to support this level of features for
+  0 routed interfaces and 255 VLANs.
+
+number of unicast mac addresses:                  8K
+number of IPv4 IGMP groups + multicast routes:    0.25K
+number of IPv4/MAC qos aces:                      0.125K
+number of IPv4/MAC security aces:                 0.375K</code></pre>
+					</section>
+					<section>
+						<h2>Configuring a Multi-Layer Switch</h2>
+						<p>To show the <strong>available templates</strong>, use:</p>
+						<pre><code class="no-highlight">Switch(configure)# sdm prefer ?
+default               Default bias
+dual-ipv4-and-ipv6    Support both IPv4 and IPv6
+lanbase-routing       Support both IPv4 and IPv6 static routing
+qos                   QoS bias</code></pre>
+					</section>
+					<section>
+						<h2>Configuring a Multi-Layer Switch</h2>
+						<p>To change the template to <code>lanbase-routing</code>, which supports up to 750 static routes:</p>
+						<pre><code class="no-highlight">Switch(config)# sdm prefer lanbase-routing
+Changes to the running SDM preferences have been stored, 
+but cannot take effect until the next reload.
+Use ‘show sdm prefer’ to see what SDM preference is currently active.
+Switch(config)# exit
+Switch# do reload
+
+System configuration has been modified. Save? [yes/no]: y
+
+Proceed with reload? [confirm]
+
+[...]
+
+Switch# show sdm prefer
+ The current template is "lanbase-routing" template.
+ The selected template optimizes the resources in
+ the switch to support this level of features for
+ 8 routed interfaces and 1024 VLANs.
+
+number of unicast mac addresses:                  4K
+number of IPv4 IGMP groups + multicast routes:    0.25K
+ number of IPv4 unicast routes:                   0.75K
+  number of directly-connected IPv4 hosts:        0.75K
+  number of indirect IPv4 routes:                 16
+number of IPv4 policy based routing aces:         0
+number of IPv4/MAC qos aces:                      0.125K
+number of IPv4/MAC security aces:                 0.375K</code></pre>
+						<p><code>ip routing</code> and <code>ipv6 unicast-routing</code> User EXEC commands are <strong>needed to enable routing functions</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Troubleshooting Inter-VLAN Routing</h2>
+						<p>Whether inter-VLAN routing is implemented through legacy, router-on-a-stick or MLS configurations, <strong>troubleshooting almost always involves correction of these common mistakes</strong>:</p>
+						<p><strong>Topology</strong>:</p>
+						<ul>
+							<li>Familiarize yourself with the logical topology of the network.</li>
+							<li>Check the implementation and the connections.</li>
+						</ul>
+						<p><strong>VLANs and Ports</strong>:</p>
+						<ul>
+							<li>VLANs to be routed must be present on all switches.</li>
+							<li>Access and Trunk switchport mode must be set accordingly.</li>
+							<li>Ports must be added to the correct VLAN.</li>
+							<li>On routers, don’t be fooled by VLAN IDs being different than subinterfaces IDs!</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Troubleshooting Inter-VLAN Routing</h2>
+						<p><strong>SVIs</strong>:</p>
+						<ul>
+							<li>IP address and subnet mask  coherent to the addressing scheme.</li>
+							<li>[...] <em>line is up, line protocol is up</em>.</li>
+						</ul>
+						<p><strong>Routing</strong>:</p>
+						<ul>
+							<li>Routing must be enabled.</li>
+							<li>If using a dynamic routing protocol, the correct interfaces must be added to the configuration.</li>
+						</ul>
+						<p><strong>Hosts</strong>:</p>
+						<ul>
+							<li>IP address and subnet mask  coherent to the addressing scheme.</li>
+							<li>Default GW pointing to their associated SVI or routed port.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
