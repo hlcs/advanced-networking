@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 2 Chapter 7 - Routing Dinamically</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Routing and Switching Essentials</h2>
+					<h3>Chapter 7: Routing Dinamically</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>[R] Dynamic Routing Protocols</h2>
+					<p>To share with others routers informations about reachability status of remote networks routers use dynamic routing protocols.</p>
+					<p>The discovery of new networks is performed by the routing protocols through <strong>specific messages that other routers running the same protocol can understand</strong>.</p>
+					<p>Routing protocols reacts to <strong>topology changes</strong>.</p>
+					<p>The new or updated paths to remote networks are written in the routing table.</p>
+					<p>When <strong>every router has acquired the updated routing informations</strong> through the routing protocol, it is said that they have <em>converged</em>.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>[R] Static vs Dynamic Routing</h2>
+						<p>The <u>advantages</u> of one are the shortcomings of the other.</p>
+						<ul>
+							<li><strong>Configuration</strong> - The bigger the network, the more time is spent on inital deployment of static routing. <u>Dynamic routing implementation time doesn’t grow with network size</u>.</li>
+							<li><strong>Maintainance</strong> - Every change in a static routing configuration requires manual intervention, keeping track of the topology, and it’s very easy to make mistakes. <u>Dynamic routing automatically adapts to changes in topology</u>.</li>
+							<li><strong>Convergence</strong> - Static routing actually have the worst convergence time, because nothing is automated. <u>Dynamic routing is faster to converge</u>.</li>
+							<li><strong>Scaling</strong> - Static routing is just too complex to deploy and maintain in anything other than small networks and specific situations. <u>Dynamic routing can be used at larger scales</u>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>[R] Static vs Dynamic Routing</h2>
+						<ul>
+							<li><strong>Security</strong> - <u>With static routes traffic can be routed on a path known to be secure</u>. Dynamic routing protocols could be hacked to divert traffic for interception and tampering.</li>
+							<li><strong>Resource usage</strong> - <u>Static routing use no resources on topology changes</u>: none for recomputing the route, and none of the bandwidth dynamic routing needs to transmit the new topology informations.</li>
+							<li><strong>Predictability</strong> - <u>Static routes have no dependency on external factors</u>, while dynamic routes are never a given especially in fluctuating topologies.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Routing Protocol Components</h2>
+					<ul>
+						<li><strong>Data Structures</strong> - Each routing protocol uses its own peculiar tables and databases to perform its operations.</li>
+						<li><strong>Messages</strong> - The routing protocol defines the format of the packets it can send to its neighbour to obtain the informations needed to the dynamic routing process.</li>
+						<li><strong>Algorhithm</strong> - The routing protocol use its specific algorhitms for performing high-level tasks like computing the best path, installing routes in the routing table and detecting changes in the topology.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Routing Protocols: Basic Overview</h2>
+						<img src="http://i.imgur.com/zinXwdp.jpg">
+					</section>
+					<section>
+						<h2>Routing Protocols: Basic Overview</h2>
+						<p>Let’s say we boot a network with configured dynamic routing:</p>
+						<ul>
+							<li>After a succesful boot, <strong>the routing table is empty</strong>. The router will then learn its own directly connected networks.</li>
+							<li><strong>After directly connected networks are placed in the routing table</strong>, the routing protocol will start both <strong>sending and listening for route updates</strong> on configured interfaces. The first will be from their neighbors, so those previously unknown networks will be added to the routing table.</li>
+							<li>At this point each router will have <strong>their directly connected and neighbour’s networks in the routing table</strong>. The sending/listening process continues, but this time each router will have more routes to include/discover in their updates.</li>
+							<li>This process ends when all the routers have achieved <strong><em>convergence</em></strong>.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Convergence</h2>
+					<p><strong><em>Convergence</em></strong> is the status a network reaches when all its routers have built a complete and precise knowledge of the network: they know <u>all the reachable networks</u>, <u>how to reach them</u>, and <u>which is the best path</u> to do it.</p>
+					<p>Low convergence time is crucial because <strong>without convergence a network isn’t fully operable</strong>: traffic might be lost because lack of route to destination, or travel down an inefficient path.</p>
+					<p>Convergence time is one of the <strong>key feature</strong> of each routing protocol, and is the sum of:</p>
+					<ul>
+						<li>route updates and protocol messages propagation (collaborative)</li>
+						<li>best path calculation (independent)</li>
+						<li>routing table update (independent)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Routing Protocol Classification</h2>
+					<img src="http://i.imgur.com/sfoK3Sr.jpg">
+					<ul>
+						<li><strong>Purpose</strong>: Interior Gateway (IGP) or Exterior Gateway Protocols (EGP)</li>
+						<li><strong>Topology Distribution</strong>: Distance-Vector, Link-State, Path Vector Protocols</li>
+						<li><strong>Behaviour</strong>: Classful or Classless.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Interior vs Exterior Gateway Routing</h2>
+						<img src="http://i.imgur.com/uaqdhxG.jpg" height="60%" width="60%">
+					</section>
+					<section>
+						<h2>Interior vs Exterior Gateway Routing</h2>
+						<p>The Internet is based on the concept of <strong><em>autonomous system</em></strong> (<strong>AS</strong>), which is <strong>a network, or a collection of networks, administrated by a single entity</strong>, lile a company or an ISP.</p>
+						<p>AS then interconnect themselves in order to create the network of networks that is the Internet. This stucture means the Internet needs two very different classes of routing protocols:</p>
+						<ul>
+							<li><strong>Interior Gateway Protocols (IGP)</strong>, are the routing protocols that can be used <strong>for routing <em>inside</em> a single AS</strong> (<em>intra-AS routing</em>). A single AS is also called a routing domain.</li>
+							<li><strong>Exterior Gateway Protocols (EGP)</strong> are routing protocols used <strong>for <em>inter-AS routing</em></strong>, that is for routing between different AS.</li>
+						</ul>
+						<p>EGP was also the name of an actual protocol, but now there's only one EGP: the <strong>Border Gateway Protocol, BGP</strong>, which is basically the routing protocol that allows the Internet to work.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Classful and Classless Routing</h2>
+					<p>Based on wheter or not they include the subnet mask when they advertise a route, routing protocols can be defined as:</p>
+					<ul>
+						<li><strong>Classful</strong> - The <strong>subnet mask is not included</strong> in the route update and is instead inferred from the classfull network address of the network’s class.</li>
+						<ul>
+							<li>No support for VLSM/CIDR, which rely on the mask!</li>
+							<li>They create <strong>issues in <em>discontiguos</em> networks</strong>, that is networks in which subnets from the same class are separated by subnets of a different class.</li>
+							<li>RIPv1 and IGRP are legacy classful protocols.</li>
+						</ul>
+						<li><strong>Classless</strong> - Route advertisements <strong>include the subnet mask</strong>.</li>
+						<ul>
+							<li>VLSM and CIDR support.</li>
+							<li>IPv6-enabled routing protocols are inherently classless.</li>
+							<li>IS-IS, OSPF are classless, as well as RIPv2 and EIGRP.</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Routing Metrics</h2>
+						<p>Routing protocols calculate the <strong><em>metric</em></strong> (<strong>cost</strong>) for each route, which is a number that translates <strong>one or more criteria</strong> into the "distance" of the destination network along that path.</p>
+						<p>If the routing protocol use a combination of criteria we talk about a <em>composite metric</em>.</p>
+						<p><u>The best path is identified by the lowest metric</u>.</p>
+						<p><strong>Each routing protocol uses different criteria</strong> for the metric. Metrics calculated by different protocols are not directly comparable.</p>
+					</section>
+					<section>
+						<h2>Routing Metrics</h2>
+						<p>Metrics used in IP routing protocols include:</p>
+						<ul>
+							<li><strong>Hop count</strong> - Number of routers a packet must traverse.</li>
+							<li><strong>Bandwidth/Throuhput</strong> - On a specific link, or cumulative along the whole path.</li>
+							<li><strong>Load</strong> - Traffic utilization of a specific link.</li>
+							<li><strong>Latency</strong> - Time a packet takes to traverse a path.</li>
+							<li><strong>Reliability</strong> -- Probability of a link not going down, calculated based on previous errors (such as packet loss) and failure on that link.</li>
+							<li><strong>Cost</strong> - Determined by either the Cisco IOS application or the network administrator to indicate preference for a route. Cost can represent a metric, a combination of metrics, or a policy.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Distance Vector Routing Protocols</h2>
+						<img src="http://i.imgur.com/P1YAOfP.gif">
+						<p>In distance vector routing protocols, current <strong>topology is propagated through the sharing of two elements</strong> for each reachable destination (route):</p>
+						<ul>
+							<li><strong>Distance</strong> - How far a specific destination network is, expressed in whatever metric the routing protocol is using.</li>
+							<li><strong>Direction</strong> - Where to forward the packet in order to reach that specific destination network.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Distance Vector Routing Protocols</h2>
+						<p>The two elements combined, a “distance along a direction”, form a <strong><em>vector</em></strong>.</p>
+						<p>They are <strong>shared only with adjacent routers</strong> (<em>neighbours</em>), and this <strong>cascading process builds a complete knowledge</strong> of all reachable destinations.</p>
+						<p>However, <strong>distance vector routing protocol are not aware of the complete topology</strong> of the network: other than the neighbours, each router has no idea about how other remote routers are actually connected.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Distance Vector Operations</h2>
+					<p>Distance vector routing operates very similarly to what we’ve seen in <em>basic overview</em>.</p>
+					<p>Basically distance vector routing works by <strong>sharing each router’s routing table</strong> (all or part of it) with each of the router’s peers.</p>
+					<p>Sharing happens <strong>periodically or after a topology change</strong>, and can be <strong>broadcast or multicast-based</strong>, depending on the protocol.</p>
+					<p>Distance vector routing protocols use <strong>different algorhitms</strong> for their operation: the Bellman-Ford, the Ford-Ferkuson or the Diffusing Update Algorhitm (DUAL).</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Distance Vector Routing Protocols</h2>
+						<h3>RIP - Routing Information Protocol</h3>
+						<p><strong>RIPv1 is a legacy, very simple</strong> distance vector routing protocol, specified in 1988 with <a href="https://www.ietf.org/rfc/rfc1058.txt">RFC 1058</a>. RIPv1 features are:</p>
+						<ul>
+							<li>IPv4-only</li>
+							<li>Classful (no VLSM and CIDR)</li>
+							<li>Routing updates broadcasted on 255.255.255.255</li>
+							<li>Periodic routing updates (30 seconds)</li>
+							<li>The metric is hop count. Maximum hop count of 15 hops.</li>
+							<li>Encapsulated in UDP, source and destination port is 520</li>
+							<li>Administrative Distance of 120.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Distance Vector Routing Protocols</h2>
+						<h3>RIPv2 and RIPng</h3>
+						<p>In 1993, <strong>RIPv2</strong> was released with the following additions:</p>
+						<ul>
+							<li>Classless version of RIP, VLSM and CIDR support</li>
+							<li>Routing updates are now multicast-based, 224.0.0.9</li>
+							<li>Summarization support</li>
+							<li>Authentication support between neighbours</li>
+						</ul>
+						<p>In 1997, <strong>RIPng</strong> (next-gen) was released. It’s <u>RIPv2 adapted for IPv6</u>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Distance Vector Routing Protocol</h2>
+						<h3>IGRP - Interior Gateway Routing Protocol</h3>
+						<p>IGRP was developed by Cisco in 1984.</p>
+						<p>Its main difference from RIP are:</p>
+						<ul>
+							<li>The <strong>metric in use is composite</strong>, combining bandwidth, latency, load and reliability.</li>
+							<li>Proprietary</li>
+							<li>Routing updates are periodic, 90 seconds.</li>
+							<li>Max hop count is 255, 100 by default.</li>
+							<li>Directly embedded in IP, protocol 9.</li>
+						</ul>
+						<p>In 1992 Cisco obsoleted it by releasing EIGRP with new features.</p>
+					</section>
+					<section>
+						<h2>Distance Vector Routing Protocol</h2>
+						<h3>EIGRP - Enhanced Interior Gateway Routing Protocol</h3>
+						<ul>
+							<li><strong>Bounded triggered updates</strong> - Route updates are sent (“triggered”) only on topology changes instead of periodically, and only (“bounded”) to neighbors that needs them.</li>
+							<li><strong>Reachability keepalive mechanism</strong> through Hello packets to maintain track of links to neighbour EIGRP routers.</li>
+							<li><strong>Topology table</strong> - Maintains all the learned routes, so that when a best-path route fails and is eliminated, <strong>EIGRP can independently supply backup routes</strong>.</li>
+							<li><strong>Protocol Dependent Modules (PDM)</strong> - EIGRP is the only routing protocol not tied to IPv4/6, because it is <strong>extendable to support other network layer protocols</strong>.</li>
+						</ul>
+						<p>EIGRP has been also proprietary until 2013, when <strong>Cisco released its specifications</strong> in a Informational RFC.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Configuring RIP on Cisco IOS</h2>
+						<p><strong>RIP (v1) configuration mode</strong> is enabled through:</p>
+						<pre><code class="no-highlight">Router(config)# router rip
+Router(config-router) # ?
+  auto-summary         Enter Address Family command mode
+  default-information  Control distribution of default information
+  distance             Define an administrative d*istance
+  exit                 Exit from routing protocol configuration mode
+  network              Enable routing on an IP network
+  no                   Negate a command or set its defaults
+  passive-interface    Suppress routing updates on an interface
+  redistribute         Redistribute information from another routing protocol
+  timers               Adjust routing timers
+  version              Set routing protocol version</code></pre>
+						<p>The global configuration command <code>no router rip</code> <strong>disables RIP</strong>, stopping its processes and erasing all the configurations.</p>
+						<p><code>router rip</code> command only <strong>starts the RIPv1 process</strong>, but it’s useless without specifying on <strong>which interfaces</strong> it should advertise routes, and <strong>which routes</strong> it has to advertise.</p>
+					</section>
+					<section>
+						<h2>Configuring RIP on Cisco IOS</h2>
+						<p>Interfaces can be activated and routes advertised in one step:</p>
+						<pre><code class="no-highlight">R2(config-router)# network [network_address]
+R2(config-router)# network 10.87.1.0
+R2(config-router)# network 172.17.5.0</code></pre>
+						<p>After issuing the <code>network</code> command, <strong>RIP starts communicating on the interfaces</strong> that are configured with these networks, and <strong>it sends routing updates every 30 seconds</strong> containing routes to these networks.</p>
+						<p>If you enter a classless subnet, like above, RIPv1 automatically converts it so its classful network address (the only one it supports). In the example, it is the equivalent to run</p>
+						<pre><code class="no-highlight">R2(config-router)# network 10.0.0.0
+R2(config-router)# network 172.17.0.0</code></pre>
+					</section>
+					<section>
+						<h2>Configuring RIP on Cisco IOS</h2>
+						<p><strong>RIP basic parameters</strong> like running status, timers, advertised networks, protocol version, and others can be show with</p>
+						<pre><code class="no-highlight">Router# show ip protocols
+*** IP Routing is NSF aware ***
+
+Routing Protocol is "rip"
+Outgoing update filter list for all interfaces is not set
+Incoming update filter list for all interfaces is not set
+Sending updates every 30 seconds, next due in 7 seconds
+Invalid after 180 seconds, hold down 180, flushed after 240
+Redistributing: rip
+Default version control: send version 1, receive any version
+Interface Send Recv Triggered RIP Key-chain
+GigabitEthernet0/0 1 1 2
+Serial0/0/1 1 1 2
+Automatic network summarization is in effect
+Maximum path: 4
+Routing for Networks:
+192.168.4.0
+192.168.5.0
+Routing Information Sources:
+Gateway Distance Last Update
+192.168.4.2 120 00:00:27
+Distance: (default is 120)</code></pre>
+						<p>This command is also <strong>useful for other routing protocols</strong>.</p>
+					</section>
+					<section>
+						<h2>Configuring RIP on Cisco IOS</h2>
+						<p><strong>By default</strong>, when enabling RIP on a Cisco router:</p>
+						<ul>
+							<li>It <strong>runs RIPv1</strong>, which means it sends messages belonging to the v1 of the protocols</li>
+							<li>It can listen and <strong>analyze both RIPv1 and RIPv2</strong> messages from its neighbours.</li>
+							<li>If it receives a RIPv2 message, it will <strong>ignore the RIPv2-specific fields</strong>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Configuring RIP on Cisco IOS</h2>
+						<p>To <strong>enable RIPv2 for both sending and receiving</strong> of routing updates:</p>
+						<pre><code class="no-highlight">Router(config)# router rip
+Router(config-router)# version 2
+Router(config-router)# end
+Router#
+*Feb 6 06:12:17.359: %SYS-5-CONFIG_I: Configured from console by console
+Router# show ip protocols
+
+*** IP Routing is NSF aware ***
+ 
+Routing Protocol is "rip"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Sending updates every 30 seconds, next due in 18 seconds
+  Invalid after 180 seconds, hold down 180, flushed after 240
+  Redistributing: rip
+  Default version control: send version 2, receive version 2
+    Interface             Send  Recv  Triggered RIP  Key-chain
+    GigabitEthernet0/0    2     2
+    Serial0/0/1           2     2
+  Automatic network summarization is in effect
+  Maximum path: 4
+  Routing for Networks:
+    192.168.4.0
+    192.168.5.0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    192.168.4.2          120      00:00:20
+  Distance: (default is 120)</code></pre>
+						<p>To <strong>return to RIP defaults</strong>, enter the <code>no version</code> command; to enter in a <strong>RIPv1-only mode</strong>, run <code>version 1</code>.</p>
+					</section>
+					<section>
+						<h2>Configuring RIP on Cisco IOS</h2>
+						<p><strong>RIPv2 supports autosummarization by default</strong>. To alter this behaviour, the command <code>no auto-summary</code> is available (the command has no effect on RIPv1).</p>
+						<p>The <code>show ip protocols</code> output will now show "<em>automatic network summarization is not in effect</em>" and <strong>every subnet will keep its own route</strong> in the routing table.
+</p>
+						<p>To <strong>make the default route advertisable by RIP</strong> we can’t use the <code>network</code> command, since the default route is not a network that can be configured on a interface.</p>
+						<p>Instead we use the router configuration command <code>default-information originate</code>.</p>
+					</section>
+					<section>
+						<h2>Configuring RIP on Cisco IOS</h2>
+						<p>As said before, <strong>RIP automatically send updates on all interfaces</strong> that belongs to the networks it is configured to advertise.</p>
+						<p>This is a problem because <strong>we only want updates to be sent where other RIP neighbours are</strong> present, and not for instance on a LAN that only contains final hosts, leading to wasted bandwidth, resources, and less security.</p>
+						<p>To prevent this, we can use the router configuration command (<strong>available on all routing protocols</strong>)</p>
+						<pre><code class="no-highlight">Router(config-router)# passive-interface [interface_id]</code></pre>
+						<p>This will <strong>stop routing updates</strong> to be sent over that interfaces, while <strong>still advertising that interface’s network</strong>.</p>
+					</section>
+					<section>
+						<h2>Configuring RIP on Cisco IOS</h2>
+						<p>The interface(s) will then be shown as:</p>
+						<pre><code class="no-highlight">Router# show ip protocols
+*** IP Routing is NSF aware ***
+[...]
+Routing for Networks:
+192.168.4.0
+192.168.5.0
+Passive Interface(s):
+GigabitEthernet0/0
+[...]</code></pre>
+						<p>We can also <strong>make every interface passive</strong> with the <code>passive-interface default</code> command and then <strong>selectively enable RIP</strong> communication with the <code>no passive-interface [interface_id]</code> command.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Configuring RIPng on Cisco IOS</h2>
+					<p>Configuring RIPng for IPv6 is <strong>mostly identical to RIPv1/v2</strong>, except there is no <code>network</code> command in router configuration.</p>
+					<p><strong>RIPng is enabled on a per-interface basis</strong>, issuing the interface configuration command <code>ipv6 rip [domain-name] enable</code>:</p>
+					<pre><code class="no-highlight">Router(config)# interface Fa0/0
+Router(config-if)# ipv6 rip HLCS enable
+Router(config-if)# no shutdown</code></pre>
+					<p>Also, to <strong>propagate the default route with RIPng</strong>, the following command must be issued:</p>
+					<pre><code class="no-highlight">Router(config-if)# ipv6 rip [domain-name] default-information originate</code></pre>
+				</section>
+
+				<!-- TODO: Path Vector Routing Protocols -->
+
+				<section>
+					<section>
+						<h2>Link-State Routing Protocols</h2>
+						<img src="http://i.imgur.com/HBPLSYb.jpg">
+					</section>
+					<section>
+						<h2>Link-State Routing Protocols</h2>
+						<p>Link-State routing protocols <strong>propagates topology information by sharing their <em>link states</em></strong>, that is <u>who their neighbours are</u> and the <u>metric of each of those connections</u>. The information shared is related to <u>connectivity</u>.</p>
+						<p>Link states are <strong><em>flooded</em></strong>: each router sends its link states to all of its neighbours, which store them for their own use but also immediately relay them to their own neighbours, and so on until <strong>each router in the routing domain is reached by every link-state update</strong>.</p>
+						<p>Because of this, <strong>every router</strong> participating in link-state routing has enough knowledge to <strong>reconstruct the complete topology of the network</strong>. It does so by creating a map (tree) in its memory and then <strong>it runs the SPF Algorithm</strong> (<em>Shortest Path First</em>, or <strong>Dijkstra</strong>’s) <strong>to calculate the best path</strong> to all possible destinations.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Link-State Operations</h2>
+						<img src="http://i.imgur.com/SCgqkMa.gif">
+					</section>
+					<section>
+						<h2>Link-State Operations</h2>
+						<h3>Directly connected routes</h3>
+						<p>After a succesful boot and configuration, <strong>the routing table is empty</strong>.</p>
+						<p>First thing, the router will learn its own directly connected network and add them to the table.</p>
+						<p></p>
+					</section>
+					<section>
+						<h2>Link-State Operations</h2>
+						<h3>Discovering the neighbours</h3>
+						<p>Each router uses a <em>reachability protocol</em> (also known as <em>Hello Protocol</em>) to discover which routers enabled with the same link-state protocol it is directly connected to.</p>
+						<p>This is done by <strong>exchanging Hello packets on every enabled interface</strong>.</p>
+						<p>When two routers receive Hello packets from each other, they have formed an <em>adjacency</em> that is kept alive by the <strong>continuous exchange</strong> of Hello packets and thus broken when a router stops receiving Hello packets from a neighbour.</p>
+					</section>
+					<section>
+						<h2>Link-State Operations</h2>
+						<h3>Producing LSP/LSA</h3>
+						<p>Once it has formed some adjencies, the router builds a <strong><em>link-state advertisement</em></strong> (<strong>LSA</strong>), which is a message (or <em>link-state packet</em>, LSP) containing:</p>
+						<ul>
+							<li>An <strong>ID</strong> for the router which is producing it.</li>
+							<li>A <strong>list of all its link-states</strong>, so: its neighbours and the metric of the connections to them.</li>
+							<li>A <strong><em>sequence number</em></strong>, which increases every time the router makes up a new version of the message.</li>
+							<li><strong>Aging</strong> information.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Link-State Operations</h2>
+						<h3>Flooding the LSP/LSA</h3>
+						<p>Link-state advertisment are then <em>flooded</em> throughout the network. <strong>Starting with the router which originally produces the message, every router sends a copy to all of its neighbors</strong>.</p>
+						<p>Upon <strong>receiving an LSA</strong>, a router looks up the last sequence number it has received from the source (ID) of that LSP. If it’s newer (i.e., has a higher sequence number), it is saved, and a copy is sent in turn to each of that router's neighbors.</p>
+						<p>In most link-state protocols, after convergence is reached, <strong>LSPs are not sent periodically, but only on topology changes</strong>.</p>
+					</section>
+					<section>
+						<h2>Link-State Operations</h2>
+						<h3>Building the Link-State Database</h3>
+						<img src="http://i.imgur.com/Df3LH9l.jpg">
+						<p>This flooding procedure rapidly gets <strong>a copy of the latest version of each router's LSA to every router in the routing domain</strong>.</p>
+						<p>All these last-version LSAs, the ID they respectively come from and the relative sequence numbers form the <em>link-state database</em> (LSDB).</p>
+					</section>
+					<section>
+						<h2>Link-State Operations</h2>
+						<h3>Building the SPF Tree</h3>
+						<p>Finally, with the complete set of link-state advertisements (one from each router in the domain) available, <strong>each router produces the graph for the map of the network</strong>, “drawing” in the router’s memory the complete topology.</p>
+						<p>The algorithm iterates over the collection of link-state advertisements; for each one, it makes <strong>links on the map of the network, from the router which sent that message, to all the routers which were advertised as neighbors of the sending router</strong>.</p>
+						<p>A link is included on the map <strong>only if the two ends agree</strong>; if a router reports an other router as one of its neighbours, the reverse must also be true otherwise a problem is assumed.</p>
+					</section>
+					<section>
+						<h2>Link-State Operations</h2>
+						<h3>Calculating the shortest path</h3>
+						<p>Each node independently runs an algorithm (generally some variant of Dijkstra's algorithm) over the map to determine the <strong>shortest path from itself to every other router</strong> known from the LSBD.</p>
+						<p><strong>Dijkstra bases its calculation on the cost of each link</strong> learned though the LSAs, which in turn depends on the particular metric(s) used by the specif link-state protocol.</p>
+					</section>
+					<section>
+						<h2>Link-State Operations</h2>
+						<h3>Updating the routing table</h3>
+						<p>Once the shortest paths to all possible destinations has been computed, the routing table is filled <strong>by specifying the next-hop address/interface along the shortest path, for every possible destination</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Distance Vector vs. Link-State</h2>
+					<ul>
+						<li>Link-State protocols achieve <strong>faster convergence</strong>. This is due to the <strong>combination of using flooding</strong> (no pre-processing by neighbours) to propagate topology information <strong>and the complete knowledge of network topology</strong> (routes are recomputed independently).</li>
+						<li>This two elements however leads <strong>link-state routing protocols to require more memory</strong> (to store the network graph and all the link-states) <strong>and processing power</strong> (to execute SPF algorithm) than distance vector’s.</li>
+						<li>Link-state protocols requires <strong>more bandwidth during the initial flooding</strong>, but then sends <strong>(smaller) LSAs only on topology changes</strong>. Distance vector protocols (not all of them) use periodical (bigger) updates. LSAs can <strong>waste bandwidth also on big, unstable networks</strong>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Hierarchical Areas on Link-State</h2>
+						<img src="http://i.imgur.com/EnkF7OK.png">
+						<p>One big advantage of modern link-state routing protocols is the possibility to <strong>divide the whole routing domain into multiple areas</strong>.</p>
+					</section>
+					<section>
+						<h2>Hierarchical Areas on Link-State</h2>
+						<ul>
+							<li><strong>LSAs/LSPs won’t flood outside their area</strong>, therefore <strong>both the link-states database and the SPF tree</strong> shared by routers in that area will be <strong>reduced in size</strong>, with positive effect on bandwidth and memory utilization.</li>
+							<li>When the <strong>topology changes</strong>, the effect is <strong>felt only on the area</strong> in which the change takes place. This means that the <strong>SPF algorithm will need to run on a smaller topology</strong>, recalculating best path faster.</li>
+							<li><strong>Other areas still learn about topology changes</strong>, but in a way that doesn’t require them to know another area topology.</li>
+							<li><strong>Routing issues are isolated</strong> in their area.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Link-State Routing Protocols</h2>
+					<ul>
+						<li><strong>OSPF</strong> (<strong><em>Open Shortest Path First</em></strong>) - The most popular link-state protocol, first defined in 1987.  Currently there are:</li>
+						<ul>
+							<li>OSPFv2 (<a href="https://www.ietf.org/rfc/rfc2328.txt">RFC 2368</a>) for IPv4</li>
+							<li>OSPFv3 (<a href="https://www.ietf.org/rfc/rfc2740.txt">RFC 2740</a>) for IPv6</li>
+							<li>OSPFv3 + Address Families supports both IPv4 and IPv6</li>
+						</ul>
+						<li><strong>IS-IS</strong> (<strong><em>Intermediate System to Intermediate System</em></strong>) - It was the ISO/OSI routing protocol of choice, but afterward has been integrated also in TCP/IP networks.</li>
+						<ul>
+							<li>It’s mainly used by ISP and TLC companies.</li>
+						</ul>
+						<li><strong>OLSR</strong> (<strong><em>Optimized Link-State Routing</em></strong>) - An advanced link-state routing protocol that is suited to run on <strong>wireless ad-hoc mesh networks</strong>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+					<h2>Cisco IOS Routing Table Terminology</h2>
+						<ul>
+							<li><strong>Ultimate Route</strong> - A route that contains either an next-hop address or outgoing interface; directly connected, local and dynamic routes are all ultimate routes.</li>
+							<li><strong>Level 1 Route</strong> - An ultimate route with a subnet mask less or equal than the classful subnet mask.</li>
+							<ul>
+								<li><strong>Network Route</strong> - Subnet mask equal to the classful one.</li>
+								<li><strong>Supernet Route</strong> - Subnet mask less than the classful one, due to summarization for instance.</li>
+								<li><strong>Defalt Route</strong></li>
+							</ul>
+							<li><strong>Level 1 Parent Route</strong> - A subnetted Level 1 Network Route. By definition, it can’t be an ultimate route.</li>
+							<li><strong>Level 2 Child Route</strong> - A route to a subnet of a classful network address. They are contained within a Level 1 Parent Route.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Cisco IOS Routing Table Terminology</h2>
+						<pre><code class="no-highlight">R0#show ip route | begin Gateway
+Gateway of last resort is 209.165.200.234 to network 0.0.0.0
+
+ S*   0.0.0.0 [1/0] via 209.165.200.234, Serial0/0/1
+                 is directly connected, Serial 0/0/1
+      172.16.0.0/16 is variably subnetted, 5 subnets, 3 masks
+ C          172.16.1.0/24 is directly connected, GigabitEthernet0/0
+ L          172.16.1.1/32 is directly connected, GigabitEthernet0/0
+ R          172.16.2.0/24 [120/1] via 209.165.200.226, 00:00:15, Serial0/0/0
+ R          172.16.3.0/24 [120/1] via 209.165.200.226, 00:00:15, Serial0/0/0
+ R          172.16.4.0/24 [120/1] via 209.165.200.226, 00:00:15, Serial0/0/0
+ R    192.168.0.0/16 [120/2] via 209.165.200.226, 00:00:08, Serial0/0/0
+      209.165.200.0/24 is variably subnetted, 5 subnets, 2 masks
+ C          209.165.200.224/30 is directly connected, Serial0/0/0
+ L          209.165.200.225/32 is directly connected, Serial0/0/0
+ R          209.165.200.228/30 [120/1] via 209.165.200.226, 00:00:09, Serial0/0/0
+ C          209.165.200.232/30 is directly connected, Serial0/0/1
+ L          209.165.200.233/32 is directly connected, Serial0/0/1</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>Cisco IOS Routing Table Lookup</h2>
+					<p>All these terms comes from the fact that the routing table for IPv4 on Cisco IOS retains a <strong>classful way of expressing routes</strong>.</p>
+					<p>IPv6 is inherently classless instead, so as long as Cisco <strong>routing tables for IPv6</strong> are concerned, <strong>all routes are Level 1 Ultimate Routes</strong>.</p>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
