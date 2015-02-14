@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 2 Chapter 9 - Access Control Lists</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Routing and Switching Essentials</h2>
+					<h3>Chapter 9: Access Control Lists</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>What are ACLs?</h2>
+					<p>By default, a Cisco router decides whether to forward or drop a packet based only on the content of its routing table.</p>
+					<p>There is a feature available, the <strong><em>Access Control List</em></strong> (<strong>ACL</strong>), that allows an administrator to decide whether a router should <strong>forward or drop a packet based based on informations retrieved from the packet header</strong>.</p>
+					<p>Basically, <strong>ACLs are list of rules</strong> (called <em>ACEs</em>, <em>Access Control Entries</em>) <strong>applied to an interface</strong>. If a packet <em>matches</em> a rule, the <strong>specific action associated to the rule is executed</strong>: the packet is either:</p>
+					<ul>
+						<li>forwarded (<em>permitted</em>).</li>
+						<li>dropped (<em>denied</em>).</li>
+					</ul>
+					<p>We may already know them as <strong><em>firewall</em></strong> or <strong><em>packet filters</em></strong>.</p>
+				</section>
+
+				<section>
+					<h2>Why use ACLs?</h2>
+					<ul>
+						<li>Limit the traffic allowed on a network to certain types, increasing network performances.</li>
+						<li>Limit the users allowed to access certain resources or networks on a per-host, per-subnet or per-area basis.</li>
+						<li>Allow only certain types of traffic from a specific host or subnet or area.</li>
+						<li>Classification of traffic for QoS.</li>
+						<li>Divert traffic to allow later analysis or to use specific network segments.</li>
+					</ul>
+					<p>In short, ACLs help administrators to <strong>implement the network’s policy for usage and security</strong>.</p>
+				</section>
+
+				<section>
+					<h2>[R] TCP and UDP</h2>
+					<ul>
+						<li>Data to be sent are splitted into segments and encapsulated in a <strong>transport layer</strong> (L4) protocol, such as <strong>TCP</strong> or <strong>UDP</strong>.</li>
+						<li>TCP and UDP tracks <strong>to which application the fragments belong</strong> on both end of the <em>conversation</em>.</li>
+						<li>Each conversation is uniquely identified by <strong>source IP address, source port</strong> (<em>source socket</em>), <strong>destination IP address, destination port</strong> (<em>destination socket</em>).</li>
+						<li>The main difference between TCP and UDP is that <strong>TCP establishes connections</strong> before sending any data, and then manages them.</li>
+						<li>A TCP <em>conversation</em> takes the form of <u>SYN</u>, <u>SYN-ACK</u>, <u>ACK</u>, ACK, ...., ACK, <u>FIN, ACK</u>, <u>FIN, ACK</u>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Packet Filtering with ACLs</h2>
+						<p><strong>ACLs are <u>lists of rules</u>, applied <u>to an interface</u>, in <u>a direction</u>, specifying <u>which <em>filtering</em> action</u> the router should perform to a packet that matches a rule</strong>.</p>
+						<p>Example: "<em>Block all FTP file transfers from the 10.87.20.0/24 subnet, except for the host 10.87.20.2</em>".</p>
+						<p>The list of rules:</p>
+						<ul>
+							<li>is <strong>seached in sequential order</strong> to find if a packet matches a rule or not.</li>
+							<li>is searched <strong>only until the first match is found</strong>; when it is, the specified action is executed for the packet.</li>
+							<li>always contains an <strong>(implicit or explicit) default rule at the bottom</strong>, so it is guaranteed that a packet will match at least one rule. On Cisco, <strong>the default is an implicit "<em>deny all</em>"</strong>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Packet Filtering with ACLs</h2>
+						<p><strong>The rules describe the packets that will be subject to that rule</strong>, using the following possible criteria:</p>
+						<ul>
+							<li>L3 - Source and/or destination IP address</li>
+							<li>L3 - Protocol Type (IP, TCP, UDP, ICMP)</li>
+							<li>L3 - ICMP Message Type</li>
+							<li>L4 - TCP source and/or destination port</li>
+							<li>L4 - UDP source and/or destination port</li>
+						</ul>
+						<p><strong>Packet Filtering operates at the network and transport layer</strong> of the ISO/OSI stack.</p>
+					</section>
+					<section>
+						<h2>Packet Filtering with ACLs</h2>
+						<p><strong>Multiple ACLs can be defined</strong> on a router, but:</p>
+						<ul>
+							<li>they <strong>won’t be active until applied to an interface</strong> and</li>
+							<li>they will apply <strong>only to that interface</strong>, but also</li>
+							<li>they will apply <strong>only for packets heading to a specific direction</strong>.</li>
+						</ul>
+						<p>The <strong>direction</strong> to which an ACL applies can be:</p>
+						<ul>
+							<li><strong>Inbound</strong> - Packets are compared to the ACL <strong>before the routing decision</strong>. This means inbound ACLs affect <strong>incoming packets</strong>.</li>
+							<li><strong>Outbound</strong> - Packets are compared to the ACL <strong>after the routing decision</strong>. This means outbound ACLs affect <strong>packets exiting the interface</strong>.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Inbound ACL Logic</h2>
+						<a href="http://i.imgur.com/Maq62Zx.jpg"><img src="http://i.imgur.com/Maq62Zx.jpg"></a>
+					</section>
+					<section>
+						<h2>Outbound ACL Logic</h2>
+						<a href="http://i.imgur.com/jfYgi3i.jpg"><img src="http://i.imgur.com/jfYgi3i.jpg"></a>
+					</section>
+					<section>
+						<h2>Routing + ACL Logic</h2>
+						<a href="http://i.imgur.com/xgKeiC6.jpg"><img src="http://i.imgur.com/xgKeiC6.jpg"></a>
+					</section>
+				</section>
+
+				<section>
+					<h2>Standard and Extended IPv4 ACL</h2>
+					<p>There are two types of IPv4 ACLs:</p>
+					<ul>
+						<li><strong>Standard</strong> - Only the <strong>source IP address</strong> of the packet can be examined.</li>
+						<li><strong>Extended</strong> - Support for examination of source/destination IP address, source/destination TCP/UDP port, protocol type.</li>
+					</ul>
+					<p>Both standard and extended ACLs can be identified by:</p>
+					<ul>
+						<li><strong>Number</strong> - Several ranges, depending on the protocol.</li>
+						<ul>
+							<li>1-99 and 1300-1999 reserved for Standard ACLs</li>
+							<li>100-199 and 2000-2699 reserved for Extended ACLs.</li>
+						</ul>
+						<li><strong>Name</strong> - Easier to remember and can be descriptive.</li>
+						<ul>
+							<li>Only alphanumerical characters, no spaces and punctuations.</li>
+							<li>Cannot begin with a number.</li>
+							<li>It is best to use CAPITAL LETTERS (e.g. WEB, NOFTP, etc.).</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Standard ACL Logic</h2>
+					<a href="http://i.imgur.com/xgKeiC6.jpg"><img src="http://i.imgur.com/xgKeiC6.jpg"></a>
+				</section>
+
+				<section>
+					<section>
+						<h2>[R] Wildcard Mask</h2>
+						<p>Almost always, the wildcard mask is just a complementary way to express the subnet mask.</p>
+						<ul>
+							<li>In the wildcard mask, 0s indicate that an address matches the given address and 1s indicates a no-match: <strong>the opposite of subnet masks</strong>.</li>
+							<li>255.255.255.255 - Subnet Mask = Wildcard Mask.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>[R] Wildcard Mask</h2>
+						<p>There is one difference though: unlike subnet masks, <strong>wildcard masks doesn’t necessarily have consecutive all-0s followed by consecutive all-1s</strong>.</p>
+						<ul>
+							<li>This allows to do unusual things like selecting "<em>every four other hosts</em>".</li>
+							<li>IP = 192.168.1.0 Wildcard 0.0.0.12</li>
+							<li>Matches 192.168.1.0, 192.168.1.4, 192.168.1.8, 192.168.1.12, etc.</li>
+						</ul>
+						<p>There are two keywords, <strong>host</strong> and <strong>any</strong>, that can be used as a shortcut for</p>
+						<ul>
+							<li>10.87.1.1 0.0.0.0 = host</li>
+							<li>0.0.0.0 255.255.255.255 = any</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>ACL Guidelines</h2>
+						<h3>The three P’s:</h3>
+						<ul>
+							<li>If a network is dual-stack, it will most definitely need one ACL <strong><u>per</u> protocol</strong>: one for IPv4 and one for IPv6.</li>
+							<li>If a network needs controlling both entering and outgoing traffic, it will need one ACL <strong><u>per</u> direction</strong>: one inbound ACL and one outbound ACL.</li>
+							<li>One per-protocol and one per-direction ACL are applied <strong><u>per</u> interface</strong>. For instance, on a dual-stack router with 3 interface, 6 different ACLs will be necessary.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>ACL Guidelines</h2>
+						<h3>Best Practices</h3>
+						<ul>
+							<li>Use the desidered security policy as guideline when creating ACLs.</li>
+							<li>Precisely describe what you want to achieve with the ACL you’re writing.</li>
+							<li>Use a text-editor on your PC, it will make easier to edit and re-use ACLs.</li>
+							<li>Before deploying the ACL, try it in a test network.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>ACL Placement</h2>
+						<p><strong>Generally</strong>, ACLs should be placed on routers:</p>
+						<ul>
+							<li>between your network and a network you don’t control (like the Internet). These are the <em>edge</em> or <em>border routers</em>.</li>
+							<li>between two parts of your network where you want to have tighter control of the traffic entering and exiting those two parts.</li>
+						</ul>
+						<p>The <strong><u>general rule for the CCNA certification</u></strong> is that:</p>
+						<ul>
+							<li><strong>Standard ACLs</strong> should be placed <strong>as close as possible to the destination</strong>. The closer they are to the source, the more likely they will block desired traffic.</li>
+							<li><strong>Extended ACLs</strong> should be placed <strong>as close as possible to the source</strong>. In this way, the traffic is denied as soon as possible, without unnecessarily traveling the network only to be filtered later on.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>ACL Placement</h2>
+						<p>Other best practices:</p>
+						<ul>
+							<li><strong>Inbound</strong> ACLs are the best choice when we want to filter <strong>packets coming from a single source</strong>.</li>
+							<li><strong>Outbound</strong> ACLs are the best choice when we want our rules to apply to <strong>packets coming from multiple interfaces and exiting the same interface</strong>.</li>
+						</ul>
+						<p>In reality, <strong>actual implementation depends on a compromise</strong> between these factors:</p>
+						<ul>
+							<li>Best practices.</li>
+							<li>How much control we have on the source and destination networks’ routers.</li>
+							<li>Bandwidth preservation vs Ease of Configuration needs.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>IPv4 Standard ACL Creation</h2>
+						<p><strong>A (numbered) IPv4 Standard ACL is created as soon as the first ACE is entered</strong> with the <code>access-list</code> command,</p>
+						<pre><code class="no-highlight">Router(config)# access-list acl_number { deny | permit | remark } source [ source_wildcard ][ log ]</code></pre>
+						<ul>
+							<li><strong>acl_number</strong> is the number associated to this ACL, to be chosen in the 1-99 and 1300-1999 range.</li>
+							<li><strong>deny</strong> or <strong>permit</strong> specify which action is taken if the ACE is matched.</li>
+							<li><strong>remark</strong> allows to enter a comment in the ACL so it is documented, easier to read and search.</li>
+							<li><strong>source</strong> is the host or network that is of interest for this ACE.</li>
+							<ul>
+								<li>we can use the keyword <strong>host, followed by an IP address</strong>, to indicate that this ACE will match a specific host.</li>
+								<li>we can use the keyword <strong>any</strong>, to indicate that this ACE will match every packet.</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>IPv4 Standard ACL Creation</h2>
+						<ul>
+							<li><strong>source_wildcard</strong> is the 32-bit dotted decimal wildcard to be applied to the source parameter for determining if the packet matches the ACE.</li>
+							<li><strong>log</strong> causes a debug message to be display in the console when a first packet matches the rule, and then again after 5 minutes.</li>
+						</ul>
+						<p>Example ACEs:</p>
+						<pre><code class="no-highlight">access-list 3 deny host 10.87.1.2
+access-list 3 permit 10.87.1.0 0.0.0.255
+access-list 3 deny 10.87.0.0 0.0.255.255
+access-list 3 permit any</code></pre>
+						<p>The command <code>no access-list [acl_num]</code> <strong>erases an ACL</strong>.</p>
+						<p>To <strong>display the list of ACEs in an ACL</strong>, use the EXEC commands</p>
+						<ul>
+							<li><code>show access-lists</code></li>
+							<li><code>show running-config | include access-list [acl_number]</code></li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>ACLs’ Ordering</h2>
+					<p>ACLs’ rules are processed in sequence and processing stops at first match, <strong>so the order is fundamental</strong>.</p>
+					<ul>
+						<li><strong>Invalid</strong>: host rule conflicts (<u>subset</u>) with a previous range rule.</li>
+						<pre><code class="no-highlight">Router(config)# access-list 5 deny 10.87.20.0 0.0.0.255
+Router(config)# access-list 5 permit host 10.87.20.254
+% Access rule can't be configured at higher sequence num
+as it is part of the existing rule at sequence num 10</code></pre>
+						<li><strong>Valid</strong>: host rules can always be configured before range rules.</li>
+						<pre><code class="no-highlight">Router(config)# access-list 8 permit host 10.87.20.254
+Router(config)# access-list 8 deny 10.87.20.0 0.0.0.255</code></pre>
+						<li><strong>Valid</strong>: host rules can follow range rules, if there is no conflict.</li>
+						<pre><code class="no-highlight">Router(config)# access-list 11 deny 10.87.20.0 0.0.0.255
+Router(config)# access-list 11 permit host 10.87.13.4</code></pre>
+					</ul>
+					<p><u>For Standard ACLs</u>, the order in which they are stored and processed can be different than the order ACEs were entered.</p>
+				</section>
+
+				<section>
+					<h2>Enable ACLs on Interfaces</h2>
+					<p>After creation, an ACL is not active until attached to an interface with the command:</p>
+					<pre><code class="no-highlight">Router(config-if)# ip access-group { acl_number | acl_name } { in | out }</code></pre>
+					<ul>
+						<li>ACLs can be referenced by their number or name.</li>
+						<li><strong>in</strong> and <strong>out</strong> specify if the ACL is an inbound or outbound ACL.</li>
+					</ul>
+					<p>Always remember that if the applied ACL is missing a permit rule at the bottom, <strong>all traffic not matching a specific rule will be dropped by the implicit "deny"</strong>.</p>
+					<p>To <strong>disable the filtering on a interface</strong>, remove the ACL attached to it with the command <code>no ip access-group</code>.</p>
+					<p>If needed, you can now <strong>erase the ACL</strong> entirely.</p>
+				</section>
+
+				<section>
+					<h2>Named Standard ACLs</h2>
+					<p>Named ACLs (both standard and extended) are <strong>created by first entering in Named ACL configuration mode</strong> with:</p>
+					<pre><code class="no-highlight">Router(config)# ip access-list [standard | extended] [name]
+Router(config-std-nacl)#</code></pre>
+					<p><strong>Rules are then entered in this mode</strong>, with the same commands used for numbered ACLs, but without <code>access-list</code>.</p>
+					<pre><code class="no-highlight">Router(config-std-nacl)# {permit | deny | remark}  [source] [source_wildcard]  [log]</code></pre>
+					<p>To <strong>remove a remark</strong> there’s <code>no remark [text]</code>.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Editing Standard ACLs: Numbered</h2>
+						<h3>With a text editor</h3>
+						<ul>
+							<li>Run <code>show running-config | include access-list [acl_number]</code> to display the ACL to edit.</li>
+							<li>Copy/Paste the ACEs into a text-editor</li>
+							<li>Make the needed changes</li>
+							<li><u>Strongly advised</u>: remove the ACL from the interface</li>
+							<li>Erase the ACL with <code>no access-lists [acl_number]</code></li>
+							<li>Copy/Paste the content of the text-editor</li>
+						</ul>
+						<p><strong><u>Important</u></strong>: what happens if you delete an ACL that was applied to an interface, depends on the version of Cisco IOS: it could behave as there is no ACL or deny all traffic.</p>
+					</section>
+					<section>
+						<h2>Editing Standard ACLs: Numbered</h2>
+						<h3>With the sequence number</h3>
+						<ul>
+							<li>Run <code>show access-lists [acl_number]</code> to display the sequence number associated to each ACE.</li>
+							<li>Enter in Standard ACL config mode with <code>ip access-list standard [acl_number]</code></li>
+							<li>Remove the ACE to be edited with <code>no [sequence_num]</code></li>
+							<li>Replace it or insert an ACE at a specific point in the sequence with <code>[sequence_num] [normal ACL command]</code></li>
+						</ul>
+						<pre><code class="no-highlight" style="max-height: 200px;">Router# show access-lists 8
+Standard IP access list 8
+  10 permit 10.87.20.254
+  20 deny 10.87.20.0, wildcard bits 0.0.0.255
+Router# conf t
+Router(config)# ip access-list standard 8
+Router(config-std-nacl)# no 10
+Router(config-std-nacl)# 10 permit host 10.87.20.214
+Router(config-std-nacl)# 15 permit host 10.87.20.123
+Router(config-std-nacl)# end
+Router# show access-lists 8
+Standard IP access list 8
+  10 permit 10.87.20.214
+  15 permit 10.87.20.123
+  20 deny 10.87.20.0, wildcard bits 0.0.0.255</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>ACL Verification</h2>
+					<pre><code class="no-highlight">## VERIFY WHICH ACL IS APPLIED TO AN INTERFACE
+Router# show ip interface Fa0/0
+FastEthernet0/0 is up, line protocol is up
+   Internet address is 10.87.20.1/24
+[...]
+   Outgoing access list is 11
+   Inbound access list is not set
+[...]
+
+Router# show ip interface Fa0/1
+FastEthernet0/1 is up, line protocol is up
+   Internet address is 192.168.33.1/24
+[...]
+   Outgoing access list is DMZ
+   Inbound access list is not set
+[...]
+
+## DISPLAY ACL CONTENT
+Router# show access-lists
+Standard IP access list 8
+  10 permit 10.87.20.214
+  20 deny 10.87.20.0, wildcard bits 0.0.0.255
+Standard IP access list DMZ
+  15 deny 192.168.33.28
+  10 deny 192.168.33.43
+  20 permit 192.168.33.0, wildcard bits 0.0.0.255
+
+## IT ALSO SHOWS STATISTICS ABOUT TRAFFIC
+Router# show access-lists
+Standard IP access list 8
+  10 permit 10.87.20.214 (10 match(es))
+  20 deny 10.87.20.0, wildcard bits 0.0.0.255
+Standard IP access list DMZ
+  15 deny 192.168.33.28 (2 match(es))
+  10 deny 192.168.33.43
+  20 permit 192.168.33.0, wildcard bits 0.0.0.255
+
+## WE CAN RESET THE STATS FOR EACH ACL
+Router# clear access-list counters 8
+Router# show access-lists 8
+Standard IP access list 8
+  10 permit 10.87.20.214
+  20 deny 10.87.20.0, wildcard bits 0.0.0.255</code></pre>
+				</section>
+
+				<section>
+					<h2>Securing Remote Access with ACLs</h2>
+					<p>Use the line configuration command <code>access-class [acl_number] {in | out}</code></p>
+					<ul>
+						<li><strong>in</strong> restricts SSH connections to the virtual terminal</li>
+						<li><strong>out</strong> restricts SSH connections from the Cisco device itself to another SSH-enabled host.</li>
+					</ul>
+					<pre><code class="no-highlight">Router(config)# line vty 0 15
+Router(config-line)# login local
+Router(config-line)# transport input ssh
+Router(config-line)# access-class 34 in
+Router(config-line)# exit
+Router(config)# access-list 34 permit 10.87.1.0 0.0.0.255
+Router(config)# access-list 34 deny any</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>Extended ACL Logic</h2>
+						<a href="http://i.imgur.com/siqasVV.jpg"><img src="http://i.imgur.com/siqasVV.jpg"></a>
+					</section>
+				</section>
+					<section>
+						<h2>IPv4 Extended ACL Creation</h2>
+						<ul>
+							<li><strong>Numbered</strong>:</li>
+						</ul>
+						<pre><code class="no-highlight">Router(config)# access-list acl_number { deny | permit | remark } {protocol} {source} [ source_wildcard ] [operator {operand}] [port {number/name}] {destination} [destination_wildcard] [operator {operand}] [port {number/name}] [established]</code></pre>
+						<ul>
+							<li><strong>Named</strong>:</li>
+						</ul>
+						<pre><code class="no-highlight">Router(config)# ip access-list extended {name}
+Router(config-ext-nacl)# { deny | permit | remark } {protocol} {source} [ source_wildcard ] [operator {operand}] [port {number/name}] {destination} [destination_wildcard] [operator {operand}] [port {number/name}] [established]</code></pre>
+						<p>Example of an extended (numbered) ACL:</p>
+						<pre><code class="no-highlight">access-list 145 permit tcp 10.87.5.0 0.0.0.255 any eq 445</code></pre>
+						<p>Extended ACL are <strong>applied to interfaces</strong> in the same way as Standard ACLs. <strong>Verification</strong> commands are also identical, and so is <strong>editing</strong> (with a text editor or by sequence number).</p>
+						<p>The implicit default rule at the bottom of an extended ACL is "<strong><em>ip deny any any</em></strong>".</p>
+					</section>
+					<section>
+						<h2>IPv4 Extended ACL Creation</h2>
+						<p>The added parameters are:</p>
+						<ul>
+							<li><strong>protocol</strong> identifies if <strong>tcp</strong>, <strong>udp</strong> or <strong>icmp</strong> packets are subject to the filter. If the tharget is any ip packet, use the <strong>ip</strong> keyword.</li>
+							<li><strong>destination</strong> and <strong>destination_wilcard</strong> are available to use in an extended ACL to match packet against their destination.</li>
+							<li><strong>port</strong> is used to match packets against their source and/or destination ports.</li>
+							<ul>
+								<li>We can specify ports either by their <strong>number</strong>, or by using an <strong>alias</strong> such as <em>email, www, ftp</em>, etc. Use the question mark to look at the available aliases.</li>
+								<li>By using an <strong>operator</strong> we can do comparisons between port numbers, testing "<em>less than</em>" (<strong>lt</strong> operand), "<em>is equal to</em>" (<strong>eq</strong>), "<em>greater than</em>" (<strong>gt</strong>), "<em>not equal to</em>" (<strong>neq</strong>) and "<em>is in the range</em>" (<strong>range</strong>) conditions.</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Established Connections</h2>
+					<p>A common security practice is to <strong>allow all traffic from a network but blocking all traffic from the outside</strong>. This raises the question: how can we block all incoming traffic but <strong>still receiving responses to our requests</strong>?</p>
+					<p>If we simply were to use a <strong>deny ip any [this_network]</strong> inbound ACL, we would really block every packet.</p>
+					<p>This can be done by using the <strong><em>established</em></strong> paramater. It will match incoming packets having <strong>ACK</strong> or <strong>RST</strong> flags set, which means it’s return traffic belonging to an <em>established</em> TCP conversation.</p>
+					<p>This configuration allows users from the 10.87.5.0/24 network to browse the Internet:</p>
+					<pre><code class="no-highlight">access-list 145 permit tcp 10.87.5.0 0.0.0.255 any eq www
+access-list 145 permit tcp 10.87.5.0 0.0.0.255 any eq 443
+access-list 146 permit tcp any 10.87.5.0 0.0.0.255 established</code></pre>
+				</section>
+
+				<section>
+					<h2>IPv6 ACLs</h2>
+					<p>IPv4 ACLs can be standard or extended, and both can be numbered or named. <strong>IPv6 ACL are of a single type</strong>, similar to IPv4 named extended ACLs.</p>
+					<p>Names cannot be shared between IPv4 and IPv6 ACLs.</p>
+					<p>They are basically identical to IPv4 ACLs, the differences being:</p>
+					<ul>
+						<li>IPv6 ACLs are created by entering the IPv6 ACL config mode:</li>
+						<pre><code class="no-highlight">Router(config)# ipv6 access-list [name]
+Router(config-ipv6-acl)#</code></pre>
+						<li>Enabled on interfaces using <code>ipv6 traffic-filter</code>.</li>
+						<li>Source and destination parameters make <strong>no use of wildcards</strong>, since <strong>IPv6 use prefix-lengths</strong>.</li>
+						<li>protocol includes the <strong>ipv6</strong> keyword.</li>
+						<li>Sequence number is <strong>shown at the end of each line</strong>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>IPv6 ACLs Implicit Rules</h2>
+					<p>For IPv6 ACLs, there are <strong>two new implicit rules</strong> applied if no other rule matches:</p>
+					<ul>
+						<li><code>permit icmp any any nd-na</code></li>
+						<li><code>permit icmp any any nd-ns</code></li>
+					</ul>
+					<p>These are needed because <strong>in IPv6 there is no ARP</strong> protocol and instead <em>ICMPv6 Neighbour Discovery</em> (ND) feature is used to resolve L2 addresses.</p>
+					<p>Unlike ARP, which isn’t embedded in IPv4, <strong>ICMPv6 is encapsulated in L3</strong>, IPv6 packets.</p>
+					<p>Since packet filtering works at the network layer, we have to explicitly allow for ICMPv6 <em>Neighbour Advertisement</em> (ND-NA) and <em>Neighbour Solicitation</em> (ND-NS) Traffic.</p>
+				</section>
+
+				<section>
+					<h2>IPv6 ACL Examples</h2>
+					<pre><code class="no-highlight">Router#conf t
+Router(config)#ipv6 access-list myfirewall
+Router(config-ipv6-acl)#permit 3ffe:200::/32 any
+Router(config-ipv6-acl)#permit 3ffe:100::/32 any
+Router(config-ipv6-acl)#end
+Router# show access-lists myfirewall
+IPv6 access list myfirewall
+permit ipv6 3FFE:200::/32 any sequence 10
+permit ipv6 3FFE:201::/32 any sequence 20
+Router#conf t
+Router(config)#int te 1/1
+Router(config-if)#ipv6 traffic-filter myfirewall in
+Router#conf t
+Router(config)#line vty 1
+Router(config-line)#ipv6 access-class myfirewall in</code></pre>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
