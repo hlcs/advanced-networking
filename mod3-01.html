@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 3 Chapter 1 - Introduction to Scaling Networks</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Scaling Networks</h2>
+					<h3>Chapter 1: Introduction to Scaling Networks</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Enteprise Networks</h2>
+					<p>The order and magnitude of the problems that an enteprise network faces are <strong>very different from the small, home or office networks</strong> we are used to.</p>
+					<p>Namely <strong>scalability</strong> and <strong>high availability</strong>.</p>
+					<p>An enterprise networks runs more services, users and locations.</p>
+					<p>The concept of <strong>critical services</strong>, and the needs for converged traffic and <strong>central administrative control</strong> are introduced.</p>
+				</section>
+
+				<section>
+					<h2>Five Nines</h2>
+					<p>Enterprise networks are expected to have an <strong>uptime of <em>five-nines</em></strong>, 99.999%, which translates into <a href="http://uptime.is/99.999">5 minutes of downtime per year</a>.</p>
+					<p>The difference between 2 nines and 5 nines is <u>3 days</u>!</p>
+					<p>To achieve this, hardware that complies to <strong>higher standards</strong> is required, <strong>increasing costs</strong>.</p>
+					<p>A common feature found in enterprise hardware is components <em>failover</em>.</p>
+				</section>
+
+				<section>
+					<h2>Hierarchical Networks</h2>
+					<p>Designing a network hierarchy aid in <strong>optimizing the traffic flow</strong>.</p>
+					<p><strong>Traffic starts in the <em>access layer</em></strong>, which is the layer enabling a local network. Traffic can be <strong>distributed to different local networks</strong> by going through the <em>distribution layer</em>.</p>
+					<p>If required, a third layer (<em>core</em>) is provided as the <strong>backbone, to connect distant networks at speeds similar to the local ones</strong>.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Cisco Enterprise Network Architecture</h2>
+						<img src="http://i.imgur.com/6Ajvmzo.png">
+						<p>On top of the hierarchical structure, Cisco defines an architecture for enteprise networks <strong>based on functional blocks</strong> that is called <em>Cisco Enterprise Architecture</em>.</p>
+					</section>
+					<section>
+						<h2>Enterprise Campus</h2>
+						<p>Includes the <strong>access, distribution and core layers</strong> in a <em>Campus Infrastructure Module</em>.</p>
+						<ul>
+							<li><strong>Access</strong> - L2/L3 switches providing the needed port density.</li>
+							<li><strong>Access</strong> - VLANs, trunking and redundant links to the distribution switches.</li>
+							<li><strong>Distribution</strong> - L3 devices to aggregate campus access</li>
+							<li><strong>Distribution</strong> - Routing, QoS, security</li>
+							<li><strong>Core</strong> - High-speed backbone connectivity between</li>
+							<ul>
+								<li>Distribution Modules</li>
+								<li>Server and DataCenter Farms (Network Management takes place here)</li>
+								<li>Service Module (IP Telephony, wireless controlles, unified services)</li>
+								<li>Enterprise Edge</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>Enterprise Edge</h2>
+						<p>All the modules that <strong>extends the enterprise network to the outer networks</strong>, like remote sites, partner’s Intranets, and of course the Internet. So:</p>
+						<ul>
+							<li>Internet modules</li>
+							<li>WAN modules</li>
+							<li>VPN modules</li>
+						</ul>
+						<p>It provides QoS, security, and policy enforcement.</p>
+					</section>
+					<section>
+						<h2>Service Provider Edge</h2>
+						<p>Provides the <strong>connectivity solutions that power the enterprise edge</strong>, such as</p>
+						<ul>
+							<li>Internet (perhaps <em>multi-homed</em>, which means connection to 2 or more ISPs)</li>
+							<li>PSTN (traditional telephony)</li>
+							<li>Wide Area Networking (Frame Relay, ATM, MetroEthernet...)</li>
+						</ul>
+						<p>All data entering and exiting these connectivity solution <strong>passes through a corresponding edge device in the Enterprise Edge</strong>.</p>
+						<p>It is therefore the perfect place to insepect traffic with <em>intrusion detection</em> (IDS) and <em>intrusion prevention</em> (IPS) systems.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Failure Domains</h2>
+						<img src="http://i.imgur.com/AEEKiwD.jpg" width="66%" height="66%">
+						<p>A <em>failure domain</em> is <strong>the area of a network that is impacted by a failure</strong> in a component, device, service or system.</p>
+						<p>Good network designs limit failure domains as much as possible.</p>
+					</section>
+					<section>
+						<h2>Failure Domains</h2>
+						<p>The failure domains is <strong>mostly determined by the function of the device</strong>: a failing L2 switch affects only a specific network segment, while a faulty router affects internetwork connectivy.</p>
+						<p>The <strong>reliability standard and features</strong> (redundant components, stackability, modularity, link aggregation, etc) are one of the main things separating enterprise-class devices from the consumer’s equivalent (as <strong>reflected by costs</strong>).</p>
+						<p>Providing <strong>redundancy at the core layer is highly difficult</strong> and expensive, so most designs <strong>focus on the distribution</strong> layer.</p>
+						<ul>
+							<li>L3 devices acting as <strong>gateways for a limited number of users</strong> limits the failure domain.</li>
+							<li>L3 devices are <strong>deployed in pairs</strong> (<em>switch block</em>), with redundant links to <strong>access devices splitted evenly</strong> between those.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Scalability Recommendations</h2>
+					<p>Scalability is the <strong>capability of a network to accomodate growth</strong>.</p>
+					<ul>
+						<li>Use expandable, modular, stackable devices.</li>
+						<li>Hierarchical network design.</li>
+						<li>Hierarchical addressing strategy.</li>
+						<li>Choose L3 devices as much as possible to be able to filter traffic as needed, especially broadcast.</li>
+						<li>Implement redundant links between the most critical devices.</li>
+						<li>Increase bandwidth using link aggregation technologies like EtherChannel (with significant savings compared to higher speed interfaces).</li>
+						<li>Wireless is an easy way to expand a network.</li>
+						<li>Implement a routing protocol that is scalable, like a link-state routing protocol.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Redundancy</h2>
+						<img src="http://i.imgur.com/XVKQbJJ.jpg">
+					</section>
+					<section>
+						<h2>Redundancy</h2>
+						<p>Redundancy is the <strong>deployment of duplicate equipment</strong> to avoid <em>single point of failure</em> situations. It allows for <strong><em>failover</em></strong>, which is the <strong></em>automatic switch from a faulty system to a backup one</em></strong>.</p>
+					<p>Duplicate equipment calls for <strong>redundant links between devices</strong>, which can result in L2 <em>switching loops</em> (a frame starts circulating endlessly between these multiple paths) and <em>broadcast storms</em>.</p>
+					<p>Switching loops are prevented by a protocol called <strong><em>Spanning Tree Protocol</em></strong> (STP) which is required whenever multiple paths between switches are provided.</p>
+					<p>It’s a mechanism that <strong>disables redundant paths until they are needed</strong>. In any moment a single path to an L2 endpoint is active.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Uplink and Link Aggregation</h2>
+						<p>An <em>uplink</em> is a <strong>single (outgoing) link into which traffic coming from several links converges into</strong>. Uplinks are common spots in hierarchical networks where <strong>bottlenecks can occur</strong>.</p>
+						<p>Having to collect traffic coming from a multitude of sources, <strong>uplinks must have a greater bandwidth at their disposal</strong>.</p>
+						<p>Instead of using faster links, a technology called <strong><em>link aggregation</em></strong> can be used by <strong>combining several, already existing, physical links into a single logical one</strong>.</p>
+					</section>
+					<section>
+						<h2>EtherChannel</h2>
+						<img src="http://i.imgur.com/PnZyth0.jpg">
+						<p>EtherChannel is a <strong>Cisco technology for link aggregation</strong> that combines multiple switch ports (anf their links) into a single EtherChannel interface (and link).</p>
+						<p>An EtherChannel interface operates at the combined bandwidth of all the ports involved, and <strong>can load balance traffic across the physical links</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Routing in the Enterprise Network</h2>
+					<p>Enteprise networks are comprised of many local networks dispersed in several locations, and as such require <strong>scalable routing protocols to handle end-to-end connectivity</strong>.</p>
+					<p>OSPF (link-state) and EIGRP (distance-vector) are two popular routing protocols used in Cisco’s L3 devices.</p>
+					<p>Both protocols have several settings to adapt to a range of situations. <strong>OSPF</strong>, for instance, can be <strong>used first in single-area mode, and then expanded into a multi-area configuration</strong> as the enterprise network expands.</p>
+					<p><strong>EIGRP is an advanced distance-vector protocol</strong> with it’s well supported on Cisco devices and heavily used in networks which deploy mostly Cisco equipment.</p>
+				</section>
+
+				<section>
+					<h2>Cisco Switch Platforms</h2>
+					<p>Cisco has a few switch <strong>categories for enteprise</strong> networks.</p>
+					<ul>
+						<li>Campus LAN</li>
+						<li>Cloud-Managed</li>
+						<li>Data Center</li>
+						<li>Service Provider</li>
+						<li>Virtual Networking</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Port Density</h2>
+					<p><em>Port density</em> is the <strong>number of ports that are presents on a switch</strong>. Higher density switches optimize the use of power and space.</p>
+					<p>Remember that some ports <strong>(<em>uplinks</em>) are "wasted" because they are used to connect switches to the network infrastructure</strong> and thus are not available for users.</p>
+					<p>Switches may also have <strong>SFP</strong> (<em>Small Form-factor Pluggable</em>) ports to be used for installing <strong>faster interfaces for the uplinks</strong>. Another option, popular on fixed configuration switches, is link aggregation.</p>
+					<p>Modular switches can provide even <strong>more than 1000 ports</strong>, an order of magnitude higher than fixed configuration switches.</p>
+				</section>
+
+				<section>
+					<h2>Forwarding Rate</h2>
+					<p>A fundamental feature of every switch is its <strong><em>forwarding rate</em></strong>, which is the <strong>amount of data it can process, per second</strong>.</p>
+					<p>Enterprise switches are able to <strong>switch data at full <em>wire speed</em></strong> (the maximum possible bandwidth for a link) <u>for all the ports simultaneously</u>.</p>
+					<p>Not every switch has to or could work at full wire speed, for instance because they are <strong>limited by their uplinks</strong> anyway. This is the typical situation of an access switch.</p>
+				</section>
+
+				<section>
+					<h2>Cisco Routers</h2>
+					<ul>
+						<li>Branch Routers (for local routing and WAN access).</li>
+						<li>Network Edge Routers (boundary routers designed for multi-WAN deployment).</li>
+						<li>Service Provider Routers (designed for Service providers who wants to
+differentiate their services).</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
