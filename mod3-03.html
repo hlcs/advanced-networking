@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 3 Chapter 3 - Link Aggregation</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Scaling Networks</h2>
+					<h3>Chapter 3: Link Aggregation</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>[R] Uplink and Link Aggregation</h2>
+					<p>An <em>uplink</em> is a <strong>single (outgoing) link into which traffic coming from several links converges into</strong>. Uplinks are common spots in hierarchical networks where <strong>bottlenecks can occur</strong>.</p>
+					<p>Having to collect traffic coming from a multitude of sources, <strong>uplinks must have a greater bandwidth at their disposal</strong>.</p>
+					<p>Instead of using faster links, a technology called <strong><em>link aggregation</em></strong> can be used by <strong>combining several, already existing, physical links into a single logical one</strong>.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>EtherChannel</h2>
+						<img src="http://i.imgur.com/PnZyth0.jpg">
+						<p>EtherChannel is a <strong>Cisco technology for link aggregation</strong> that <em>bundles</em> multiple switch ports (anf their links) into a single <strong>virtual</strong> EtherChannel interface (and link) called <em>port channel</em>.</p>
+					</section>
+					<section>
+						<h2>EtherChannel</h2>
+						<ul>
+							<li>A port channel operates at the <strong>combined bandwidth</strong> of all the ports involved, and can <strong>load balance</strong> traffic across the physical links using several methods.</li>
+							<li>Almost all of the <strong>configuration is done on the port channel interface</strong> instead of its members, simplifying and providing consistency.</li>
+							<li>As with all link aggregation technologies, EtherChannel use existing resources, <strong>avoiding expensive faster link interfaces</strong>.</li>
+							<li>A port channel is seen as a <strong>single logical path</strong>, therefore addition/removal of links in a bundle <strong>doesn’t count as a topology change</strong> requiring STP recalculation and/or blocking of redundant links.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>EtherChannel Operation</h2>
+						<img src="http://i.imgur.com/9D6WA35.jpg">
+						<p>port channel interfaces can bundle together <strong>up to 8 ports</strong>, but only if they are of the <strong>same type</strong> (Fast or Gigabit Ethernet). They don’t have to be contiguous, not even on the same module.</p>
+					</section>
+					<section>
+						<h2>EtherChannel Operation</h2>
+						<ul>
+							<li>On most Cisco IOS releases, <strong>up to 6 different EtherChannel links can be created</strong>, assuming the hardware platform has the capability to support them (always check).</li>
+							<li>Configuration of <strong>individual members of the EtherChannel must be compatible and consistent</strong> (speed, duplex, switchport mode, VLAN), otherwise the aggregation will not operate.</li>
+							<li>port channel members must be <strong>configured as L2 ports</strong>. Aggregation of routed ports is only supported on Cisco MLS.</li>
+							<li><strong>An EtherChannel links operates only between 2 devices</strong>. It is mainly use for switches, but there are also EtherChannel-enabled specialized hosts, e.g. servers.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Port Aggregation Protocols</h2>
+						<p>Just like <em>Dynamic Trunkin Protocol</em> makes switches automatically negotiate trunk status on links between them, two protocols can be <strong>used to automate link aggregation</strong>:</p>
+						<ul>
+							<li><strong><em>Port Aggregation Protocol</em></strong> (PAgP), proprietary by Cisco.</li>
+							<li><strong><em>Link Aggregation Protocol</em></strong> (LACP), a standard (IEEE 802.3ad/802.1AX) suitable in a multi-vendor setup.</li>
+						</ul>
+						<p>They both (<em>PAgP/LACP</em>) operate very similarly, having 3 modes:</p>
+						<ul>
+							<li>one (<em>On</em>) <strong>disable autonegotiation</strong> and always enable the aggregation;</li>
+							<li> another (<em>Desirable/Active</em>) will <strong>send protocol packets</strong> to the other side in order to obtain an agreement on the aggregation;</li>
+							<li>the third (<em>Auto/Passive</em>) will only <strong>wait for protocol packets</strong> and set the interface accordingly.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>PAgP vs LACP</h2>
+						<img src="http://i.imgur.com/JY4Voqf.png">
+						<p>Aggregation protocol modes must be <strong>compatible between sides for aggregation to occur</strong>.</p>
+						<p>If an aggregation protocol is not configured or all its modes are explicitely disabled, then <strong>aggregation won’t take place regardless of the other side</strong> setting.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>EtherChannel Configuration</h2>
+						<p>For interfaces to be a part of an EtherChannel, <strong>they must support it and have compatible settings</strong>:</p>
+						<ul>
+							<li>Same <strong>speed</strong> and <strong>duplex</strong>.</li>
+							<li>Part of the <strong>same VLAN</strong> or configured as <strong>trunk with the same native VLAN</strong>.</li>
+							<li>if trunk, <strong>same allowed VLANs</strong>.</li>
+						</ul>
+						<p>Configuration can be <strong>applied globally</strong> for every member of an EtherChannel by <strong>configuring the <em>port channel</em> interface</strong>. Setting can be <strong>overridden on any individual interface</strong>, but compatibility issue may arise.</p>
+					</section>
+					<section>
+						<h2>EtherChannel Configuration</h2>
+						<p>To configure a port channel interface, first <strong>select the interface to be collectively configured</strong> with the command:</p>
+						<pre><code class="no-highlight">Switch(config)# interface range [interfaces]</code></pre>
+						<p>and then <strong>create the <em>port channel</em> interface</strong> comprising those interfaces</p>
+						<pre><code class="no-highlight">Switch(config-if-range)# channel-group [id] mode [active | auto | desirable | on | passive]</code></pre>
+						<p>To <strong>change L2 settings of the <em>port channel</em> interface</strong>, enter the configuration mode:</p>
+						<pre><code class="no-highlight">Switch(config-if-range)# interface port-channel 1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# switchport trunk allowed vlan 1,5,30</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>EtherChannel Verification</h2>
+						<p>To show the general status of the port channel interface:</p>
+						<pre><code class="no-highlight">Switch# show interface Port-channel 1
+Port-channel 1 is up, line protocol is up (connected)
+   Hardware is EtherChannel, address is 0cd9.96e8.8a01 (bia 0cd9.96e8.8a01)
+   MTU 1500 bytes, BW 200000 Kbit/sec, DLY 100 usec,
+      reliability 255/255, txload 1/255, rxload 1/255
+   Encapsulation ARPA, loopback not set
+   Keepalive set (10 sec)
+   Full-duplex, 100Mb/s, link type is auto, media type is unknown
+   input flow-control is off, output flow-control is unsupported
+   Members in this channel: Fa0/1 Fa0/2
+   ARP type: ARPA, ARP Timeout 04:00:00
+   Last input 00:00:00, output 00:04:21, output hang never
+   Last clearing of "show interface" counters never
+   Input queue: 0/75/0/0 (size/max/drops/flushes); Total output drops: 0
+   Queueing strategy: fifo
+   Output queue: 0/40 (size/max)
+   5 minute input rate 2000 bits/sec, 2 packets/sec
+   5 minute output rate 1000 bits/sec, 1 packets/sec
+      799 packets input, 89672 bytes, 0 no buffer
+      Received 689 broadcasts (585 multicasts)
+      0 runts, 0 giants, 0 throttles
+      0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored
+      0 watchdog, 585 multicast, 0 pause input
+      0 input packets with dribble condition detected
+      352 packets output, 46085 bytes, 0 underruns
+      0 output errors, 0 collisions, 1 interface resets
+      0 unknown protocol drops
+      0 babbles, 0 late collision, 0 deferred
+      0 lost carrier, 0 no carrier, 0 pause output
+      0 output buffer failures, 0 output buffers swapped out</code></pre>
+					</section>
+					<section>
+						<h2>EtherChannel Verification</h2>
+						<p>One-line recap of the configured EtherChannels:</p>
+						<pre><code class="no-highlight">Switch# show etherchannel summary
+Flags:   D - down          P - bundled in port-channel
+         I - stand-alone   s - suspended
+         H - Hot-standby (LACP only)
+         R - Layer3        S - Layer2
+         U - in use        f - failed to allocate aggregator
+         M - not in use, minimum links not met
+         u - unsuitable for bundling
+         w - waiting to be aggregated
+         d - default port
+
+Number of channel-groups in use: 1
+Number of aggregators: 1
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+--------------------
+1      Po1(SU)       LACP        Fa0/1(P)    Fa0/2(P)</code></pre>
+					</section>
+					<section>
+						<h2>EtherChannel Verification</h2>
+						<p>Detailed information about each specific EtherChannel:</p>
+						<pre><code class="no-highlight">Switch1# show etherchannel Port-channel
+Channel-group listing:
+----------------------
+
+Group: 1
+----------
+Port-channels in the group:
+---------------------------
+
+Port-channel: Po1 (Primary Aggregator)
+
+------------
+
+Age of the Port-channel = 0d:00h:25m:17s
+Logical slot/port       = 2/1
+Number of ports         = 2
+HotStandBy port         = null
+Port state              = Port-channel Ag-Inuse
+Protocol                = LACP
+Port security           = Disabled
+
+Ports in the Port-channel:
+
+Index  Load   Port     EC state          No of bits
+------+------+------+------------------+-----------
+0      39     Fa0/1    Active                4
+1      61     Fa0/2    Active                4
+
+Time since last port bundled: 0d:00h:05m:41s Fa0/2
+Time since last port Un-bundled: 0d:00h:05m:48s Fa0/2</code></pre>
+					</section>
+					<section>
+						<h2>EtherChannel Verification</h2>
+						<p>Detailed information about the role this interface is playing in an EtherChannel:</p>
+						<pre><code class="no-highlight">Switch1# show interfaces f0/1 etherchannel
+Port state    = Up Mstr Assoc In-Bndl
+Channel group = 1     Mode = Active     Gcchange            = -
+Port-channel  = Po1   GC   = -          Pseudo port-channel = Po1
+Port index    = 0     Load = 0x00       Protocol            = LACP
+
+Flags:   S - Device is sending Slow LACPDUs     F - Device is sending fast LACPDUs.
+         A - Device is in active mode.          P - Device is in passive mode.
+
+Local information:
+                          LACP port   Admin  Oper   Port      Port
+Port     Flags   State    Priority    Key    Key    Number    State
+Fa0/1    SA      bndl     32768       0x1    0x1    0x102     0x3D
+
+Partner's information:
+
+                  LACP port                      Admin Oper  Port    Port
+Port     Flags    Priority  Dev ID          Age  key   Key   Number  State
+Fa0/1    SA       32768     0cd9.96d2.4000  4s   0x0   0x1   0x102   0x3D
+
+Age of the port in the current state: 0d:00h:24m:59s</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>EtherChannel Troubleshooting</h2>
+					<ul>
+						<li>Make sure EtherChannel interfaces belong to the <u>same VLAN</u>…</li>
+						<li>… or are <u>configured as trunk</u> with the compatible DTP trunk modes and…</li>
+						<li>… <u>same allowed vlans and native VLAN</u></li>
+						<li><u>LACP or PAgP</u> modes must be <u>compatible</u></li>
+						<li>EtherChannel must <u>play nice with STP</u>, and viceversa. While configuring EtherChannel, <strong>STP calculation can force an EtherChannel member into a blocking state</strong>, thus disabling the EtherChannel. It is therefore recommended to <u>first disable a port channel entirely and then reconfigure it</u>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
