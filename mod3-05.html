@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 3 Chapter 5 - Adjust and Troubleshoot Single-Area OSPF</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Scaling Networks</h2>
+					<h3>Chapter 5: </h3>
+					<h3>Adjust and Troubleshoot Single-Area OSPF</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>[R] OSPF Features</h2>
+					<ul>
+						<li>Has all the typical operations and advantages of a <strong>link-state</strong> routing protocol.</li>
+						<li><strong>Classless</strong>, supporting VLSM and CIDR.</li>
+						<li>Has <strong>low convergence</strong> times.</li>
+						<li>It <strong>supports multi-area design</strong>, with much <strong>better scalability</strong>.</li>
+						<li>It’s <strong>authenticated</strong>: routers encrypt OSPF updates using the MD5 algorithm and a pre-shared password.</li>
+						<li>It has AD of 110.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>[R] OSPF Single- and Multi-Area</h2>
+					<img src="http://i.imgur.com/0xhsWRt.png">
+					<p>OSPF achieves better scalability than other routing protocols by <strong>supporting the split of all the AS’ routers into multiple areas</strong>, although it can also run in <strong>single-area mode</strong> (called <strong><em>backbone area</em></strong> or <strong><em>area 0</em></strong>).</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>[R] OSPFv2 Basic Configuration</h2>
+						<p>To enable OSPFv2 on a router, use:</p>
+						<pre><code class="no-highlight">router(config)#: router ospf [process_id]</code></pre>
+						<p>OSPF needs every router to have its own router ID, which can be set manually with:</p>
+						<pre><code class="no-highlight">Router(config-router)# router-id [a.b.c.d]</code></pre>
+						<p>We use the <code>network</code> command to enable OSPF on a specific interface:</p>
+					<pre><code class="no-highlight">Router(config-router)# network [network_address] [wildcard_mask] area [area_id]</code></pre>
+					<p>The <strong>Area ID must be the same for all the router belonging to the Single-Area</strong> we are configuring. It is advisable to <strong>use the value of 0</strong>.</p>
+					</section>
+					<section>
+						<h2>[R] OSPFv2 Basic Configuration</h2>
+						<p>To achieve better accuracy for the metric on faster interfaces, we can adjust the reference bandwidth with the command:</p>
+						<pre><code class="no-highlight">Router(config-router)# auto-cost reference-bandwidth [value_in_mbps]</code></pre>
+						<p>This new reference has to be equal on all routers, otherwise we would have <strong>inconsistent cumulative costs for routes</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>[R] OSPFV2 Verification</h2>
+					<p>To display all of the adjancies of an OSPF router:</p>
+					<pre><code class="no-highlight">Router# show ip ospf neighbor</code></pre>
+					<p>If a neighbor isn't shown, it could be that <strong>the adjacency could not be formed</strong>. The two following commands:</p>
+					<pre><code class="no-highlight">Router# show ip protocols</code></pre>
+					<pre><code class="no-highlight">Router# show ip ospf</code></pre>
+					<p>displays OSPF process and router IDs. The first is mostly about routing (advertised networks, neighbours, default AD), the other with the SPF process and area information.</p>
+					<pre><code class="no-highlight">Router# show ip ospf interface</code></pre>
+					<pre><code class="no-highlight">Router# show ip ospf interface brief</code></pre>
+					<p>These two commands provide detailed and summary information, about router interfaces active in OSPF routing.</p>
+				</section>
+
+				<section>
+					<h2>[R] OSPV3 Basic Configuration</h2>
+					<p>Aside from the <code>ipv6</code> keyword in verification commands, the most notable difference is that there is no <code>network</code> command, because OSPFv3 is enabled directly in interface configuration mode.</p>
+					<pre><code class="no-highlight">R1(config)# ipv6 unicast-routing
+R1(config)# ipv6 router ospf 10
+%OSPFv3-4-NORTRID: OSPFv3 process 10 could not pick a router-id,please configure manually
+R1(config-rtr)# router-id 1.1.1.1
+R1(config-rtr)# auto-cost reference-bandwidth 10000
+R1(config-rtr)# interface f0/0
+R1(config-if)# ipv6 ospf 10 area 0</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>OSPF Network Types</h2>
+						<h3>Point-to-Point (PtP)</h3>
+						<img src="http://i.imgur.com/jKakNJR.jpg">
+						<p>Simplest possible interconnection between OSPF routers: just two, with nothing else on the link. Typical configuration for WANs.</p>
+					</section>
+					<section>
+						<h2>OSPF Network Types</h2>
+						<h3>Broadcast Multi-Access</h3>
+						<img src="http://i.imgur.com/J1rTAFW.jpg">
+						<p>Multiple OSPF routers are interconnected in an Ethernet (hence a <em>multi-access</em> and broadcast-capable medium) network.</p>
+						<p>Typically those OSPF router would be all connected to the same switch and members of the same VLAN.</p>
+					</section>
+					<section>
+						<h2>OSPF Network Types</h2>
+						<h3>NBMA: Non-Broadcast Multi-Access</h3>
+						<img src="http://i.imgur.com/wJmfjZv.jpg">
+						<p>Not every multi-access medium also allows broadcast. An example is <strong>Frame Relay</strong>.</p>
+						<p>In such networks endpoints must <strong>rely on Unicast</strong> communication to reach any other point in the network, and therefore musk know its address.</p>
+					</section>
+					<section>
+						<h2>OSPF Network Types</h2>
+						<h3>Point-to-MultiPoint (PtmP)</h3>
+						<img src="http://i.imgur.com/tCtEUtI.jpg">
+						<p>In a NBMA network, OSPF can be configured to operate in a <em>hub-and-spoke</em> fashion, with a "collection" of PtP links between a central router (hub) and all the others (spokes).</p>
+					</section>
+					<section>
+						<h2>OSPF Network Types</h2>
+						<h3>Virtual Links</h3>
+						<img src="http://i.imgur.com/sZN056j.jpg">
+						<p>A virtual network that interconnects non-adjacent areas in a multi-area OSPF configuration.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>OSPF and Multi-Access</h2>
+					<p>A multi-access medium with n OSPF routers, would generate <strong><em>n(n-1)/2</em></strong> adjancencies, exponentially growing with n.</p>
+					<p>Since LSAs are sent to every neighbour, the unnecessary adjancencies established on a multi-access network would cause <strong>extensive flooding</strong>.</p>
+					<p>The OSPF solution to this problem is to elect a <strong><em>Designated Router</em> (DR)</strong> that will have the task to <strong>collect and distribute all the LSAs</strong>.</p>
+					<p>A <em>Backup designated Router</em> (BDR) is also elected to provide redundancy. All the other adjacent routers become <strong><em>DROTHERS</em></strong>.</p>
+					<p>A <em>full adjancency</em> is only formed between DROTHERS and DR/DBR. <strong>LSAs are only sent to DR/BDR</strong> by using the 224.0.0.6 multicast IP address (all-DR-routers). <strong>Only the DR will then flood the LSA</strong> to the 224.0.0.5 multicast IP (all-OSPF-routers).</p>
+				</section>
+
+				<section>
+					<h2>Verifying OSPF roles</h2>
+					<p>To verify <strong>the role an OSPF router is playing in the multi-access network</strong> it belongs to, we can use the command</p>
+					<pre><code class="no-highlight">Router# show ip ospf interface</code></pre>
+					<p>on the interface connecting to the MA network.</p>
+					<pre><code class="no-highlight">GigabitEthernet0/0 is up, line protocol is up
+ Internet address is 192.168.1.1/24, Area 0
+ Process ID 1, Router ID 192.168.31.11, Network Type BROADCAST, Cost: 1
+ Transmit Delay is 1 sec, State DROTHER, Priority 1
+ Designated Router (ID) 192.168.31.33, Interface address 192.168.1.3
+ Backup Designated Router (ID) 192.168.31.22, Interface address 192.168.1.2
+ Timer intervals configured, Hello 10, Dead 40, Wait 40, Retransmit 5
+  Hello due in 00:00:07
+ Index 1/1, flood queue length 0
+ Next 0x0(0)/0x0(0)
+ Last flood scan length is 1, maximum is 1
+ Last flood scan time is 0 msec, maximum is 0 msec
+ Neighbor Count is 2, Adjacent neighbor count is 2
+  Adjacent with neighbor 192.168.31.33 (Designated Router)
+  Adjacent with neighbor 192.168.31.22 (Backup Designated Router)
+Suppress hello for 0 neighbor(s)</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>[R] OSPF States</h2>
+						<img src="http://i.imgur.com/w2NuFat.png" width="75%" height="75%">
+						<p><strong>From boot to convergence</strong>, OSPF goes through several stages.</p>
+					</section>
+					<section>
+						<h2>[R] OSPF States: Adjacencies</h2>
+						<ul>
+							<li>Initially, <strong>no Hello packets have been received</strong> by two neighbor router (R1 and R2) and are therefore <strong>both in a <u>Down</u> state</strong>.</li>
+							<li>R1/R2 <strong>sends/receives a first Hello</strong> packet, and both <strong>transition to the <u>Init</u></strong> state.</li>
+							<li>R2 sends an Hello packet to R1. Now <strong>R1 sees itself included as a neighbour</strong> in another router’s Hello packet, and <strong>transition to the <u>Two-Way</u></strong> state. R2 will follow on the next received Hello and from now on <strong>Hello packet will be continuously exhanged</strong>.</li>
+							<ul>
+								<li>If the two neighbour are <strong>connected with a PtP link</strong>, they transition right away to the <strong>next phase</strong>.</li>
+								<li>If the routers are <strong>connected over an Ethernet network</strong>, the <strong>election of a DR and DBR</strong> must take place.</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>[R] OSPF States: Synchronization</h2>
+						<ul>
+							<li>Now that adjancencies and roles are established, neighbors starts synchronizing their LSDBs transitioning to <strong>the <u>ExStart</u> state, in which they negotiate a master/slave relationship and a DBDs starting sequence number</strong>, after which the master starts sending its DBDs.</li>
+							<li>When other <strong>neighbor routers starts sending DBDs, they all reach the <u>Exchange</u> state</strong>. If by analyzing the DBDs the routers conclude their <strong>LSDBs are not aligned, they transition to the <u>Loading</u> state</strong>, otherwise to the <u>Full</u> state.</li>
+							<ul>
+								<li><strong>In the <u>Loading</u> state routers use LSRs and LSUs</strong> to obtain new available information to synchronize their LSDBs, recalculate the graph and best paths.</li>
+								<li>When they are done, or LSDBs were already synchronized, they reached <strong>convergence, also known as <u>Full</u> state</strong>.</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>OSPF Adjancencies</h2>
+						<pre><code class="no-highlight">Router# show ip ospf neighbor
+
+	Neighbor ID    Pri   State       Dead Time   Address         Interface
+	192.168.31.22  1     FULL/ BDR   00:00:32    192.168.1.2   GigabitEthernet0/0
+	192.168.31.33  2     FULL/ DR    00:00:38    192.168.1.3      Serial0/0/0</code></pre>
+						<ul>
+							<li><strong>FULL/-</strong>: typical of links where DR/DBR election isn't needed, like PtP serial links.</li>
+							<li><strong>FULL/DROTHER</strong>: displayed on a DR/BDR router where it has full adjancency with a BDR or non-DR router, exchanging Hello packets and LSAs.</li>
+							<li><strong>FULL/DR</strong>: displayed to indicate full adjancency with the DR, with which Hello packets and LSAs are exchanged.</li>
+							<li><strong>FULL/BDR</strong>: same as above, but the neighbour is a DBR.</li>
+							<li><strong>2WAY/DROTHER</strong>: a non-DR or BDR router is neighbour to another non-DR or BDR router, whit which Hello packets are exchanged but not LSAs.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>OSPF Adjancencies</h2>
+						<p>Normally a state other than FULL indicates a problem in forming an adjancency. However, 2-WAY is normal in MA networks.</p>
+						<p>2-WAY indicates that <strong>a DROTHER router still recognizes other DROTHER as its neighbors</strong> on the multi-access network, but will <strong>only keep the exchange of Hello packets</strong> in place, without flooding link-state advertisement.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>DR/BDR Election</h2>
+						<p>Routers in an OSPF network <strong>elect the router with the higher priority</strong> as the DR, whith the second highest electing the BDR.</p>
+						<p>Priority ranges from 0 to 255 and can be tuned. <strong>If set to 0, a router cannot become DR</strong>. It is set to 0 by default on serial interfaces and 1 on multiaccess interfaces.</p>
+						<p>If priorities are equal, the routers with the <strong>two higher router IDs</strong> are elected as DR/BDR.</p>
+						<p>The router ID used in the election is, in order of preference, the one manually set, the higher IP on a loopback interface, the higher IP on another interface.</p>
+					</section>
+					<section>
+						<h2>DR/BDR Election</h2>
+						<p>The election process lasts only a couple of seconds, so <strong>it's possible that a router with a lower router ID becomes the DR</strong> if not every OSPF router has completed the boot.</p>
+						<p>When a router with an higher router ID is added or joins the network, it <strong>doesn't trigger a new election</strong>. Roles are fixed until:</p>
+						<ul>
+							<li>DR fails</li>
+							<li>OSPF process fails or is stopped</li>
+							<li>The multiaccess interface on the DR fails or is stopped</li>
+						</ul>
+						<p>In all of these events <strong>the BDR steps up as DR</strong> and the new BDR needs to be elected.</p>
+						<p><strong>A router with a priority higher than the newly-elected DR won't displace it</strong>, and will "settle" for being the new DBR.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>OSPF Priority</h2>
+						<p>The <strong>DR/BDR election process can be altered</strong> by configurations.</p>
+						<p>In the case where priorities are equal on all OSPF routers, <strong>DR election can be influenced by manipulating router IDs</strong>.</p>
+						<p>Manipulating the election process with the router ID is only feasable where they have been assigned with a rigorous criteria and difficult on large networks.</p>
+						<p><strong>It's better to use priorities</strong>, which unlike the router ID are a <strong>per-interface value</strong> that allows an OSPF router to have <strong>different roles on different links</strong>.</p>
+					</section>
+					<section>
+						<h2>OSPF Priority</h2>
+						<p>To set the OSPF priority for an interface, use</p>
+						<pre><code class="no-highlight">Router(config-if)# ip/ipv6 ospf priority [0-255]</code></pre>
+						<p>for OSPFv2 and v3, respectively.</p>
+						<p>If priority is changed after the election took place, the administrator must either</p>
+						<ul>
+							<li><strong>shutdown every OSPF interface</strong>, re-enabling them starting by the DR. BDR and then all the DROTHERs</li>
+							<li><strong>Reset the OSPF process</strong> by running <code>clear ip ospf process</code> and re-enabling to trigger a new election.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Announcing a Default Route</h2>
+					<p>To propagate a default static router with OSPFv2, first configure one on the edge router and then include it in the OSPF link-state updates:</p>
+					<pre><code class="no-highlight">Router(config)# ip route 0.0.0.0 0.0.0.0 {next_hop | exit_interface}
+Router(config)# router osf [process_id]
+Router(config-router)# default-information originate</code></pre>
+					<p>In the <code>show ip route</code> output this propagated default router will appear with the codes O (learned through OSPF routing), * (candidate as default), and E1/E2 (external route of type 1 or 2).</p>
+					<p>Type 1 and 2 external routes <strong>differs in how the cost is computed</strong>: the first includes the internal, OSPF cost, to reach the edge router, while the other reports only the external cost.</p>
+					<p>It's the same for OSPFv3/IPv6 default routes, accounting for the difference inherent in adding and displaying IPv6 static routes.</p>
+				</section>
+
+				<section>
+					<h2>Tuning OSPF Intervals</h2>
+					<ul>
+						<li>The <strong><em>Hello Interval</em></strong> is the wait between 2 sent Hello packets.</li>
+						<li>The <strong><em>Dead Interval</em></strong> is the amount of time after which an adjacency is considered broken because Hello packets weren't received from a neighbor.</li>
+						<li>They <strong>must match between neighbours</strong> for adjacencies to form.</li>
+					</ul>
+					<p>Hello and Dead intervals are <strong>per-interface values</strong>. The defaults are based on best practices and should be altered only after careful consideration. To modify them, use the commands</p>
+					<pre><code class="no-highlight">Router(config-if)# ip/ipv6 ospf hello-interval [seconds]
+Router(config-if)# ip/ipv6 ospf dead-interval [seconds]</code></pre>
+					<p>Current values are included in the output of the <code>show ip ospf interface [id]</code> command. By default Dead Interval is set to be 4x the value of the Hello Interval.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>OSPF Security</h2>
+						<p>Routers' role in internetworking is crucial, and it's only natural for them to be targets.</p>
+						<p>Broadly speaking, routing protocols can be attacked by <strong>broking adjancencies and falsifying routing informations</strong> included in routing updates. Consequences could be:</p>
+						<ul>
+							<li>the creation of <em>routing loops</em>.</li>
+							<li>traffic being redirected on a compromised link and therefore intercepted.</li>
+							<li>traffic being redirected and dropped.</li>
+						</ul>
+						<p>To mitigate attacks on routing protocols, we can <strong>sign and authenticate routing updates</strong>.</p>
+						<p><strong>Each router verify each received routing update</strong>, and only updates verified as coming from neighbors knowing the <strong>authentication key</strong> are used to alter the routing table.</p>
+					</section>
+					<section>
+						<h2>OSPF Authentication</h2>
+						<p>OSPFv2 supports 3 methods of authentication:</p>
+						<ul>
+							<li><strong>Null</strong> - No authentication (default)</li>
+							<li><strong>Simple Password</strong> - plaintext authentication, meaning that password is transmitted in clear text on the network.</li>
+							<li><strong>MD5</strong> - The <strong>password is never exchanged between peers</strong> but it's instead pre-configured. Authentication is guaranteed by matching signatures on routing updates.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>OSPF Authentication</h2>
+						<ul>
+							<li><strong>globally</strong></li>
+							<p><pre><code class="no-highlight">Router(config-if)# ip ospf message-digest-key [key_id] md5 [password]
+Router(config-router)# area [area_id] authentication message-digest</code></pre></p>
+							<li><strong>per-interface</strong></li>
+							<p><pre><code class="no-highlight">Router(config-if)# ip ospf message-digest-key [key_id] md5 [password]
+Router(config-if)# ip ospf authentication message-digest</code></pre></p>
+						</ul>
+						<p>They can be enabled simultaneously, but mind that the <strong>interface configuration overrides the global one</strong> for that interface.</p>
+						<p><strong>Passwords have to be same between 2 neighbours</strong>, but not across an entire OSPF area.</p>
+						<p><strong>OSPFv3 use</strong> the authentication capabilities mandated by the IPv6 protocol, namely the <strong>IPSec standard</strong>, enabled with the <code>ipv6 ospf authentication ipsec spi</code> command.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>OSPF Troubleshooting</h2>
+						<p>OSPF routing simply cannot behave correctly if correct adjancencies are not formed. <strong>Common issues when forming adjancencies</strong> between two neighbors are:</p>
+						<ul>
+							<li>The subnet masks don't match.</li>
+							<li>The OSPF network types mismatch.</li>
+							<li>Intervals (Hello/Dead) aren't identical.</li>
+							<li>An interface is uncorrectly configured as passive.</li>
+							<li>Missing or erroneous <code>network</code> command.</li>
+							<li>Authentication settings and passwords are not correctly configured.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>OSPF Troubleshooting</h2>
+						<ul>
+							<li><strong>Adjacencies</strong></li>
+							<ul>
+								<li>Is the interface up?</li>
+								<li>Is the interface OSPF-enabled?</li>
+								<li>Does OSPF area match?</li>
+								<li>Is the interface passive?</li>
+							</ul>
+							<li><strong>Routes</strong></li>
+							<ul>
+								<li>Are networks advertised?</li>
+								<li>ACL blockage?</li>
+								<li>Routing protocol with lower AD?</li>
+								<li>Are all Areas connected to Area 0?</li>
+							</ul>
+							<li><strong>Path</strong></li>
+							<ul>
+								<li>Is cost correct for the interface?</li>
+								<li>Is the reference bandwidth correct?</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
