@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 3 Chapter 4 - Wireless LANs</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Scaling Networks</h2>
+					<h3>Chapter 4: Wireless LANs</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Why Wireless</h2>
+					<p>Wireless technologies have several benefits that can be stated in a variety of forms but can all be reduced into a single one: wireless is a big comfort because <strong>it enables mobility</strong>.</p>
+					<p>This fact is reflected in overall easyness of use, configuration, maintenance, increase in productivity for the same cost / achieving the same results with a decrase in costs.</p>
+					<p>Wireless has <strong>particular needs for a correct deployment</strong> and is even more <strong>challenging to properly secure</strong>. We will see both these aspects in this chapter.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Types of Wireless</h2>
+						<p>Based on how wide they span.</p>
+						<h3>WPAN (Wireless Personal Area Network)</h3>
+						<p>Technologies that communicate wirelessly in the <strong>direct surrouding of a person</strong>.</p>
+						<ul>
+							<li><strong>Bluetooth</strong> (IEEE 802.15) allows <strong>direct communication between paired devices</strong>, up to 10m with ordinary power consumption (which is particularly low, making it a good choice for mobile devices).</li>
+							<li>It has several revisions (latest is the low-energy, 24 Mb/s 4.x).</li>
+							<li>Bluetooth is a general-purpose communication protocol, but <strong>facilitates specific use cases</strong> (called <em>profiles</em>) like audio streaming, network connections, file transfers, remote control, tracking, input/output devices, etc.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Types of Wireless</h2>
+						<h3>WLAN (Wireless LAN)</h3>
+						<p>Technologies <strong>integrating wireless communication into well-known LANs</strong>, from the space of a room to an entire campus of buildings.</p>
+						<ul>
+							<li><strong>Wi-Fi</strong> (<em>Wireless Fidelity</em>) is the technology we use for bringing wired and wireless networking together in LANs. It’s <strong>standardized by IEEE 802.11 revisions</strong> (a/b/g/n/ac/ad).</li>
+							<li>Speeds went from 11 Mb/s in 1998 from the 1.5 Gb/s currently possible for ac devices. Ranges are up to 300m.</li>
+							<li>This is the kind of wireless network we we'll focus in this chapter.</li>
+						</ul>
+					</section>
+					<section>
+						<h3>WWAN (Wireless Wide-Area Network)</h3>
+						<p>The wireless technologies enabled for <strong>long-distance communications across macro-areas</strong>, in the range of Kms. They are mainly <strong>used for providing Internet access</strong>.</p>
+						<ul>
+							<li><strong>Cellular is the most commonly available wireless broadband</strong>. Every cell phone is now able to connect to the Internet with speeds increasing from those of 2G protocols (GSM, EDGE), thanks to 3G devices (UMTS, HSPA+) and 4G (LTE, WiMAX).</li>
+							<li><strong>WiMAX</strong> (IEEE 802.16) is wireless specifically <strong>tailored to provide broadband</strong> access. It has ranges up to 50 Km and speeds in the gigabit range.</li>
+							<li><strong>Satellite</strong> broadband access has been available for years, but only for receiving data. It is now possible in TX/RX. It still is the only realistic option for <strong>broadband access in very remote areas</strong>.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Frequencies</h2>
+						<img src="http://i.imgur.com/OVRZfgY.png">
+						<p>Wireless communication technologies operate in the part of the electomagnetic spectrum known as <em>radio waves</em>, more precisely in the <em>microwave</em> range.</p>
+					</section>
+					<section>
+						<h2>Frequencies: Low vs High</h2>
+						<img src="http://i.imgur.com/aXpNgCw.gif">
+						<p><u>Lower frequencies radio waves have much better <em>permeability</em></u>, they penetrate dense objects such as buildings, while <u>the higher the frequency the more a clear <em>line of sight</em> becomes a requirement</u>.</p>
+					</section>
+					<section>
+						<h2>Frequencies: Bands</h2>
+						<p>The <em>International Telecommunication Union - Radiocommunication Sector</em> (ITU-R) <strong>handles the partition of the spectrum</strong> at the global level, which is then (sometimes heavily) <strong>regulated by governements</strong> in terms of allowed use and technical aspects.</p>
+						<p><strong>Different wireless standards operate in different range of frequencies</strong> (called <em>bands</em>). <u>WiFi uses unlicensed portions</u> of the 2.4 GHz ISM (<em>Industrial, Scientific and Medical</em>) band and the 5 GHz UNII (<em>Unlicensed National Information Infrastructure</em>) band.</p>
+					</section>
+					<section>
+						<h2>Frequencies: Channels</h2>
+						<img src="http://i.imgur.com/sluTzLK.png">
+						<p>The frequency ranges in which 802.11 standards operate are <strong>subdivided into smaller ranges</strong> called <strong><em>channels</em></strong>. Channels are actually the combination of a <em>central frequency</em> and a <em>bandwidth</em>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>IEEE 802.11</h2>
+						<img src="http://i.imgur.com/743EZBs.gif" height="50%" width="50%">
+						<p>The <em>Working Group 11</em> of the IEEE 802 committee is in charge for <strong>a series of standards</strong> (<em>revisions</em>) about half-duplex wireless modulation techniques (L1, physical layer) and the frame format (L2, MAC layer) <strong>we commonly know as <em>WiFi</em></strong>.</p>
+						<p>It also works on a series of <strong>amendments and extensions that later are incorporated</strong> into an official revision.</p>
+					</section>
+					<section>
+						<h2>802.11-1997</h2>
+						<ul>
+							<li><strong>First version of the WiFi standard</strong>, basically non-existent as of today.</li>
+							<li>Also known as <em>legacy</em> mode.</li>
+							<li>Operating in the 2.4 GHz ISM band with a 22 MHz bandwidth.</li>
+							<li>Supported data rates of 1 or 2 Mb/s.</li>
+							<li>Used FHSS and DSSS as modulation techniques.</li>
+							<li>Single antenna.</li>
+							<li>Never really adopted.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>802.11a and 802.11b</h2>
+						<ul>
+							<li>Released in 1999, they were <strong>immensely successful</strong> and popularized WiFi.</li>
+							<li><u>802.11b operates in the 2.4 GHz ISM band, 802.11a in the 5 GHz U-NII bands</u>.</li>
+							<li>20 MHz bandwidth for 802.11a, 22 MHz for 802.11b.</li>
+							<li>Data rates are 6-54 Mb/s for 802.11a, 2-11 Mb/s for 802.11b.</li>
+							<li>802.11a use OFDM modulation, whereas 802.11b use DSSS.</li>
+							<li>Single antenna.</li>
+							<li>Because of the different bands in use, <u>the 2 standards are not compatible</u>.</li>
+							<li>Thanks to its lower operating frequency, <strong>802.11b has a better range than 802.11a</strong>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>802.11g</h2>
+						<ul>
+							<li>Released in 2003, updated with amendments in 2007.</li>
+							<li><u>Backwards-compatible</u> with 802.11b</li>
+							<ul>
+								<li>Same bandwidth (20 MHz) and frequencies (2.4 GHz band), and it also supports the DSSS modulation.</li>
+								<li>When 802.11g and b devices operate in a <strong>mixed setups</strong>, overall it will <strong>reduce the performance</strong> of the g devices.</li>
+								<li>This is <strong>true for any mixed-environments</strong>, even when involving more recents standards.</li>
+							</ul>
+							<li>802.11g use the same OFDM modulation introduced by 802.11a and so can bring <strong>its performance in the 2.4 GHz band: 6-54 Mb/s</strong>.</li>
+							<li>Single antenna.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>802.11n</h2>
+						<ul>
+							<li>Released in 2009, updated with amendments in 2012.</li>
+							<li><u>Backwards-compatible with all previous standards</u> (a/b/g), with obviously reduced performance when operating in mixed-setups.</li>
+							<li>Operating in <u>both (<em>dual band</em>) 2.4 GHz and 5 GHz bands</u>. However most n-devices operate in one or the other.</li>
+							<li>802.11n allows to use 20 MHz bandwidth, but also <strong>supports 40 MHz bandwidth</strong> that doubles the theoretical throughput.</li>
+							<li>802.11n introduces a technology called <strong>MIMO</strong> (<em>Multiple Input Multiple Output</em>) which use <strong>separated multiple antennas for simultaneous TX and RX</strong>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>802.11n: MIMO</h2>
+						<p>MIMO also <strong>organize a single signal into multiple <em>spatial streams</em></strong>. 802.11n supports up to 4 MIMO spatial streams.</p>
+						<p>802.11n devices reports their <strong>MIMO capabilities</strong> in a <strong><em>TX antennas x RX antennas : spatial streams</em></strong> format.</p>
+						<p>For instance, a 3 x 3 : 2 MIMO configuration means 3 transmitting and receiving antennas, with 2 spatial streams supported.</p>
+						<p>While the <strong>data rates for a single (SISO) 20 MHz stream</strong> only went up from 54 to 65 Mb/s compared to 802.11g, <strong>when combined with the 40 MHz bandwidth and the multiple streams of MIMO</strong>, <u>the maximum data rates can reach 600 Mb/s</u>.</p>
+					</section>
+					<section>
+						<h2>802.11n: MCS</h2>
+						<img src="http://i.imgur.com/Z67ctkx.png" style="float: left; margin: 10px;">
+						<p>The different <strong>combinations of all possible OFDM modulation parameters, bandwidth and spatial streams</strong> are know as numbered (1-31) <strong>MCS</strong> (<em>Modulation Coding Schemes</em>), each correlating to a maximum achievable data rate.</p>
+					</section>
+					<section>
+						<h2>802.11ac</h2>
+						<ul>
+							<li>Released in 2013.</li>
+							<li>Only operating in the 5 GHz band.</li>
+							<li>Compatible with 802.11n (5 GHz-only) and 802.11a devices.</li>
+							<li>20, 40 and now 80 and 160 MHz bandwidth are possible.</li>
+							<li>MIMO can be done with up to 8 spatial streams.</li>
+							<li>802.11ac introduces <em>Multiple User MIMO</em> (<strong>MU-MIMO</strong>), which means the <strong>participating antennas don’t necessarily belong to the same device</strong>: you can use 2 different wifi cards to connect to the same AP and <u>combine</u> throughput.</li>
+							<li>With modulation improvements this means <strong>per-stream maximum data rate reached 86.7 Mb/s @ 20 MHz</strong>.</li>
+							<ul>
+								<li>2x2:2 MIMO can reach 867 Mb/s @ 80 MHz and 1.6 Gb/s @ 160 MHz.</li>
+								<li>Maximum rate for 8-streams MU-MIMO is 6.76 Gb/s.</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>802.11ad</h2>
+						<ul>
+							<li>Released in 2013, commercially known as <strong><em>WiGig</em></strong>.</li>
+							<li>Adds a <strong>60 GHz operating band</strong> (still unlicensed), with a 2.1 GHz <u>bandwidth</u>.</li>
+							<li>It’s backwards compatible with previous 802.11 standards.</li>
+							<li><u>60 GHz cannot penetrate through obstacles at all</u>, so it is reserved for short distances or <em>line-of-site communications</em>.</li>
+							<li>However <strong>the protocols allows <em>roaming</em></strong>, and the lower frequencies of the 2.4 and 5 GHz bands will be used.</li>
+							<li>Data rates can reach 7 Gb/s on the 60 GHz band.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>WiFi Certifications</h2>
+						<img src="http://i.imgur.com/LghyFzd.jpg">
+						<p>Vendors have the habits to <strong>introduce wireless standards way before their final ratification</strong>, under the form of <em>drafts</em>.</p>
+						<p>Drafts implementation can be incompatible with each other and with the final standard, but this problem is strongly reduced by the <strong>Wi-Fi Alliance</strong>, an association of vendors that <strong>certifies products for interoperability</strong> and promotes <strong>new capabilities</strong>.</p>
+					</section>
+					<section>
+						<h2>WiFi Certifications</h2>
+						<ul>
+							<li>802.11a/b/g/n/ac <strong>standards</strong>.</li>
+							<li><strong>WPA2</strong> and <strong>EAP</strong> security protocols.</li>
+							<li><strong>WPS</strong> (<em>Wi-Fi Protected Setup</em>) - A functionality to securely and easily connect devices without sharing the main password.</li>
+							<li><strong>Wi-Fi Direct</strong> - Using WPS, connects two devices directly (much like bluetooth pairing) for the purpose of sharing media much more easily.</li>
+							<li><strong>Wi-Fi Passpoint</strong> - Securely connect to enabled hotspot with the capability for roaming.</li>
+							<li><strong>Wi-Fi Miracast</strong> - Wi-Fi streaming of video and audio between devices.</li>
+							<li><strong>Wireless Multimedia Extensions</strong> (WMM) - Basic QoS for Wi-Fi.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>LAN vs WLAN</h2>
+						<ul>
+							<li><strong>Radio waves are not contained</strong> like signals in a shielded cable. Anybody can receive them within their range and they are subject to interference.</li>
+							<li><strong>Wireless signals travel</strong> as long as they can, <strong>losing strength along the way</strong>, while cables are optimized to maintain predictable signal strength over a specified distance.</li>
+							<li>Wireless <strong>compliance is not just about technical standards</strong>. The use of RF is subject to regulation. Specific bands could be unlicensed, limited, unavailable, depending on the country.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>LAN vs WLAN</h2>
+						<ul>
+							<li>Instead of connecting through a switch, wireless devices participate in a WLAN by connecting to an Access Point (AP).</li>
+							<li>Enabling mobility as it does, Wireless is often <strong>used on battery-powered devices, challenging their duration</strong>.</li>
+							<li>802.11 standards <strong>use CSMA/CA instead of collision detection</strong>, in order to actively avoid collision among competing hosts.</li>
+							<li>The L2 <strong>frame format is similar to Ethernet</strong>, but slightly different with additional informations.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Wireless Equipment</h2>
+					<p>Contrary to popular beliefs, <strong>both ends</strong> of a wireless communication <strong>transmit and receive</strong>. There is however a meanigful classification between</p>
+					<ul>
+						<li><strong>End</strong> devices (referred to as <strong>STA</strong>, <em>Stations</em>)</li>
+						<li><strong>Infrastructure</strong> devices, coordinating and collecting connections from end devices</li>
+					</ul>
+					<p>End devices have <strong>Wireless NICs</strong>, operationally similar to the Ethernet NICs. They need proper driver installed to function.</p>
+					<p>Nowadays, basically every device integrate a wireless NICs. For those who don’t, USB Wireless adapters are popular and cheap.</p>
+				</section>
+
+				<section>
+					<h2>Infrastructure Devices</h2>
+					<p>The <strong>infrastructure device needed to provide wireless access</strong> in a LAN is called <strong><em>Access Point</em></strong> (AP), which <em>bridges</em> wireless and wired connectivity.</p>
+					<p>More often the <strong>AP functionality is found in a ISR</strong> (Integrated Service Router), which also works as a switch (bridging a wired LAN) and router (Internet gateway for the WLAN).</p>
+					<p>Home routers are almost always ISRs.</p>
+					<p><strong>Powerlines</strong> are auxiliary infrastructure devices that <strong>extends an home WLAN outside the range of the AP</strong>, using power outlets as end points and electical wirings for data transfer.</p>
+					<p>In business and enterprise a <strong>stand-alone, more powerful AP</strong> is often needed to support the requirements. In such cases the AP is connected to a switch with a wired connection.</p>
+				</section>
+
+				<section>
+					<h2>AP: Autonomous vs Controller-Based</h2>
+					<p>APs can be either <strong>autonomous</strong> (<u>configuration is done and stored on the device itself</u>) or <strong>controller-based</strong> (<u>configuration is automated and centralized on a server</u>, or <strong><em>WLAN controller</em></strong>).</p>
+					<p><strong>If only a few APs are needed, autonomous APs are a better fit</strong>. As the number of APs grow the initial configuration and maintainance is time-consuming. <strong>Controller-based APs can be just installed and the controller will auto-configure them</strong>.</p>
+					<p>Some autonomous Cisco APs also support <strong><em>clustering</em></strong> which is the <strong>logical grouping of APs</strong> located in the same network segment and that can then be <strong>centrally controlled in software</strong>, without the need for a dedicated hardware controller.</p>
+					<p>For APs in the cluster <strong>a single configuration can be exported to all APs</strong> and there is channel and security management. An AP of the cluster becomes a <em>Single Point Setup</em> (SPS).</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Enterprise Infrastructure Devices</h2>
+						<p>For large enterprise WLANs <strong>Cisco provides two controller-based architectures</strong>: the <em>Cisco Meraki Cloud Managed</em> and the <em>Cisco Unified Wireless Network</em> architectures.</p>
+						<p>In the <em>cloud</em> architecture, the MR Cloud Managed Wireless APs (like the MR12, MR16 or MR24) are <strong>configured and monitored from a web service</strong> (the MCC, Meraki Cloud Controller) that acts as <strong>a replacement for a physical WLAN controller</strong>.</p>
+						<p>If the Internet access is disrupted, Meraki APs still are perfectly operational, they simply cannot be managed from the <strong>web dashboard</strong>. Only control traffic goes to and from the Meraki APs, not the actual datas belonging to the client.</p>
+					</section>
+					<section>
+						<h2>Enterprise Infrastructure Devices</h2>
+						<p>In the <em>unified</em> architecture, the <strong>lightweight APs</strong> (like the Cisco Aironet series) only <strong>have the minimal functionality required to process wireless communications</strong>, while all <strong>management is done by a Wireless Controller</strong> (WLC) through the <em>Lightweight Access Control Point Protocol</em> (LWAPP).</p>
+						<p><strong>Cisco WLCs are available in different forms</strong>: a <u>stand-alone appliance</u>, a <u>dedicated virtual server</u> running over VMWare, or as additional <u>modules</u>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Antennas</h2>
+						<img src="http://i.imgur.com/OlpVsft.jpg">
+						<p>Many APs have <strong>replaceable antennas</strong> to suite a range of possible conditions. Antennas’ most important features are their <strong><em>gain</em></strong>, <strong><em>beamwidth</em></strong> and <strong><em>radiation pattern</em></strong>. They can be classified in:</p>
+					</section>
+					<section>
+						<h2>Antennas</h2>
+						<ul>
+							<li><strong>Omnidirectional</strong> - <u>Stick</u>-like looking with a <strong>360° coverage</strong> which makes them ideal to <strong>deploy in the center of an area</strong> (open spaces, rooms). Almost every internal antenna is "omni".</li>
+							<li><strong>Directional</strong> - They <strong>focus the signal emission and reception in the pointing direction</strong> and thereabouts, at the expense of the signal strength in other directions. Directional antennas are <u>dishes</u> and <u>grids</u> and have <strong>beamwidths of 40° or less</strong>.</li>
+							<li><strong>Sectorial</strong> - It's a term to define antennas having <strong>beamwidth around 100° or more</strong>, therefore able to cover a “sector”. They usually present themselves with a <u>panel</u> form.</li>
+							<li><strong>Yagi</strong> - <strong>very directional</strong> antennas and thus able to <strong>travel longer distances with their higher gains</strong>. TV Antennas are Yagis.</li>
+						</ul>
+						<p>802.11 APs mount <strong>2+ antennas to take advantage of MIMO</strong>. More antennas typically mean better achievable MIMO modes.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Ad-Hoc Wireless Topology</h2>
+						<img src="http://i.imgur.com/djDmsV6.png">
+					</section>
+					<section>
+						<h2>Ad-Hoc Topology</h2>
+						<p>In an <strong>ad-hoc</strong> topology, <u>wireless devices connect one another, without the need of an orchestrating device</u> such as an AP</p>
+						<p>Every device in an ad-hoc network has <strong>equal (p2p) status</strong>.</p>
+						<p>Only <strong>requirements to join an ad-hoc topology</strong> is to support this topology (called <em>Indipendent Basic Service Set</em>, <strong>IBSS</strong>, in 802.11 standards) and being in the coverage range of any other participating device.</p>
+						<p>Basically ad-hoc means that devices can <strong>spontaneously form a WLAN</strong>, withouth relying on existing infrastructure.</p>
+						<p>Examples of ad-hoc networks are bluetooth pairings, but mind that <strong>802.11 ad-hoc is not limited to 2 devices</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Infrastructure Mode Topology</h2>
+						<img src="http://i.imgur.com/d6MtKEZ.png">
+						<p>In an <strong>infrastructure mode</strong> topology, <u>wireless devices play roles at different levels</u>: APs and STA (stations).</p>
+						<p>There are two basic <strong>building blocks</strong>: the <em>Basic Service Set</em> (BSS) and the <em>Extended Service Set</em> (ESS).</p>
+					</section>
+					<section>
+						<h2>BSS - Basic Service Set</h2>
+						<img src="http://i.imgur.com/T1CvLoe.gif" style="float: left; margin: 10px;">
+						<p>BSS is the simplest infrastructure topology, because <strong>it consists of a single AP and its connected STAs</strong>.</p>
+						<p>The <strong>coverage area of the AP is called <em>Basic Service Area</em></strong> (BSS). Outside of the BSA, a client cannot communicate with other devices in the BSS.</p>
+						<p>Therefore, BSS and BSA are often used as synonims.</p>
+						<p><strong>Each BSS is uniquely identified by the L2 MAC address of its AP</strong>, which is known as <strong><em>Basic Service Set Identifier</em></strong> (BSSID). There is a <u>1:1 relationship between BSS and BSSID</u>.</p>
+					</section>
+					<section>
+						<h2>ESS - Extended Service Set</h2>
+						<img src="http://i.imgur.com/WH4MCyF.jpg">
+						<p><strong>More than one BSS interconnected through a <em>Distribution System</em></strong> (DS), thus creating an <em>Extended Service Area</em> (ESA) in which the BSS coverages can be overlapping and/or distinct.</p>
+						<ul>
+							<li><strong>STAs in a BSS can reach STAs in another BSS</strong> belonging to the same ESS. This communications will flow <strong>through the DS</strong>.</li>
+							<li>A device can <strong><em>roam</em></strong>, that is <strong>move to a different BSS in the same ESS and automatically reconnect</strong>. This is possible because <strong>the ESS is identified by its SSID</strong> (<em>Service Set Identifier</em>), which we better know as <em>name of the wireless network</em>.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Tethering</h2>
+					<p><strong>Tethering</strong> is the practice of <strong>using a phone’s wireless radio as an AP in order to allow other devices to connect and use the Internet</strong> connection the mobile has over cellular broadband.</p>
+					<p>Basically, it is a BSS connected to a <em>wireless</em> distribution system.</p>
+					<p>However, Cisco categorizes tethering/mobile hotspots as ad-hoc networks...</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>802.11 Frame Format</h2>
+						<img src="http://i.imgur.com/C4SR2Lo.gif">
+					</section>
+					<section>
+						<h2>802.11 Frame Format</h2>
+						<ul>
+							<li><strong>Frame Control</strong> - Identifies the <u>specific type of wireless frame</u> and contains several subfields.</li>
+							<li><strong>Duration</strong> - Mostly it indicates the <u>remaining time to receive the next frame</u> transmission.</li>
+							<li><strong>Address 1, 2, 3, 4</strong> - <u>MAC addresses of the devices involved</u> in the wireless communication. Which address goes into which fields depends on parameters in the frame control.</li>
+							<ul>
+								<li><strong>Address 1</strong> is always the receiving wireless device.</li>
+								<li><strong>Address 2</strong> is always the transmitting wireless device.</li>
+								<li><strong>Address 3</strong> is the actual destination device, maybe in the DS.</li>
+							</ul>
+							<li><strong>Sequence Control</strong> - Composed of two subfields, the sequence and fragment numbers, which respectively <u>identifies a frame and its fragments</u>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>802.11 Frame Format - Frame Control</h2>
+						<ul>
+							<li><strong>Protocol Version</strong> - The particular 802.11 revision in use.</li>
+							<li><strong>Frame Type and Subtype</strong> - 2 fields identifying the precise function of the frame, first telling if the frame is a control, data or management frame and then which associated subtype.</li>
+							<li><strong>ToDS/FromDS</strong> - 2 bits that indicates if the frame is entering or exiting the Distribution System, respectively. Both are set to 0 if in ad-hoc mode (no infrastructure, hence no DS).</li>
+							<li><strong>More Fragments</strong> - Has this frame been fragmented?</li>
+							<li><strong>Retry</strong> - Indicates if this frame is a retransmission.</li>
+							<li><strong>Power Management</strong> - Indicates if the device transmitting this frame is in power-saving mode or not. APs will never set this.</li>
+							<li><strong>More Data</strong> - Signals to a device in power-saving mode that the AP has other data to send.</li>
+							<li><strong>Security</strong> - Are encryption/authentication in use for the frame?</li>
+							<li><strong>Reserved</strong> - Can be used to signal that all frames must be processed in the order they arrive.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Types of 802.11 Frames</h2>
+						<ul>
+							<li><strong>0x0, Management Frame</strong> - Its purpose is to establish and then maintain the communication, by <u>discovering, authenticating and associating</u> with an AP.</li>
+							<li><strong>0x1, Control Frame</strong> - <u>Supporting function</u> to aid communication, for instance by acknowledging and avoiding collisions.</li>
+							<li><strong>0x2, Data Frame</strong> - The frames that actually <u>carry the payload</u>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>802.11 Management Frames</h2>
+						<ul>
+							<li><strong>0x00, Association Request</strong> - It is sent from a STA and <u>contains the SSID the STA wants to associate with</u> and capabilities informations, like supported data rates.</li>
+							<li><strong>0x01, Association Response</strong> - Sent from AP to STA to signal if an association request has been accepted. If so, <u>the AP generates an association ID</u> (AID) for the STA and sends it along with supported data rates.</li>
+							<li><strong>0x02, Reassociation Request</strong> - <u>Sent by a STA either while reconnecting</u> after a short disconnection or if <u>reconnecting to a different AP</u> with a stronger signal. <strong>The old and new APs coordinates exchange of informations about the STA</strong>.</li>
+							<li><strong>0x03, Reassociation Response</strong> - Same as an association response, but by a different AP.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>802.11 Management Frames</h2>
+						<ul>
+							<li><strong>0x04, Probe Request</strong> - Used when a <u>STA is actively scanning</u> for information about APs.</li>
+							<li><strong>0x05, Probe Response</strong> - <u>AP response to a STA probe</u>, containing capabilities informations.</li>
+							<li><strong>0x08, Beacon</strong> - Used <u>by the APs to periodically advertise the SSID</u>/connection capabilites through the BSS</li>
+							<li><strong>0x0A, Disassociation</strong> - After association, <u>either side can terminate the connection using this frame</u>. STA are then removed from AP’s association table.</li>
+							<li><strong>0x0B, Authentication</strong> - <u>STA send a frame containing their identity</u> to the AP.</li>
+							<li><strong>0x0C, Deauthentication</strong> - Sent when <u>all communication is terminated</u>.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>CSMA/CA: Collision Avoidance</h2>
+						<p>Wireless is <strong>inherently half-duplex</strong>, which means that a <strong>radio cannot transmit and receive at the same time</strong>.</p>
+						<p>This would be a problem if 802.11 were to use the same CSMA/CD media contention method of Ethernet, because <strong>the radio wouldn’t sense a collision while transmitting</strong>. This is why a <em>collision avoidance</em> scheme was developed. </p>
+						<p>802.11 <strong>Control Frames are used to perform the CSMA/CA process</strong>, which resembles an <em>handshake</em>.</p>
+					</section>
+					<section>
+						<h2>CSMA/CA: Collision Avoidance</h2>
+						<ul>
+							<li><strong>0x1B, RTS (Request to Send)</strong> - If it senses the medium around it as free, <u>the STA sends this control frame to "book" the wireless medium</u> for sending data frames.</li>
+							<li><strong>0x1C, CTS (Clear to Send)</strong> - <u>AP response to a RTS frame, clearing the STA for transmission</u> (if the medium is free). It includes a time value, so the other STAs sensing this frame will avoid transmitting during at least that timeframe.</li>
+							<li><strong>0x1D, ACK (Acknowledge)</strong> - <u>Sent to acknowledge a data frame received with no errors to the sending device</u>. If an ACK is not received in a certain interval (during which other STAs won’t transmit), the frame must be resent.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>802.11 Process</h2>
+						<p>It's simple:</p>
+						<ul>
+							<li>Discover a WLAN</li>
+							<li>Authenticate with the AP</li>
+							<li>Associate with the AP</li>
+						</ul>
+						<p>For this process to occur, <strong>the AP and the client must negotiate or agree to certain parameters</strong>.</p>
+					</section>
+					<section>
+						<h2>802.11 Process</h2>
+						<ul>
+							<li><strong>SSID</strong> - The <u>name of the wireless network, 2-32 characters long</u>. It will appear on the client as an available network connection, and can be share between multiple APs in a ESS.</li>
+							<li><strong>Password</strong> - The <u>security key that client must know to pass the authentication stage</u> and being able to associate to the AP. Only relevant is Security is enabled.</li>
+							<li><strong>Security</strong> - The <u>type of authentication+encryption mechanism in use</u>. WEP, WPA and WPA2 are the most common options.</li>
+							<li><strong>Network Mode</strong> - The <u>802.11 revision the WLAN will operate in</u>. Most of the time <u>a Mixed mode will be selected, to support multiple standards</u> at once.</li>
+							<li><strong>Channel</strong> - Selection of the frequency of operation. There’s <u>an automatic mode that allows the AP to select the channel with less interference</u>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>WLAN Discovery</h2>
+						<p>A STA can discover a WLAN either <strong>passively or actively</strong>:</p>
+						<ul>
+							<li>In <strong>passive</strong> mode, <u>the AP signal its presence by the periodic transmission of a Beacon management frame</u>, which advertise the SSID and the association parameters.</li>
+							<li>In <strong>active</strong> mode, <u>the STAs send, on every channel iteratively, a Probe Request management frame</u> (as unicast if the SSID is known, broadcast otherwise) containing supported network modes and data rates.</li>
+						</ul>
+						<p>The <strong>AP can be configured to hide its SSID</strong> as a form of additional security. by disabling Beacon frames tranmission.</p>
+						<p><u>A STA can connect to an hidden SSID only if it knows the SSID in advance</u> in order to send a directed probe request. The AP with the hidden SSID will "reveal" itself by sending a probe response.</p>
+					</section>
+					<section>
+						<h2>WLAN Authentication</h2>
+						<p>When a WLAN has <strong>no authentication required</strong> (<em>open networks</em>) the process reduces to a <strong>simple request and response</strong>. The secure authentication methods available for 802.11 relies on a <strong>shared key</strong>, pre-configured on both STA and AP.</p>
+						<ul>
+							<img src="http://i.imgur.com/nYpTf6i.png" style="float: right; margin: 10px;">
+							<li>STA sends authentication frame to AP.</li>
+							<li>AP responds with a <strong>challenge text</strong>.</li>
+							<li>STA encrypts the challenge text with its shared key and sends the encrypted text to the AP.</li>
+							<li>The AP decrypts it with its shared keys.</li>
+							<li><u>If the decrypted text matches the original challenge text, it means that the STA had the same shared key of the APs so the authentication succeed</u>. If they differs, STA is not authenticated.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>WLAN Association</h2>
+						<ul>
+							<li><strong>Association request sent by the STA</strong>, in order to <u>obtain an AID</u>. It includes the STA MAC Address.</li>
+							<li><strong>Association response from the AP</strong>, containing its BSSID (which is its MAC) and the generated AID. The AID works equivalently to a switch port.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Frequency and Channel Management</h2>
+					<p>The <strong>technique used to represent data over the chosen frequency</strong> is called <em>modulation</em>.</p>
+					<p>Over the development of 802.11 these techniques improved to <u>mitigate channel saturation by using it more efficiently</u>.</p>
+					<ul>
+						<li><strong>DSSS</strong>, <em>Direct-Sequence Spread Spectrum</em> - Uses the entire frequency band to transmit the signal.</li>
+						<li><strong>FHSS</strong>, <em>Frequency-Hopping Spread Spectrum</em> - The band is <strong>divided into a series of subchannels, each used as the <em>carrier</em> only for a short period</strong>, and then both the AP and the STA switch to another one based on a pseudorandom sequence.</li>
+						<li><strong>OFDM</strong>, <em>Orthogonal Frequency-Division Multiplexing</em> - In the operating band, <strong>a set of subcarrier frequencies are chosen </strong>. The <u>signal is then demultiplexed over these subcarriers and multiplexed at the receiver</u>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Channel Selection</h2>
+						<p>802.11 <strong>2.4 GHz band is subdivided into several channels</strong> (11 for the US, 13 in Europe, 14 in other regions).</p>
+						<p>These channels have central frequencies 5 MHz apart.</p>
+						<p>Of course with a 20/22 MHz bandwidth this means that <strong>adjacent channels will partially overlap</strong>.</p>
+					</section>
+					<section>
+						<h2>Channel Selection</h2>
+						<img src="http://i.imgur.com/EmUSXvG.png">
+						<p><strong>Interference is inevitable with overlapping channels</strong>.</p>
+						<p>Notice however how <strong>a subset of channels</strong>, precisely those 5 channel apart, <strong>are non-overlapping</strong>. The maximum number of non-overlapping channels is 3 (Ch. 1, 6, 11).</p>
+						<p><u>Using non-overlapping channels in a multi-AP environment is the best choice to avoid interference</u>.</p>
+					</section>
+					<section>
+						<h2>Channel Selection</h2>
+						<img src="http://i.imgur.com/JWqw66b.png" height="40%" width="40%">
+						<p>Newer 802.11 standards supports 40 MHz-channels. <strong>With such a large bandwidth, it’s impossible to have non-overlapping configurations in the 2.4 GHz band</strong> and the non-overlapping channels in the 5 GHz bands is greatly reduced.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>WLAN Deployment</h2>
+						<p>The <strong>performances and coverage are of a WLAN</strong> depends on several factors:</p>
+						<ul>
+							<li>Characteristics of the facility</li>
+							<li>Environmental factors</li>
+							<li>Number of users</li>
+							<li>Supported standards and data rates</li>
+							<li>Antenna and their patterns</li>
+							<li>Transmit power</li>
+						</ul>
+					</section>
+					<section>
+						<h2>WLAN Deployment</h2>
+						<p><strong>Determining the extent of the coverage area</strong> requires to analyze the AP and antenna specifications and to perform a <strong><em>site survey</em></strong>, maybe with the aid of a <em>spectrum analyzer</em>.</p>
+						<img src="http://i.imgur.com/SOiXgo4.gif" width="45%" height="45%">
+						<p>By <strong>slightly overlapping</strong> (10-15%) single BSAs in an ESS configured with a <strong>single SSID</strong>, we are creating <strong>roaming capabilities</strong> in our WLAN deployment.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>WLAN Attacks: DoS</h2>
+						<p>WLAN introduces a different <em>threat model</em> for network security, because <strong>the attacker may not need physical access</strong> to directly attack the local network.</p>
+						<p><strong>Wireless connectivity can be denied (DoS) by a misconfigured device or by interference</strong>, either accidental (even by non-computing devices operating in the same band) or malicious (frequency <em>jamming</em>).</p>
+						<p>Both can be fought by <strong>continuosly monitoring the spectrum</strong>. In this way the problem can be solved as soon as it happens.</p>
+					</section>
+					<section>
+						<h2>WLAN Attacks: Protocol</h2>
+						<p><strong>DoS attacks</strong> can also be carried out against the 802.11 protocol <strong>by manipulating management and control frames</strong>. For instance:</p>
+						<ul>
+							<li><strong>Spoofed disassociation requests</strong>, where <u>the attacker disassociates on behalf of all STAs</u>, that when reassociating simultaneously cause <u>a spike in traffic</u>. 802.11i extensions can help protect again spoofing.</li>
+							<li><strong>CTS flood</strong>, where <u>the attacker sends multiple CTS frames from a STA not actually associated to the BSS</u>. This will cause legitimate STAs in range to <u>whithold transmission</u>. 802.11w extension deal with protecting management frames from manipulation.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>WLAN Attacks: Rogue AP</h2>
+						<p><em>Rogue APs</em> are <strong>unauthorized Access Points</strong>. Whether they are installed by an attacker of by a well-meaning individual, <strong>the effect is to allow unauthorized devices in the DS</strong>, and <u>completely bypass the deployed security measures</u>.</p>
+						<p><strong>Rogue APs are used to carry MITM attacks</strong>. A Rogue APs with the same SSID, but with a stronger signal or no authentication, would be preferred by STAs over legitimate ones.</p>
+						<p>The STAs could be unsuspecting, because there’s no obvious clue and also most STAs are configured to automatically connect to open networks. <strong>Rogue APs are configured to forward the data back and forth to the legitimate AP</strong>, <u>after interception</u>.</p>
+						<p>Detecting Rogue APs is difficult, it requires <strong>constant monitoring of the WLAN</strong> (with IPS and RRM, <em>Radio Resource Management systems</em>) and <strong>authentication of all its users</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>WLAN Security: Hidden SSID</h2>
+						<p>A first step in protecting a WLAN could be to <strong>hide the SSID and to use ACLs to allow only authorized MAC addresses</strong>.</p>
+						<p>However these are not reliable, because both <strong>these informations are sent in clear text</strong> over the air and so <u>easily spoofable</u>.</p>
+					</section>
+					<section>
+						<h2>802.11 Authentication Methods</h2>
+						<p>The proper way is to use (strong) authentication and encryption. The <strong>3 authentication methods available for 802.11</strong> are:</p>
+						<ul>
+							<li><strong>WEP</strong>, <em>Wireless Equivalent Privacy</em> - Uses the RC4 encryption algorithm with a <u>static key that never changes between frames</u>, makes it easier to crack. <u>It’s been broken since 2001</u>. Long story short: never use it.</li>
+							<li><strong>WPA</strong>, <em>WiFi Protected Access</em> - Essentially WEP with a different encryption algo, TKIP (Temporal Key Integrity Protocol) which <u>uses a different key for each frame</u>.</li>
+							<li><strong>WPA2</strong> (IEEE 802.11i) - Uses the most advanced encryption algorithm available, which is AES (Advanced Encryption Standard). <u>This is the current best practice to deploy to secure WiFi authentication</u>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>WLAN Security for the Enterprise</h2>
+						<p>In home and SOHO environments, <strong>users authenticate in their WLAN by entering a pre-shared key</strong> on their client that matches the one on the AP. This is simple but also has the <strong>disadvantage of the credential being the same for everyone</strong>.</p>
+						<p>In enterprise networks, <strong>a dedicated AAA (<em>Authentication, Authorization, and Accounting</em>) server is recommended</strong>. An example is a RADIUS server. </p>
+						<p>In such setups, <strong>the AP forwards authentication request to and from a RADIUS server</strong> (which only the AP is allowed to contact). Clients will perform <strong>authentication using the 802.1X standard and EAP</strong> (<em>Extensible Authentication Protocol</em>). </p>
+						<p><u>User credentials are stored only on the RADIUS server, not the AP</u>. The AP only needs a pre-shared key (and the IP/ports) to authenticate itself to the RADIUS server.</p>
+					</section>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
