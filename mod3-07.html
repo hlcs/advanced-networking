@@ -128,7 +128,7 @@
 					<h2>EIGRP Hello Packets</h2>
 					<p>Used to discover EIGRP neighbors and establish and maintain adjacencies with them. They are sent with unreliable RTP (so no ACK expected).</p>
 					<p>They are sent as multicast and <strong>every 5 seconds on broadcast-enabled networks</strong>, and <strong>every 60 seconds on NBMA networks</strong> (X.25, Frame Relay, T1).</p>
-					<p>An established adjacencies is considered broken when no Hello packet has been received for an <strong>Hold timer</strong>. The hold timer value is 3x the Hello timer (5s on broadcast, 180s on NBMA).</p>
+					<p>An established adjacencies is considered broken when no Hello packet has been received for an <strong>Hold timer</strong>. The hold timer value is 3x the Hello timer (15s on broadcast, 180s on NBMA).</p>
 					<p><strong>After that, the routes through that neighbor are no longer viable</strong> to EIGRP, that starts to search for a new path by sending query packets.</p>
 				</section>
 
@@ -367,7 +367,7 @@ H   Address                 Interface       Hold Uptime   SRTT   RTO  Q  Seq
 						<ul>
 							<li><strong>Bandwidth</strong> - The slowest bandwidth of any exit interface along the routing path. The value is used scaled (10000000 / actual bandwidth). <u>Weighted by default</u> (<strong>K1</strong> = 1).</li>
 							<li><strong>Load</strong> - The worst load on any link on the routing path, computed as exponential average over 5 minutes between bandwidth and packet rate of the interfaces. Ranges from 0 to 255 (255 is 100% load). <u>Not weighted by default</u> (<strong>K2</strong> = 0).</li>
-							<li><strong>Delay</strong> - The sum of all exiting interfaces’ delay along the routing path. Measured in 10s of microseconds (it takes a packet to travel that route). <u>Weighted by default</u> (<strong>K3</strong> = 0).</li>
+							<li><strong>Delay</strong> - The sum of all exiting interfaces’ delay along the routing path. Measured in 10s of microseconds (it takes a packet to travel that route). <u>Weighted by default</u> (<strong>K3</strong> = 1).</li>
 						</ul>
 					</section>
 					<section>
