@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 3 Chapter 8 - EIGRP Advanced Configurations and Troubleshooting</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Scaling Networks</h2>
+					<h3>Chapter 8:</h3>
+					<h3>EIGRP Advanced Configurations and Troubleshooting</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>EIGRP Autosummarization</h2>
+					<p>Autosummarization is the practice of <strong>substituting several entries in the routing table with a single one</strong> that comprises all the substituted ones. This new entry is called <strong><em>summary route</em></strong>.</p>
+					<p>Autosummarization has several benefit, the most important one being the <strong>reduced size of routing tables</strong> (which means smaller routing updates and faster lookups, leading to less memory/CPU/bandwidth requirements).</p>
+					<p>Many routing protocols can be configured to do <strong>automatic summarization at classful network boundaries</strong>. EIGRP is one of those protocols.</p>
+				</section>
+
+				<section>
+					<h2>Autosummary at classful boundaries</h2>
+					<p>EIGRP recognizes multiple subnets as being a single</p>
+					<ul>
+						<li>Class A network (/8), or</li>
+						<li>Class B network (/16), or</li>
+						<li>Class C network (/24)</li>
+					</ul>
+					<p>and <strong>will use the default classful subnet mask in the summary route for those networks</strong>.</p>
+					<p>EIGRP will <strong>only advertise the summary route</strong>, so neighbors won’t have any information about the single specific subnets.</p>
+					<ul>
+						<li>One summary route means <strong>only one path/one successor</strong>. Which may not be the optimal one for some or all of the summarized subnets</li>
+						<li>The only way to have <strong>per-subnet optimal routes</strong> is to have specific routes. In such occasions, <strong>automatic summarization should be disabled</strong>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Configuring EIGRP Autosummary</h2>
+						<ul>
+							<li>Enabled by default on Cisco IOS versions prior to 15.0.1M and 12.2.33.</li>
+							<li><strong>Disabled by default</strong> on every later release.</li>
+							<li>the <strong><code>(no) autosummary</code></strong> router configuration command enables/disables the feature.</li>
+							<li><strong>EIGRP-IPv6 has no autosummarization</strong>, because IPv6 has no classful addressing.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Configuring EIGRP Autosummary</h2>
+						<pre><code class="no-highlight">Router3# show ip route eigrp
+[output omitted]
+
+
+172.16.0.0/16 is variably subnetted, 3 subnets, 2 masks
+D 172.16.1.0/24 [90/2170112] via 192.168.10.5, 02:21:10, Serial0/0/0
+D 172.16.2.0/24 [90/3012096] via 192.168.10.9, 02:21:10, Serial0/0/1
+D 172.16.3.0/30 [90/41024000] via 192.168.10.9, 02:21:10, Serial0/0/1
+                [90/41024000] via 192.168.10.5, 02:21:10, Serial0/0/0
+Router3#
+
+Router1(config)# router eigrp 1
+Router1(config-router)# auto-summary
+Router1(config-router)# end
+
+Router3# show ip route eigrp
+[output omitted]
+[note: only one path now to all the summarized subnets]
+D 172.16.0.0/16 [90/2170112] via 192.168.10.5, 00:12:05, Serial0/0/0
+  192.168.10.0/24 is variably subnetted, 5 subnets, 3 masks
+D    192.168.10.0/24 is a summary, 00:11:43, Null0
+Router3#
+
+Router1# show ip protocols
+*** IP Routing is NSF aware ***
+
+Routing Protocol is "eigrp 1"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP-IPv4 Protocol for AS(1)
+    Metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  [output omitted]
+
+Automatic Summarization: enabled
+    192.168.10.0/24 for Gi0/0, Se0/0/0
+      Summarizing 2 components with metric 2169856
+    172.16.0.0/16 for Se0/0/1
+      Summarizing 3 components with metric 2816
+[output omitted]
+
+R3# show ip eigrp topology all-links
+
+P 172.16.0.0/16, 1 successors, FD is 2170112, serno 9
+      via 192.168.10.5 (2170112/2816), Serial0/0/0
+      via 192.168.10.9 (3012096/2816), Serial0/0/1
+[output omitted]</code></pre>
+					</section>
+					<section>
+						<h2>Configuring EIGRP Autosummary</h2>
+						<ul>
+							<li><strong>Summary routes are only sent out of interfaces that do not belong in the same major classful network</strong>.</li>
+							<li>The other interfaces will send the non-summarized routing updates.</li>
+							<li>The command <code>show ip protocols</code> has a section containing</li>
+							<ul>
+								<li>the status of the autosummarization feature</li>
+								<li>which summary routes are advertised</li>
+								<li>on which interfaces they are sent</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>The Null Interface</h2>
+						<p>Summary routes at classful boundaries can <strong>potentially be a match</strong> for packets having <strong>destinations that do not actually exist in the routing table but are included</strong> in the summary route.</p>
+						<p>In such cases <strong>a routing loop could take place</strong>.</p>
+						<img src="http://i.imgur.com/zpBxWk0.jpg">
+					</section>
+					<section>
+						<h2>The Null Interface</h2>
+						<p>To solve this kind of issues, EIGRP uses a special interface called the <strong>Null interface (Null0)</strong>, which is basically a <strong>virtual interface</strong> representing a <strong>route to nowhere</strong> (aka <em>the bit bucket</em>).</p>
+						<pre><code class="no-highlight">D    172.16.0.0/16 is a summary, 00:05:28, Null0</code></pre>
+						<p><strong><u>Any packet that matches a route having a Null outgoing interface is discarded</u></strong>. A Null summary route is added <strong>on the router performing the summarization</strong> when</p>
+						<ul>
+							<li>at least one subnet was learned through an EIGRP routing update</li>
+							<li>2 or more subnet are announced through <code>network</code> statements.</li>
+							<li>Autosummarization is enabled (if disabled, the Null route is removed).</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Manual Summarization</h2>
+					<p>EIGRP is only able to perform automatic summarization at classful boundaries. <strong>This excludes summary routes for subnet masks different than the default Class A/B/C masks</strong>.</p>
+					<p>For instance, EIGRP is unable to automatically summarize 10.87.0.0/24, 10.87.1.0/24 and 10.87.2.0/23 into a 10.87.0.0/22 announcement.</p>
+					<p>It is however still possible to <strong>do it manually</strong>. After calculating the summary subnet, on each interface where we want to send the summary route, use:</p>
+					<pre><code class="no-highlight">Router(config-if)# ip summary-address eigrp {as} {network_address subnet_mask}
+Router(config-if)# ipv6 summary-address eigrp {as} {prefix/prefix_lenght}</code></pre>
+					<p>Verification of the manual summary route propagation is done on the neighbor’s routing tables.</p>
+				</section>
+
+				<section>
+					<h2>Propagating Default</h2>
+					<p>On the router with the configured default static route, in EIGRP config mode by using</p>
+					<pre><code class="no-highlight">RouterGW(config-router)# redistribute static</code></pre>
+					<p>EIGRP will start to <strong>include the 0.0.0.0/0 (::/0 for IPv6) route in its routing updates thoughout the routing domain</strong>. The propagated route will appear in the other EIGRP routers’ tables as something like</p>
+					<pre><code class="no-highlight">Router# show ip route | include 0.0.0.0
+Gateway of last resort is 10.87.3.1 to network 0.0.0.0
+D*EX 0.0.0.0/0 [170/3021480] via 10.87.3.1. 00:11:15, FastEthernet0/1</code></pre>
+					<ul>
+						<li><strong>D</strong> - Learned through EIGRP</li>
+						<li><strong>*</strong> - Candidate as default route</li>
+						<li><strong>EX</strong> - A route to a subnet not part of the EIGRP routing domain</li>
+						<li><strong>170</strong> - Default AD for EIGRP external routes</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Bandwidth Utilization</h2>
+					<p>By default <strong>EIGRP limits the bandwidth available for control traffic</strong> (EIGRP packets) to 50% of the configured link bandwidth.</p>
+					<p>On slow links it might be important to reduce the bandwidth available to EIGRP in order to avoid running out of bandwidth for normal traffic.</p>
+					<pre><code class="no-highlight">Router(config-ig) ip/ipv6 bandwidth-percent eigrp {as} {%}</code></pre>
+					<p>The <strong>no version</strong> of the command restores the default value.</p>
+				</section>
+
+				<section>
+					<h2>Hello/Hold Timer Tuning</h2>
+					<p><strong>Hello and Hold timers</strong>, unlike OSPF’s equivalents, <strong>don’t have to match in EIGRP</strong> for adjacencies to form.</p>
+					<p><strong>By default</strong> Hold timer is 3x the Hello timer, which is 5s on broadcast networks and 60 on NBMA.</p>
+					<p>Although altering them is almost always not needed, or recommended, <strong>they can be per-interface configured</strong> with:</p>
+					<pre><code class="no-highlight">Router(config-if)# ip/ipv6 hello-interval eigrp {as} {seconds}
+Router(config-if)# ip/ipv6 hold-time eigrp {as} {seconds}</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>EIGRP Load Balancing</h2>
+						<p>With load balancing, EIGRP can <strong>distribute the traffic load among several paths</strong> to the same destination network. Load balancing is <strong>automatically performed</strong> and can be:</p>
+						<ul>
+							<li><strong>Equal-cost</strong> - The multiple paths all have the same metric.</li>
+							<li><strong>Unequal-cost</strong> - Even non-best paths can be used.</li>
+						</ul>
+						<p>Notice that, because EIGRP uses the lowest bandwidth on the path for the metric calculation, <strong>multiple paths sharing that lowest-bandwidth link often results in equal-cost paths</strong>.</p>
+						<p>Load balancing is done on a</p>
+						<ul>
+							<li><strong>per-packet</strong> basis, when <strong>process-switching</strong> forwarding is enabled.</li>
+							<li><strong>per-destination</strong> basis, with <strong>fast-switching</strong> forwarding on.</li>
+							<li><strong>both</strong>, when <em>Cisco Express Forwarding</em> (<strong>CEF</strong>) is active.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>EIGRP Load Balancing</h2>
+						<p>There is a <strong>maximum paths</strong> value indicating how many paths (4, by default) can be involved in the load balancing process. It can be displayed with</p>
+						<pre><code class="no-highlight">Router# show ip protocols | include Maximum path
+Maximum path: 4</code></pre>
+						<p>and configured with</p>
+						<pre><code class="no-highlight">Router(config-router)# maximum-paths {value}</code></pre>
+						<p>A value of <strong>1 disables the load balancing</strong> feature. 32 is the maximum.</p>
+					</section>
+					<section>
+						<h2>EIGRP Load Balancing</h2>
+						<p>Unequal-cost load balancing is supported through a <strong><code>variance</code></strong> command/parameter, which is an integer telling the maximum value for the metric to be <strong>usable for load balancing</strong>.</p>
+						<p>A route is only installed in the routing table if its metric is less than <em>best_route_metric * variance</em>. With a <strong>variance of 1, only equal-cost load balancing</strong> is supported.</p>
+						<p>The <strong><code>traffic-share balanced</code></strong> command <strong>split the traffic load proportionately to the costs</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>EIGRP Security</h2>
+						<p>Routing protocols can be attacked by</p>
+						<ul>
+							<li><strong>Disrupting peers</strong> - A router is brought down, but because <strong>routing protocols sel-heals</strong>, the disruption is almost always brief.</li>
+							<li><strong>Routing information falsification</strong> - Traffic is redirected in order to create routing loops, intercept it on an insecure path or discard it <strong>by altering the routing protocol messages</strong>.</li>
+						</ul>
+						<p>The main method to avoid the second attack is by <strong>only accepting routing updates from trusted peers</strong>. This is done through <strong>authentication of protocol packets</strong>.</p>
+					</section>
+					<section>
+						<h2>EIGRP Security</h2>
+						<p>Authentication has 3 elements: the <strong>encryption algorithm</strong> (public), the <strong>key</strong> (secret) and the <strong>content</strong> of the packet.</p>
+						<ul>
+							<li>Many routing protocols (and EIGRP) use the <strong>Message Digest 5 (MD5)</strong> algo.</li>
+							<li>The key is a <strong>shared secret</strong> between two peers.</li>
+							<li>Given the key and the content, the MD5 algo will <strong>compute a signature</strong> and EIGRP will attach it to the end of the packet.</li>
+							<li>The receiver gets the packet, takes its content and <strong>recomputes the signature</strong>. Only If both the key (<u>trusted peer</u>) and the content (<u>unmodified packet</u>) are the same the <strong>signature will match</strong>. If so, the router accepts the information it contains.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>EIGRP Security</h2>
+						<pre><code class="no-highlight" style="max-height: 300px;">## CREATE A KEY CHAIN ##
+Router(config)# key chain {CHAIN_NAME}
+## ID THE KEY. RANGE IS 0 - 2147483647 ##
+Router(config-keychain)# key 1
+## ENTER THE ACTUAL KEY ##
+Router(config-keychain-key)# key-string {KEY_TEXT}
+Router(config-keychain-key)# exit
+Router(config-keychain)# exit
+## ENABLE AUTH ON INDIVIDUAL INTERFACES ##
+Router(config)# interface {type/id}
+Router(config-if)# ip/ipv6 authentication mode eigrp {as} md5
+Router(config-if)# ip/ipv6 authentication key-chain eigrp {as} {CHAIN_NAME}
+Router(config)# interface {type/id}
+Router(config-if)# ip/ipv6 authentication mode eigrp {as} md5
+Router(config-if)# ip/ipv6 authentication key-chain eigrp {as} {CHAIN_NAME}</code></pre>
+						<p>For authentication to work, <strong>it has to be configured on both ends of a link</strong>. While configuring, often you’ll see this message warning adjacencies have been broken:</p>
+						<pre><code class="no-highlight">%DUAL-5-NBRCHANGE: EIGRP-IPv4 1: Neighbor 172.17.87.2 
+(GigabitEthernet0/0/0) is down: authentication mode changed</code></pre>
+						<p>Adjacencies will be progressively restored while configuring the other routers.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Troubleshooting Steps</h2>
+					<ul>
+						<li>Are <strong>adjacencies</strong> correctly formed?</li>
+						<ul>
+							<li>Operational interfaces</li>
+							<li>L3 connectivity</li>
+							<li>EIGRP enabled on the interfaces</li>
+							<li>Matching AS numbers</li>
+							<li>Passive interfaces</li>
+						</ul>
+						<li>What’s in the <strong>routing table</strong>?</li>
+						<ul>
+							<li>Correct networks advertised</li>
+							<li>ACLs blocking routing updates</li>
+							<li>Routing protocols with lower AD</li>
+							<li>Discontiguous network and summarizations</li>
+						</ul>
+						<li>Are the <strong>paths</strong> correct?</li>
+						<ul>
+							<li>Bandwidth values for metric computation</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>NFS-Awareness</h2>
+					<pre><code class="no-highlight">Router# show ip protocols
+*** IP Routing is NSF aware ***
+[output omitted]</code></pre>
+					<p>NSF stands for <strong><em>Nonstop Forwarding</em></strong>. It is a feature that allows routing protocols (such as EIGRP) to <strong>keep the routing informations advertised by a failed peer</strong> for a certain time.</p>
+					<p>This <strong>allows the peer to restore its operational status</strong> without its temporary unavailability affecting network operations.</p>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
