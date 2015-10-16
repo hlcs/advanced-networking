@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 4 Chapter 2 - Connecting to the WAN</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Connecting Networks</h2>
+					<h3>Chapter 2:</h3>
+					<h3>Connecting to the WAN</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>WANs - Wide Area Networks</h2>
+					<p>WANs are computer networks just as LANs, but <strong>spanning over an extended area</strong>, connecting geographically distant nodes (often entire LANs).</p>
+					<p>While LANs are under the administration and are property of an organization, <strong>WANs are usually operated by service providers</strong> (often telephone, cable, satellite companies) rented for a fee.</p>
+					<p>They are needed when an organization wants to connect several LANs (<em>campus</em>) under its control in disperse locations (<em>branches</em>) <strong>without the immense cost involved in creating long range high-speed links</strong>.</p>
+					<img src="https://i.imgur.com/EHw6Q89.png">
+				</section>
+
+				<section>
+					<h2>WANs - Wide Area Networks</h2>
+					<p><strong>Internet is a cheaper alternative</strong> to private/leased WANs. In this case the organization will connect its remote locations using its internet connection and the data will travel over the public internet (which is why it must be encrypted).</p>
+					<p>The wide-area needs of an organization are often first addressed with the Internet, moving to dedicated WAN technologies only when <strong>economically justifiable</strong>.</p>
+					<img src="https://i.imgur.com/R15a8DZ.png">
+				</section>
+
+				<section>
+					<h2>WAN Standards</h2>
+					<p>WAN standards operate at the</p>
+					<ul>
+						<li><strong>Physical Layer (L1)</strong>, describing electrical, physical, mechanical characteristics of the WAN technology in exam.</li>
+						<li><strong>Data Link Layer (L2)</strong>, describing how data are organized (<em>framed, encapsulated</em>) before being sent over the wire and the mechanisms to <strong>coordinate the transmission</strong>.</li>
+						<ul>
+							<li>WAN links are generally PtP, so <strong>addressing might not be needed</strong>.</li>
+						</ul>
+						<img src="https://i.imgur.com/6HkvYn5.png">
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>WAN Slang</h2>
+						<img src="https://i.imgur.com/mTkDGO7.jpg">
+					</section>
+					<section>
+						<h2>WAN Slang</h2>
+						<ul>
+							<li><strong>Customer Premises Equipment (CPE) </strong> - Devices that are <strong>located at the subscriber</strong> (a purchaser of WAN services from a TLC operator) for the purpose of accessing the service. They can be either owned or leased.
+</li>
+							<ul>
+								<li><strong>Data Terminal Equipment (DTE)</strong> - The device <strong>collecting data from the subsciber network</strong> to be put on the WAN link. It connects to the WAN link indirectly, <a href="https://en.wikipedia.org/wiki/Data_circuit-terminating_equipment">through a DCE</a>.</li>
+								<li><strong>Data Communications Equipment (<em>DCE, Data Circuit-Terminating Equipment</em>)</strong> - The device that actually puts/gets data to/from the local loop.</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>WAN Slang</h2>
+						<ul>
+							<li><strong>Demarcation Point</strong> - The point separating CPEs from devices belonging to the provider. Here the <strong>responsibility for the connection changes</strong>.
+</li>
+							<li><strong>Local Loop</strong> - The wire connecting the CPE to the provider’s central. Often called the <strong><em>last mile</em></strong>.</li>
+							<li><strong>Central Office </strong> - A structure belonging to the provider where <strong>the local loop is connected to its long-distance, digital infrastructure (<em>Toll Network</em>)</strong>.
+</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>WAN Devices</h2>
+						<img src="https://i.imgur.com/CndvzlP.png">
+					</section>
+					<section>
+						<h2>WAN Devices</h2>
+						<ul>
+							<li>Not an exact list, depends on the WAN tech in use.</li>
+							<li><strong>(Dialup/Broadband) Modem</strong> - Modems are devices that <strong>encode/decode digital information in a form suitable for transmission</strong>. Dialup modems use (<em>modulate</em>) <strong>voice frequencies over telephone lines</strong> to encode data.</li>
+							<ul>
+								<li>Broadband modems use <strong>higher, better frequencies to achieve higher speed</strong> over telephone or cable lines.</li>
+							</ul>
+							<li><strong>Access Server</strong> - A device with multiple interfaces <strong>aggregating and serving the “calls” made by multiple modems</strong>. i.e., a DSL provider can have access servers to authenticate customers through PPPoE.</li>
+							<li><strong>CSU/DSU</strong> - A modem-like device to <strong>interface with a WAN link over digital leased lines</strong>. <em>Channel Service Units</em> and <em>Data Service Units</em> are often integrated in a <strong>single device</strong>.
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h2>WAN Devices</h2>
+						<ul>
+							<li><strong>WAN Switch</strong> - They switch traffic at <strong>L2 in the provider’s network</strong>.</li>
+							<li><strong>Router</strong> - Device with multiple interfaces <strong>internetworking the LAN and the WAN link</strong>. WAN interfaces connects to the service provide either directly or mediated by some external device (modem or DSU/CSU).</li>
+							<li><strong>Core Router/Multilayer Switch</strong> - the highest-speed <strong>forwarding devices in the provider’s network</strong>, sitting right in the middle of it.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Circuit Switching</h2>
+						<img src="https://i.imgur.com/hb7is0k.jpg">
+					</section>
+					<section>
+						<h2>Circuit Switching</h2>
+						<p>A communication in which <strong>a dedicated path between two devices has to be established</strong> through the provider network <strong>before</strong> any data can be trasmitted.</p>
+						<p>Any <strong>two endpoints request a connection</strong> to the network, which responds by setting up a <strong><em>virtually dedicated path</em></strong> (network becomes <em>transparent</em>) between them.</p>
+						<ul>
+							<li>The oldest networking technology, 100+ years old.</li>
+							<li>Extremely used, <strong>telephone network is circuit-switched</strong> communication</li>
+							<li><strong>Inefficient</strong>, 100% dedicated but rarely 100% utilized.</li>
+							<ul>
+								<li>As long as the communication is established the path cannot be used by other parties, <strong>even if idle/underutilized</strong>.</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Packet Switching</h2>
+						<img src="https://i.imgur.com/khvaFpu.gif">
+					</section>
+					<section>
+						<h2>Packet Switching</h2>
+						<p>In packet-switching, <strong>data are splitted into blocks</strong> (<em>packets</em>) and the network <strong>determine the path on a per-packet basis</strong>, allowing</p>
+						<ul>
+							<li>multiple nodes to communicate over the same path.</li>
+							<li>multiple paths to be used for the same communication.</li>
+						</ul>
+						<p>To be able to dynamically select a path (<em>routing</em>), the network requires <strong>addressing information in each packet</strong>. There are 2 approaches:</p>
+						<ul>
+							<li><strong>Connectionless</strong> - Full addressing in each packet, the <strong>route is evaluated for each one by looking at these informations. This is how IP works.</li></strong>
+						</ul>
+					</section>
+					<section>
+						<h2>Packet Switching</h2>
+						<ul>
+							<li><strong>Connection-oriented</strong> - The network predetermines the route for a set of packets; packets carry an identifier (<em>label</em>). Then, that <strong>route (<em><a href="https://en.wikipedia.org/wiki/Virtual_circuit">Virtual Circuit</a></em>) is associated with that identifier</strong>, and subsequent routing decisions follow this association.</li>
+							<ul>
+								<li>Similar in principle to circuit-switcrhing, but paths or part of them can still be shared. <strong>Packets are not routed individually</strong>.</li>
+								<li>When the "circuit" is set up on-demand, and breaks after the transmission has ended, it’s a <strong><em>Switched Virtual Circuit</em> (SVC)</strong>.</li>
+								<li>A VC that is available by network configuration and does not need call setup is a <strong><em>Permanent Virtual Circuit</em> (PVC)</strong>.</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Circuit vs. Packet Switching</h2>
+					<small>
+						<table>
+							<tr>
+								<td></td>
+								<td><strong>Circuit Switched</strong></td>
+								<td><strong>Packet Switched</strong></td>
+							</tr>
+							<tr>
+								<td>Path setup</td>
+								<td>Required</td>
+								<td>Not needed</td>
+							</tr>
+							<tr>
+								<td>Dedicated physical path</td>
+								<td>Yes</td>
+								<td>No</td>
+							</tr>
+							<tr>
+								<td>All data follows the same path</td>
+								<td>Yes</td>
+								<td>No</td>
+							</tr>
+							<tr>
+								<td>Packets arrive in order</td>
+								<td>Yes</td>
+								<td>No</td>
+							</tr>
+							<tr>
+								<td>Fatal switch crash</td>
+								<td>Yes</td>
+								<td>No</td>
+							</tr>
+							<tr>
+								<td>Available Bandwidth</td>
+								<td>Fixed</td>
+								<td>Dynamic</td>
+							</tr>
+							<tr>
+								<td>Potentially wasted bandwidth</td>
+								<td>Yes</td>
+								<td>No</td>
+							</tr>
+							<tr>
+								<td>Time of possible congestion</td>
+								<td>At setup</td>
+								<td>On every packet</td>
+							</tr>
+							<tr>
+								<td>Store-and-forward</td>
+								<td>No</td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<td>Transparency (for endpoints)</td>
+								<td>Yes</td>
+								<td>No</td>
+							</tr>
+							<tr>
+								<td>Costs</td>
+								<td>Higher</td>
+								<td>Lower</td>
+							</tr>
+							<tr>
+								<td>Latency and jitter</td>
+								<td>None</td>
+								<td>Variable</td>
+							</tr>
+						</table>
+					</small>
+				</section>
+
+				<section>
+					<section>
+						<h2>WAN Infrastructures</h2>
+						<img src="https://i.imgur.com/JGSfm6h.png" style="width: 75%; height: 75%;">
+						<ul>
+							<li><strong>Private WAN</strong> - Specifically purchased <strong>connection option for WAN purposes from a service provider</strong>, either a dedicated PtP leased line, circuit-switched or packet-switched links.</li>
+							<li><strong>Public WAN</strong> - Using the public <strong>Internet as a WAN connection</strong>. Private data must be secured while on transit over a public network.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>WAN Infrastructures</h2>
+						<p><strong>WAN infrastructure from the service provider side it’s made up by high-speed fiber optic</strong>er optic.</strong></p>
+						<p>The network standard in use are <em>Synchronous Optical Networking</em> (<strong>SONET</strong>) and <em>Synchronous Digital Hierarchy</em> (<strong>SDH</strong>). <strong>Basically the same</strong> standard, respectively American and European-based.</p>
+						<p>A new development for long-haul connections is <strong>DWDM</strong>, <strong><em>Dense Wavelength Division Multiplexing</em></strong>.</p>
+						<ul>
+							<li>Bidirectionality and 80+ channels over a single fiber.</li>
+							<li>Signals extracted from specific wavelength.</li>
+							<li>10 Gb/s per-channel.</li>
+							<li>Amplification of optical signals supported.</li>
+						</ul>
+						<img src="https://i.imgur.com/1aKDuie.jpg">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Private WAN: Leased Lines</h2>
+						<img src="https://i.imgur.com/knCxABh.jpg">
+					</section>
+					<section>
+						<h2>Private WAN: Leased Lines</h2>
+						<p>Leased lines are <strong>dedicated, PtP connections between sites belonging to the subscriber</strong> of the WAN service.</p>
+						<p>Subscriber’s networks at both ends are <strong>connected to the SP network through one of its PoP</strong> (<em>Point of Presence</em>).</p>
+						<p>They're called <em>leased</em>, because the <strong>subscriber pays a certain fee</strong> based on bandwidth and distance between connected sites.</p>
+						<p>Leased lines’ data rate is defined through the T-carrier system (<strong>T1/T3</strong>, 1.544 and 43.7 Mb/s respectively) in North America and the E-carrier (<strong>E1/E3</strong>, 2.048 and 34.368 Mb/s) system in Europe.</p>
+						<ul>
+							<li>PtP links are <strong>simple</strong> to setup and maintain</li>
+							<li>Dedicated lines are exclusively used by the subscriber, <strong>removing latency and jitter issues, also improving availability</strong>.</li>
+							<li>Exclusive use <strong>costs way more than shared/public connections</strong>, performances being equal.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Private WAN: Leased Lines</h2>
+						<small>
+							<table>
+								<tr>
+									<td>Line Type</td>
+									<td>Capacity</td>
+								</tr>
+								<tr>
+									<td>56</td>
+									<td>56 kb/s</td>
+								</tr>
+								<tr>
+									<td>64</td>
+									<td>64 kb/s</td>
+								</tr>
+								<tr>
+									<td>T1</td>
+									<td>1.544 Mb/s</td>
+								</tr>
+								<tr>
+									<td>E1</td>
+									<td>2.048 Mb/s</td>
+								</tr>
+								<tr>
+									<td>J1</td>
+									<td>2.048 Mb/s</td>
+								</tr>
+								<tr>
+									<td>E3</td>
+									<td>34.063 Mb/s</td>
+								</tr>
+								<tr>
+									<td>T3</td>
+									<td>44.735 Mb/s</td>
+								</tr>
+								<tr>
+									<td>OC-1</td>
+									<td>51.54 Mb/s</td>
+								</tr>
+								<tr>
+									<td>OC-3</td>
+									<td>155.54 Mb/s</td>
+								</tr>
+								<tr>
+									<td>OC-9</td>
+									<td>466.56 Mb/s</td>
+								</tr>
+								<tr>
+									<td>OC-12</td>
+									<td>622.05 Mb/s</td>
+								</tr>
+								<tr>
+									<td>OC-15</td>
+									<td>933.12 Mb/s</td>
+								</tr>
+								<tr>
+									<td>OC-24</td>
+									<td>1244.16 Mb/s</td>
+								</tr>
+								<tr>
+									<td>OC-35</td>
+									<td>1566.24 Mb/s</td>
+								</tr>
+								<tr>
+									<td>OC-45</td>
+									<td>2455.32 Mb/s</td>
+								</tr>
+								<tr>
+									<td>OC-95</td>
+									<td>4976.64 Mb/s</td>
+								</tr>
+								<tr>
+									<td>OC-192</td>
+									<td>9953.25 Mb/s</td>
+								</tr>
+								<tr>
+									<td>OC-755</td>
+									<td>39513.12 Mb/s</td>
+								</tr>
+							</table>
+						</small>
+					</section>
+				</section>
+
+				<section>
+					<h2>Private WAN: Dialup/PSTN</h2>
+					<p>When leased line aren’t available, <strong>the ubiquity of copper telephone lines can be used for dedicated, circuit-switched WAN services</strong>, albeit at much slower speeds.</p>
+					<p>Telephone lines of the <strong>PSTN</strong> (<em>Public Switched Telephone Network</em>) can be <strong>adapted for carrying binary data by using a modem</strong>.</p>
+					<p>Speeds however are limited by the physical features of the local loop (the copper wiring) to <strong>56 Kb/s or less</strong>.</p>
+					<p>Dialup can still be the <strong>only option in some remote areas</strong>.</p>
+					<img src="https://i.imgur.com/KT4FdTu.png">
+				</section>
+
+				<section>
+					<section>
+						<h2>Private WAN: ISDN</h2>
+						<img src="https://i.imgur.com/cVtIe3U.png">
+					</section>
+					<section>
+						<h2>Private WAN: ISDN</h2>
+						<p><em>Integrated Services Digital Network</em> (ISDN) is a circuit-switching technology for an <strong>all-digital PSTN local loop</strong>, thus achieving faster speeds than dialup.</p>
+						<p>This is done by using <strong>time-division multiplexed (TDM)</strong> digital signals (in short, each signal has its own time slot). Each signal is a subchannel.</p>
+						<ul>
+							<li>A <strong>bearer (B)</strong> channel is a 64 Kbps channel used for data and voice.</li>
+							<li>A <strong>delta (D)</strong> channel is a 16/64 Kbps channel used for signaling and setup.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Private WAN: ISDN</h2>
+						<p>ISDN interfaces can be:</p>
+						<ul>
+							<li><strong>Basic Rate (BRI)</strong> - It provides 2x 64 Kbps B channels and 1x 16 Kbps D control channel, for a typical bandwidth of 128 Kbps, enough for home and SOHO scenarios.</li>
+							<li><strong>Primary Rate (PRI)</strong> - A larger ISDN installation with</li>
+							<ul>
+								<li>23x B @ 64 Kbps + 1x D @ 64 Kbps = 1.544 Mbps (North America)</li>
+								<li>30x B @ 64 Kbps + 1x D @ 64 Hbps = 2.048 Mbps (Europe/Australia)</li>
+							</ul>
+						</ul>
+						<p>ISDN may require a special adapter to be added to the router, called <strong>terminal adapter (TA)</strong>, to be able to setup a connection.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Private WAN: Frame Relay</h2>
+						<img src="http://i.imgur.com/t9U0u93.jpg">
+					</section>
+					<section>
+						<h2>Private WAN: Frame Relay</h2>
+						<p><a href="https://en.wikipedia.org/wiki/Frame_Relay">Frame Relay</a> is a <strong>L2 NBMA</strong> (non-broadcast, multiaccess) <a href="http://docwiki.cisco.com/wiki/Frame_Relay">protocol</a> for WAN aimed to provide cheaper alternative to leased lines.</p>
+						<p>A router with a <strong>frame relay interface (DTE) plugs</strong> (typically with twisted copper or fiber) <strong>at the edge of provider’s frame relay network</strong>, made of several frame relay switches (DCE).</p>
+						<p>Frame relay then connects each site with a <strong>PtP connection that runs over a <em>virtual circuit</em> (VC)</strong> established over the frame relay packet-switched network.</p>
+						<p>VCs on a single leased line are identified using <strong>data-link connection identifiers (DLCIs)</strong>, ensuring bidirectional transmission between specific DTEs.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Private WAN: ATM</h2>
+						<p><strong><em>Asynchronous Transfer Mode</em></strong> (<a href="https://en.wikipedia.org/wiki/Asynchronous_Transfer_Mode">ATM</a>) is a <strong>technology for network backbone</strong> designed to be able to transfer both high-throughput data and low-latency transmissions. It maps roughly to the <strong>L1, L2, L3 layers of the ISO/OSI</strong> stack.</p>
+						<p>Its main peculiarity is that it doesn’t use variable-size frames, but instead <strong>it’s built on small fixed-size <em>cells</em></strong> (53 bytes, 48 payload and 5 header).</p>
+						<p>This <strong>minimize queuing issue</strong> present in IP for instance, when small packets have to wait larger content transfers during the forwarding process.</p>
+					</section>
+					<section>
+						<h2>Private WAN: ATM</h2>
+						<p>Having small fixed-size blocks allows to more easily <strong>perform the network processing in hardware</strong>.</p>
+						<p>The downside it’s <strong>less efficiency</strong> (~20%), because of the higher overhead in the cell and in the reassembly process.</p>
+						<p><strong>When ATM was designed, queuing was a serious problem in slower links</strong> (7.8 ms to transfer a 1500 bytes IP packet on T1). Today, faster links (10 Gbps = 3 µs) lessen the need for small cells in the network backbone.</p>
+						<p>ATM can scale easily to faster speeds and uses <strong>VCs, both PVCs and SVCs</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Private WAN: Ethernet</h2>
+					<p>Ethernet was born to be a LAN technology (high speed but low distances).</p>
+					<p>Recent developments using <strong>fiber optics</strong> (such as standards IEEE 1000BASE-LX or IEEE1000BASE-ZX, up to 70 km) <strong>allowed Ethernet to be used as a WAN technology</strong>.</p>
+					<p>Ethernet WAN is also known as:</p>
+					<ul>
+						<li>Metropolitan Ethernet, <strong>MetroEthernet</strong></li>
+						<li>Etherner over MPLS (EoMPLS)</li>
+						<li>Virtual Private LAN Service (VPLS)</li>
+					</ul>
+					<p>The main advantages are:</p>
+					<ul>
+						<li>Very <strong>easy to integrate in existing LANs</strong>, often no need for additional hardware.</li>
+						<li>First-class <strong>support for IP applications</strong>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Private WAN: MPLS</h2>
+						<img src="http://i.imgur.com/rbu2E0t.jpg">
+					</section>
+					<section>
+						<h2>Private WAN: MPLS</h2>
+						<p><em>Multiprotocol Label Switching</em> is a <strong>network backbone technology</strong> that can be considered as a <a href="http://www.webtorials.com/main/resource/papers/frforum/paper7/fr-mpls.pdf">next-gen Frame Relay/ATM</a>.</p>
+						<p>Its <a href="https://en.wikipedia.org/wiki/Multiprotocol_Label_Switching">main features</a> is that it <strong>routes packet based solely on a label applied to it. The label identifies paths, not the endpoints</strong> of the communication (as DLCIs do in Frame Relay, for instance).</p>
+						<p>This allows to create end-to-end, <strong>PtP connections between endpoints regardless of the protocol</strong>. Frame Relay, ATM, IPv4/6, DSL, can all be encapsulated in MPLS, that is L2-independent.</p>
+						<p>Label are <strong>added and removed at the <em>provider edge</em> routers</strong>, which interfaces with the <em>customer edge</em> in a specific access technology. Labels are then processed by the SP internal MPLS network.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Private WAN: VSAT</h2>
+					<p><em>Very Small Aperture Terminal</em> (VSAT) is a <strong>WAN technology that uses satellites</strong>. It comes in handy when there are no copper/fiber options.</p>
+					<p>It uses dishes similar to those bringing satellite TV in homes, but they are instead connected to a router.</p>
+					<p>The connection takes place thanks to a <strong>geosynchronous orbit satellite</strong> belonging to the service provider.</p>
+					<p>The endpoint dishes are pointed towards it and the <strong>transmissions bounced back and forth to Earth</strong>, travelling more than 35000 Kms.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Public WAN: DSL, Cable, Cellular</h2>
+						<p>DSL (<em>Digital Subscriber Line</em>) and Cable use <strong>existing telephone and cable tv lines</strong> to provide an always-on connection to the provider network.</p>
+						<p>This leverages a public WAN infrastructure, because multiple <strong>subscribers share the infrastructure connecting them to the WAN provider</strong>.</p>
+						<ul>
+							<li>In DSL, the various <strong><em>last miles</em> are aggregated into a single high capacity</strong> link at the provider’s PoP, using a DSLAM (<em>DSL Access Multiplexer</em>).</li>
+							<li>In Cable, <strong>even the access cable for local subscribers is shared</strong>, thus reducing the bandwidth when new users join.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Public WAN: DSL, Cable, Cellular</h2>
+						<p>In both cases, a WAN connection between sites is achieved through the public Internet and <strong>not directly through the provider’s network</strong>, so the WAN traffic will flow across multiple 3rd-parties.</p>
+						<p>There are <strong>many DSL standards</strong> (ADSL, HDSL, VDSL, etc), differing mostly for coding and modulation techniques.</p>
+						<p>All of the above applies to <strong>mobile broadband</strong>: it uses the existing cellular network shared with all the subscribers, establishing data connections through different standards (3G = UMTS/HSDPA, 4G = LTE/WiMAX) </p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Public WAN: VPN</h2>
+						<p><strong><em>Virtual Private Network</em> (VPN)</strong> technology is essential when using a public infrastructure to obtain WAN services.</p>
+						<p>This is because <strong>data will, at some point, flow through the public internet</strong>. if not encrypted, any 3rd party would be able to read them.</p>
+						<p>VPNs established a <strong>Layer 2 encrypted connection</strong>, called <strong><em>tunnel</em></strong>.</p>
+						<ul>
+							<li>The tunnel is routed through the public Internet, but <strong>still appear as a direct connection at the data link layer</strong> to the endpoints.</li>
+							<li>This is because the VPN datagram</li>
+							<ul>
+								<li>is encapsulated over TCP/UDP (above the L4)</li>
+								<li>have its payload containing new headers for the L2 and above.</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>Public WAN: VPN</h2>
+						<p>The VPN tunnel is encrypted. One it reaches the other endpoint, it is decrypted and <strong>the plaintext payload is passed to the network stack at L2, transparently</strong>. VPN access can be established as a:</p>
+						<ul>
+							<li><strong>Site-to-Site VPN</strong> - Connecting <strong>entire networks</strong>. VPN software is configured on a central device (router, firewall, security appliance, etc).</li>
+							<li><strong>Remote-Access VPN</strong> - Connecting <strong>individual hosts</strong>, running VPN <em>client</em> on their end devices (phones, laptop, PC, tablet, etc).</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Choosing a WAN Service</h2>
+						<ul>
+							<li><strong>Purpose</strong></li>
+							<ul>
+								<li>type of users to be connected (internal, partner, customer, ?)</li>
+								<li>Limited or full access to which users?</li>
+							</ul>
+							<li><strong>Geographical Scope</strong></li>
+							<ul>
+								<li>Area: local, regional, global?</li>
+								<li>Branches: one-to-one, one-to-many, many-to-many?</li>
+							</ul>
+							<li><strong>Traffic Requirements</strong></li>
+							<ul>
+								<li>Type of traffic (data, voice, video, large/small files, real time?)</li>
+								<li>Traffic volume (determines bandwidth requirements)</li>
+								<li>QoS support</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>Choosing a WAN Service</h2>
+						<ul>
+							<li><strong>Private or Public infrastrucure? Dedicated or Switched (if private)?</strong></li>
+							<ul>
+								<li>Depends where the balance between requirements and costs lies.</li>
+							</ul>
+							<li><strong>Site-to-Site or Remote-Access VPN? Or both?</strong></li>
+							<li><strong>Local availability</strong></li>
+							<ul>
+								<li>Not all WAN services are available everywhere, so some theoretically better option are not feasible.</li>
+							</ul>
+							<li><strong>Cost</strong></li>
+							<ul>
+								<li>Sometimes this is the first and only costraint, and everything else is chosen to provide the best option fitting this limitation.</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
