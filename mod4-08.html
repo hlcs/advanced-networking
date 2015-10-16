@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 4 Chapter 8 - Monitoring the Network</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Connecting Networks</h2>
+					<h3>Chapter 8:</h3>
+					<h3>Monitoring the Network</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Introduction to Syslog</h2>
+					<p>Syslog are important source of infomations to proactively monitor the network.</p>
+					<p>Syslog messages are usually shown in the console, but they can be sent to many destinations:</p>
+					<ul>
+						<li>Logging buffer (RAM inside a router or switch)</li>
+						<li>Console line</li>
+						<li>Terminal line</li>
+						<li>Syslog server</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Syslog severity levels</h2>
+					<p>Every syslog message on CISCO IOS contains a <strong>severity level</strong> and a <strong>facility</strong>.</p>
+					<p>There are 7 severity levels:</p>
+					<ol>
+						<li><strong>Alert</strong> Messages, Severity Level 1</li>
+						<li><strong>Critical</strong> Messages, Severity Level 2</li>
+						<li><strong>Error</strong> Messages, Severity Level 3</li>
+						<li><strong>Warning</strong> Messages, Severity Level 4</li>
+						<li><strong>Notification</strong> Messages, Severity Level 5</li>
+						<li><strong>Informational</strong> Messages, Severity Level 6</li>
+						<li><strong>Debugging</strong> Messages, Severity Level 7</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Syslog Message Format</h2>
+					<p>By default, the format of syslog messages on the Cisco IOS Software is as follows:</p>
+					<pre><code>[seq no:] timestamp: %facility-severity-MNEMONIC: description</code></pre>
+					<p>For example:</p>
+					<pre><code>00:00:46: %LINK-3-UPDOWN: Interface Port-channel1, changed state to up</code></pre>
+					<p>To enable visible sequence numbering of system logging messages, use the global configuration mode command</p>
+					<pre><code>service sequence-numbers</code></pre>
+					<p>To display the date and time associated with the event, use the global configuration mode command</p>
+					<pre><code>service timestamps log datetime</code></pre>
+				</section>
+
+				<section>
+					<h2>Timestamp of Syslog</h2>
+					<p>It is important to synchronize the clocks of devices to properly recognise events.</p>
+					<p>You can <u>manually</u> set the clock, using the <code>clock set</code> command or <u>automatically</u>, using the client/server <strong>Network Time Protocol (NTP)</strong>. To set a NTP server use the command:</p>
+					<pre><code>Router(config)# ntp master [stratum]</code></pre>
+					<p>To set the client use the command:</p>
+					<pre><code>Router(config)# ntp server server-ip-address</code></pre>
+					<p>The <strong>stratum</strong> is the distance between a network device and an authoritative time source. A stratum 1 time server is directly attached to an authoritative time source (such as a radio or atomic clock or a GPS time source).</p>
+				</section>
+
+				<section>
+					<h2>Syslog Server</h2>
+					<p>First of all we need to set up a Syslog server.</p>
+					<p>Gnu/Linux operating system has syslog server feature embedded.</p>
+					<p>There are many open source graphical softwares available. For example:</p>
+					<ul>
+						<li><a href="http://loganalyzer.adiscon.com/">LogAnalyzer</a></li>
+						<li><a href="https://github.com/MaxBelkov/visualsyslog">Visual Syslog Server for Windows</a></li>
+						<li><a href="https://www.graylog.org/">Graylog</a></li>
+						<li><a href="http://doxfer.webmin.com/Webmin/System_Logs">Webmin</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Default Logging</h2>
+					<p>Cisco switches and  routers send log messages to the console by default.</p>
+					<p>To enable logging to the console use the <code>logging console</code> global configuration commands.</p>
+					<p>To enable buffered logging use <code>logging buffered</code> global configuration command.</p>
+					<p>To display the default logging service settings use the <code>show logging</code> global configuration command on a Cisco router.</p>
+				</section>
+
+				<section>
+					<h2>Send messages to a syslog server</h2>
+					<p>To log on a remote syslog server use the following command:</p>
+					<pre><code>R1(config)# logging 192.168.1.3</code></pre>
+					<p>To limit the logged messages to a preferred level, use the command:</p>
+					<pre><code>R1(config)# logging trap {level}</code></pre>
+					<p>You can optionally, configure the source interface with a command like this:</p>
+					<pre><code>R1(config)# logging source-interface g0/0</code></pre>
+					<p>Use show <code>logging</code> command to see logged messages, followed by pipe and <code>begin</code> or <code>include</code> commands to filter results, for example:</p>
+					<pre><code>R1(config)# show logging | begin June 12 22:35
+R1(config)# show logging | include changed state to up</code></pre>
+				</section>
+
+				<section>
+					<h2>SNMP</h2>
+					<p><strong>Simple Network Management Protocol</strong> (SNMP) is an "Internet-standard protocol for managing devices on IP networks".</p>
+					<p>Devices that typically support SNMP include <strong>routers, switches, servers, workstations, printers, modem racks</strong> and more.</p>
+					<p>SNMP is widely used in network management systems to <strong><u>monitor network-attached devices</u></strong> for conditions that warrant administrative attention.</p>
+					<p>SNMP is a <strong>component of the Internet Protocol Suite</strong> as defined by the Internet Engineering Task Force (IETF).</p>
+					<p>It consists of a set of standards for network management, including an <strong><u>application layer protocol</u></strong>, a <strong><u>database schema</u></strong> and a <strong><u>set of data objects</u></strong>.</p>
+				</section>
+
+				<section>
+					<h2> Network Management System (NMS)</h2>
+					<p>The SNMP system consists of three elements:</p>
+					<ul>
+						<li><strong>SNMP manager</strong> - Is part of NMS;  it collects information from an SNMP agent and can change configurations on an agent using the "get" and "set" actions.</li>
+						<li><strong>SNMP agents</strong> (managed node) - reside on networking device clients; they forward information directly to an NMS using "traps";</li>
+						<li><strong>Management Information Base (MIB)</strong> - reside on networking device clients; it stores data about the device operation.</li>
+					</ul>
+					<p>SNMP uses <strong><u>UDP port number 162</u></strong> to retrieve and send management information.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>SNMP protocol data units (PDUs)</h2>
+						<ol>
+							<li><strong>GetRequest</strong> - A <em>manager-to-agent</em> request to retrieve the value of a variable or list of variables. A Response with current values is returned.</li>
+							<li><strong>SetRequest</strong> - A <em>manager-to-agent</em> request to change the value of a variable or list of variables. A Response with (current) new values for the variables is returned.</li>
+							<li><strong>GetNextRequest</strong> - A <em>manager-to-agent</em> request to discover all available variables and their values. The entire MIB of an agent can be walked by iterative application of GetNextRequest.</li>
+							<li><strong>GetBulkRequest</strong> - Optimized version of GetNextRequest. A manager-to-agent request for multiple iterations of GetNextRequest. GetBulkRequest was introduced in SNMPv2.</li>
+						</ol>
+					</section>
+					<section>
+						<h2>SNMP protocol data units (PDUs)</h2>
+						<ol start="5">
+							<li><strong>Response</strong> - Returns variable bindings and acknowledgement from <em>agent to manager</em> for <em>GetRequest</em>, <em>SetRequest</em>, <em>GetNextRequest</em>, <em>GetBulkRequest</em> and <em>InformRequest</em>.<br>
+							Although it was used as a response to both gets and sets, this PDU was called <em>GetResponse</em> in SNMPv1.</li>
+							<li><strong>Trap</strong> - Asynchronous notification <em>from agent to manager</em>. SNMP traps enable an agent to notify the management station of significant events by way of an unsolicited SNMP message.<br>
+							Includes current sysUpTime value, an OID identifying the type of trap and optional variable bindings.</li>
+							<li><strong>InformRequest</strong> - Acknowledged asynchronous notification.</li>
+						</ol>
+					</section>
+				</section>
+
+				<section>
+					<h2>SNMP Versions</h2>
+					<p><strong>SNMP version 1 (SNMPv1)</strong> is the initial implementation of the protocol. RFCs for SNMP appeared in 1988.</p>
+					<p><strong>Community-Based SNMP version 2 (SNMPv2c)</strong> is defined in RFC 1901–RFC 1908 uses the simple <strong><em>community-based security scheme</em></strong> of SNMPv1.</p>
+					<p>SNMPv3 primarily added security and remote configuration enhancements to SNMP providing the features:</p>
+					<ul>
+						<li>Identification of SNMP entities.</li>
+						<li>Encryption of packets, Message integrity, Authentication - to verify that the message is from a valid source.</li>
+						<li>SNMPv3 contains the specifications for USM (User-based Security Model).</li>
+						<li>Supports different auth/privacy protocols (MD5, SHA).</li>
+						<li>Definition of a discovery procedure.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Community Strings</h2>
+					<p>SNMPv1 and SNMPv2c use <strong>plaintext passwords</strong> called <strong>community strings</strong> that control access to the MIB.</p>
+					<p>Community strings can be:</p>
+					<ul>
+						<li><strong>Read-only (ro)</strong> to provide only read access to the MIB variables. Because security is weak in version 2c, many network administrators use SNMPv2c in read-only mode.</li>
+						<li><strong>Read-write (rw)</strong> provides read and write access to all objects in the MIB</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>MIB Object ID</h2>
+					<p><u>SNMP itself does not define which information (i.e. which variables) a managed system should offer</u>.</p>
+					<p>Rather, SNMP uses an <strong>extensible design</strong>, where the available information is <u>defined by management information bases</u>.</p>
+					<p>MIBs describe the structure of the management data of a device subsystem; they use a <strong>hierarchical namespace containing object identifiers (OID)</strong>.</p>
+					<p>Each OID identifies a variable that can be read or set via SNMP.</p>
+				</section>
+
+				<section>
+					<h2>CISCO MIB structure</h2>
+					<p>In the MIB structure defined by Cisco the OID can be described in words or numbers to help locate a specific variable in the tree.</p>
+					<p>The first <strong>four numbers of an OID</strong> are almost always <code>.1.3.6.1</code>:</p>
+					<ul>
+						<li>1—iso Stands for the International Standards Organization (ISO).</li>
+						<li>3—org Objects under ISO are organizations recognized by the ISO.</li>
+						<li>6—dod Department of Defense, which developed the original Internet (ARPANET).</li>
+						<li>1—internet A code that the DOD assigned to something called the "Internet Community."</li>
+					</ul>
+					<p>OIDs belonging to <strong>Cisco</strong> are numbered as follows: .iso (1).org (3).dod (6).internet (1).private (4).enterprises (1).cisco (9). This is displayed as <code>.1.3.6.1.4.1.9</code></p>
+				</section>
+
+				<section>
+					<h2>Configure SNMPv2</h2>
+					<p>The only  required configuration are the community string and access level (read-only or read-write) with the command:</p>
+					<pre><code>  snmp-server community {string} [ro | rw]</code></pre>
+					<p>Optional informations about the device:</p>
+					<pre><code>snmp-server location text
+snmp-server contact text</code></pre>
+					<p>Restrict SNMP access to NMS hosts using ACLs:</p>
+					<pre><code>  snmp-server community string access-list-number-or-name </code></pre>
+					<p>Specify the recipient of the SNMP trap operations:</p>
+					<pre><code>snmp-server {host} {host-id} [version{ 1| 2c | 3 [auth | noauth | priv]}] {community-string}
+snmp-server enable traps {notification-types}
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Verify SNMP</h2>
+					<p>To verify SNMP configurations, use the commands</p>
+					<pre><code>show snmp
+show snmp community</code></pre>
+				</section>
+
+				<section>
+					<h2>SNMPv3</h2>
+					<h3>I don’t belong here  :(</h3>
+				</section>
+
+				<section>
+					<h2>NetFlow</h2>
+					<p>NetFlow is a Cisco IOS technology that <strong>provides statistics on packets flowing through a Cisco router or multilayer switch</strong>. </p>
+					<p>Flexible NetFlow is the latest NetFlow technology.</p>
+					<p><strong>Flexible NetFlow</strong> improves on "original NetFlow" by adding the capability to customize the traffic analysis parameters for the specific requirements of a network administrator.</p>
+					<p>Most organizations use NetFlow for data collection purposes:</p>
+					<ul>
+						<li>Measuring who is using network resources.</li>
+						<li>Accounting and charging back according to the resource utilization level.</li>
+						<li>Using the information to improve the infrastructure and optimize resources to meet user needs and customer service requirements.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>NetFlow Configuration</h2>
+					<p>NetFlow captures data from ingress (incoming) and egress (outgoing) packets.</p>
+					<p>Specify IP address or hostname of the NetFlow collector:</p>
+					<pre><code>Router(config)# interface fe0/2
+Router(config-if)# ip flow ingress
+Router(config-if)# ip flow egress
+Router(config-if)# exit
+Router(config)# ip flow-export destination 192.168.1.3 2055
+Router(config)# ip flow-export version 5</code></pre>
+					<p>Verifying NetFlow configuration using the commands</p>
+					<pre><code>show ip cache flow
+show ip flow interface
+show ip flow export</code></pre>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
