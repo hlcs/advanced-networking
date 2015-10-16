@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 4 Chapter 3 - Point to Point Connections</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Connecting Networks</h2>
+					<h3>Chapter 3:</h3>
+					<h3>Point to Point Connections</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Serial vs. Parallel Communication</h2>
+						<img src="https://i.imgur.com/XMCGVOW.gif">
+					</section>
+					<section>
+						<h2>Serial vs. Parallel Communication</h2>
+						<p>In a <strong>serial</strong> communication, the bits travel the channel sequentially.</p>
+						<p>In a <strong>parallel</strong> communication, multiple bits travel simultaneously over the channel, perhaps using multiple wires.</p>
+						<p><strong>Parallel comms are faster</strong> in theory, because in the same time it took to transfer 1 bit with serial comm, a parallel one transfers n bits.</p>
+						<p>They however introduce <strong>synchronization</strong> issues.</p>
+						<p>Up until only a few years before, <strong>parallel and serial ports were standard</strong> on PCs.</p>
+						<p><em>Universal Serial Bus</em> (<strong>USB</strong>) took over as a simpler and faster replacement for both.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Serial Standards</h2>
+						<ul>
+							<li><strong><a href="http://www.vincenzov.net/tutorial/rs232/rs232.htm">RS-232</a></strong> - A standard for a <strong>general purpose serial port</strong> that uses <strong><a href="https://en.wikipedia.org/wiki/Serial_port#Pinouts">both</a></strong> <strong>9 and 25 pin connectors</strong>. Many network devices uses RS-232 with an RJ45 connector wired using the specified pinout.</li>
+							<li><strong>V.35</strong> - It is mostly used by <strong>modems to connect to the multiplexer</strong> in the telephone company’s central location.</li>
+							<li><strong>HSSI</strong> - High Speed Serial Interface. It’s used to provide high bandwidth (up to 52 Mb/s) to WAN links. It’s been developed by Cisco in collaboration with T3 plus Networking.</li>
+						</ul>
+					</section>
+					<section>
+						<img src="https://i.imgur.com/n64yMKg.jpg">
+						<p><small>RS-232 male/femal 9-pin cable and connectors</small></p>
+					</section>
+					<section>
+						<img src="https://i.imgur.com/KnXbXzI.jpg">
+						<img src="https://i.imgur.com/O7atKAN.jpg">
+						<p><small><strong>Left</strong>: V.35 DTE-to-DCE cable</small></p>
+						<p><small><strong>Right</strong>: Cisco Smart Serial 26-pin DTE to V.35 Male</small></p>
+					</section>
+					<section>
+						<img src="https://i.imgur.com/jHc001O.jpg">
+						<p><small>Cisco HSSI Cable</small></p>
+					</section>
+					<section>
+						<img src="https://i.imgur.com/i2BWcWp.jpg">
+						<p><small>A Cisco "Rollover Cable" for accessing console</small></p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Point-to-Point (PtP) Links</h2>
+					<img src="https://i.imgur.com/wSU38mo.jpg">
+					<p>A <strong><em>Point-to-Point</em></strong> connection is a concept related, but not dependent, to serial communication. A PtP links is <strong>a link between only two nodes</strong>.</p>
+					<p>WAN technologies are used almost exclusively to create PtP <strong>connections between remote (<em>geographically distant</em>) locations</strong> (e.g. two offices of a company, in the same city or a different one).</p>
+					<p>PtP links for WANs are usually deployed over <strong>leased, private lines</strong>. That makes them expensive, increasingly so with the distance.</p>
+				</section>
+
+				<section>
+					<h2>Time Division: TDM and STDM</h2>
+					<p><strong>Time Division Multiplexing</strong> works at Layer 1, the physical layer, without concern of the nature of information delivered.</p>
+					<p>There are two common types of multiplexing:</p>
+					<ul>
+						<li>Time-division multiplexing (TDM)</li>
+						<li>Statistical time-division multiplexing (STDM)</li>
+					</ul>
+					<img src="https://i.imgur.com/ZaWzDK1.jpg">
+				</section>
+
+				<section>
+					<h2>Demarcation Point</h2>
+					<p>The demarcation point (demarc) is where the responsibility of the service provider (SP) ends.</p>
+					<p>Usually is is the interface between the Customer Premises Equipment (CPE) and the device of the network SP.</p>
+					<p>In USA the <strong>SP</strong> provides the local loop into the customer premises, and the <strong>customer</strong> provides the active equipment such as the CSU/DSU on which the loop is terminated.</p>
+					<p>Sometimes the service provider provides and manage the <strong>network terminating unit (NTU)</strong> so the demarcation point occurring after the NTU.</p>
+					<p>The customer connects his CPE device, such as a router or Frame Relay access device, to the NTU using a serial interface (V.35 or RS-232).</p>
+				</section>
+
+				<section>
+					<h2>CSU/DSU</h2>
+					<p>A CSU/DSU is a <strong>digital-interface device</strong> used to <u>connect a data terminal equipment (DTE)</u>, such as a router, <u>to a digital circuit</u>, such as a Digital Signal 1 (T1) line.</p>
+					<p>The CSU/DSU implements two different functions:</p>
+					<ul>
+						<li>The channel service unit (CSU) is responsible for the connection to the telecommunication network,</li>
+						<li>while the data service unit (DSU) is responsible for managing the interface with the DTE.</li>
+					</ul>
+					<p><strong>DSL and cable modems are CSU/DSUs</strong> because they convert from one type of digital signal to another. </p>
+					<p>A CSU/DSU is the equivalent of the modem for an entire LAN.</p>
+				</section>
+
+				<section>
+					<h2>Serial Bandwidth</h2>
+					<small>
+						<table>
+							<tr>
+								<td>Line Type</td>
+								<td>Capacity</td>
+							</tr>
+							<tr>
+								<td>56</td>
+								<td>56 kb/s</td>
+							</tr>
+							<tr>
+								<td>64</td>
+								<td>64 kb/s</td>
+							</tr>
+							<tr>
+								<td>T1</td>
+								<td>1.544 Mb/s</td>
+							</tr>
+							<tr>
+								<td>E1</td>
+								<td>2.048 Mb/s</td>
+							</tr>
+							<tr>
+								<td>J1</td>
+								<td>2.048 Mb/s</td>
+							</tr>
+							<tr>
+								<td>E3</td>
+								<td>34.063 Mb/s</td>
+							</tr>
+							<tr>
+								<td>T3</td>
+								<td>44.735 Mb/s</td>
+							</tr>
+							<tr>
+								<td>OC-1</td>
+								<td>51.54 Mb/s</td>
+							</tr>
+							<tr>
+								<td>OC-3</td>
+								<td>155.54 Mb/s</td>
+							</tr>
+							<tr>
+								<td>OC-9</td>
+								<td>466.56 Mb/s</td>
+							</tr>
+							<tr>
+								<td>OC-12</td>
+								<td>622.05 Mb/s</td>
+							</tr>
+							<tr>
+								<td>OC-15</td>
+								<td>933.12 Mb/s</td>
+							</tr>
+							<tr>
+								<td>OC-24</td>
+								<td>1244.16 Mb/s</td>
+							</tr>
+							<tr>
+								<td>OC-35</td>
+								<td>1566.24 Mb/s</td>
+							</tr>
+							<tr>
+								<td>OC-45</td>
+								<td>2455.32 Mb/s</td>
+							</tr>
+							<tr>
+								<td>OC-95</td>
+								<td>4976.64 Mb/s</td>
+							</tr>
+							<tr>
+								<td>OC-192</td>
+								<td>9953.25 Mb/s</td>
+							</tr>
+							<tr>
+								<td>OC-755</td>
+								<td>39513.12 Mb/s</td>
+							</tr>
+						</table>
+					</small>
+				</section>
+
+				<section>
+					<h2>WAN Encapsulation Protocols</h2>
+					<p>Frames sent on WAN links can be encapulated at data link layer in many ways. The most commons are:</p>
+					<ul>
+						<li><strong>HDLC</strong>: standard protocol but modified and made default by Cisco.</li>
+						<li><strong>PPP</strong>: has more features than HDLC and is standard.</li>
+						<li><strong>Frame Relay</strong>: protocol that handles multiple virtual circuit.</li>
+						<li><strong>ATM</strong>: an international standard in which devices send multiple data in fixed-length (53-byte) cells.</li>
+					</ul>
+					<p>Older ones are <strong>SLIP</strong> and <strong>X.25/Link Access Procedure, Balanced (LAPB)</strong>.</p>
+				</section>
+
+				<section>
+					<h2>HDLC</h2>
+					<p>HDLC is a <strong>bit-oriented synchronous</strong> data link layer protocol standardized as <strong>ISO 13239</strong>.</p>
+					<p>HDLC standard defines a <strong>Layer 2 framing</strong> structure with <u>flow control</u> and <u>error control</u> through <strong><em>acknowledgments</em></strong>.</p>
+					<p>Synchronous links have no mechanism to mark the beginning or end of frames. For this reason, HDLC uses a <em>frame delimiter</em>, or <strong>flag</strong>, to mark the beginning and the end of each frame.</p>
+					<p>Cisco developed a proprietary extension to the HLDC protocol (called <strong>cHDLC</strong>) to provide multiprotocol support.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>HDLC Frame Types</h2>
+						<ul>
+							<li><strong>I-Frames (user data)</strong></li>
+							<ul>
+								<li><em>Information frames</em>, <strong>transport user data</strong> from the network layer.</li>
+								<li>They also include <strong>flow and error control information</strong>. The sub-fields in the control field define these functions.</li>
+							</ul>
+							<li><strong>S-Frames (control)</strong></li>
+							<ul>
+								<li><em>Supervisory Frames</em> are used for <strong>flow and error control</strong> whenever piggybacking is impossible or inappropriate, such as when a station does not have data to send.</li>
+								<li>S-frames do not have information fields.</li>
+							</ul>
+							<li><strong>U-Frames</strong></li>
+							<ul>
+								<li><em>Unnumbered frames</em> are <strong>used for link management</strong>, and can also be used <strong>to transfer user data</strong>. They exchange session management and control information between connected devices, and some U-frames contain an information field, used for system management information or user data.</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>HDLC Frame Structure</h2>
+						<img src="https://i.imgur.com/BUvPARR.gif">
+					</section>
+				</section>
+
+				<section>
+					<h2>Point-to-Point Protocol</h2>
+					<p>PPP has three features:</p>
+					<ul>
+						<img src="https://i.imgur.com/gvCBCWd.png" style="float: right;">
+						<li>A <strong>framing structure similar to HDLC</strong> for transporting multiprotocol packets over point-to-point links.</li>
+						<li>Extensible Link Control Protocol (<strong>LCP</strong>) for establishing, configuring, and testing the data-link connection.</li>
+						<li>A set of Network Control Protocols (<strong>NCPs</strong>) for establishing and configuring different network layer protocols. PPP allows the simultaneous use of multiple network layer protocols.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Advantages of PPP</h2>
+					<p>PPP has many main advantages over HDLC:</p>
+					<ul>
+						<li>It is more standard.</li>
+						<li>It supports a link quality management feature, so when too many errors occur PPP takes the link down.</li>
+						<li>PPP supports security through PAP and CHAP authentication.</li>
+						<li>PPP operates across any DTE/DCE interface (RS-232-C, RS-422, RS-423, or V.35). The only requirement imposed by PPP is a <strong>full-duplex circuit</strong>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Link Control Protocol (LCP)</h2>
+					<p>Link Control Protocol (LCP) initiates and terminates connections gracefully, allowing hosts to negotiate connection options.</p>
+					<p>It is an integral part of PPP, and is defined in the same standard specification.</p>
+					<p>LCP provides automatic configuration of the interfaces at each end (such as setting datagram size, escaped characters, and magic numbers) and for selecting optional authentication.</p>
+					<p>The LCP protocol runs on top of PPP (with PPP protocol number 0xC021) and therefore a basic PPP connection has to be established before LCP is able to configure it.</p>
+				</section>
+
+				<section>
+					<h2>Network Control Protocol (NCP)</h2>
+					<p>PPP permits <strong><u>multiple network layer protocols to operate on the same communication link</u></strong>.</p>
+					<p>For every network layer protocol used, a separate Network Control Protocol (NCP) is provided in order to <strong>encapsulate and negotiate options</strong> for the multiple network layer protocols.</p>
+					<p><u>It negotiates network-layer information, e.g. network address or compression options, after the connection has been established</u>.</p>
+					<p>For example, Internet Protocol (IP) uses the <strong>IP Control Protocol (IPCP) [code: 0x8021]</strong>, and Internetwork Packet Exchange (IPX) uses the Novell IPX Control Protocol <strong>(IPX/SPX) [code: 0x802B]</strong>.</p>
+					<p>NCPs include fields containing standardized codes to indicate the network layer protocol type that the PPP connection encapsulates.</p>
+				</section>
+
+				<section>
+					<h2>PPP Frame Structure</h2>
+					<p>PPP uses the same frame structure of HDLC:</p>
+					<ul>
+						<li>The <strong>Flag</strong> field is present when PPP with HDLC-like framing is used.</li>
+						<li>The <strong>Address and Control</strong> fields always have the value 0xFF (for "all stations") and 0x03 (for "unnumbered information"), and can be omitted whenever PPP LCP Address-and-Control-Field-Compression (ACFC) is negotiated.</li>
+						<li>The <strong>frame check sequence</strong> (FCS) field is used for determining whether an individual frame has an error. According to RFC 1662, it can be either 16 bits or 32. The FCS is calculated over the Address, Control, Protocol, Information and Padding fields after the message has been encapsulated.</li>
+					</ul>
+					<img src="https://i.imgur.com/HL8EIy3.gif">
+				</section>
+
+				<section>
+					<section>
+						<h2>PPP line activation and phases</h2>
+						<img src="https://i.imgur.com/eez6AoR.png" style="background: white;">
+					</section>
+					<section>
+						<h2>PPP line activation and phases</h2>
+						<ul>
+							<li><strong>Link Dead</strong> - occurs when <u>the link fails</u>, or one side has been told to <u>disconnect</u>.</li>
+							<li><strong>Link Establishment Phase</strong> - This phase is where LCP negotiation is attempted. If successful, control goes either to the authentication phase or the Network-Layer Protocol phase, depending on whether authentication is desired.</li>
+							<li><strong>Authentication Phase</strong> - Optional. It allows the sides to authenticate each other before a connection is established. If successful, control goes to the network-layer protocol phase. It may optionally include a <strong>Link quality determination phase</strong>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>PPP line activation and phases</h2>
+						<ul>
+							<li><strong>Network-Layer Protocol Phase</strong> - This phase is where each desired protocols' Network Control Protocols are invoked. Data transport for all protocols which are successfully started with their network control protocols also occurs in this phase.</li>
+							<li><strong>Link Termination Phase</strong> - This phase closes down this connection. This can happen if there is an <u>authentication failure</u>, if there are so many checksum errors that the two parties decide to tear down the link automatically, if the link suddenly fails, or if the <u>user decides to hang up</u> his connection.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Classes of LCP frames</h2>
+						<p>LCP uses three classes of LCP frames during its operations <strong>to accomplish the work of each of the LCP phases</strong>:</p>
+						<ul>
+							<li>Link-establishment frames establish and configure a link:</li>
+							<ul>
+								<li>Configure-Request,</li>
+								<li>Configure-Ack</li>
+								<li>Configure-Nak ("negative acknowledge"),</li>
+								<li>Configure-Reject.</li>
+							</ul>
+							<li>Link-maintenance frames manage and debug a link:</li>
+							<ul>
+								<li>Code-Reject,</li>
+								<li>Protocol-Reject,</li>
+								<li>Echo-Request,</li>
+								<li>Echo-Reply,</li>
+								<li>Discard-Request</li>
+							</ul>
+							<li>Link-termination frames terminate a link:</li>
+							<ul>
+								<li>Terminate-Request</li>
+								<li>Terminate-Ack</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>LCP Packet</h2>
+						<img src="https://i.imgur.com/89vQHqi.gif">
+						<ul>
+							<li><strong>Code</strong>  - The Code field is one octet, and identifies the kind of LCP packet. When a packet is received with an unknown Code field, a Code-Reject packet is transmitted.</li>
+							<li><strong>Identifier</strong> - The Identifier field is one octet, and aids in matching requests and replies. When a packet is received with an invalid Identifier field, the packet is silently discarded without affecting the automaton.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>LCP Packet</h2>
+						<ul>
+							<li><strong>Length</strong>  - The Length field is two octets, and indicates the length of the LCP packet, including the Code, Identifier, Length and Data fields. The Length <u>must not</u> exceed the MRU of the link. Octets outside the range of the Length field are treated as padding and are ignored on reception. When a packet is received with an invalid Length field, the packet is silently discarded without affecting the automaton.</li>
+							<li><strong>Data</strong> - The Data field is zero or more octets, as indicated by the Length field. The format of the Data field is determined by the Code field.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Configure PPP on Cisco</h2>
+						<p>Enabling PPP on an Interface:</p>
+						<pre><code>R3# configure terminal
+R3(config)# interface serial 0/0/0
+R3(config-if)# encapsulation ppp</code></pre>
+						<p>Configure compression over PPP:</p>
+						<pre><code>R3(config-if)# compress [ predictor | stac ]</code></pre>
+						<ul>
+							<li><em>predictor</em>: more memory-intensive and less CPU-intensive.</li>
+							<li><em>stac</em>: Stacker compression, based on the Lempel-Ziv compression algorithm</li>
+						</ul>
+						<p><strong>Quality configuration</strong>: ensures that the link meets the quality requirement set; otherwise, the link closes down:</p>
+						<pre><code>R3(config-if)# ppp quality [percentage]
+</code></pre>
+					</section>
+					<section>
+						<h2>PPP Multilink configuration</h2>
+						<p>Similar to EtherChannel.</p>
+						<pre><code>interface Multilink1
+ ppp multilink
+ ppp multilink group 1
+!
+interface Serial 0/0/0
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+! 
+interface Serial 0/0/1
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+!</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>PPP Authentication</h2>
+						<p><strong>LCP is responsible of authentication</strong> of peers <u>before establishing PPP link and allowing network layer protocols to transmit over the link</u>.</p>
+						<p>There are 2 protocols for authentication defined in the RFC 1334: <strong>PAP</strong> (Password Authentication Protocol) and <strong>CHAP</strong> (Challenge Handshake Authentication Protocol).</p>
+					</section>
+					<section>
+						<h2>PPP Authentication: PAP</h2>
+						<ul>
+							<li>Less secure, passwords are sent in clear text</li>
+							<li>authentication is made once at connection estabishment</li>
+							<li>Uses a 2-way handshake</li>
+							<ol>
+								<li>the calling side sends a request with Uername + Password</li>
+								<li>the other side replies an Accept or Reject</li>
+							</ol>
+						</ul>
+					</section>
+					<section>
+						<h2>PPP Authentication: CHAP</h2>
+						<ul>
+							<li>More secure, passwords are not sent</li>
+							<li>Uses a 3-way handshake, repeated periodically</li>
+							<ol>
+								<li>the called side sends a Challenge message with  a random string</li>
+								<li>the other side sends back a password encrypted md5 hash of the script</li>
+								<li>the first side compare the hash and replies an Accept or Reject</li>
+							</ol>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>User Database</h2>
+					<p>Allowed users can be stored in a <strong>local</strong> or <strong>remote</strong> database.</p>
+					<p><em>Remote Authentication Dial In User Service</em> (<strong>RADIUS</strong>) is one of the most used networking protocol that provides centralized <u>Authentication, Authorization, and Accounting</u> (<strong>AAA</strong>) management.</p>
+					<p><strong>XTACACS</strong>>XTAC<strong>TACACS+</strong> TACACS+ are Cisco proprietary versions of <em>Terminal Access Controller Access-Control System</em> (<strong>TACACS</strong>) protocol which dates back to 1984</strong>.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Configuring PAP</h2>
+						<p>On the local router:</p>
+						<pre><code>Local(config)# username Remote password myPass
+Local(config)# inteface Serial 0/0/0
+Local(config-if)# encapsulation  ppp
+Local(config-if)# ppp authentication pap
+Local(config-if)# ppp pap sent-username Local password myPass</code></pre>
+						<p>On the remote router:</p>
+						<pre><code>Remote(config)# username Local password myPass
+Remote(config)# inteface Serial 0/0/0
+Remote(config-if)# encapsulation  ppp
+Remote(config-if)# ppp authentication pap
+Remote(config-if)# ppp pap sent-username Remote password myPass
+</code></pre>
+					</section>
+					<section>
+						<h2>Configuring CHAP</h2>
+						<p>On the local router:</p>
+						<pre><code>Local(config)# username Remote password myPass
+Local(config)inteface Serial 0/0/0
+Local(config-if)# encapsulation  ppp
+Local(config-if)#  ppp authentication chap</code></pre>
+						<p>On the remote router:</p>
+						<pre><code>Remote(config)# username Local password myPass
+Remote(config)inteface Serial 0/0/0
+Remote(config-if)# encapsulation  ppp
+Remote(config-if)#  ppp authentication chap</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>Troubleshooting PPP</h2>
+					<p>The <code>debug ppp</code> command shows useful information about:</p>
+					<ul>
+						<li><strong>Supported NCPs</strong> at both ends of a PPP connection</li>
+						<li><strong>Existing loops</strong> in the PPP internetwork</li>
+						<li><strong>Nodes</strong> that are negotiating PPP connections</li>
+						<li><strong>Errors</strong> occurred during the PPP connection</li>
+						<li><strong>Causes</strong> for PAP or CHAP session failures</li>
+						<li>Information specific to the exchange of PPP connections using the <strong>Callback Control Protocol (CBCP)</strong>, used by Microsoft clients</li>
+						<li>Incorrect packet sequence number information where Microsoft Point-to-Point <strong>Compression (MPPC)</strong> is enabled</li>
+					</ul>
+					<pre><code>Router#debug ppp ?
+  authentication  CHAP and PAP authentication
+  negotiation     Protocol parameter negotiation
+  packet          Low-level PPP packet dump
+</code></pre>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+
+				<section>
+					<h2>Linkography</h2>
+					<ul>
+						<li><a href="http://www.di.unisa.it/professori/auletta/DIDATTICA/RETI_04/slide/HDLC.pdf">HDLC</a> - Vincenzo Auletta</li>
+						<ul>
+							<li>Slides for UniSalerno CS course in Networking.</li>
+						</ul>
+					</ul>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
