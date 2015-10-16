@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 4 Chapter 9 - Troubleshooting the Network</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Connecting Networks</h2>
+					<h3>Chapter 9:</h3>
+					<h3>Troubleshooting the Network</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Documentation</h2>
+						<h3>Network Configuration Files</h3>
+						<ul>
+							<li>As a record of informations on network HW and SW</li>
+							<li>Informations can be about:</li>
+							<ul>
+								<li>Type of device</li>
+								<li>IOS image name</li>
+								<li>Device network hostname</li>
+								<li>Location of the device (building, floor, room, rack, panel)</li>
+								<li>If it is a modular device</li>
+								<li>Data link layer addresses</li>
+								<li>Network layer addresses</li>
+								<li>Any additional important information about physical aspects of the device</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>Documentation</h2>
+						<h3>End-System Configuration Files</h3>
+						<ul>
+							<li>A record of information on HW and SW used in end-system device as servers, network management consoles, and user workstations</li>
+							<li>Informations can be about:</li>
+							<ul>
+								<li>Device name</li>
+								<li>Operating system and version</li>
+								<li>IPv4 and IPv6 addresses</li>
+								<li>Subnet mask and prefix length</li>
+								<li>Default gateway, DNS server, and WINS server addresses</li>
+								<li>Any high-bandwidth network applications that the end system runs</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Network Topology Diagrams</h2>
+						<p>Best practice is create 2 diagrams with network topology.</p>
+						<p>A Physical diagram that include (Physical Connections):</p>
+						<ul>
+							<li>Device type, Model and manufacturer, Operating system version, Cable type and identifier, Cable specification, Connector type, Cabling endpoints.</li>
+						</ul>
+						<p>A logical diagram that include(Logical Connections):</p>
+						<ul>
+							<li>Device identifiers, IP address and prefix lengths, Interface identifiers, Connection type, DLCI for virtual circuits, Site-to-site VPNs, Routing protocols, Static routes, Data-link protocols, WAN technologies used.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Topology Example: Physical</h2>
+						<img src="https://i.imgur.com/nQWXTJ3.png">
+					</section>
+					<section>
+						<h2>Topology Example: Logical</h2>
+						<img src="https://i.imgur.com/8jDro0C.png">
+					</section>
+				</section>
+
+				<section>
+					<h2>Network Baselines</h2>
+					<p>It's best practice to measure the initial network’s performance in different conditions: this is the <strong><em>baseline</em></strong>.</p>
+					<p>The baseline is used to assess the performance of the network and to prevent possible problems. The analysis of the baseline in exercise help to discover hidden problems when the network is operational.</p>
+					<p>The measuring process of the first baseline can be performed using this step:</p>
+					<ol>
+						<li><strong>Determine what types of data to collect</strong>. - Good starting measures can be interface utilization and CPU utilization</li>
+						<li><strong> Identify devices and ports of interest</strong> - identify those devices and ports for which performance data should be measured.</li>
+						<li><strong> Determine the baseline duration</strong></li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Commands to collect data</h2>
+					<ul>
+						<li><code>show version</code></li>
+						<li><code>show ip interface [brief]</code></li>
+						<li><code>show ipv6 inteface [brief]</code></li>
+						<li><code>show intefaces [interface_type interface_num]</code></li>
+						<li><code>show ip route</code></li>
+						<li><code>show ipv6 route</code></li>
+						<li><code>show arp</code></li>
+						<li><code>show ipv6 neighbors</code></li>
+						<li><code>show running-config</code></li>
+						<li><code>show vlan</code></li>
+						<li><code>show tech-support</code></li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Troubleshooting Process</h2>
+						<img src="https://i.imgur.com/MtdpFlZ.png">
+					</section>
+					<section>
+						<h2>Gathering Symptoms</h2>
+						<img src="https://i.imgur.com/KhEIrFr.png">
+					</section>
+				</section>
+
+				<section>
+					<h2>Questioning End Users</h2>
+					<small>
+						<table>
+							<tr>
+								<td><strong>Guidelines</strong></td>
+								<td><strong>Example End-User Questions</strong></td>
+							</tr>
+							<tr>
+								<td>Determine the sequence of events that took place before the problem happened</td>
+								<td><em>When exactly does the problem occur?</em></td>
+							</tr>
+							<tr>
+								<td>Ask the user when the problem was first noticed</td>
+								<td><em>When was the problme first noticed?</em></td>
+							</tr>
+							<tr>
+								<td>Ask questions that are pertinent the problem</td>
+								<td><em>What does not work?</em></td>
+							</tr>
+							<tr>
+								<td>Use each question as a means to either eliminate or discover possible problems.</td>
+								<td><em>Are the things that do work and the things that do not work reated?</em></td>
+							</tr>
+							<tr>
+								<td>Ask the user to recreate the problem, if possible.</td>
+								<td><em>Can you reproduce the problem?</em></td>
+							</tr>
+							<tr>
+								<td>Speak at a technical level the user can understand</td>
+								<td><em>Did the things that does not work ever work?</em></td>
+							</tr>
+							<tr>
+								<td>Did anything unusual happen since the last time it worked?</td>
+								<td><em>What has changed since the last time it did work?</em></td>
+							</tr>
+						</table>
+					</small>
+				</section>
+
+				<section>
+					<h2>Using Layered Model for Troubleshooting</h2>
+					<img src="https://i.imgur.com/a0omhOa.gif">
+				</section>
+
+				<section>
+					<section>
+						<h2>Troubleshooting Methods</h2>
+						<ul>
+							<li><strong>Bottom-up</strong></li>
+							<ul>
+								<li>Start troubleshooting process by physical layer to application layer.</li>
+								<li>Works well if suspected physical problem, not so great if problem is too up in the iso-osi model.</li>
+							</ul>
+							<li><strong>Top-down</strong></li>
+							<ul>
+								<li>Start troubleshooting process by Application layer to application layer.</li>
+								<li>Work well for simple application problems, at a disadvantage if there's a physical problem.</li>
+							</ul>
+							<li><strong>Divide-and-conquer</strong></li>
+							<li><strong>Net administrator knowledge</strong></li>
+						</ul>
+					</section>
+					<section>
+						<h2>Selecting a Troubleshooting Method</h2>
+						<img src="https://i.imgur.com/v8OYrER.png">
+					</section>
+				</section>
+
+				<section>
+					<h2>Troubleshooting Tools</h2>
+					<ul>
+						<li>Software</li>
+						<ul>
+							<li>Network Management System Tools (solarwind, Spiceworks, Nagios, etc.)</li>
+							<li>Knowledge Bases</li>
+							<li>Host-Based Protocol Analyzers (e.g. Wireshark)</li>
+							<li>Cisco IOS Embedded Packet Capture</li>
+						</ul>
+						<li>Hardware</li>
+						<ul>
+							<li>Network Analysis Module</li>
+							<li>Digital Multimeters</li>
+							<li>Cable Testers</li>
+							<li>Cable Analyzers</li>
+							<li>Portable Network Analyzers</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Syslog Server</h2>
+						<p>syslog is a widely used standard for message logging. It permits separation of the software generating messages, the system storing them, and the software doing the reporting and analysis.</p>
+						<p>Designers can use syslog for system management and security auditing as well as general informational, analysis, and debugging messages. A wide variety of devices use the syslog standard.</p>
+						<p>Because of this, system designers can use syslog to integrate log data from different types of systems in a central repository. Implementations of syslog exist for many operating systems.</p>
+						<p>Messages can be sent on: console, terminal line, buffered logging...</p>
+						<pre><code>R1(config)# logging host ***.***.***.***
+R1(config)# logging trap notifications
+R1(config)# logging on</code></pre>
+					</section>
+					<section>
+						<h2>Syslog Levels</h2>
+						<img src="https://i.imgur.com/IO0eu57.png">
+					</section>
+				</section>
+
+				<section>
+					<h2>Physical Layer Troubleshooting</h2>
+					<p>Common Symptoms:</p>
+					<ul>
+						<li>Performance lower than baseline</li>
+						<li>Loss of connectivity</li>
+						<li>Network bottlenecks or congestion</li>
+						<li>High CPU utilization rates</li>
+						<li>Console error messages</li>
+					</ul>
+					<p>Common Causes:</p>
+					<ul>
+						<li>Power-related</li>
+						<li>Hardware faults</li>
+						<li>Cabling faults</li>
+						<li>Attenuation and/or noise</li>
+						<li>Interface configuration errors</li>
+						<li>Exceeding design limits</li>
+						<li>CPU overload</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Data Link Layer Troubleshooting</h2>
+					<p>Common Symptoms:</p>
+					<ul>
+						<li>No functionality or connectivity at the network layer or above</li>
+						<li>Network is operating below baseline performance levels</li>
+						<li>Excessive broadcasts</li>
+						<li>Console messages</li>
+					</ul>
+					<p>Common Causes:</p>
+					<ul>
+						<li>Encapsulation errors</li>
+						<li>Address mapping errors</li>
+						<li>Framing errors</li>
+						<li>STP failures or loops</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Network Layer Troubleshooting</h2>
+					<p>Common Symptoms:</p>
+					<ul>
+						<li>Network failure</li>
+						<li>Suboptimal performance</li>
+					</ul>
+					<p>Common Causes:</p>
+					<ul>
+						<li>General network issues</li>
+						<li>Connectivity issues</li>
+						<li>Neighbor issues</li>
+						<li>Topology database</li>
+						<li>Routing table</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Transport Layer Troubleshooting</h2>
+					<p>Common Symptoms:</p>
+					<ul>
+						<li>Connectivity/Access issues</li>
+					</ul>
+					<p>Common Causes:</p>
+					<ul>
+						<li>Selection of traffic flow</li>
+						<li>Order of access control entries</li>
+						<li>Implicit deny all</li>
+						<li>Addresses and IPv4 wildcard masks</li>
+						<li>Selection of transport layer protocol</li>
+						<li>Source and destination ports</li>
+						<li>Use of the established keyword</li>
+						<li>Uncommon protocols </li>
+						<li>BOOTP and DHCP</li>
+						<li>DNS and WINS</li>
+						<li>Tunneling and encryption protocols</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Application Layer Troubleshooting</h2>
+					<p>Applications layer issues depend by the application used by end-user. Problems in application layer can also be understood with other layer problems.</p>
+					<p>Application problem can occur when other layers don’t work.</p>
+					<p>Some common Application layer protocols are:</p>
+					<ul>
+						<li>SSH/Telnet</li>
+						<li>HTTP</li>
+						<li>FTP</li>
+						<li>TFTP</li>
+						<li>SMTP</li>
+						<li>POP</li>
+						<li>Simple Network Management Protocol (SNMP)</li>
+						<li>DNS</li>
+						<li>Network File System (NFS)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
