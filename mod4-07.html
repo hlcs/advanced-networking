@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 4 Chapter 7 - Securing Site-to-Site Connectivity</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Connecting Networks</h2>
+					<h3>Chapter 7:</h3>
+					<h3>Securing Site-to-Site Connectivity</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Virtual Private Networks</h2>
+						<img src="https://i.imgur.com/iFq9OWW.gif">
+						<p><em>Virtual Private Networks</em> (VPNs) are <strong>end-to-end private connections</strong> created and communicating <strong>over third-party networks</strong>, either private themselves (Extranets) or, most commonly, public (the Internet).</p>
+						<p>VPNs are created in such a way that both parties communicate completely <strong>unaware that the connection happens over a public network</strong>. To them, it appears like (<em>virtual</em>) they’re on their own local (<em>private</em>) network.</p>
+					</section>
+					<section>
+						<h2>Virtual Private Networks</h2>
+						<p>VPNs provide several major <strong>advantages</strong>:</p>
+						<ul>
+							<li>They make it possible to <strong>use the public Internet as a WAN</strong> service, thus reducing costs. It is so because they are</li>
+							<li><strong>Secure</strong>: modern VPNs <strong>encrypt and authenticate sent/received traffic</strong>.</li>
+							<li>Ubiquity of the Internet makes it possible to <strong>scale</strong>, reaching new users, <strong>without adding infrastructure</strong>. A VPN can be <strong>available anywhere</strong>.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>VPN Requirements</h2>
+						<p>To be able to setup a VPN, the following will be needed:</p>
+						<ul>
+							<li><strong>End-to-End connectivity</strong> - This is essential, being a VPN a point-to-point private connection <em>overlayed</em> over a public network. Without being able to reach the other endpoint over the Internet, no VPN can be setup.</li>
+							<li>The <strong>software</strong> implementation of a VPN protocols, specifically:</li>
+							<ul>
+								<li>A VPN <em>Client</em></li>
+								<li>A VPN <em>Server</em>.</li>
+								<li><strong>Configuration</strong> of clients and servers, such as addresses, keys, certificates, transport protocols and so on.</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>VPN Requirements</h2>
+						<p>The Client and the Server software can run <strong>on basically every hardware</strong>. Of course they must be implementing the <u>same</u> VPN protocol.</p>
+						<p>Usually, but not always, client software runs on a personal device, while VPN gateway software run on a dedicated device such as a router, a firewall or a <em>security appliance</em>.</p>
+						<p>Regardless, the combination of the VPN software and the hardware it runs on is called a <strong>VPN Gateway</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Site-to-Site VPN</h2>
+						<img src="https://i.imgur.com/5KNDtt2.gif">
+						<p>In a <em>site-to-site</em> VPN, the hosts in the local networks behind the VPN endpoints have <strong>no knowledge</strong> that a VPN is in place.</p>
+						<p>How? The <strong>VPN Gateways (de)encapsulate and (de)encrypt (incoming) outgoing traffic</strong> in such a way that the <strong>local networks only see regular TCP/IP</strong>.</p>
+					</section>
+					<section>
+						<h2>Site-to-Site VPN</h2>
+						<p>In a site-to-site VPN, the tunnel between the VPN gateways is almost always <strong>pre-configured and always-on</strong>, contributing to the <strong>complete transparency</strong> experienced by the whole internal networks.</p>
+						<p>For these reasons, in site-to-site VPNs both the client and the server software tend to be run <strong>on dedicated devices</strong>.</p>
+						<p>This kind of VPN is the one materializing the exploiting of a <strong>public network as a WAN service</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Remote-Access VPN</h2>
+						<img src="https://i.imgur.com/TJoQ9GL.gif">
+						<p><em>Remote-access VPNs</em> are used to <strong>connect end-users to the internal network</strong> behind the VPN gateway.</p>
+						<p>They are used for connecting partners, teleworkers and generally any user on a <em>non-site location</em>. The connection takes place on a <strong>per-user basis</strong>.</p>
+					</section>
+					<section>
+						<h2>Remote-Access VPN</h2>
+						<p>Remote-access VPNs generally grant access <strong>on-demand</strong>, they have to be <strong>setup for each user</strong> and thus easily enabled/disabled.</p>
+						<p>The VPN gateway of the target network behaves the same as in site-to-site VPNs; on the end-user side, usually a VPN client software (such as <em>Cisco AnyConnect</em>) is installed on each of the user devices that must access the remote network.</p>
+						<p>For convenience of the end-user, the client could be <strong>installed on a forwarding device</strong> (such as a home router), serving every device simultaneously.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Tunneling Protocols</h2>
+						<p>Tunneling is a <strong>particular encapsulation practice</strong> which uses the payload (data) portion of a frame/packet to carry other frame/packets.</p>
+						<p>Communications usually have a L1 bitstream <em>encapsulating</em> a data link frame, <em>encapsulating</em> a network layer packet, <em>encapsulating</em> a transport layer  segment/datagram, <em>encapsulating</em> application layer (L5-7) PDUs (messages).</p>
+						<img src="https://i.imgur.com/yc9nVsN.png">
+					</section>
+					<section>
+						<h2>Tunneling Protocols</h2>
+						<p>Encapsulation could change protocols as data travel, but normally it would keep a <em>layered</em> L1-to-L7 stack. <strong>Tunneling violates the ISO/OSI or TCP layering</strong> by using a <strong><em>delivery (transport) protocol</em></strong> at a certain layer to encapsulate a <strong><em>payload (passenger) protocol</em></strong> <u>operating at an equal or lower layer</u>.</p>
+						<img src="http://i.imgur.com/Kduhnnc.png">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Why Tunneling Protocols?</h2>
+						<p>What is the <strong>purpose</strong> of tunneling?</p>
+						<ul>
+							<li>Its most important use case is to allow <strong>running a (network) protocol over a network which does not support it</strong>.</li>
+							<ul>
+								<li>Example: two IPv4-only networks over an IPv6-only one.</li>
+							</ul>
+							<li><strong>Deliver services that would be impossible or unsafe to deliver</strong> by using only underlying network technologies.</li>
+							<ul>
+								<li>For instance: bridging two local networks with private addresses over the Internet; create PtP connections to use serial protocols.</li>
+							</ul>
+							<li>The payload protocol header and its data can be encrypted. In general tunneling allows to <strong>encapsulate a non-secure protocol over a secure one</strong>, by adding an encryption and authentication layer.</li>
+							<ul>
+								<li>Example: SSH tunnels.</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>Why Tunneling Protocols?</h2>
+						<p>VPNs and <strong><em>tunneling</em></strong> are two concepts so intertwined they can be easily exhanged. However, a distinction is useful.</p>
+						<p>VPNs can be thought as an <strong><em>application</em> of tunneling protocols</strong>, perhaps one of the most important.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>GRE</h2>
+						<img src="https://i.imgur.com/gtn4ybz.png">
+					</section>
+					<section>
+						<h2>GRE</h2>
+						<p>Generic Routing Encapsulation is a tunneling protocol developed by Cisco in 1994 and later defined as open standard in RFC 2784 and 2890.</p>
+						<p>It was to designed to create PtP links over an IP network.</p>
+						<ul>
+							<li>The delivery protocol is IP, protocol no. 47 (no TCP or UDP).</li>
+							<li>It’s able to transport multiple L3 protocols as passengers.</li>
+							<li>Very basic, no encryption of the payload, multicast support across sites.</li>
+							<li>Delivery + GRE headers have a minimum of 24 bytes of overhead.</li>
+							<li>Many GRE header fields are optional.</li>
+							<li>Payload Protocols are specified in the GRE Header using EtherTypes (like Ethernet does).</li>
+							<ul>
+								<li>For instance, IPv4-IPv4 GRE tunnels have 0x0800 as Ethertype.</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>GRE Configuration</h2>
+						<ul>
+							<li><strong>Check end-to-end connectivity</strong>, using the two endpoint addresses.</li>
+							<li>Create a <strong>tunnel virtual interface</strong></li>
+							<pre><code>Router# interface tunnel0</code></pre>
+							<li><strong>Default tunnel mode on Cisco devices is GRE</strong>. If needed, an GRE-over-IP tunnel it can be set explicitely with</li>
+							<pre><code>Router(config-ig)# tunnel mode gre ip</code></pre>
+						</ul>
+					</section>
+					<section>
+						<h2></h2>
+						<ul>
+							<li>Set a <strong>tunnel between the two endpoints</strong> using source and destination addresses already configured on physical interfaces. Configuration is mirrored. These are the addresses for the delivery protocol.</li>
+							<pre><code>Router(config-if) tunnel source [ip_address]
+Router(config-if) tunnel destination [ip_address]</code></pre>
+							<li>Configure an IP address for the tunnel interfaces, belonging to the same subnet. This will appear like a PtP connection. These are the addresses for the payload protocol.</li>
+							<pre><code>Router1(config-if) ip address 10.87.250.1 255.255.255.252
+Router2(config-if) ip address 10.87.250.2 255.255.255.252</code></pre>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>GRE Verification</h2>
+					<p>Now that a tunnel is in place, connecting the two endpoints in a common subnet with a <em>virtual</em> PtP link, the Tunnel interfaces can be treated like any other physical interface.</p>
+					<p>For instance, <strong>dynamic routing protocols can be setup to run over the tunnel</strong> (because multicast is supported on GRE tunnels).</p>
+					<p>To show the configured tunnel interfaces:</p>
+					<pre><code>Router# show ip interface brief | include tunnel</code></pre>
+					<p>To display tunnel interfaces’ parameters:</p>
+					<pre><code>Router# show interface Tunnel 0
+Tunnel0 is up, line protocol is up
+ Hardware is Tunnel
+ Internet address is 192.168.2.1/24
+ MTU 17916 bytes, BW 100 Kbit/sec, DLY 50000 usec,
+ reliability 255/255, txload 1/255, rxload 1/255
+ Encapsulation TUNNEL, loopback not set
+ Keepalive not set
+ Tunnel source 209.165.201.1, destination 198.133.219.87
+ Tunnel protocol/transport GRE/IP
+ [output omitted ...]
+</code></pre>
+				</section>
+
+				<section>
+					<h2>IPsec</h2>
+					<p>IPsec (<em>Internet Protocol Security</em>) is a <strong>suite of open standard protocols</strong> that is able to secure IPv4/6 data flows by <strong>authenticating and/or encrypting packets</strong>.</p>
+					<p>IPsec standard <strong>doesn’t depend on specific technologies</strong> for encrypting or authenticating or else. It fits them toghether in a cohesive security and VPN system, and thus can be <strong>extended without altering the specification</strong>.</p>
+					<p>Data flows between two hosts, two gateways, or an host and a gateway, can all be secured with IPsec.</p>
+					<p>IPsec works at the network layer and over any L2 protocol. The <strong>delivery (IP) protocol header are always unencrypted to ensure correct routing</strong>, but anything in the upper layer can be encrypted.</p>
+				</section>
+
+				<section>
+					<h2>IPsec Security Functions</h2>
+					<ul>
+						<li><strong>Confidentiality</strong> - The ability to ensure <strong>data can only be read by the communicating parties</strong>. Encryption algorithms are used for this purpose.</li>
+						<li><strong>Data Integrity</strong> - The ability to ensure <strong>data have not been altered</strong> while in transit. IPsec uses hashing algorithms for this.</li>
+						<li><strong>Authentication</strong> - The ability to <strong>certify the source of the data as the intended one</strong>. IPsec uses the <em>Internet Key Exchange</em> (<strong>IKE</strong>) protocol to authenticate individual user or devices by using username password combinations, one-time passwords, pre-shared keys, certificates and other means.</li>
+						<li><strong>Replay Protection</strong> - The ability to <strong>ensure that each packet is unique</strong> and not a duplicate. Without it, <em>replay attacks</em> can take place where an earlier spoofed packet is used to authenticate an unauthorized party. IPsec use <strong>sequence numbers and sliding windows</strong> to drop duplicated packets.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Encryption</h2>
+						<p>Confidentiality in VPNs (and thus IPsec) is reached through encryption. An encryption scheme is made by the following components:</p>
+						<ul>
+							<li>An <strong>encryption/decryption algorithm</strong>.</li>
+							<li>The <strong>encryption/decryption key or keys</strong>.</li>
+						</ul>
+						<p>The encryption process <strong>combines plaintext data, algorithms and keys to produce an unreadable ciphertext</strong> that can securely transmitted over the network and be reverted to the original plaintext at the destination.</p>
+						<img src="https://i.imgur.com/ifahin7.png">
+					</section>
+					<section>
+						<h2>Encryption</h2>
+						<p>The security of the encryption schemes depends on the <strong>sophistication of the cryptography</strong> in the algorithm and the <strong>length (strength) of the keys</strong>.</p>
+						<p>Algo being equal, <strong>longer keys takes exponentially longer to brute-force</strong>, but also <strong>more computing power and time</strong> to encrypt/decrypt data.</p>
+						<p>256-bit keys aren’t 2x  stronger than 128-bit keys but 2^128 times stronger!</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Symmetric Encryption</h2>
+					<img src="https://i.imgur.com/gImQrvd.gif">
+					<p>In symmetric encryption algorithms, the <strong>encryption and decryption keys are the same key</strong> (a <em>pre-shared secret key</em>, <strong>PSK</strong>).</p>
+					<p>This means that to be able to decrypt the data, the <strong>key have to be (often unsecurely) exchanged through some external mean</strong> (email, voice, another encryption scheme).</p>
+					<p>Symmetric encryption algorithms examples are <strong>DES</strong>, <strong>3DES</strong> (no longer considered secure) and <strong>AES</strong> (<em>Advanced Encryption Standard</em>) which is recommended. 256-bit AES is the strongest version.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Asymmetric Encryption</h2>
+						<img src="https://i.imgur.com/HB1XHxA.png" style="width: 35%; height: 35%; float: left;">
+						<p>In asymmetric encryption, better known as <strong><em>public-key</em> cryptography</strong>, the <strong>encryption and decryption keys are different</strong>. One (<em>public key</em>) is used for encrypting data, while the other (<em>private key</em>) is used to decrypt them.</p>
+						<p>A <strong>private/public key pair</strong> is mathematically linked because they allow one key to perform the <strong>cryptographically inverse operation</strong> performed by the other, <strong>but <u>one key cannot be deduced from the other</u></strong>.</p>
+					</section>
+					<section>
+						<h2>Asymmetric Encryption</h2>
+						<p>The advantage is that <strong>the public key can be shared</strong> with any party we want to communicate with, because it is only used for encrypting. Only <strong>the corresponding private key, kept hidden</strong>, can decrypt the communication.</p>
+						<p>The most popular asymmetric encryption algorithm is RSA (Rivest-Shamir-Adleman). Recommended key size is <strong>at least 1024-bit</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Diffie-Hellman Key Exchange</h2>
+					<img src="https://i.imgur.com/tjd912Z.png" style="width: 35%; height: 35%; float: right;">
+					<p>The <em>Diffie-Hellman</em> is not an encryption algorithm, but a <strong>key exchange mechanism</strong> that allows two parties to <strong>agree to a shared secret key without actually sending it</strong> over a network.</p>
+					<p>It uses public-key, asimmetric, cryptography to <strong>calculate a secret key that can be used as the single key in symmetric algorithms</strong>. It can do so even over an insecure communication channel.</p>
+					<p>DH is an essential part of the <strong>athentication process of the IPsec</strong> framework.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Data Integrity in IPsec</h2>
+						<p>The integrity of data is established through <strong><em>cryptographic hashing functions</em></strong> that takes the data in input an generate a small, fixed-length <strong><em>hash</em></strong> (or digest).</p>
+						<p>Hash functions have these two important properties:</p>
+						<ul>
+							<li><strong>Impossible to modify the message without changing the hash</strong>.</li>
+							<li>Extremely unlikely that different messages will produce the same hash.</li>
+						</ul>
+						<p>A <em>Keyed-hash based Message Authentication Code</em> (<strong>HMAC</strong>) is a mechanism through whoch hash functions can be used to provide <strong>both data integrity and authentication</strong>.</p>
+					</section>
+					<section>
+						<h2>Data Integrity in IPsec</h2>
+						<img src="https://i.imgur.com/zK7rl5g.png" style="background: white; float: right;">
+						<p>An HMAC takes in <strong>input the message and the shared secret keys and combines them through the hash functions</strong>. The resulting MAC will match only if both the message (<u>integrity</u>) and the PSK (<u>authentication</u>) are the same.</p>
+						<p><strong>HMAC-MD5</strong> and <strong>HMAC-SHA-1</strong> are commonly used HMAC algorithms, that can be used in different length key/hash variants.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Authentication over IPsec</h2>
+						<p>There are two authentication methods:</p>
+						<ul>
+							<li><strong>PSK, Pre-shared secret key</strong></li>
+							<ul>
+								<li>A key manually entered on each end of the communication.</li>
+								<li>Authentication is based solely on knowing this key.</li>
+							</ul>
+							<li><strong>RSA Signatures</strong>, uses public key crypto to <em>sign</em> messages.
+</li>
+							<ul>
+								<li>The sender computes an hash of the communication and encrypts it with its private key. The result is a <strong><em>digital signature</em></strong>.</li>
+								<li>The receiver decrypt the signature with the sender’s public key and obtain an hash. It then recomputes the hash indipendently.</li>
+								<li>If the <strong>two hashes are the same, the message is verified</strong> as coming from that sender. However...</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>Authentication over IPsec</h2>
+						<p>Signatures only work <u>if we can be sure that the public key we’re using actually belongs to the intended party</u>. Anybody can create private-public keys pair.</p>
+						<p><strong><em>Digital Certificates</em></strong> are files that allows to <strong>prove ownership of a public key</strong>.</p>
+						<p>They are issued to the sender by a <em>Cerificate Authority</em> (CA) <strong>which the receiver trusts</strong> to have verified the sender identity, and <strong>included in the key exchange</strong> phase (IKE, for IPsec).</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>IPsec as a Framework</h2>
+						<p>There’s no single "IPsec protocol". <strong>IPsec is a modular framework</strong>, and each implementation is made by choosing between <strong>several options operating in different areas</strong>.</p>
+						<p>IPsec can perform its operation through two protocols, which all have their own header format:</p>
+						<ul>
+							<li><strong>Authentication Header (AH)</strong> - The IP packet is transported in plaintext, but this IPsec protocol provides for auhentication and data integrity.</li>
+							<li><strong>Encapsulating Security Payload (ESP)</strong> - The IP packet is encrypted and authenticated (along with the ESP header).</li>
+						</ul>
+					</section>
+					<section>
+						<h2>IPsec as a Framework</h2>
+						<p>AH, ESP or AH+ESP protocols are the basic building block  of the IPsec frametwork. The other are:</p>
+						<ul>
+							<li>For <strong>confidentiality</strong>: DES, 3DES, AES, SEAL and their variants.</li>
+							<li>For <strong>integrity</strong>: HMAC-MD5, HMAC-SHA1</li>
+							<li>For <strong>authentication</strong>: PSK or RSA signatures.</li>
+							<li>For <strong>key exchange</strong>: the exact details (<strong>DH group</strong>) of the Diffie-Hellman key exchange performed.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Remote-Access VPN Solutions</h2>
+						<p>Remote-Access VPN can be deployed by using:</p>
+						<ul>
+							<li>Secure Socket Layer / Transport Layer Security (SSL/TLS)</li>
+							<li>IP Security (IPsec)</li>
+						</ul>
+						<p><strong>Cisco IOS SSL VPN</strong> is VPN software running on the router that only allows <strong>remote-access either through a VPN Client</strong> (<em>Cisco Anyconnect Secure Mobility Client with SSL</em>) or <strong>directly from the browser</strong> (<em>Cisco Secure Mobility Clientless SSL VPN</em>).</p>
+						<p>Operating on SSL/TLS (TCP port 443) makes it easily deployable everywhere (even with PAT/NAT), and if connecting from the browser there’s basically no prior setup. But in such a case, since <strong>it’s the VPN gateway to proxy the user</strong> to the internal network, it makes only certain services available.</p>
+					</section>
+					<section>
+						<h2>Remote-Access VPN Solutions</h2>
+						<p><strong>Cisco Easy VPN</strong> is the product line for IPsec VNP solution. It consists of:</p>
+						<ul>
+							<li><strong>Server</strong> - A Cisco router or security appliance acting as a VPN gateway.</li>
+							<li><strong>Remote</strong> - A Cisco router or security appliance acting as a VPN client.</li>
+							<li><strong>Client</strong> - An application installed on a device in order to access the Cisco IPsec VPN.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
