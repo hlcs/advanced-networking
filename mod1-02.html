@@ -380,11 +380,100 @@ message #</code></pre>
 				</section>
 
 				<section>
-					<h2>Backup configuration via console</h2>
-					<p>The IOS configuration can be saved on your PC using the capture capabilities of the terminal.</p>
-					<p>HyperTerminal, Minicom, Tera term and the other terminals have a <em>log</em> or <em>capture</em> function to get the output as text.</p>
-					<p>Enable logging, execute  a show running-config command and save the output in a file.</p>
-					<p>You can edit the file and restore it on the Switch or Router.</p>
+					<section>
+						<h2>Config Backup and Restore</h2>
+						<p>Cisco IOS configuration have <u>a file format that is basically a list of commands</u> that will replicate that configuration.</p>
+						<pre><code>!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Switch
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+end</code></pre>
+						<p>Such a format makes for <strong>easy backup, restore</strong> and it's also a <strong>documentation in itself</strong>.</p>
+					</section>
+					<section>
+						<h2>Config Backup and Restore</h2>
+						<p>The IOS configuration can be saved on your PC <strong>using the capture capabilities of the terminal</strong>.</p>
+						<p>Putty, Minicom, and the other terminals have a <em>log</em> or <em>capture</em> function to get the output as text.</p>
+						<p>Enable logging, execute <code>show running-config</code> and save the output in a file.</p>
+						<p>You can <strong>restore the saved configuration</strong> on a device by copy-paste into the terminal emulator, but <u>it will require some prior editing</u>.</p>
+					</section>
 				</section>
 
 				<section>
