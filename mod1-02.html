@@ -281,20 +281,14 @@ Switch# show pr</code></pre>
 
 				<section>
 					<h2>Device Hostname</h2>
-					<p>Hostnames allow devices to be identified by network administrators over a network or the Internet.</p>
-					<p>Define a naming convention for all the network machines. For example if we have three switches at different floors, name it as <code>Sw-Floor-1</code>, <code>Sw-Floor-2</code>, and <code>Sw-Floor-3</code>.</p>
-					<p>in the global configuration mode, enter the hostname:</p>
-					<pre><code data-trim class="bash">
-						Switch(config)# hostname Sw-Floor-1
-					</code></pre>
+					<p><em>Hostnames</em> <u>allow devices to be identified</u> by network administrators over a network or the Internet.</p>
+					<p>By choosing the name wisely, it will become <strong>self-documenting</strong>. It helps to establish a <em>naming convention</em>.</p>
+					<p>In the global configuration mode, enter the hostname:</p>
+					<pre><code data-trim class="bash">Switch(config)# hostname Sw-Floor-1</code></pre>
 					<p>After the command is executed, the prompt will change to:</p>
-					<pre><code data-trim class="bash">
-						Sw-Floor-1 (config)#
-					</code></pre>
+					<pre><code data-trim class="bash">Sw-Floor-1 (config)#</code></pre>
 					<p>To remove the name of a device, use:</p>
-					<pre><code data-trim class="bash">
-						Sw-Floor-1 (config)# no hostname
-					</code></pre>
+					<pre><code data-trim class="bash">Sw-Floor-1 (config)# no hostname</code></pre>
 				</section>
 
 				<section>
