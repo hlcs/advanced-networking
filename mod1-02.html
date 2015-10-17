@@ -493,29 +493,21 @@ end</code></pre>
 				</section>
 
 				<section>
-					<h2>Switch Virtual Interfaces</h2>
-					<p>Cisco IOS switches have physical ports for devices to connect to, but also have one or more <strong>switch virtual interfaces (SVIs)</strong>.</p>
-					<p>These are virtual interfaces, because <strong>there is no physical hardware</strong> on the device associated with it;</p>
-					<p><u>An SVI is created in software</u>.</p>
-					<p><strong>Each switch comes with one SVI</strong> appearing in the default configuration <em>out-of-the-box</em>.</p>
-					<p>The default SVI is interface <strong>VLAN1</strong>.</p>
-				</section>
-
-				<section>
-					<h2>Configuring VLAN 1</h2>
-					<p>To access the switch remotely, <strong>an IP address and a subnet mask must be configured on the SVI</strong>.</p>
-					<p>To configure the SVI the commands are:</p>
-					<ul>
-						<li>(enter the interface configuration mode)
-						<pre><code class="bash">interface vlan 1</code></pre>
-						</li>
-						<li>(set IP address)
-						<pre><code class="bash">ip address 192.168.10.2 255.255.255.0</code></pre>
-						</li>
-						<li>(enable the interface)</li>
-						<pre><code class="bash">no shutdown</code></pre>
-						</li>
-					</ul>
+					<section>
+						<h2>Switch Virtual Interfaces</h2>
+						<p><u>A switch always works without configuring it</u>: just plug something in its port and <strong>it will act as an (Ethernet) intermediary device</strong>, forming a LAN.</p>
+						<p>Usually a switch it's <strong>not a source or destination</strong> of traffic: but it must be if we want to access it through the network.</p>
+						<p>To make a switch "part of the network" we must configure a special interface on it, called the <strong><em>Switch Virtual Interface</em> (SVI)</strong>.</p>
+						<p>It's virtual because <u>there is no physical port associated to it</u>. It's in the software. Cisco switches have a default SVI called <strong>VLAN1</strong>.</p>
+					</section>
+					<section>
+						<h2>Configuring VLAN 1</h2>
+						<p>To access the switch remotely, <strong>an IP address and a subnet mask must be configured on the SVI</strong>.</p>
+						<p>To configure the SVI the commands are:</p>
+						<pre><code class="bash">Switch(config)# interface vlan 1
+Switch(config-if)# ip address 192.168.10.2 255.255.255.0
+Switch(config-if)# no shutdown</code></pre>
+					</section>
 				</section>
 
 				<section>
