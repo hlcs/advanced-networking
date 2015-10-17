@@ -348,13 +348,21 @@ Switch(config-line)# login</code></pre>
 				</section>
 
 				<section>
-					<h2>Banner Messages</h2>
-					<p>It is vital to provide a method for declaring that only authorized personnel should attempt to gain entry into the device. To do this, add a banner to the device output.</p>
-					<p>The IOS provides multiple types of banners. One common banner is the message of the day (MOTD). It is often used for legal notification because it is displayed to all connected terminals.</p>
-					<p>To configure a MOTD from global configuration mode:</p>
-					<pre><code class="bash">Switch(config)# banner motd #</code></pre>
-					<pre><code class="bash">message #</code></pre>
-					<p>On Linux there are many ways, one is to edit the file <strong>/etc/motd</strong>.</p>
+					<section>
+						<h2>Banner Messages</h2>
+						<p>In many legal systems, <strong>unauthorized access is not prosecutable if there isn't an explicit notification</strong> that it's not allowed.</p>
+						<p>It is therefore vital to add a <em>banner</em>, a message that <strong>will be displayed in the device output after logging in</strong>.</p>
+						<p>In IOS, the best place for such legal disclaimers it's the <strong><em>message of the day</em> (MOTD)</strong>. It's displayed to all connected terminals, so choose <strong>careful wording</strong>.</p>
+					</section>
+					<section>
+						<h2>Banner Messages</h2>
+						<p>To configure a MOTD from global configuration mode:</p>
+						<pre><code class="bash">Switch(config)# banner motd #
+message #</code></pre>
+						<p>The "#" is the <strong>limiting character</strong>. It could be any character. its only purpose is to <strong>signal the end of our MOTD</strong>.</p>
+					<p><strong>Select a limiting character that's not supposed to appear</strong> in the text.</p>
+						<p>On Linux one way to do it is by editing the <strong>/etc/motd</strong> file.</p>
+					</section>
 				</section>
 
 				<section>
