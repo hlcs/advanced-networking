@@ -339,15 +339,12 @@ Switch(config-line)# login</code></pre>
 
 				<section>
 					<h2>Encrypting Passwords</h2>
-					<p>By default passwords are unencrypted. Try:</p>
-					<pre><code data-trim class="bash">
-						Switch# show running-config
-					</code></pre>
-					<p>The <code>service password-encryption</code> command applies weak encryption to all unencrypted passwords. </p>
-					<p>This encryption applies only to passwords in the configuration file, not to passwords as they are sent over media. </p>
-					<p>The purpose of this command is to keep unauthorized individuals from viewing passwords in the configuration file.</p>
-					<p>Run <ode>show running-config</code> again and see the difference.</p>
-					<p>In Linux the encrypted passwords are stored in <strong>/etc/shadow</strong> file.</p>
+					<p>By default, <u>passwords are stored unencrypted</u> on IOS. Try:</p>
+					<pre><code data-trim class="bash">Switch# show running-config</code></pre>
+					<p>The <code>service password-encryption</code> command <strong>replaces clear-text passwords with weakly encrypted versions</strong>.</p>
+					<p>This encryption is <strong>only valid to passwords stored in config</strong> files, it doesn't protect passwords sent over media through unsecure protocols. </p>
+					<p>It's only useful to <strong>prevent unauthorized individuals from viewing passwords</strong> written in the configuration.</p>
+					<p>Linux stores the encrypted passwords in <strong>/etc/shadow</strong>.</p>
 				</section>
 
 				<section>
