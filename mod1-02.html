@@ -304,7 +304,7 @@ Switch# show pr</code></pre>
 				</section>
 
 				<section>
-					<h2>Securing privileged access</h2>
+					<h2>Securing Privileged Access</h2>
 					<p>To secure Privileged EXEC access, use:</p>
 					<pre><code data-trim class="bash">Router(config)# enable secret mypassword</code></pre>
 					<p>An older <u>not encrypted</u> variation of this command is the </p>
@@ -316,18 +316,15 @@ Enter password:</code></pre>
 				</section>
 
 				<section>
-					<h2>Secure console access</h2>
-					<p>To set a password for the console line use the following commands in global configuration mode:</p>
-					<pre><code data-trim class="bash">
-						Switch(config)# line console 0
-					</code></pre>
-					<pre><code data-trim class="bash">
-						Switch(config-line)# password cisco
-					</code></pre>
-					<pre><code data-trim class="bash">
-						Switch(config-line)# login
-					</code></pre>
-					<p>The command <code>line console 0</code> is used to enter line configuration mode for the console. The zero is used to represent the first (and in most cases only) console interface.</p>
+					<h2>Secure User Access</h2>
+					<p>To secure User EXEC means <u>protecting the line used to access it</u>, mostly <strong>the console port</strong>, with a password. Use:</p>
+					<pre><code data-trim class="bash">Switch(config)# line console 0
+Switch(config-line)# password cisco
+Switch(config-line)# login</code></pre>
+					<ul>
+						<li>The <strong>zero</strong> in <code>line console 0</code> represents the <strong>first</strong> (and almost always single) <strong>console interface</strong>.</li>
+						<li>The <strong><code>login</code> command is mandatory</strong>, otherwise the password won't be prompted at the next access.</li>
+					</ul>
 				</section>
 
 				<section>
@@ -337,15 +334,9 @@ Enter password:</code></pre>
 					<p>The number of vty lines supported on a Cisco router varies with the type of router and the IOS version. </p>
 					<p>However, 5 is the most common number of vty lines configured.</p>
 					<p>To set a password on vty lines use the following commands:</p>
-					<pre><code data-trim class="bash">
-						Switch(config)# line vty 0 15
-					</code></pre>
-					<pre><code data-trim class="bash">
-						Switch(config-line)# password cisco
-					</code></pre>
-					<pre><code data-trim class="bash">
-						Switch(config-line)# login
-					</code></pre>
+					<pre><code data-trim class="bash">Switch(config)# line vty 0 15
+Switch(config-line)# password cisco
+Switch(config-line)# login</code></pre>
 				</section>
 
 				<section>
