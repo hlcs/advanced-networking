@@ -305,17 +305,14 @@ Switch# show pr</code></pre>
 
 				<section>
 					<h2>Securing privileged access</h2>
-					<p>To secure privileged EXEC access, use:</p>
-					<pre><code data-trim class="bash">
-						enable secret mypassword
-					</code></pre>
-					<p>An older not encrypted variation of this command is the </p>
-					<pre><code data-trim class="bash">
-						enable password mypassword
-					</code></pre>
-					<p><strong>Gnu/Linux</strong> is a <em>general purpose multi-user Operating System</em>. Many users can be created with different privileges.</p>
-					<p>To change the password of a user use passwd command:</p>
-					<pre><code data-trim class="bash">passwd [name of the user]</code></pre>
+					<p>To secure Privileged EXEC access, use:</p>
+					<pre><code data-trim class="bash">Router(config)# enable secret mypassword</code></pre>
+					<p>An older <u>not encrypted</u> variation of this command is the </p>
+					<pre><code data-trim class="bash">Router(config)#enable password mypassword</code></pre>
+					<p>In <strong>Gnu/Linux</strong> many users can be created with different privileges. To change a user password:</p>
+					<pre><code data-trim class="bash">passwd [name of the user]
+Enter password:</code></pre>
+					<p>Use a <strong>strong password</strong>: the longer the better; special characters; but most of all: <u>don't reuse the same passwords</u> and <u>don't be predictable</u>.</p>
 				</section>
 
 				<section>
