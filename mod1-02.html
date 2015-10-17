@@ -94,14 +94,10 @@
 
 				<section>
 					<h2>Accessing an IOS Device</h2>
-					<p>There are several ways to access the CLI environment:</p>
-						<ul>
-							<li>Console (out-of-band)</li>
-							<li>Telnet or SSH (in-band)</li>
-							<li>AUX port (out-of-band)</li>
-						</ul>
+					<p>There are several ways to access the CLI environment: through the <strong>console</strong> and <strong>AUX ports</strong> (out-of-band), or through the <strong>Telnet</strong> and <strong>SSH services</strong> (in-band).</p>
 					<p>The <strong>console port</strong> is a <u>management</u> port that provides <strong><em>out-of-band</em></strong> access, which means <strong>access via a dedicated channel</strong> used just for device maintenance. </p>
 					<p>It's used for performing the <strong>initial configuration</strong> and for <strong>recovering</strong> purposes, because it's always available <u>even when there's no network access</u> to the device.</p>
+					<p>The <strong>AUX</strong> is similar to the console port, but <strong>available remotely through a modem</strong>. It's slowly disappearing.</p>
 				</section>
 
 				<section>
@@ -110,7 +106,6 @@
 					<p>Unlike the console connection, Telnet sessions <strong>require active networking services</strong> on the device</p>
 					<p>The <strong>Secure Shell (SSH)</strong> protocol provides a remote login similar to Telnet, except that it uses more secure network services. </p>
 					<p>SSH provides <strong>stronger password authentication</strong> than Telnet and <strong>uses encryption</strong> when transporting session data</p>
-					<p>An older way to establish a CLI session remotely is via a <strong>telephone dialup connection</strong> using a modem connected to the <strong>auxiliary (AUX) port</strong> of a router</p>
 				</section>
 
 				<section>
