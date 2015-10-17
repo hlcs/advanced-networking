@@ -328,11 +328,9 @@ Switch(config-line)# login</code></pre>
 				</section>
 
 				<section>
-					<h2>VTY Password</h2>
-					<p>The vty lines allow access to a Cisco device via Telnet. </p>
-					<p>By default, many Cisco switches support up to 16 vty lines that are numbered 0 to 15. </p>
-					<p>The number of vty lines supported on a Cisco router varies with the type of router and the IOS version. </p>
-					<p>However, 5 is the most common number of vty lines configured.</p>
+					<h2>Securing VTY/Telnet</h2>
+					<p>A <em>virtual terminal</em> is a virtual keyboard + screen combination which can be <strong>accessed over Telnet</strong>.</p>
+					<p>There are <strong>multiple VTYs</strong> (up to 16 in a typical Cisco device), <strong>numbered from 0 to 15</strong>. The exact number depends on the device and IOS version. </p>
 					<p>To set a password on vty lines use the following commands:</p>
 					<pre><code data-trim class="bash">Switch(config)# line vty 0 15
 Switch(config-line)# password cisco
