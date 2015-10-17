@@ -180,14 +180,27 @@
 				</section>
 
 				<section>
-					<h2>Specific Configuration Modes</h2>
-					<p>From the global configuration mode, the user can enter different sub-configuration modes. For example:</p>
-					<ul>
-						<li><strong>Interface mode</strong> - to configure one of the network interfaces (Fa0/0, S0/0/0)</li>
-						<li><strong>Line mode</strong> - to configure one of the physical or virtual lines (console, AUX, VTY)</li>
-					</ul>
-					<p>To exit a specific configuration mode and return to global configuration mode, enter <code>exit</code> at a prompt. </p>
-					<p>To leave configuration mode completely and <strong>return to privileged EXEC mode</strong>, enter end or use the key sequence <code>Ctrl-Z</code>.</p>
+					<section>
+						<h2>Specific Configuration Modes</h2>
+						<p><u>From the global config mode</u>, the user can enter different <em>sub-modes</em> that allows for <u>configuration of specific parts or functionalities</u> of the device.</p>
+						<p>They're the CLI equivalent to the <em>applet</em> in the Windows Control Panel.</p>
+						<ul>
+							<li><strong>Interface mode</strong> - to configure a network interface.</li>
+							<pre><code data-trim class="bash">Switch(config)# interface fa0/1
+Switch(config-if)#</code></pre>
+							<li><strong>Line mode</strong> - to configure one of the physical or virtual lines.</li>
+							<pre><code data-trim class="bash">Switch(config)# line console 0
+Switch(config-line)#</code></pre>
+						</ul>
+					</section>
+					<section>
+						<h2>Specific Configuration Modes</h2>
+						<p>To leave a sub-mode and <strong>return to the previous mode</strong>, use the <code>exit</code> command; to exit completely and <strong>return to privileged EXEC mode</strong>, enter <code>end</code> or <code>Ctrl-Z</code>.</p>
+						<p>It is possible to switch <u>directly from a sub-mode to another</u>:</p>
+						<pre><code data-trim class="bash">Switch(config-if)# line console 0
+Switch(config-line)# interface S0/0/1
+Switch(config-if)#</code></pre>
+					</section>
 				</section>
 
 				<section>
