@@ -145,7 +145,7 @@
 
 				<section>
 					<h2>User EXEC Mode</h2>
-					<p>The <strong>User EXEC mode</strong> is at the most basic level of the modal hierarchical structure. the <strong>first encountered upon entrance</strong> into the CLI of an IOS device.</p>
+					<p>The <strong>User EXEC mode</strong> is at the most basic level of the modal hierarchical structure, the <strong>first encountered upon entrance</strong> into the CLI of an IOS device.</p>
 					<p>It allows <u>only a limited number of basic monitoring commands</u>. It's often referred to as <em>view-only mode</em>.</p>
 					<p>The user EXEC mode is identified by the <strong>CLI prompt ending with the ">" symbol</strong>, for instance:</p>
 					<pre><code data-trim class="bash">Switch></code></pre>
@@ -153,18 +153,18 @@
 
 				<section>
 					<section>
-						<h2>Privileged EXEC Mode (1/2)</h2>
-						<p>The <strong>execution of configuration and management commands</strong> requires that the network administrator use the privileged EXEC mode or a more specific mode in the hierarchy.</p>
-						<p>The privileged EXEC mode can be identified by the prompt ending with the "<code>#</code>" symbol.</p>
-						<pre><code data-trim class="bash">
-							Switch#
-						</code></pre>
+						<h2>Privileged EXEC Mode</h2>
+						<p>The <strong>execution of configuration and management commands</strong> requires <u>entering the privileged EXEC mode or a more specific mode</u> in the hierarchy.</p>
+						<p>Of course <u>User EXEC mode monitoring command are also available</u> here.</p>
+						<p>The privileged EXEC mode can be identified by the <strong>prompt ending with the "<code>#</code>" symbol</strong>.</p>
+						<pre><code data-trim class="bash">Switch#</code></pre>
 					</section>
 					<section>
-						<h2>Privileged EXEC Mode (2/2)</h2>
+						<h2>Privileged EXEC Mode</h2>
 						<p><strong>Global configuration mode</strong> and all other more specific configuration modes <u>can only be reached from the privileged EXEC mode.</u></p>
-						<p>By default, privileged EXEC mode does not require authentication. <strong>It is a good practice to ensure that authentication is configured</strong>.</p>
-						<p>The <code>enable</code> and <code>disable</code> commands are used to change the CLI <strong>between the user EXEC mode and the privileged EXEC mode</strong>, respectively.</p>
+						<p>Privileged EXEC mode <strong>does not require authentication by default</strong>, so it's considered <em>best practice</em> to configure it</strong>.</p>
+						<p>The <code>enable</code> and <code>disable</code> commands are used to switch the CLI <strong>between the user EXEC mode and the privileged EXEC mode</strong>, entering and leaving them respectively.</p>
+						<p>It's sometimes referred to as the <em>enable mode</em>.</p>
 					</section>
 				</section>
 
