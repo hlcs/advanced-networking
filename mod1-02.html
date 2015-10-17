@@ -208,21 +208,26 @@ Switch(config-if)#</code></pre>
 				</section>
 
 				<section>
-					<h2>Basic IOS Commands</h2>
-					<p>The <code>show</code> command is used to display information about the device.</p>
-					<p>This command <strong>has various keywords</strong> that must be used to define what particular output should be displayed. </p>
-					<p>For example the following command specifies that the running configuration is to be displayed as the output:</p>
-					<pre><code data-trim class="bash">
-						Switch# show running-config
-					</code></pre>
-					<p>A command might require one or more <strong>arguments</strong>. Unlike a keyword, an argument <u>is generally not a predefined word</u>. An argument is a value or variable defined by the user.</p>
-					<p>For instance the syntax for using the description command is:</p>
-					<pre><code data-trim class="bash">
-						Switch(config-if)# description string
-					</code></pre>
-					<pre><code data-trim class="bash">
-						Switch> ping 10.10.10.5
-					</code></pre>
+					<section>
+						<h2>Structure of IOS Commands</h2>
+						<p>Cisco IOS commands have a syntax composed of <u>a command combined with several keywords and arguments</u>.</p>
+						<ul>
+							<li>The <strong> command</strong> is actually the <u>first word</u>, describing the major action to perform.</li>
+							<li><strong>Keywords</strong> are <u>pre-defined words</u> that <em>specialize</em> the behaviour of the command.</li>
+							<li><strong>Arguments</strong> are <u>not pre-defined</u>, entered by the user to provide informations to the command.</li>
+						</ul>
+						<p>Keywords and arguments can be <strong>optional in some cases and required in others</strong>.</p>
+					</section>
+					<section>
+						<h2>Structure of IOS Commands</h2>
+						<p>Here an example of a keyword altering the behaviour of a command:</p>
+						<pre><code data-trim class="bash">Switch# show running-config</code></pre>
+						<p><strong>Note</strong>: very often, for simplicity, the command + keyword(s) combination is referred to as a <em>command</em>, so we talk about the <code>show running-config</code> command.</p>
+						<p>Here's how user-submitted arguments can achieve the exact desired effect:</p>
+						<pre><code data-trim class="bash">Switch(config-if)# description [string]
+Switch(config-if)# description This is the Hacklab router</code></pre>
+						<pre><code data-trim class="bash">Switch> ping 10.10.10.5</code></pre>
+					</section>
 				</section>
 
 				<section>
