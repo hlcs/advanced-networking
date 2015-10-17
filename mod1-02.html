@@ -246,23 +246,30 @@ Switch(config-if)# description This is the Hacklab router</code></pre>
 
 				<section>
 					<section>
-						<h2>IOS Hot Keys and Shortcuts</h2>
+						<h2>IOS Hot Keys</h2>
 						<ul>
 							<li><strong>Down Arrow</strong> - Allows the user to scroll forward through former commands.</li>
 							<li><strong>Up Arrow</strong> - Allows the user to scroll backward through former commands.</li>
 							<li><strong>Tab</strong> - Completes the remainder of a partially typed command or keyword.</li>
-						</ul>
-					</section>
-					<section>
-						<h2>IOS Hot Keys and Shortcuts</h2>
-						<ul>
 							<li><strong>Ctrl-A</strong> - Moves to the beginning of the line.</li>
 							<li><strong>Ctrl-E</strong> - Moves to the end of the line.</li>
 							<li><strong>Ctrl-R</strong> - Redisplays a line.</li>
-							<li><strong>Ctrl-Z</strong> - Exits the configuration mode and returns to user EXEC.</li>
-							<li><strong>Ctrl-C</strong> - Exits the configuration mode or aborts the current command.</li>
-							<li><strong>Ctrl-Shift-6</strong> - Allows the user to interrupt an IOS process such as ping or traceroute.</li>
+							<li><strong>Ctrl-Z</strong> - Exits the config mode and returns to user EXEC.</li>
+							<li><strong>Ctrl-C</strong> - Exits the config mode or aborts current command.</li>
+							<li><strong>Ctrl-Shift-6</strong> - Allows the user to interrupt an IOS process.</li>
 						</ul>
+					</section>
+					<section>
+						<h2>IOS Shortcuts</h2>
+						<p>An IOS command can be entered in many <strong>shortened forms</strong>: <u>as long as there's no ambiguity</u> IOS will recognize it.</p>
+						<p>For instance, these are all accepted forms of the <code>show running-config</code> command:</p>
+						<pre><code data-trim class="bash">Switch# show running
+Switch# show run
+Switch# sh ru</code></pre>
+						<p>On the contrary, <code>show processes</code> can't be shortened to</p>
+						<pre><code data-trim class="bash">Switch# show pro
+Switch# show pr</code></pre>
+						<p>because of the ambiguity with the <code>show protocols</code> command.</p>
 					</section>
 				</section>
 
