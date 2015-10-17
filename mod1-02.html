@@ -366,23 +366,17 @@ message #</code></pre>
 				</section>
 
 				<section>
-					<h2>Save configuration</h2>
-					<p>The <strong>running configuration file</strong> is stored in the working memory of the device, or <strong>random access memory (RAM)</strong>. </p>
-					<p>If the device is restarted, <strong>all configuration changes will be lost</strong> unless they have been saved.</p>
-					<p>The <strong>startup configuration file</strong> reflects the configuration that will be used by the device upon reboot. </p>
-					<p>The startup configuration file is stored in <strong>NVRAM</strong>.</p>
-					<p> The command to <strong>save the running configuration</strong> to startup configuration file is:</p>
+					<h2>Running ans Startup Config</h2>
+					<p>There are <strong>2 configuration files</strong> on Cisco IOS:</p>
+					<ul>
+						<li>The <strong>running configuration</strong> is the <u>currently active</u> configuration of the device. It's <strong>stored in RAM</strong>.</li>
+						<li>The <strong>startup configuration</strong> is the configuration that will be <u>loaded after each boot</u>. It's <strong>stored in the NVRAM</strong>.</li>
+					</ul>
+					<p><strong>Changes are immediately active</strong>, and stored in the running config. But if not saved, they'll be <strong>lost at the next boot</strong>.</p>
+					<p>To <strong>make the changes permanent</strong>:</p>
 					<pre><code class="bash">Switch# copy running-config startup-config</code></pre>
 					<p>To restore a saved configuration the command is:</p>
 					<pre><code class="bash">Switch# copy startup-config running-config</code></pre>
-				</section>
-
-				<section>
-					<h2>Delete configuration</h2>
-					<p>The startup configuration is removed on both Switches and Routers by using</p>
-					<pre><code class="bash">Switch# erase startup-config</code></pre>
-					<p>On a switch you must also issue the command</p>
-					<pre><code class="bash">Switch# delete vlan.dat</code></pre>
 				</section>
 
 				<section>
