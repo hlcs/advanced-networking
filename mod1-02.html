@@ -511,13 +511,24 @@ Switch(config-if)# no shutdown</code></pre>
 				</section>
 
 				<section>
-					<h2>PC Network Settings</h2>
-					<p>In order for an end device to communicate over the network, it must be configured with the correct IP address information.</p>
-					<p>The <strong>IP address, Subnet Mask, Default Gateway and DNS server</strong> must be provided.</p>
-					<p>The <strong>default gateway</strong> address is the IP address of the router interface used for <strong>network traffic to exit the local network</strong>.</p>
-					<p>The <strong>DNS server</strong> is used to <strong>maintain the mapping between the IP addresses and names</strong> of various devices.</p>
-					<p>IP address information can be entered into the PC manually (<strong>static</strong> addressing), or using <strong>Dynamic Host Configuration Protocol (DHCP)</strong>.</p>
-					<p>DHCP allows end devices to have IP information automatically configured.</p>
+					<section>
+						<h2>PC Network Settings</h2>
+						<p>For an end device to communicate over a network, it must be configured with the correct IP address information.</p>
+						<p>The <strong>IP address, Subnet Mask, Default Gateway and DNS server</strong> must be provided.</p>
+						<p>The <strong>default gateway</strong> address is the IP address of the router interface used for <strong>network traffic to exit the local network</strong>.</p>
+						<p>The <strong>DNS server</strong> is used to <strong>maintain the mapping between the IP addresses and names</strong> of various devices.</p>
+						<p>IP address information can be entered into the PC manually (<strong>static</strong> addressing), or using <strong>Dynamic Host Configuration Protocol (DHCP)</strong>.</p>
+						<p>DHCP allows end devices to have IP information automatically configured.</p>
+					</section>
+					<section>
+						<h2>PC Network Settings</h2>
+						<p>Let's see <strong>Linux IP configuration</strong>!</p>
+						<p>To show IP configuration over the CLI in Linux:</p>
+						<pre><code>ifconfig
+ip address show</code></pre>
+						<p>In Windows:</p>
+						<pre><code>ipconfig /all</code></pre>
+					</section>
 				</section>
 
 				<section>
