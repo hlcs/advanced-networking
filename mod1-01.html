@@ -341,9 +341,9 @@
 					<h2>WAN: Wide Area Networks</h2>
 					<p>The <strong>textbook definition</strong> is: a computer network spanning cities, regions, countries, or even the world.</p>
 					<p>WAN are more generally referred to as a <strong>set of technologies for trasmitting datas over long distances, between more localized types of networks</strong>. Typically LANs.</p>
-					<p>Another common (but not mandatory) feature of WANs: they're built using <strong>leased lines</strong> (often multiple kinds of them).</p>
+					<p>Another common (but not mandatory) feature of WANs: they're built using <strong>leased lines</strong> (often multiple kinds).</p>
 					<p>Either they're <strong>slower than LANs</strong>, or much <strong>more expensive</strong> for the same bandwidth.</p>
-					<p>Managed by <strong>single entities</strong>, they can be meant for the <strong>private use</strong> of a single organization or for end users of <strong>service providers</strong></p>
+					<p>Managed by <strong>single entities</strong>, for the <strong>private use</strong> of a single organization or for end users of <strong>service providers</strong>.</p>
 				</section>
 
 				<section>
@@ -418,13 +418,13 @@
 
 				<section>
 					<section>
-						<h2>Circuit-Switching and Fault Tolerance</h2>
+						<h2>Circuit-Switching and Faults</h2>
 						<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Photograph_of_Women_Working_at_a_Bell_System_Telephone_Switchboard_%283660047829%29.jpg/640px-Photograph_of_Women_Working_at_a_Bell_System_Telephone_Switchboard_%283660047829%29.jpg" width="465" height="381">
 						<p>First there's the <strong>setup process</strong>, that involes creating a <strong>temporary path/circuit</strong> between source and destination.</p>
 					</section>
 					<section>
-						<h2>Circuit-Switching and Fault Tolerance</h2>
-						<img src="http://www.louiewong.com/wp-content/uploads/2010/09/Circuit_Switching.jpg">
+						<h2>Circuit-Switching and Faults</h2>
+						<img src="http://www.louiewong.com/wp-content/uploads/2010/09/Circuit_Switching.jpg" style="width: 50%; height: 50%;">
 						<p><strong>Any failure</strong> along the circuit means the communication is dropped and a <strong>new setup process</strong> has to begin.</p>
 						<p><strong>Existing communications are at the expense of new ones</strong>: even if a circuit is unused, you get the busy signals.</p>
 						<p><strong>No-go</strong> for the Internet.</p>
@@ -433,12 +433,12 @@
 
 				<section>
 					<section>
-						<h2>Packet-Switching and Fault Tolerance</h2>
+						<h2>Packet-Switching and Faults</h2>
 						<img src="http://computernetworkingsimplified.com/wp-content/uploads/2013/11/DatagramSwitching.jpg" width="672" height="305">
 						<p>Key concept is that <strong>a single message can be splitted</strong> into pieces, each one containing <strong>information identifying source and destination</strong>.</p>
 					</section>
 					<section>
-						<h2>Packet-Switching and Fault Tolerance</h2>
+						<h2>Packet-Switching and Faults</h2>
 						<p>Message can be sent along a <strong>multitude of paths</strong> and then <strong>reassembled</strong> at its destination.</p>
 						<p>At each intermediary device location, <strong>a switching/routing decision</strong> is made about the path of each packet.</p>
 						<p>Fault Tolerance lies in the ability to <strong>dinamically choose alternative/best path</strong> with ease.</p>
@@ -461,8 +461,8 @@
 				<section>
 					<section>
 						<h2>Internet Tiers, Peering and Transit</h2>
-						<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Internet_Connectivity_Distribution_%26_Core.svg/1024px-Internet_Connectivity_Distribution_%26_Core.svg.png" width="680" height="400">
-						<p>The Internet is based on the principle of <strong>general reachability</strong>, which means that every Internet user should be able to reach any other Internet user. But how is that possible?</p>
+						<img src="https://i.imgur.com/hVyL0BP.png" style="background: white; width: 60%; height: 60%;">
+						<p>The Internet is based on the principle of <strong>general reachability</strong>: every Internet user should be able to reach any other Internet user. But how is that possible?</p>
 					</section>
 					<section>
 						<h2>Internet Tiers, Peering and Transit</h2>
@@ -496,7 +496,7 @@
 					<p>Security is a matter of 3 basic requirements:</p>
 					<ul>
 						<li><strong>Confidentiality</strong>: data, processes, resources can only be <strong>accessed by authorized</strong> users. Authentication and Encryption to the rescue.<strong</li>
-						<li><strong>Integrity</strong>: It's about ensuring the <strong>data haven't been altered during transmission</strong>, either by accident or maliciously. Checksum and signatures can be involved in this process.</li>
+						<li><strong>Integrity</strong>: It's about ensuring the <strong>data haven't been altered during transmission</strong>, either by accident or maliciously. It could involve <em>checksums</em> and <em>signatures</em>.</li>
 						<li><strong>Availability</strong>: data and resources must be accessible to the legitimate users when they need them. <strong>Denial of Service (DoS)</strong> attacks can damage you without even breaking into your network.</li>
 					</ul>
 				</section>
