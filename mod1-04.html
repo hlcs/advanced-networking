@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 
-   <head>
-      <meta charset="utf-8">
+	<head>
+		<meta charset="utf-8">
 
-      <title>Advanced Networking - Module 1 Chapter 4 - Network Access</title>
+		<title>Advanced Networking - Module 1 Chapter 4 - Network Access</title>
 
-      <meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
-      <meta name="author" content="Hacklab Cosenza">
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
 
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
@@ -18,450 +18,450 @@
 		<link rel="stylesheet" href="css/theme/black.css" id="theme">
 
 		<!-- Code syntax highlighting -->
-      <link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel="stylesheet" href="lib/css/zenburn.css">
 
 		<!-- Printing and PDF exports -->
-      <script>
+		<script>
 			var link = document.createElement( 'link' );
-         var link = document.createElement( 'link' );
-         link.rel = 'stylesheet';
-         link.type = 'text/css';
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-         document.getElementsByTagName( 'head' )[0].appendChild( link );
-      </script>
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
 
-      <!--[if lt IE 9]>
-      <script src="lib/js/html5shiv.js"></script>
-      <![endif]-->
-   </head>
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
 
-   <body>
+	<body>
 
-      <div class="reveal">
+		<div class="reveal">
 
-         <!-- Any section element inside of this container is displayed as a slide -->
-         <div class="slides">
-            <section>
-               <h1>Advanced Networking</h1>
-               <h2>Routing & Switching:<h2>
-               <h2>Introduction to Networks</h2>
-               <h3>Chapter 4: Network Access</h3>
-               <p>
-                  <small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-               </p>
-            </section>
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing & Switching:<h2>
+					<h2>Introduction to Networks</h2>
+					<h3>Chapter 4: Network Access</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
 
-            <section>
-               <h2>Getting Connected</h2>
-               <p>To use a network, you must first choose a <strong>way to connect</strong> to it.
-               Wirings and wireless are popular choices.</p>
-               <p>Thanks to <strong>Integrated Service Routers (ISR)</strong> and their multiple ports, switching, and WAP, you have increasing flexibility.</p>
-               <img src="http://i.imgur.com/FTorMBU.jpg">
-            </section>
+				<section>
+					<h2>Getting Connected</h2>
+					<p>To use a network, you must first choose a <strong>way to connect</strong> to it.
+					Wirings and wireless are popular choices.</p>
+					<p>Thanks to <strong>Integrated Service Routers (ISR)</strong> and their multiple ports, switching, and WAP, you have increasing flexibility.</p>
+					<img src="http://i.imgur.com/FTorMBU.jpg">
+				</section>
 
-            <section>
-               <h2>Purpose of Physical Layer</h2>
-               <p>Physical Layer <strong>takes the frame resulting from all of the above layers and encodes</strong> the bit into a series of signals for transmitting.</p>
-               <p>The destination physical layer decodes the signal <strong>and restore the bit representing the frame</strong>, and passes it to upper layers.</p>
-            </section>
+				<section>
+					<h2>Purpose of Physical Layer</h2>
+					<p>Physical Layer <strong>takes the frame resulting from all of the above layers and encodes</strong> the bit into a series of signals for transmitting.</p>
+					<p>The destination physical layer decodes the signal <strong>and restore the bit representing the frame</strong>, and passes it to upper layers.</p>
+				</section>
 
-            <section>
-               <h2>Common Media for Physical Layer</h2>
-               <ul>
-                  <li><strong>Copper</strong>: represents bit through electricity.</li>
-                  <li><strong>Fiber-optic</strong>: represents bit through light patterns.</li>
-                  <li><strong>Wireless</strong>: represents bit through radio waves.</li>
-               </ul>
-            </section>
+				<section>
+					<h2>Common Media for Physical Layer</h2>
+					<ul>
+						<li><strong>Copper</strong>: represents bit through electricity.</li>
+						<li><strong>Fiber-optic</strong>: represents bit through light patterns.</li>
+						<li><strong>Wireless</strong>: represents bit through radio waves.</li>
+					</ul>
+				</section>
 
-            <section>
-               <section>
-                  <h2>L1 Fundamentals: Physical Components</h2>
-                  <p>Every physical layer involves by definition at least some <strong>physical components involved in generating and trasmitting</strong> the signals, such as cables, connectors, network interfaces, ports.</p>
-                  <img src="http://i.imgur.com/kdClDxZ.jpg">
-               </section>
-               <section>
-                  <h2>L1 Fundamentals: Signaling</h2>
-                  <p><strong>The signaling method is the method of representing bits</strong>. Common signaling methods in networking are changes in electromagnetics fields, voltage variations, or the phase of radio waves.</p>
-                  <p>Signals can be <em>asynchronous</em> or <em>synchronous</em>. The difference is in the presence of an associated <strong>clock signal</strong>.</p>
-                  <p>
-               </section>
-               <section>
-                  <h2>L1 Fundamentals: Encoding</h2>
-                  <p>Bits need to be sent in a <strong>specific pattern that is recognizable</strong> at both ends. This is called a <em>code</em>.</p>
-                  <p>Common codes are the <strong>Manchester Encoding</strong> (bits are represented by transitions) and the <strong>Non-Return to Zero</strong> (bits are represented by specific ranges).</p>
-               </section>
-               <section>
-                  <h2>L1 Fundamentals: Modulation</h2>
-                  <p>Once we have decided how to represents bit, and how to group them, <strong>we need a way to transmit them on the media</strong>. A common one is using <strong>modulation teechniques</strong>.</p>
-                  <p>With modulation, <strong>one wave that is the <em>signal</em> modifies another standard wave called the <em>carrier</em></strong>. Different modulation techniques modifies different aspects of the carrier wave.</p>
-                  <p>Examples are <em>Frequency Modulation</em> (FM), <strong>Amplitude Modulation</strong> (AM), and <strong>Pulse Code Modulation</strong> (PCM).</p>
-               </section>
-            </section>
+				<section>
+					<section>
+						<h2>L1 Fundamentals: Physical Components</h2>
+						<p>Every physical layer involves by definition at least some <strong>physical components involved in generating and trasmitting</strong> the signals, such as cables, connectors, network interfaces, ports.</p>
+						<img src="http://i.imgur.com/kdClDxZ.jpg">
+					</section>
+					<section>
+						<h2>L1 Fundamentals: Signaling</h2>
+						<p><strong>The signaling method is the method of representing bits</strong>. Common signaling methods in networking are changes in electromagnetics fields, voltage variations, or the phase of radio waves.</p>
+						<p>Signals can be <em>asynchronous</em> or <em>synchronous</em>. The difference is in the presence of an associated <strong>clock signal</strong>.</p>
+						<p>
+					</section>
+					<section>
+						<h2>L1 Fundamentals: Encoding</h2>
+						<p>Bits need to be sent in a <strong>specific pattern that is recognizable</strong> at both ends. This is called a <em>code</em>.</p>
+						<p>Common codes are the <strong>Manchester Encoding</strong> (bits are represented by transitions) and the <strong>Non-Return to Zero</strong> (bits are represented by specific ranges).</p>
+					</section>
+					<section>
+						<h2>L1 Fundamentals: Modulation</h2>
+						<p>Once we have decided how to represents bit, and how to group them, <strong>we need a way to transmit them on the media</strong>. A common one is using <strong>modulation teechniques</strong>.</p>
+						<p>With modulation, <strong>one wave that is the <em>signal</em> modifies another standard wave called the <em>carrier</em></strong>. Different modulation techniques modifies different aspects of the carrier wave.</p>
+						<p>Examples are <em>Frequency Modulation</em> (FM), <strong>Amplitude Modulation</strong> (AM), and <strong>Pulse Code Modulation</strong> (PCM).</p>
+					</section>
+				</section>
 
-            <section>
-               <h2>Bandwidth and Throughput</h2>
-               <p>Data transfer speed usually is discussed in terms of
-               <ul>
-                  <li><strong>Bandwidth</strong>: (maximum) capacity of a medium to carry data.</p>
-                  <li><strong>Throughput</strong>: it's the actual measure of how many bits flow across the media in a perioid of time.</p>
-               </ul>
-               <p>They are measured in <strong>bps</strong> (bit per seconds) and multiples.</p>
-               <p>A lot of factor contributes to <strong>throughput not being able to reach theoretical bandwidth</strong>: physics, media quality, amount and type of traffic, latency.</p>
-            </section>
+				<section>
+					<h2>Bandwidth and Throughput</h2>
+					<p>Data transfer speed usually is discussed in terms of
+					<ul>
+						<li><strong>Bandwidth</strong>: (maximum) capacity of a medium to carry data.</p>
+						<li><strong>Throughput</strong>: it's the actual measure of how many bits flow across the media in a perioid of time.</p>
+					</ul>
+					<p>They are measured in <strong>bps</strong> (bit per seconds) and multiples.</p>
+					<p>A lot of factor contributes to <strong>throughput not being able to reach theoretical bandwidth</strong>: physics, media quality, amount and type of traffic, latency.</p>
+				</section>
 
-            <section>
-               <h2>Copper Cabling: Characteristics</h2>
-               <p>Copper media is <strong>great for networking</strong> because it's cheap, easy to deploy and has low resistance to current. But...</p>
-               <p>... it also suffers from <strong>signal attenuation</strong> over long distances, so you have a maximum distance to respect.</p>
-               <p>Copper cabling can suffer from 2 kinds of <strong>interferences</strong>:</p>
-               <ul>
-                  <li><strong>Electromagnetic</strong> (EMI) or <strong>radiofrequency</strong> (RFI) interferences from other sources</li>
-                  <li><strong>Crosstalk</strong> from one wire to an adjacent one.</li>
-               </ul>
-               <p>There are <strong>countermeasures</strong>: metallic shielding, cable twisting, cable twisting disparity.</p>
-            </section>
+				<section>
+					<h2>Copper Cabling: Characteristics</h2>
+					<p>Copper media is <strong>great for networking</strong> because it's cheap, easy to deploy and has low resistance to current. But...</p>
+					<p>... it also suffers from <strong>signal attenuation</strong> over long distances, so you have a maximum distance to respect.</p>
+					<p>Copper cabling can suffer from 2 kinds of <strong>interferences</strong>:</p>
+					<ul>
+						<li><strong>Electromagnetic</strong> (EMI) or <strong>radiofrequency</strong> (RFI) interferences from other sources</li>
+						<li><strong>Crosstalk</strong> from one wire to an adjacent one.</li>
+					</ul>
+					<p>There are <strong>countermeasures</strong>: metallic shielding, cable twisting, cable twisting disparity.</p>
+				</section>
 
-            <section>
-               <h2>Copper Cabling: UTP</h2>
-               <img src="http://i.imgur.com/WYs133P.jpg" style="float: right;">
-               <p><strong>Unshielded twisted-pair</strong> (UTP) is the most common network media. They are terminated by <strong>RJ45 connectors</strong>.</p>
-               <p>They are composed by:</p>
-               <ul>
-                  <li>An outer jacket the protects the wire.</li>
-                  <li>Twisted pairs of wires to transmit the signal.</li>
-                  <li>Color-Coded insulation.</li>
-               </ul>
-            </section>
+				<section>
+					<h2>Copper Cabling: UTP</h2>
+					<img src="http://i.imgur.com/WYs133P.jpg" style="float: right;">
+					<p><strong>Unshielded twisted-pair</strong> (UTP) is the most common network media. They are terminated by <strong>RJ45 connectors</strong>.</p>
+					<p>They are composed by:</p>
+					<ul>
+						<li>An outer jacket the protects the wire.</li>
+						<li>Twisted pairs of wires to transmit the signal.</li>
+						<li>Color-Coded insulation.</li>
+					</ul>
+				</section>
 
-            <section>
-               <h2>Copper Cabling: STP</h2>
-               <img src="http://i.imgur.com/CXmQuwd.jpg" style="float:right">
-               <p>They cost more, and are more difficult to install, but <strong>shielded twisted-pair</strong> cable provide better interference protection.</p>
-               <p><strong>They combine shielding and crosstalk protection</strong> with special connectors (that can make the cable act like an antenna if unproperly grounded)</p>
-               <p><strong>Shielding (a metallic foil)</strong> on STP cabling can be applied:</p>
-               <ul>
-                  <li>On the wire bundle</li>
-                  <li>On the wire bundle and on each wire separately</li>
-               </ul>
-            </section>
+				<section>
+					<h2>Copper Cabling: STP</h2>
+					<img src="http://i.imgur.com/CXmQuwd.jpg" style="float:right">
+					<p>They cost more, and are more difficult to install, but <strong>shielded twisted-pair</strong> cable provide better interference protection.</p>
+					<p><strong>They combine shielding and crosstalk protection</strong> with special connectors (that can make the cable act like an antenna if unproperly grounded)</p>
+					<p><strong>Shielding (a metallic foil)</strong> on STP cabling can be applied:</p>
+					<ul>
+						<li>On the wire bundle</li>
+						<li>On the wire bundle and on each wire separately</li>
+					</ul>
+				</section>
 
-            <section>
-               <h2>Copper Cabling: Coaxial</h2>
-               <img src="http://i.imgur.com/1Tq2an1.jpg">
-               <p>In coaxial cables there are <strong>only two concentric conductors</strong>, separated by plastic insulation and surrounded by a foil shielding.</p>
-               <p>Coaxial cables have <strong>many type of connectors</strong>, among the popular choices are BNC, N-type, F-type, RP-SMA</p>
-               <p>Nowadays in networking they are mostly used for attaching antenna to wireless devices.</p>
-            </section>
+				<section>
+					<h2>Copper Cabling: Coaxial</h2>
+					<img src="http://i.imgur.com/1Tq2an1.jpg">
+					<p>In coaxial cables there are <strong>only two concentric conductors</strong>, separated by plastic insulation and surrounded by a foil shielding.</p>
+					<p>Coaxial cables have <strong>many type of connectors</strong>, among the popular choices are BNC, N-type, F-type, RP-SMA</p>
+					<p>Nowadays in networking they are mostly used for attaching antenna to wireless devices.</p>
+				</section>
 
-            <section>
-               <h2>Copper Cabling: Safety</h2>
-               <p>Copper cabling hasn't a very good resistance to <strong>ignition</strong>.</p>
-               <p>The main thing you have to do with copper cabling, aside from assuring integrity, is to <strong>correctly ground them</strong>.</p>
-            </section>
+				<section>
+					<h2>Copper Cabling: Safety</h2>
+					<p>Copper cabling hasn't a very good resistance to <strong>ignition</strong>.</p>
+					<p>The main thing you have to do with copper cabling, aside from assuring integrity, is to <strong>correctly ground them</strong>.</p>
+				</section>
 
-            <section>
-               <section>
-                  <h2>UTP Cabling Standards</h2>
-                  <img src="http://i.imgur.com/H1Oh5l5.jpg">
-               </section>
-               <section>
-                  <h2>UTP Cabling Standards</h2>
-                  <p>The <strong>TIA/EIA-568 standards</strong> specifies cable types, lengths, connector, pinouts, cable termination and testing method for LAN cable installations.</p>
-                  <p><strong>RJ45 is the 8P8C physical connector used by the Ethernet standard</strong> (and many others). Proper termination of cables at the RJ45 connectors is extremely important.</p>
-                  <p><strong>UTP cables are ranked</strong> by IEEE into categories that are performance-based. Cat 5e is the most common LAN Category.
-                     <ul>
-                        <li><strong>Cat. 3</strong>, for voice/phone lines
-                        <li><strong>Cat. 5 and 5e</strong>, up to 100 Mb/s and 1 Gb/s respectively
-                        <li><strong>Cat. 6 and 6a</strong>, up to 10 Gb/s
-                     </ul>
-                  </section>
-                  <section>
-                     <h2>UTP Wiring Conventions</h2>
-                     <p>The <strong>pinouts</strong> (wiring order and corresponding pins) of UTP cables varies according to the use case.</p>
-                     <ul>
-                        <li><strong>Ethernet Straight-through</strong>: same convention at both ends of the cable,  it is the most common type of cable for networking and it's used to connect an host to a switch, or a switch to a router
-                        <li><strong>Ethernet Crossover</strong>: different conventions at each end of the cable, it's used for connecting two similar devices, like two hosts, two switches, two routers.
-                        <li><strong>Rollover</strong>: Cisco proprietary for console port usage.
-                     </ul>
-                     <p>No damage can happen by <strong>using the wrong cable</strong>, but unless there is some auto-sensing mechanism, no communication will occur. It should be the first point of any troubleshooting.
-                  </section>
-                  <section>
-                     <h2>UTP Cable Testing</h2>
-                     <img src="http://i.imgur.com/NSbPbev.jpg" style="float: right;">
-                     <p>For anything other than simple functional tests, such as
-                     <ul>
-                        <li>Wire map
-                        <li>Cable length
-                        <li>Signal attenuation
-                        <li>Crosstalk
-                     </ul>
-                     <p>A <strong>UTP Cable tester</strong> should be used.</p>
-                  </section>
-            </section>
+				<section>
+					<section>
+						<h2>UTP Cabling Standards</h2>
+						<img src="http://i.imgur.com/H1Oh5l5.jpg">
+					</section>
+					<section>
+						<h2>UTP Cabling Standards</h2>
+						<p>The <strong>TIA/EIA-568 standards</strong> specifies cable types, lengths, connector, pinouts, cable termination and testing method for LAN cable installations.</p>
+						<p><strong>RJ45 is the 8P8C physical connector used by the Ethernet standard</strong> (and many others). Proper termination of cables at the RJ45 connectors is extremely important.</p>
+						<p><strong>UTP cables are ranked</strong> by IEEE into categories that are performance-based. Cat 5e is the most common LAN Category.
+							<ul>
+								<li><strong>Cat. 3</strong>, for voice/phone lines
+								<li><strong>Cat. 5 and 5e</strong>, up to 100 Mb/s and 1 Gb/s respectively
+								<li><strong>Cat. 6 and 6a</strong>, up to 10 Gb/s
+							</ul>
+						</section>
+						<section>
+							<h2>UTP Wiring Conventions</h2>
+							<p>The <strong>pinouts</strong> (wiring order and corresponding pins) of UTP cables varies according to the use case.</p>
+							<ul>
+								<li><strong>Ethernet Straight-through</strong>: same convention at both ends of the cable,  it is the most common type of cable for networking and it's used to connect an host to a switch, or a switch to a router
+								<li><strong>Ethernet Crossover</strong>: different conventions at each end of the cable, it's used for connecting two similar devices, like two hosts, two switches, two routers.
+								<li><strong>Rollover</strong>: Cisco proprietary for console port usage.
+							</ul>
+							<p>No damage can happen by <strong>using the wrong cable</strong>, but unless there is some auto-sensing mechanism, no communication will occur. It should be the first point of any troubleshooting.
+						</section>
+						<section>
+							<h2>UTP Cable Testing</h2>
+							<img src="http://i.imgur.com/NSbPbev.jpg" style="float: right;">
+							<p>For anything other than simple functional tests, such as
+							<ul>
+								<li>Wire map
+								<li>Cable length
+								<li>Signal attenuation
+								<li>Crosstalk
+							</ul>
+							<p>A <strong>UTP Cable tester</strong> should be used.</p>
+						</section>
+				</section>
 
-            <section>
-               <section>
-                  <h2>Fiber Optic Cabling: Carachteristics</h2>
-                  <p><strong>Optical fiber</strong> is a flexible and extremely thin transparent wire of pure glass. <strong>It acts as a guide for light impulses</strong> to which bits are encoded.</p>
-                  <p>Fiber Optics allows for <strong>longer distances and higher data rates</strong> than any other media.</p>
-                  <p>It is also <strong>immune to any electromagnetic interference</strong>.</p>
-                  <p>It is used for:</p>
-                  <ul>
-                     <li>Backbone applications</li>
-                     <li>Broadband delivery (FTTN/B/H)</li>
-                     <li>Long distances networks</li>
-                     <li>Submarine networks</li>
-                  </ul>
-               </section>
-               <section>
-                  <h2>Fiber Optic Cabling: Design</h2>
-                  <img src="http://i.imgur.com/jPmApfP.jpg">
-                  <p>Fiber optic cables have a simple but highly technological structure:</p>
-                  <ul>
-                     <li><strong>Core</strong> - the glass through which the light is transmitted.</li>
-                     <li><strong>Cladding</strong> - it is the glass that surrounds the core. It acts as a mirror, reflecting the light trying to escape the core, keeping it in.</li>
-                     <li><strong>Jacket</strong> - A stengthened PVC enclosure that protects the glass.</li>
-                  </ul>
-               </section>
-               <section>
-                  <h2>Fiber Optic Cabling: Types</h2>
-                  <p>The lights travelling through a fiber optic cable can be <strong>generated by lasers or by LEDs</strong>. Photodiodes will catch the light at the other end and convert it to data frames.</p>
-                  <p>Fiber optics cables are mainly of two categories:</p>
-                  <ul>
-                     <li><strong>Single-Mode Fiber (SMF)</strong>: very expensive, it uses laser and a very small core to produce a single ray that can travel very long distances with minimal losses. Yellow is the standard color.
-                     <li>Multi-Mode Fiber (MMF): LED emitting through a larger core, entering the fiber at different angles. Up to 500m at 10 Gb/s. Orange/Aqua is the standard color.
-                  </ul>
-               </section>
-               <section>
-                  <h2>Fiber Optic Cabling: Connectors</h2>
-                  <img src="http://i.imgur.com/L2UbGss.jpg">
-                  <p>Nowadays, the most common FO connectors are:</p>
-                  <ul>
-                     <li><strong>ST</strong>: bayonet-style for MMF.
-                     <li><strong>SC</strong>: it is the "standard" connector, has a push-pull mechanism that keeps it in place. Can be use for MMF and SMF.
-                     <li><strong>LC</strong>: smaller sized connector, used mainly for SMF but also supports MMF.
-                  </ul>
-                  <p>In FO cabling <strong>light travels only in one direction</strong>. So you need two bundled cables to be able to tx/rx simultaneously.</p>
-                  <p>Unused fiber cables should be protected with a plastic cap.</p>
-                  <p>You need patch cord to connect fiber infrastructure devices.</p>
-               </section>
-               <section>
-                  <h2>Fiber Optic Cabling: Testing</h2>
-                  <p>Terminating and cutting fiber-optic cables is definitely not as easy as with copper. <strong>It requires special equipment and skills</strong>.</p>
-                  <p>Typical errors in FO termination and splicing:
-                  <ul>
-                     <li><strong>Misalignment</strong> of two joined fibers.</li>
-                     <li><strong>End gap</strong>, the media does not touch at the connection point.</li>
-                     <li><strong>End finish</strong>, the media has not a precise termination and presents some dirt.
-                  </ul>
-                  <p>A quick test is to shine a light at one end and see if it comes to the other one: it doesn't tell you about performances, but it cheaply finds a broken fiber.</p>
-               </section>
-               <section>
-                  <h2>Copper vs Fiber</h2>
-                  <img src="http://i.imgur.com/ELYWJZQ.jpg">
-               </section>
-            </section>
+				<section>
+					<section>
+						<h2>Fiber Optic Cabling: Carachteristics</h2>
+						<p><strong>Optical fiber</strong> is a flexible and extremely thin transparent wire of pure glass. <strong>It acts as a guide for light impulses</strong> to which bits are encoded.</p>
+						<p>Fiber Optics allows for <strong>longer distances and higher data rates</strong> than any other media.</p>
+						<p>It is also <strong>immune to any electromagnetic interference</strong>.</p>
+						<p>It is used for:</p>
+						<ul>
+							<li>Backbone applications</li>
+							<li>Broadband delivery (FTTN/B/H)</li>
+							<li>Long distances networks</li>
+							<li>Submarine networks</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Fiber Optic Cabling: Design</h2>
+						<img src="http://i.imgur.com/jPmApfP.jpg">
+						<p>Fiber optic cables have a simple but highly technological structure:</p>
+						<ul>
+							<li><strong>Core</strong> - the glass through which the light is transmitted.</li>
+							<li><strong>Cladding</strong> - it is the glass that surrounds the core. It acts as a mirror, reflecting the light trying to escape the core, keeping it in.</li>
+							<li><strong>Jacket</strong> - A stengthened PVC enclosure that protects the glass.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Fiber Optic Cabling: Types</h2>
+						<p>The lights travelling through a fiber optic cable can be <strong>generated by lasers or by LEDs</strong>. Photodiodes will catch the light at the other end and convert it to data frames.</p>
+						<p>Fiber optics cables are mainly of two categories:</p>
+						<ul>
+							<li><strong>Single-Mode Fiber (SMF)</strong>: very expensive, it uses laser and a very small core to produce a single ray that can travel very long distances with minimal losses. Yellow is the standard color.
+							<li>Multi-Mode Fiber (MMF): LED emitting through a larger core, entering the fiber at different angles. Up to 500m at 10 Gb/s. Orange/Aqua is the standard color.
+						</ul>
+					</section>
+					<section>
+						<h2>Fiber Optic Cabling: Connectors</h2>
+						<img src="http://i.imgur.com/L2UbGss.jpg">
+						<p>Nowadays, the most common FO connectors are:</p>
+						<ul>
+							<li><strong>ST</strong>: bayonet-style for MMF.
+							<li><strong>SC</strong>: it is the "standard" connector, has a push-pull mechanism that keeps it in place. Can be use for MMF and SMF.
+							<li><strong>LC</strong>: smaller sized connector, used mainly for SMF but also supports MMF.
+						</ul>
+						<p>In FO cabling <strong>light travels only in one direction</strong>. So you need two bundled cables to be able to tx/rx simultaneously.</p>
+						<p>Unused fiber cables should be protected with a plastic cap.</p>
+						<p>You need patch cord to connect fiber infrastructure devices.</p>
+					</section>
+					<section>
+						<h2>Fiber Optic Cabling: Testing</h2>
+						<p>Terminating and cutting fiber-optic cables is definitely not as easy as with copper. <strong>It requires special equipment and skills</strong>.</p>
+						<p>Typical errors in FO termination and splicing:
+						<ul>
+							<li><strong>Misalignment</strong> of two joined fibers.</li>
+							<li><strong>End gap</strong>, the media does not touch at the connection point.</li>
+							<li><strong>End finish</strong>, the media has not a precise termination and presents some dirt.
+						</ul>
+						<p>A quick test is to shine a light at one end and see if it comes to the other one: it doesn't tell you about performances, but it cheaply finds a broken fiber.</p>
+					</section>
+					<section>
+						<h2>Copper vs Fiber</h2>
+						<img src="http://i.imgur.com/ELYWJZQ.jpg">
+					</section>
+				</section>
 
-            <section>
-               <h2>Wireless Standards</h2>
-               <p>Wireless media that we commonly encounter includes:</p>
-               <ul>
-                  <li><strong>IEEE 802.11</strong> - Wireless LAN (WLAN), we call Wi-Fi
-                  <li><strong>IEEE 802.15</strong> - Wireless Personal Area Network (WPAN), commonly known as Bluetooth
-                  <li><strong>IEEE 802.16</strong> - WiMAX, uses a PtMP topology and was specifically developed to provide broadband access.
-               </ul>
-            </section>
+				<section>
+					<h2>Wireless Standards</h2>
+					<p>Wireless media that we commonly encounter includes:</p>
+					<ul>
+						<li><strong>IEEE 802.11</strong> - Wireless LAN (WLAN), we call Wi-Fi
+						<li><strong>IEEE 802.15</strong> - Wireless Personal Area Network (WPAN), commonly known as Bluetooth
+						<li><strong>IEEE 802.16</strong> - WiMAX, uses a PtMP topology and was specifically developed to provide broadband access.
+					</ul>
+				</section>
 
-            <section>
-               <h2>Wireless LAN</h2>
-               <p>To <strong>connect wirelessly</strong> to a LAN you need:</p>
-               <ul>
-                  <li>a <strong>Wireless Access Point</strong> (WAP or AP) that signals the availability of a wifi connection and aggregates the signals, connecting user to an existing wired infrastructure.
-                  <li>a <strong>Wireless NIC adapter</strong>, providing wireless capabilities to individual hosts.
-               </ul>
-            </section>
+				<section>
+					<h2>Wireless LAN</h2>
+					<p>To <strong>connect wirelessly</strong> to a LAN you need:</p>
+					<ul>
+						<li>a <strong>Wireless Access Point</strong> (WAP or AP) that signals the availability of a wifi connection and aggregates the signals, connecting user to an existing wired infrastructure.
+						<li>a <strong>Wireless NIC adapter</strong>, providing wireless capabilities to individual hosts.
+					</ul>
+				</section>
 
-            <section>
-               <h2>Wireless Standards</h2>
-               <p>802.11 family of standards has evolved a lot in 15 years:</p>
-               <img src="http://i.imgur.com/743EZBs.gif">
-            </section>
+				<section>
+					<h2>Wireless Standards</h2>
+					<p>802.11 family of standards has evolved a lot in 15 years:</p>
+					<img src="http://i.imgur.com/743EZBs.gif">
+				</section>
 
-            <section>
-               <h2>Data Link Layer</h2>
-               <p>The Data Link layer performs two <strong>functions</strong>:
-               <ul>
-                  <li>It takes L3 PDUs and <strong>generates data units called frames</strong>, that are ready for transmission over the media.</li>
-                  <li>It <strong>controls media access</strong>, that is how data is placed on the media, and performs error detection.
-               </ul>
-               <p>In essence it <strong>hides the specifics of the media</strong> from every upper layer , which they don't need to know.</p>
-            </section>
+				<section>
+					<h2>Data Link Layer</h2>
+					<p>The Data Link layer performs two <strong>functions</strong>:
+					<ul>
+						<li>It takes L3 PDUs and <strong>generates data units called frames</strong>, that are ready for transmission over the media.</li>
+						<li>It <strong>controls media access</strong>, that is how data is placed on the media, and performs error detection.
+					</ul>
+					<p>In essence it <strong>hides the specifics of the media</strong> from every upper layer , which they don't need to know.</p>
+				</section>
 
-            <section>
-               <h2>Data Link Sublayers: LLC and MAC</h2>
-               <img src="http://i.imgur.com/m0p1gvK.gif">
-               <p>The Data Link Layer is divided in LLC and MAC sublayers.</p>
-               <p>The <strong>Logical Link Control (LLC)</strong> is the <strong>interface to the Network Layer</strong> in the stack, it identifies which L3 protocol is in use and de/multiplexes it into/from the frame.</p>
-               <p>The <strong>Media Access Control (MAC)</strong> is the <strong>interface to the hardware</strong>, it generates the frame, attaching data link addresses and delimitations, and then physically coordinates with the hardware to send it.</p>
-               <p>LLC is a software (the NIC driver), while MAC is implemented in hardware</p>
-            </section>
+				<section>
+					<h2>Data Link Sublayers: LLC and MAC</h2>
+					<img src="http://i.imgur.com/m0p1gvK.gif">
+					<p>The Data Link Layer is divided in LLC and MAC sublayers.</p>
+					<p>The <strong>Logical Link Control (LLC)</strong> is the <strong>interface to the Network Layer</strong> in the stack, it identifies which L3 protocol is in use and de/multiplexes it into/from the frame.</p>
+					<p>The <strong>Media Access Control (MAC)</strong> is the <strong>interface to the hardware</strong>, it generates the frame, attaching data link addresses and delimitations, and then physically coordinates with the hardware to send it.</p>
+					<p>LLC is a software (the NIC driver), while MAC is implemented in hardware</p>
+				</section>
 
-            <section>
-               <h2>Media Access Control</h2>
-               <p>The <strong>media access control method is the technique used for placing the frame on and off the media</strong>.</p>
-               <p>Example of MAC methods are CSMA, TDMA, Polling, etc. They depend on the topology and whether the media is to be contented or not.</p>
-               <p>While L3 protocols may stay largely the same, we are bound to see <strong>many different data link and media transitions</strong> over a remote communication.</p>
-               <p><strong>Routers de-encapsulate and re-encapsulate</strong> properly according to L1 and L2 requirements on that network segment.</p>
-            </section>
+				<section>
+					<h2>Media Access Control</h2>
+					<p>The <strong>media access control method is the technique used for placing the frame on and off the media</strong>.</p>
+					<p>Example of MAC methods are CSMA, TDMA, Polling, etc. They depend on the topology and whether the media is to be contented or not.</p>
+					<p>While L3 protocols may stay largely the same, we are bound to see <strong>many different data link and media transitions</strong> over a remote communication.</p>
+					<p><strong>Routers de-encapsulate and re-encapsulate</strong> properly according to L1 and L2 requirements on that network segment.</p>
+				</section>
 
-            <section>
-               <h2>Layer 2 Frame Structure</h2>
-               <p>A L2 frame contains <strong>the PDU of L3 plus control informations</strong>, that is information that allows the protocol to carry on its functions.</p>
-               <p>A L2 frame is composed by:</p>
-               <ul>
-                  <li>An <strong>Header</strong> at the beginning, containing addressing information.</li>
-                  <li>then <strong>Data</strong>, in the form of the L3 PDU.</li>
-                  <li>and at the end, a <strong>Trailer</strong> containing other control infos like error detection.</li>
-            </section>
+				<section>
+					<h2>Layer 2 Frame Structure</h2>
+					<p>A L2 frame contains <strong>the PDU of L3 plus control informations</strong>, that is information that allows the protocol to carry on its functions.</p>
+					<p>A L2 frame is composed by:</p>
+					<ul>
+						<li>An <strong>Header</strong> at the beginning, containing addressing information.</li>
+						<li>then <strong>Data</strong>, in the form of the L3 PDU.</li>
+						<li>and at the end, a <strong>Trailer</strong> containing other control infos like error detection.</li>
+				</section>
 
-            <section>
-               <h2>A Generic L2 Frame</h2>
-               <img src="http://i.imgur.com/ElcQ6yY.png">
-               <p>Structure of frame and fields contained in header and trailer vary according to the DLL protocol. There can't be a single one because needs of transportation across media types are very different.</p>
-            </section>
+				<section>
+					<h2>A Generic L2 Frame</h2>
+					<img src="http://i.imgur.com/ElcQ6yY.png">
+					<p>Structure of frame and fields contained in header and trailer vary according to the DLL protocol. There can't be a single one because needs of transportation across media types are very different.</p>
+				</section>
 
-            <section>
-               <h2>Data Link Layer Standards</h2>
-               <p>Because of the close relationship between L2 and L1, <strong>many Data Link standards actually defines both</strong>.</p>
-               <img src="http://i.imgur.com/MQJ1hQu.jpg">
-            </section>
+				<section>
+					<h2>Data Link Layer Standards</h2>
+					<p>Because of the close relationship between L2 and L1, <strong>many Data Link standards actually defines both</strong>.</p>
+					<img src="http://i.imgur.com/MQJ1hQu.jpg">
+				</section>
 
-            <section>
-               <section>
-                  <h2>WAN Topologies: Point-to-Point</h2>
-                  <img src="http://i.imgur.com/rBfJeU9.png">
-                  <p>Permanent link between only 2 end points.</p>
-               </section>
-               <section>
-                  <h2>WAN Topologies: Hub and Spoke</h2>
-                  <img src="http://i.imgur.com/BSI4ALs.png">
-                  <p>A central node interconnecting many PtP links.</p>
-               </section>
-               <section>
-                  <h2>WAN Topologies: Mesh</h2>
-                  <img src="http://i.imgur.com/USADL5c.jpg">
-                  <p>Every node is PtP interconnected to every other node.</p>
-               </section>
-            </section>
+				<section>
+					<section>
+						<h2>WAN Topologies: Point-to-Point</h2>
+						<img src="http://i.imgur.com/rBfJeU9.png">
+						<p>Permanent link between only 2 end points.</p>
+					</section>
+					<section>
+						<h2>WAN Topologies: Hub and Spoke</h2>
+						<img src="http://i.imgur.com/BSI4ALs.png">
+						<p>A central node interconnecting many PtP links.</p>
+					</section>
+					<section>
+						<h2>WAN Topologies: Mesh</h2>
+						<img src="http://i.imgur.com/USADL5c.jpg">
+						<p>Every node is PtP interconnected to every other node.</p>
+					</section>
+				</section>
 
-            <section>
-               <h2>Physical vs Logical PtP</h2>
-               <p>When two nodes are physically connected in a PtP topology, <strong>media sharing is not a concern, and so isn't addressing</strong>. DLL protocols can therefore be much more simpler.</p>
-               <p>When the two nodes that we want to connect haven't a direct physical connection, we must established <strong>a logical PtP connection though a virtual circuit</strong>.</p>
-               <p><strong>In logical PtP, the MAC method and the DLL still operate</strong> as if the connection was physical.</p>
-            </section>
+				<section>
+					<h2>Physical vs Logical PtP</h2>
+					<p>When two nodes are physically connected in a PtP topology, <strong>media sharing is not a concern, and so isn't addressing</strong>. DLL protocols can therefore be much more simpler.</p>
+					<p>When the two nodes that we want to connect haven't a direct physical connection, we must established <strong>a logical PtP connection though a virtual circuit</strong>.</p>
+					<p><strong>In logical PtP, the MAC method and the DLL still operate</strong> as if the connection was physical.</p>
+				</section>
 
-            <section>
-               <h2>Half and Full Duplex</h2>
-               <p>In a PtP topology, two devices can communicate:</p>
-               <ul>
-                  <li><strong>Half-Duplex</strong>: both can TX/RX, but not simultaneously. This mandates for <strong>conflict resolution</strong> about media usage.</li>
-                  <li><strong>Full-Duplex</strong>: both can TX/TX and can do that at the same time. This means the media is <strong>assumed uncontended</strong> by the DLL.</li>
-               </ul>
-            </section>
+				<section>
+					<h2>Half and Full Duplex</h2>
+					<p>In a PtP topology, two devices can communicate:</p>
+					<ul>
+						<li><strong>Half-Duplex</strong>: both can TX/RX, but not simultaneously. This mandates for <strong>conflict resolution</strong> about media usage.</li>
+						<li><strong>Full-Duplex</strong>: both can TX/TX and can do that at the same time. This means the media is <strong>assumed uncontended</strong> by the DLL.</li>
+					</ul>
+				</section>
 
-            <section>
-               <section>
-                  <h2>Physical LAN Topologies: Star</h2>
-                  <img src="http://i.imgur.com/ESpljwG.jpg">
-                  <p>End devices connected to a central device, that used to be an hub but now is a switch. Most common LAN topology.
-               </section>
-               <section>
-                  <h2>Physical LAN Topologies: Extended Star</h2>
-                  <img src="http://i.imgur.com/Zlo9GrA.jpg">
-                  <p>Several star topologies are interconnected together through other star topologies (<em>Extended Star</em>) or through a bus (<em>Hybrid</em>)</p>
-               </section>
-               <section>
-                  <h2>Physical LAN Topologies: Bus</h2>
-                  <img src="http://i.imgur.com/pIC5oUK.gif">
-                  <p>No intermediary device required, all end system chained toghether in some form or another.</p>
-               </section>
-               <section>
-                  <h2>Physical LAN Topologies: Ring</h2>
-                  <img src="http://i.imgur.com/EsRCGRK.gif">
-                  <p>Each end device is connected to its neighbours, forming a ring.</p>
-               </section>
-            </section>
+				<section>
+					<section>
+						<h2>Physical LAN Topologies: Star</h2>
+						<img src="http://i.imgur.com/ESpljwG.jpg">
+						<p>End devices connected to a central device, that used to be an hub but now is a switch. Most common LAN topology.
+					</section>
+					<section>
+						<h2>Physical LAN Topologies: Extended Star</h2>
+						<img src="http://i.imgur.com/Zlo9GrA.jpg">
+						<p>Several star topologies are interconnected together through other star topologies (<em>Extended Star</em>) or through a bus (<em>Hybrid</em>)</p>
+					</section>
+					<section>
+						<h2>Physical LAN Topologies: Bus</h2>
+						<img src="http://i.imgur.com/pIC5oUK.gif">
+						<p>No intermediary device required, all end system chained toghether in some form or another.</p>
+					</section>
+					<section>
+						<h2>Physical LAN Topologies: Ring</h2>
+						<img src="http://i.imgur.com/EsRCGRK.gif">
+						<p>Each end device is connected to its neighbours, forming a ring.</p>
+					</section>
+				</section>
 
-            <section>
-               <h2>Sharing media on LAN topologies</h2>
-               <p>There are many MAC methods, but the two basic fall in these 2 categories:</p>
-               <ul>
-                  <li><strong>Contention-based access</strong>: the medium is contested (hosts can send data when it has them), but nodes know what to do if a collision happens.</li>
-                  <li><strong>Controlled access</strong>: each node has its own allocated time for medium usage.</li>
-               </ul>
-            </section>
+				<section>
+					<h2>Sharing media on LAN topologies</h2>
+					<p>There are many MAC methods, but the two basic fall in these 2 categories:</p>
+					<ul>
+						<li><strong>Contention-based access</strong>: the medium is contested (hosts can send data when it has them), but nodes know what to do if a collision happens.</li>
+						<li><strong>Controlled access</strong>: each node has its own allocated time for medium usage.</li>
+					</ul>
+				</section>
 
-            <section>
-               <h2>Carrier Sense Multiple Access (CSMA)</h2>
-               <p>Used in contention-based medium access to <strong>detect if there's a signal (carrier) on the media</strong> before transmitting.</p>
-               <p>The more nodes there are the less probable is to be able to use the media without collisions.</p>
-               <p>Coupled with a mean for <strong>resolving collision</strong>:</p>
-               <ul>
-                  <li><strong>CSMA/CD</strong> for Ethernet 802.3: if another signal is perceived while transmitting, all devices stop transmitting and try later.
-                  <li><strong>CSMA/CA</strong> for 802.11: sends notification of intent to use media and wait for clearance.</p>
-            </section>
+				<section>
+					<h2>Carrier Sense Multiple Access (CSMA)</h2>
+					<p>Used in contention-based medium access to <strong>detect if there's a signal (carrier) on the media</strong> before transmitting.</p>
+					<p>The more nodes there are the less probable is to be able to use the media without collisions.</p>
+					<p>Coupled with a mean for <strong>resolving collision</strong>:</p>
+					<ul>
+						<li><strong>CSMA/CD</strong> for Ethernet 802.3: if another signal is perceived while transmitting, all devices stop transmitting and try later.
+						<li><strong>CSMA/CA</strong> for 802.11: sends notification of intent to use media and wait for clearance.</p>
+				</section>
 
-            <section>
-               <h2>Controlled/Scheduled Access</h2>
-               <p><strong>Devices access the medium one after the other</strong>, and then have to wait for their turn again.</p>
-               <p>A device must first <strong>acquire the token</strong> to be able to so. When it has one and wants to transmit, it fills the token with data and send it.</p>
-               <p><u>No other device can transmit until the frame has arrived and the token got released</u>.</p>
-               <p>Examples: <strong>Token Ring</strong> (IEEE 802.5) and <strong>Fiber Distributed Data Interface</strong> (FDDI).</p>
-            </section>
+				<section>
+					<h2>Controlled/Scheduled Access</h2>
+					<p><strong>Devices access the medium one after the other</strong>, and then have to wait for their turn again.</p>
+					<p>A device must first <strong>acquire the token</strong> to be able to so. When it has one and wants to transmit, it fills the token with data and send it.</p>
+					<p><u>No other device can transmit until the frame has arrived and the token got released</u>.</p>
+					<p>Examples: <strong>Token Ring</strong> (IEEE 802.5) and <strong>Fiber Distributed Data Interface</strong> (FDDI).</p>
+				</section>
 
-            <section>
-               <h2>Ring Topology</h2>
-               <p>It is a <strong>multi-access topology</strong>, because every frame is <u>received by each node</u> (on the path between source and destination), but <u>addressed only by the intended destination</u>.</p>
-               <p>If a node receives a message that is <strong>not destined to it, it relays it</strong> to the next node.</p>
-               <p>Using a token is the most common MAC method for ring topologies.</p>
-            </section>
+				<section>
+					<h2>Ring Topology</h2>
+					<p>It is a <strong>multi-access topology</strong>, because every frame is <u>received by each node</u> (on the path between source and destination), but <u>addressed only by the intended destination</u>.</p>
+					<p>If a node receives a message that is <strong>not destined to it, it relays it</strong> to the next node.</p>
+					<p>Using a token is the most common MAC method for ring topologies.</p>
+				</section>
 
-            <section>
-               <h1>End of Lesson</h1>
-            </section>
-         </div>
+				<section>
+					<h1>End of Lesson</h1>
+				</section>
+			</div>
 
-      </div>
+		</div>
 
-      <script src="lib/js/head.min.js"></script>
+		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
 
-      <script>
+		<script>
 
 			// Full list of configuration options available at:
-         // https://github.com/hakimel/reveal.js#configuration
-         Reveal.initialize({
-            controls: true,
-            progress: true,
-            history: true,
-            center: true,
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
 
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
 				// Optional reveal.js plugins
-            dependencies: [
-               { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-               { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-               { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: 'plugin/zoom-js/zoom.js', async: true },
 					{ src: 'plugin/notes/notes.js', async: true }
-            ]
-         });
+				]
+			});
 
-      </script>
+		</script>
 
-   </body>
+	</body>
 </html>
