@@ -512,12 +512,10 @@ Switch(config-if)# no shutdown</code></pre>
 				<section>
 					<section>
 						<h2>PC Network Settings</h2>
-						<p>For an end device to communicate over a network, it must be configured with the correct IP address information.</p>
-						<p>The <strong>IP address, Subnet Mask, Default Gateway and DNS server</strong> must be provided.</p>
+						<p>For an end device to communicate over a network, it must be provided with the correct IP information: <strong>IP address, Subnet Mask, Default Gateway and DNS server</strong>.</p>
 						<p>The <strong>default gateway</strong> address is the IP address of the router interface used for <strong>network traffic to exit the local network</strong>.</p>
 						<p>The <strong>DNS server</strong> is used to <strong>maintain the mapping between the IP addresses and names</strong> of various devices.</p>
-						<p>IP address information can be entered into the PC manually (<strong>static</strong> addressing), or using <strong>Dynamic Host Configuration Protocol (DHCP)</strong>.</p>
-						<p>DHCP allows end devices to have IP information automatically configured.</p>
+						<p>IP address information can be entered into the PC manually (<strong>static</strong> addressing), or using <strong>Dynamic Host Configuration Protocol (DHCP)</strong>. DHCP allows end devices to have IP information automatically configured.</p>
 					</section>
 					<section>
 						<h2>PC Network Settings</h2>
@@ -557,8 +555,8 @@ Vlan1              192.168.10.2    YES   manual   up       up</code></pre>
 						<p>From PC2:</p>
 						<pre><code class="bash">ping 192.168.1.11</code></pre>
 						<p>Ping the IP of Switch VLANs from PCs.</p>
-						<pre><code class="bash">ping 192.168.1.1</code></pre>
-						<pre><code class="bash">ping 192.168.1.2</code></pre>
+						<pre><code class="bash">ping 192.168.1.1
+ping 192.168.1.2</code></pre>
 						<p>If all packets are received the network is correctly working.</p>
 					</section>
 				</section>
