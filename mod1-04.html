@@ -353,11 +353,12 @@
 
 				<section>
 					<h2>Data Link Sublayers: LLC and MAC</h2>
-					<img src="http://i.imgur.com/m0p1gvK.gif">
-					<p>The Data Link Layer is divided in LLC and MAC sublayers.</p>
-					<p>The <strong>Logical Link Control (LLC)</strong> is the <strong>interface to the Network Layer</strong> in the stack, it identifies which L3 protocol is in use and de/multiplexes it into/from the frame.</p>
-					<p>The <strong>Media Access Control (MAC)</strong> is the <strong>interface to the hardware</strong>, it generates the frame, attaching data link addresses and delimitations, and then physically coordinates with the hardware to send it.</p>
-					<p>LLC is a software (the NIC driver), while MAC is implemented in hardware</p>
+					<img src="http://i.imgur.com/fW4YTuA.jpg">
+					<ul>
+						<li>The <strong>Logical Link Control (LLC)</strong> is the <strong>interface to the Network Layer</strong> in the stack, it identifies which L3 protocol is in use and de/multiplexes it into/from the frame.</li>
+						<li>The <strong>Media Access Control (MAC)</strong> is the <strong>interface to the hardware</strong>, it generates the frame, attaching data link addresses and delimitations, and then physically coordinates with the hardware to send it.</li>
+					</ul>
+					<p>LLC is software (the NIC driver), while MAC is implemented in hardware.</p>
 				</section>
 
 				<section>
