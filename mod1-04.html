@@ -425,7 +425,13 @@
 					<p>In a PtP topology, two devices can communicate:</p>
 					<ul>
 						<li><strong>Half-Duplex</strong>: both can TX/RX, but not simultaneously. This mandates for <strong>conflict resolution</strong> about media usage.</li>
-						<li><strong>Full-Duplex</strong>: both can TX/TX and can do that at the same time. This means the media is <strong>assumed uncontended</strong> by the DLL.</li>
+						<ul>
+							<li>Star topologies using hubs; bus topologies; WLANs.</li>
+						</ul>
+						<li><strong>Full-Duplex</strong>: both can TX/TX and can do that at the same time. This means the media is <strong><u>assumed uncontended</u></strong> by the DLL.</li>
+						<ul>
+							<li>Enabled by Ethernet switches.</li>
+						</ul>
 					</ul>
 				</section>
 
