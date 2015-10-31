@@ -472,13 +472,14 @@
 				</section>
 
 				<section>
-					<h2>Carrier Sense Multiple Access (CSMA)</h2>
-					<p>Used in contention-based medium access to <strong>detect if there's a signal (carrier) on the media</strong> before transmitting.</p>
+					<h2>Carrier Sense Multiple Access</h2>
 					<p>The more nodes there are the less probable is to be able to use the media without collisions.</p>
-					<p>Coupled with a mean for <strong>resolving collision</strong>:</p>
+					<p>CSMA is used in contention-based medium access to <strong>detect if there's a signal (carrier) on the media</strong> before transmitting. Coupled with a mean for <strong>resolving collision</strong>:</p>
 					<ul>
-						<li><strong>CSMA/CD</strong> for Ethernet 802.3: if another signal is perceived while transmitting, all devices stop transmitting and try later.
-						<li><strong>CSMA/CA</strong> for 802.11: sends notification of intent to use media and wait for clearance.</p>
+						<li><strong>CSMA/CD</strong> for Ethernet 802.3: if another signal is perceived while transmitting, colliding devices will stop to try later.</li>
+						<li><strong>CSMA/CA</strong> for 802.11: doesn't detect collisions, instead it sends notification of intent to use media and wait for clearance.</li>
+					</ul>
+					<p>Switched Ethernet operates as <strong><u>not contention-based</u></strong>.</p>
 				</section>
 
 				<section>
