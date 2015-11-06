@@ -53,15 +53,14 @@
 
 				<section>
 					<h2>The OSI L3: Network</h2>
-					<p>The network layer provides the means for <strong>end-to-end connectivity</strong> through the network.</p>
-					<p>To serve its purpose, it carries 4 basic operations:</p>
+					<p>The network layer provides the means for <strong>end-to-end connectivity</strong> networks. It carries 4 basic operations:</p>
 					<ul>
 						<li><strong>Addressing</strong> for the sender and receiver end of the network communication.</li>
 						<li><strong>Encapsulation</strong> of the transport layer (L4) Protocol Data Unit (PDU) in a <em>packet</em>.</li>
 						<li><strong>Routing</strong> packets through networks, selecting paths and <em>hops</em>.</li>
 						<li><strong>De-encapsulation</strong> of the packet into a L4 PDU at the receiver end.</li>
 					</ul>
-					<p>L2 is for link-to-link, L3 is for end-to-end.</p>
+					<p><u>L2 is for link-to-link, L3 is for end-to-end</u>.</p>
 				</section>
 
 				<section>
@@ -70,7 +69,7 @@
 					<ul>
 						<li><strong>Connectionless</strong>: no connection with the destination is established before sending data packets (like with a paper letter).</li>
 						<li><strong>Best Effort (unreliable)</strong>: There is no acknowledgment or error control. Packet delivery and ordering are not guaranteed.</li>
-						<li><strong>Media Independent</strong>: Operation is independent of the medium carrying the data (except for the <strong>MTU (Maximum Transmission Unit)</strong>, which L3 must coordinate with L2.</li>
+						<li><strong>Media Independent</strong>: Operation is independent of the medium carrying the data, except for the <strong>MTU (Maximum Transmission Unit)</strong> which L3 must coordinate with L2.</li>
 					</ul>
 				</section>
 
