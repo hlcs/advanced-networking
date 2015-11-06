@@ -390,20 +390,60 @@ IP address       HW type     Flags       HW address            Mask     Device
 					<section>
 						<h2>ARP commands</h2>
 						<h3>Consulting the ARP table on Windows</h3>
-						<pre>arp -a</pre>
+						<pre><code>C:\> arp -a
+Interface: 10.0.0.1 on Interface 0x1
+  Internet Address      Physical Address      Type
+  10.0.0.99             00-e0-98-00-7c-dc     dynamic</code></pre>
 					</section>
 					<section>
 						<h2>ARP commands</h2>
 						<h3>Consulting the ARP table on Cisco IOS</h3>
-						<pre>show ip arp</pre>
+						<pre><code>Router#show arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.20.0.2               0   001e.4a71.8f80  ARPA   Vlan2000
+Internet  10.20.0.1               0   001e.4a21.af80  ARPA   Vlan2000
+Internet  10.20.93.3              -   001e.4a7b.5800  ARPA   Vlan2093
+Internet  10.20.93.2            143   001e.4a71.8f80  ARPA   Vlan2093
+Internet  10.20.93.1             21   001e.4a21.af80  ARPA   Vlan2093
+Internet  10.20.0.69              -   001e.4a7b.5800  ARPA   Vlan2000
+Internet  10.20.71.5              -   001e.4a7b.5800  ARPA   Vlan2089
+Internet  10.20.71.2              0   001f.6c9c.7017  ARPA   Vlan2089
+Internet  10.20.71.3              0   001f.6c9c.6c17  ARPA   Vlan2089</code></pre>
 					</section>
 					<section>
 						<h2>ARP commands</h2>
-						<h3>Manipulating ARP table entries on Windows</h3>
+						<h3>Manipulating ARP table on Windows</h3>
+						<ul>
+							<li>To flush the entire ARP table:</li>
+							<pre><code>ipconfig /release
+ipconfig /renew</code></pre>
+							<li>To add a static entry to the ARP table:</li>
+							<pre><code>arp -s 10.0.0.200 00-10-54-CA-E1-40</code></pre>
+							<li>To remove a single entry:</li>
+							<pre><code>arp -d 192.168.0.1</code></pre>
+						</ul>
 					</section>
 					<section>
 						<h2>ARP commands</h2>
-						<h3>Manipulating ARP table entries on Linux</h3>
+						<h3>Manipulating ARP table on Linux</h3>
+						<ul>
+							<li>To flush the entire ARP table:</li>
+							<pre><code>root@hostname# ip -s -s neigh flush all
+70.167.140.1 dev eth0 lladdr 00:00:0c:9f:f0:04 ref 42 used 17/0/65 REACHABLE
+*** Round 1, deleting 1 entries ***
+70.167.140.1 dev eth0  ref 42 used 0/0/0 INCOMPLETE
+*** Round 2, deleting 1 entries ***
+*** Flush is complete after 2 rounds ***</code></pre>
+							<li>To add a static entry, and then remove it:</li>
+							<pre><code>root@hostname# arp -s 10.0.0.2 00:0c:29:c0:94:bf
+? (192.168.10.47) at e0:db:55:ce:13:f1 [ether] on eth0
+? (192.168.10.1) at 00:e0:b1:cb:07:30 [ether] on eth0
+? (10.0.0.2) at 00:0c:29:c0:94:bf [ether] PERM on eth1
+root@hostname# arp -d 10.0.0.2
+? (192.168.10.47) at e0:db:55:ce:13:f1 [ether] on eth0
+? (192.168.10.1) at 00:e0:b1:cb:07:30 [ether] on eth0
+? (10.0.0.2) at <incomplete> eth1</code></pre>
+						</ul>
 					</section>
 				</section>
 
