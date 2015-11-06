@@ -259,14 +259,13 @@ eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
 						<small>The figure above shows how many bytes of an incoming frame a switch needs to receive before making a forwarding decision, dependent of the switching method in use.</small>
 					</section>
 					<section>
-						<h2>Switching Methods</h2>
-						<h3>Store &amp; Fordward</h3>
+						<h2>Store &amp; Fordward Switching</h2>
 						<p><em>Store and Forward Switching</em> makes a forwarding decision only <strong>after receiving the entirety of the frame</strong> and error-checking it.</p>
 						<p>It is the main switching method in a Cisco LAN switch.</p>
 						<p>After receiving the frame, the switch computes its <em>checksum</em> (FCS). If it matches the FCS value the frame is forwarded through the appropriate exit port, <strong>otherwise it is dropped</strong>.</p>
 					</section>
 					<section>
-						<h2>Switching Method: Cut-Through</h2>
+						<h2>Cut-Through Switching</h2>
 						<p><em>Cut-Through Switching</em> makes a forwarding decision <strong>as soon as "enough" bytes</strong> of the frame as been received.</p>
 						<p>The actual forwarding process begins <strong>before the frame has been completely received</strong>.</p>
 						<p>There are two variants, both <strong>not verifying the checksum</strong>:</p>
@@ -278,9 +277,9 @@ eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
 					<section>
 						<h2>Switching Methods: Comparison</h2>
 						<ul>
-							<li>With Store &amp; Forward switching <strong>invalid frames are never forwarded</strong>.</li>
-							<li>Cut-Through switching forwards <strong>almost every invalid frame</strong>.</li>
-							<li>Cut-through provides <strong>significantly better latencies</strong>.</li>
+							<li>Store &amp; Forward <strong>never forwards invalid frames</strong>.</li>
+							<li>Cut-Through forwards <strong>almost every invalid frame</strong>.</li>
+							<li>Cut-Through provides <strong>significantly better latencies</strong>.</li>
 							<li>In a network with a <strong>high error rate</strong>, C-T switching becomes counterproductive, wasting bandwidth with invalid frames.</li>
 							<li>Fragment-Free is usually the best <strong>compromise</strong>: a little better error checking with virtually no increase in latency.</li>
 						</ul>
@@ -356,17 +355,17 @@ eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
 
 				<section>
 					<section>
-						<h2>How ARP operates: Address Learning</h2>
+						<h2>ARP Address Learning</h2>
 						<p>Simple: the host <em>listens</em> to incoming frames, <strong>reads the source MAC and IP addresses</strong>, and if this mapping is not already on the ARP table, <strong>the mapping is added to it</strong>.</p>
 					</section>
 					<section>
-						<h2>How ARP operates: ARP Requests</h2>
+						<h2>ARP Requests</h2>
 						<ul>
-							<li>The host generates a <strong>L2 broadcast</strong> frame known as an ARP Request, <u>containing the IP address whose MAC address it wants to know</u>, that will be received by every host.</li>
+							<li>The host generates a <strong>L2 broadcast</strong> frame known as ARP Request, <u>containing the IP address whose MAC address it wants to know</u>, that will be received by every host.</li>
 							<li>Only the host that has the the IP address included in the ARP request will reply, with <strong>a (unicast) ARP Reply</strong> <u>containing its own MAC address</u>.</li>
 							<li>The original host <strong>can now create the appropriate entry</strong> in its ARP cache.</li>
 						</ul>
-						<p>ARP table entries are <em>time stamped</em>, they <em>expire</em>, and can be <em>static</em>.</p>
+						<p>ARP entries are <em>time stamped</em>, they <em>expire</em>, and can be <em>static</em>.</p>
 						<p>If no host replies to the ARP request, <strong>the encapsulation failes, the frame is aborted</strong> and an error might be reported to the upper layers.</p>
 					</section>
 					<section>
