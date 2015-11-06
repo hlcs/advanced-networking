@@ -462,7 +462,7 @@ R1#</code></pre>
 							<li>GigabitEthernet0/0 (G0/0); GigabitEthernet0/1 (G0/1)</li>
 							<li>Serial/0/0/0 (S0/0/0); Serial/0/0/1 (S0/0/1)</li>
 						</ul>
-						<pre><code class="bash">R1#conf t
+						<pre><code class="bash" style="max-height: 250px;">R1#conf t
 Enter configuration commands, one per line.
 End with CNTL/Z.
 R1(config)#
@@ -511,12 +511,11 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 4/6/8 ms
 					<section>
 						<h2>Default Gateway in action</h2>
 						<img src="http://i.imgur.com/vIz6XYd.jpg">
-						<p><small>When does the default gw intervene?</small></p>
 						<p>Routers have a <strong>minimum of two interfaces</strong>, each configured with an IP address of separate networks.</p>
 						<p>Most of the times the default gateway address of a network is <strong>the router interface address attached to the local network</strong>.</p>
 					</section>
 					<section>
-						<h2>Configuring L3 switch default gw</h2>
+						<h2>Default Gateway on Cisco Switches</h2>
 						<p>We assign an IP address to the <strong>switch virtual interface (SVI)</strong>:</p>
 						<pre><code class="bash">S1(config)# interface vlan1
 S1(config-if)# ip address 192.168.1.123 255.255.255.0
