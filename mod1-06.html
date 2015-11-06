@@ -67,7 +67,7 @@
 					<h2>The IP Protocol</h2>
 					<p>IP was designed as a protocol with <strong>low overhead</strong>. It <strong>doesn't track nor manage the flow of packets</strong> (delegates to upper layers). Its basic characteristics are:</p>
 					<ul>
-						<li><strong>Connectionless</strong>: no connection with the destination is established before sending data packets (like with a paper letter). It might not be there or successfully receiving.</li>
+						<li><strong>Connectionless</strong>: no connection with the destination is established before sending data packets (like with a paper letter). It might be absent and/or not receiving.</li>
 						<li><strong>Best Effort (unreliable)</strong>: There is no acknowledgment or error control. Packet delivery and ordering are not guaranteed.</li>
 						<li><strong>Media Independent</strong>: Operation is independent of the medium carrying the data, except for the <strong>MTU (Maximum Transmission Unit)</strong> which L3 must coordinate with L2.</li>
 					</ul>
@@ -187,8 +187,8 @@
 					<p>An host can send (<em>forward</em>) a packet to:</p>
 					<ul>
 						<li><strong>Itself</strong> - every host as a special IP address, 127.0.0.1, known as the <strong>loopback interface</strong>, that is useful for testing purposes. IPs in the network 127.0.0.0/8 are loopback IPs.</li>
-						<li><strong>Local host</strong> - any host on the same network as the sending host.</li>
-						<li><strong>Remote host</strong> - hosts that are beyond the local network segment.</li>
+						<li><strong>Local host</strong> - any host on the same network as the sender.</li>
+						<li><strong>Remote host</strong> - hosts beyond the local network segment.</li>
 					</ul>
 					<p><strong>Destination IP address</strong> and <strong>Subnet Mask</strong> combined allow an host to distinguish between local and remote hosts.</p>
 					<p>A <strong>router</strong> is needed to forward a packet to a remote network.</p>
