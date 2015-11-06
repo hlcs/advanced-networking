@@ -381,6 +381,11 @@ eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
 					<section>
 						<h2>ARP commands</h2>
 						<h3>Consulting the ARP table on Linux</h3>
+						<pre><code>stefanauss@barney:~$ arp -a
+? (10.87.23.1) associato a c0:4a:00:fc:28:9c [ether] su eth0
+stefanauss@barney:~$ cat /proc/net/arp
+IP address       HW type     Flags       HW address            Mask     Device
+10.87.23.1       0x1         0x2         c0:4a:00:fc:28:9c     *        eth0</code></pre>
 					</section>
 					<section>
 						<h2>ARP commands</h2>
