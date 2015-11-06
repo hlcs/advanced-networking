@@ -283,9 +283,11 @@ fe80::/64 dev eth0  proto kernel  metric 256</code></pre>
 				</section>
 
 				<section>
-					<h2>Cisco IOS Routing Table</h2>
-					<!-- <img src="http://i.imgur.com/UJWLyz3.png" width="50%" height="50%"> -->
-					<pre><code>R0# show ip route
+					<section>
+						<h2>Cisco IOS Routing Table</h2>
+						p>On a Cisco Router the routing table is obtained with the command <code>show ip route</code>.</p>
+						<!-- <img src="http://i.imgur.com/UJWLyz3.png" width="50%" height="50%"> -->
+						<pre><code>R0# show ip route
 Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
        N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
@@ -310,20 +312,19 @@ L     192.168.11.1/32 is directly connected, GigabitEthernet0/1
 C     209.165.200.224/30 is directly connected, Serial0/0/0
 L     209.165.200.225/32 is directly connected, Serial0/0/0
 R0#</code></pre>
+					</section>
+					<section>
+						<h2>Cisco IOS Routing Table</h2>
+						<ul>
+							<li><strong>Route source</strong> - Identifies how the route was learned.</li>
+							<li><strong>Destination network</strong> - Identifies the address of the remote network.</li>
+							<li><strong>Administrative distance</strong> - Identifies the trustworthiness of the route source.</li>
+							<li><strong>Metric</strong> - Identifies the value assigned to reach the remote network. Lower values indicate preferred routes.</li>
+							<li><strong>Next-hop</strong> - Identifies the IP address of the next router (gateway to the network) to forward the packet.</li>
+							<li><strong>Route timestamp</strong> - When the route was last learned.</li>
+							<li><strong>Outgoing interface</strong> - Identifies the exit interface to use to forward a packet toward the final destination.</li>
+					</section>
 				</section>
-
-				<section>
-					<h2>Cisco IOS Routing Table</h2>
-					<p>On a Cisco Router the routing table is obtained with the command <code>show ip route</code>. It shows in a table:</p>
-					<ul>
-						<li><strong>Route source</strong> - Identifies how the route was learned.</li>
-						<li><strong>Destination network</strong> - Identifies the address of the remote network.</li>
-						<li><strong>Administrative distance</strong> - Identifies the trustworthiness of the route source.</li>
-						<li><strong>Metric</strong> - Identifies the value assigned to reach the remote network. Lower values indicate preferred routes.</li>
-						<li><strong>Next-hop</strong> - Identifies the IP address of the next router (gateway to the network) to forward the packet.</li>
-						<li><strong>Route timestamp</strong> - Identifies when the route was last heard.</li>
-						<li><strong>Outgoing interface</strong> - Identifies the exit interface to use to forward a packet toward the final destination</li>
-				</section>		
 
 				<section>
 					<h2>Inside a Router</h2>
