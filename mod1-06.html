@@ -75,7 +75,7 @@
 
 				<section>
 					<section>
-						<h2>IPv4 Packet Header</h2>
+						<h2>IPv4 Packet</h2>
 						<img src="http://i.imgur.com/8narbYh.jpg">
 						<p><small><strong>Options</strong> and <strong>Padding</strong> are almost never used.</small></p>
 					</section>
@@ -86,10 +86,12 @@
 							<li><strong>IP Header</strong> - Identifies the packet characteristics.</li>
 							<li><strong>Payload</strong> - contains the encapsulated L4 segment, with the actual data.</li>
 						</ul>
-						<p>Let's dissect an IPv4 header:</p>
+					</section>
+					<section>
+						<h2>IPv4 Packet Header</h2>
 						<ul>
 							<li><strong>Version</strong> - 4 bit value identifying the IP protocol version. It's 0100 for IPv4 packets.</li>
-							<li><strong>Type of Service (ToS)</strong> - Now called <strong>Differentiated Services (DS)</strong>, it helps in determining the priority of each package.</li>
+							<li><strong>Type of Service (ToS)</strong> - Now called <strong>Differentiated Services (DS)</strong>, it helps in determining the priority of each packet.</li>
 							<li><strong>Time-to-Live (TTL)</strong> - 8-bit counter used to specify the lifetime of a packet. It's set by the sender in terms of <strong>hop count</strong>.</li>
 							<li><strong>Protocol</strong>: 8-bit value expressing which encapsulated protocol the payload consists of. Common values are 0x01 for ICMP, 0x06 for TCP, 0x17 fot UDP.</li>
 						</ul>
@@ -98,14 +100,17 @@
 						<h2>IPv4 Packet Fields</h2>
 						<ul>
 							<li><strong>Internet Header Length (IHL)</strong> - The number of 32-bit words in the header (5-15).</li>
-							<li><strong>Total Length</strong> - Defines the entire packet (fragment) size in bytes, including header and data.<u>Minimum</u> is 20 bytes (20-byte header + 0 byte data), <u>maximum</u> is 65535 bytes.</li>
+							<li><strong>Total Length</strong> - Defines the entire packet (fragment) size in bytes, including header and data. <u>Minimum</u> is 20 bytes (20-byte header + 0 byte data), <u>maximum</u> is 65535 bytes.</li>
 							<li><strong>Header Checksum</strong> - 16-bit used for error control.</li>
 						</ul>
-						<p>Used when an IP packet has to be fragmented because transmission on media with smaller MTUs:</p>
+					</section>
+					<section>
+						<h2>IPv4 Packet Fields</h2>
+						<p>Used when an IP packet has to be fragmented because transmission on <strong>media with smaller MTUs</strong>:</p>
 						<ul>
 							<li><strong>Identification</strong> - 16 bits to uniquely identify fragments.</li>
 							<li><strong>Flags</strong> - 3 bits identifying how the packet is fragmented.</li>
-							<li><strong>Fragment Offset</strong>: 13 bits identifying the order of the fragments when reconstructing the original unfragmented packet.</li>
+							<li><strong>Fragment Offset</strong> - 13 bits identifying the order of the fragments when reconstructing the unfragmented original.</li>
 						</ul>
 					</section>
 				</section>
