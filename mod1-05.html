@@ -271,7 +271,7 @@ eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
 						<p>The actual forwarding process begins <strong>before the frame has been completely received</strong>.</p>
 						<p>There are two variants, both <strong>not verifying the checksum</strong>:</p>
 						<ul>
-							<li><strong>Rapid Frame</strong> - The switch forwards the frame <u>as soon as the destination MAC address is received</u>. This means it only needs the first 8+6=14 bytes of the frame.</li>
+							<li><strong>Rapid Frame</strong> - The switch forwards the frame <u>as soon as the destination MAC address is received</u>. This means it only needs the first 6 of the frame.</li>
 							<li><strong>Fragment Free</strong> - The switch waits for the first 64 bytes (<em>collision window</em>). <u>If no fragmentation is detected it then forwards the frame</u>.</li>
 						</ul>
 					</section>
