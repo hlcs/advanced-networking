@@ -186,7 +186,7 @@
 					<h2>Routing for the host</h2>
 					<p>An host can send (<em>forward</em>) a packet to:</p>
 					<ul>
-						<li><strong>Itself</strong> - every host as a special IP address, 127.0.0.1, known as the <strong>loopback interface</strong>, that is useful for testing purposes. Any IP in the network 127.0.0.0/8 is a loopback IP.</li>
+						<li><strong>Itself</strong> - every host as a special IP address, 127.0.0.1, known as the <strong>loopback interface</strong>, that is useful for testing purposes. IPs in the network 127.0.0.0/8 are loopback IPs.</li>
 						<li><strong>Local host</strong> - any host on the same network as the sending host.</li>
 						<li><strong>Remote host</strong> - hosts that are beyond the local network segment.</li>
 					</ul>
@@ -197,7 +197,7 @@
 
 				<section>
 					<h2>Host Routing Table</h2>
-					<p>An host decides where to forward its traffic based on its routing table, which tipically presents three kind of entries:</p>
+					<p>An host decides where to forward its traffic based on its routing table, which tipically presents three kinds of entries:</p>
 					<ul>
 						<li><strong>Direct Connection(s)</strong>: IP addresses assigned to the host, such as the loopback.</li>
 						<li><strong>Local Network Route</strong>: the network the host belongs to is <strong>automatically added</strong> to its routing table.</li>
@@ -209,27 +209,26 @@
 					<section>
 						<h2>IPv4 Host Routing Table</h2>
 						<h3>Linux</h3>
-						<pre>stefanauss@barney:~$ route -n
+						<pre><code>stefanauss@barney:~$ route -n
 Tabella di routing IP del kernel
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 0.0.0.0         10.87.23.1      0.0.0.0         UG    0      0        0 eth0
 10.87.23.0      0.0.0.0         255.255.255.0   U     1      0        0 eth0
-stefanauss@barney:~$ 
+stefanauss@barney:~$
 stefanauss@barney:~$ ip route show
-default via 10.87.23.1 dev eth0  proto static 
-10.87.23.0/24 dev eth0  proto kernel  scope link  src 10.87.23.2  metric 1 
-stefanauss@barney:~$ 
+default via 10.87.23.1 dev eth0  proto static
+10.87.23.0/24 dev eth0  proto kernel  scope link  src 10.87.23.2  metric 1
+stefanauss@barney:~$
 stefanauss@barney:~$ netstat -r
 Tabella di routing IP del kernel
 Destination     Gateway         Genmask        Flags   MSS Window  irtt Iface
 default         StefanaussGR.la 0.0.0.0        UG        0 0          0 eth0
-10.87.23.0      *               255.255.255.0  U         0 0          0 eth0
-					</pre>
+10.87.23.0      *               255.255.255.0  U         0 0          0 eth0</code></pre>
 					</section>
 					<section>
 						<h2>IPv4 Host Routing Table</h2>
 						<h3>Windows</h3>
-						<pre>C:\Document and Settings\Stefanauss\>route print
+						<pre><code>C:\Document and Settings\Stefanauss\>route print
 ===========================================================================
 Elenco interfacce
 0x1 ........................... MS TCP Loopback interface
@@ -248,31 +247,27 @@ Indirizzo rete     Mask             Gateway       Interfac.     Metric
 Gateway predefinito:       192.168.1.1
 ===========================================================================
 Route permanenti:
-  Nessuno
-						</pre>
+  Nessuno</code></pre>
 					</section>
 					<section>
 						<h2>IPv6 Host Routing Table</h2>
-						<pre>stefanauss@barney:~$ ifconfig
-eth0	Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
-		indirizzo inet:10.87.23.2  Bcast:10.87.23.255  Maschera:255.255.255.0
-		indirizzo inet6: fe80::ea11:32ff:fe4e:486b/64 Scope:Link
-		indirizzo inet6: fd17:8869:6a40::e24/128 Scope:Global
-		[...]
-lo		Link encap:Loopback locale
-		indirizzo inet:127.0.0.1  Maschera:255.0.0.0
-		indirizzo inet6: ::1/128 Scope:Host
-		[...]
+						<pre><code>stefanauss@barney:~$ ifconfig
+eth0  Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
+      indirizzo inet:10.87.23.2  Bcast:10.87.23.255  Maschera:255.255.255.0
+      indirizzo inet6: fe80::ea11:32ff:fe4e:486b/64 Scope:Link
+      indirizzo inet6: fd17:8869:6a40::e24/128 Scope:Global [...]
+lo    Link encap:Loopback locale
+      indirizzo inet:127.0.0.1  Maschera:255.0.0.0
+      indirizzo inet6: ::1/128 Scope:Host [...]
 stefanauss@barney:~$ ip -6 route show
 fd17:8869:6a40::e24 dev eth0  proto kernel  metric 256
-fe80::/64 dev eth0  proto kernel  metric 256
-						</pre>
+fe80::/64 dev eth0  proto kernel  metric 256</code></pre>
 						<ul>
 							<li><strong>::/0</strong> - IPv6 equivalent of 0.0.0.0 default route.</li>
 							<li><strong>::1/128</strong> - IPv6 loopback address.</li>
 							<li><strong>fe80::/64</strong> - Local link network route. </li>
 							<li><strong>ff00::8</strong> - Multicast, equivalent to 224.x.x.x.</li>
-							<li>Interface have 2 addresses with IPv6: a <strong>link local</strong> and a <strong>global unicast</strong> address. Also, no broadcast address with IPv6.</li>
+							<li>IPv6 interfaces have 2 addresses: a <strong>link local</strong> and a <strong>global unicast</strong> address. Also, no broadcast address with IPv6.</li>
 						</ul>
 					</section>
 				</section>
@@ -281,7 +276,7 @@ fe80::/64 dev eth0  proto kernel  metric 256
 					<h2>Routing for the router</h2>
 					<p>The routing table of a router contains:</p>
 					<ul>
-						<li><strong>Directly-connected routes</strong> - Added when a router interface is configured with an IP address and activated. With theses, router maintain information about the network segments they belong to.</li>
+						<li><strong>Directly-connected routes</strong> - Added when a router interface is configured with an IP address and activated. With these, routers maintain information about the network segments they belong to.</li>
 						<li><strong>Remote Routes</strong> - Manually added (<em>static routes</em>) or automatically learned (with <em>routing protocols</em>) from other routers connected to other networks.</li>
 					</ul>
 				</section>
@@ -289,7 +284,7 @@ fe80::/64 dev eth0  proto kernel  metric 256
 				<section>
 					<h2>Cisco IOS Routing Table</h2>
 					<!-- <img src="http://i.imgur.com/UJWLyz3.png" width="50%" height="50%"> -->
-					<pre>R0# show ip route
+					<pre><code>R0# show ip route
 Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
        N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
@@ -313,7 +308,7 @@ L     192.168.11.1/32 is directly connected, GigabitEthernet0/1
    209.165.200.0/24 is variably subnetted, 2 subnets, 3 masks
 C     209.165.200.224/30 is directly connected, Serial0/0/0
 L     209.165.200.225/32 is directly connected, Serial0/0/0
-R0#</pre>
+R0#</code></pre>
 				</section>
 
 				<section>
