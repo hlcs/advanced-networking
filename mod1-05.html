@@ -52,261 +52,374 @@
 				</section>
 
 				<section>
-					<h2>Chapter Goals</h2>
-					<ul>
-						<li>Describe the operation of the Ethernet sublayer</li>
-						<li>Identify the major fields of the Ethernet frame</li>
-						<li>Describe the purpose and characteristic of Ethernet MAC address</li>
-						<li>Describe the purpose of ARP</li>
-						<li>Explain how ARP requests impact network and host performance</li>
-						<li>Explain basic switching concepts</li>
-						<li>Compare fixed Configuration and modular switches</li>
-						<li>Configure Layer 3 switch</li>
-					</ul>
+					<h2>What is Ethernet?</h2>
+					<p>Ethernet is a <strong>networking technology</strong> whose standards operate in, and define, Data Link (L2) and Physical (L1) Layers.</p>
+					<p>It is the dominant technology <strong>for Local Area Networks</strong>.</p>
+					<p>Ethernet specifications comprises <strong>different L1 and L2 variations</strong>, but the frame format and addressing is basically the same across all variants.</p>
 				</section>
 
 				<section>
-					<h2>LLC and MAC</h2>
-					<p>Ethernet is the most widely used LAN technology used today</p>
-					<p>Ethernet operates in the data link layer and the physical layer</p>
-					<p>IEEE 802.2 and 802.3 standards</p>
-					<p>LLC sublayer</p>
+					<h2>Recap: L2 LLC &amp; MAC Sublayer</h2>
+					<img src="http://i.imgur.com/MQJ1hQu.jpg" style="width: 30%; height: 30%;">
 					<ul>
-						<li>handles the communication between the upper layers and the lower layers  and adds control information to help deliver the packet to the destination node</li>
-						<li>takes the network protocol data</li>
-					</ul>
-					<p>MAC sublayer</p>
-					<ul>
-						<li>MAC is implemented by hardware</li>
-						<li>MAC constitutes the lower sublayer of the data link layer</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>MAC</h2>
-					<img src="http://i.imgur.com/MQJ1hQu.jpg" style="float:right;">
-					<p>Ethernet MAC sublayer has two primary responsibilities:</p>
-					<ul>
-						<li>Data encapsulation
-						<li>Media access control
-					</ul>
-					<p>Data encapsulation</p>
-					<ul>
-						<li>Data encapsulation
-						<li>Addressing
-						<li>Error detection
-					</ul>
-					<p>Media Access Control</p>
-					<ul>
-						<li>Is responsible for the placement of frames on the media and the removal of frames from the media
-						<li>Carrier Sense Multiple Access
-					</ul>
-				</section>
-
-				<section>
-					<section>
-					<h2>CSMA</h2>
-					<p>Is used to first detect if the media is carrying a signal</p>
-					<p>Do not require mechanisms for tracking whose turn it is to access the media</p>
-					<p>As use and the number of nodes increases, the probability of successful media access without a collision decreases</p>
-					</section>
-					<section>
-						<h2>CSMA/Collision Detection</h2>
+						<li><strong>LLC</strong>: comunicates with upper layers, implemented in software, independent from the hardware.</li>
+						<li><strong>MAC</strong>: does data encapsulation and media access control, as such is implemented in hardware.</li>
 						<ul>
-							<li>The device monitors the media for the presence of a data signal.
-							<li>If a data signal is absent  the device transmits the data
+							<li><strong>Data Encapsulation</strong>: frame delimiting, addressing, error detection.</li>
+							<li><strong>Media Access Control</strong>: CSMA/CD for modern Ethernet (not really needed with today's switches).</li>
 						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>MAC Address Structure</h2>
+					<p>MAC addressing allows devices to identify frame's destination <strong>without the overhead of deincapsulation</strong>.</p>
+					<p>Ethernet MAC addresses are <strong>48 bits</strong> long, expressed as 12 hex digits, split in two parts:</p>
+					<ul>
+						<li>First 3 bytes are the <strong>Organizationally Unique Identifier (OUI)</strong>. <u>Every Ethernet device produced by one vendor must have a MAC address starting with same OUI</u>.</li>
+						<li>Last 3 bytes are vendor-assigned. <u>This part must be unique for every device that has the same OUI</u> (vendor).</li>
+					</ul>
+					<p>e.g.: e8:11:32:4e:48:6b, e8:11:32 is the OUI assigned to Samsung.</p>
+				</section>
+
+				<section>
+					<h2>Processing the Ethernet Frame</h2>
+					<p>The MAC address is stored in NIC's ROM. When the host boots, <strong>the MAC is copied into the RAM</strong>.</p>
+					<p>From then each device can send and receive frames, <strong>attaching source and destination MAC addresses</strong> to it.</p>
+					<p>When a device receives a frame, <strong>it checks if its MAC address matches the destination</strong>. If it does, it passes the frame to upper layers. If it doesn't, the frame is discarded.</p>
+					<p>MAC addresses can be represented with:</p>
+					<ul>
+						<li><strong>Dashes</strong>: e8-11-32-4e-48-6b (Windows)</li>
+						<li><strong>Colons</strong>: e8:11:32:4e:48:6b (*nix)</li>
+						<li><strong>Periods</strong>: e811.324e.486b (Cisco)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Ethernet Frame Attributes</h2>
+					<p>Composed by the L3 PDU, and a <strong>header+trailer of control informations</strong>, divided in <em>fields</em>.</p>
+					<p>There are two (minimally) different Ethernet frames: the <strong>Ethernet II</strong> (also called DIX) and <strong>IEEE 802.3</strong> Ethernet Standards.</p>
+					<p>Ethernet frames minimum size is 64 bytes, max size is 1518 bytes. From IEEE 802.3ac, max size has been extended to 1522 to accomodate for VLANs (Virtual Area Networks).</p>
+					<p>Frames &lt; 64 bytes (<em>runt frames</em>) or &gt; 1522 bytes (<em>jumbo frames</em>) get discarded.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Ethernet Frame Structure</h2>
+						<img src="http://i.imgur.com/mDGaIgC.gif">
 					</section>
 					<section>
-						<h2>CSMA/Collision Avoidance</h2>
+						<h2>Ethernet Frame Structure</h2>
 						<ul>
-							<li>Used in wireless
-							<li>The device examines the media for the presence of a data signal
-							<li>If the media is free, the device sends a notification across the media of its intent to use it
+							<li><strong>Preamble</strong>: not formally part of frame, it's a sequence of bytes telling the device to "get ready" for the frame.</li>
+							<li><strong>SFD</strong>: <em>Start Frame Delimiter</em>, breaks the preamble pattern and marks the start of the frame.</li>
+							<li><strong>Ethertype/Length</strong>: Ethertype in Ethernet II frames, Length of the data field in 802.3 standards. <u>Based on the value contained, the 2 framing styles are distinguished</strong> and can both be used.</u></li>
+							<li><strong>Data</strong>: if smaller than 64 bytes, <em>padding</em> is added to respect the minimum length.</li>
+							<li><strong>FCS</strong>: <em>Frame Check Sequence</em>, the result of a formula (CRC, <em>Cyclic Redundancy Check</em>) that allows to spot TX errors.</li>
 						</ul>
 					</section>
 				</section>
 
 				<section>
-					<h2>MAC Addressing</h2>
-					<p>MAC address was created to identify the actual source and destination nodes within an Ethernet network</p>
-					<p>Provided a method for device identification at the lower level of the OSI model</p>
-					<p>Is a 48-bit binary value expressed as 12 hexadecimal digits</p>
-					<p>Must be globally unique</p>
-					<p>First 3 byte OUI – last 3 byte unique value for OUI</p>
-					<p>All devices connected to an Ethernet LAN have MAC-addressed interfaces</p>
+					<section>
+						<h2>Binary and Hex: counting</h2>
+						<img src="http://i.imgur.com/tpI3roD.gif">
+					</section>
+					<section>
+						<h2>Binary and Hex: grouping</h2>
+						<img src="http://i.imgur.com/37LF4pU.gif">
+					</section>
 				</section>
 
 				<section>
-					<h2>Ethernet Frame</h2>
-					<img src="http://i.imgur.com/29Df40t.jpg">
-					<p>Early versions of Ethernet were relatively slow at 10 Mbps. The latest versions of Ethernet operate at 10 Gigabits/s</p>
-					<p>Both the Ethernet II and IEEE 802.3 standards define the minimum frame size as 64 bytes and the maximum as 1518 bytes</p>
-					<p>Any frame less than 64 bytes is considered a <em>collision fragment</em></p>
-					<p>The IEEE 802.3ac extended the maximum allowable frame size to 1522 bytes for Virtual Local Area Network (VLAN)</p>
+					<section>
+						<h2>How to get your MAC address</h2>
+						<h3>Linux</h3>
+						<pre><code>utente@host:$ ifconfig eth0
+eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b  
+          indirizzo inet:10.87.1.131  Bcast:10.87.1.255  Maschera:255.255.255.0
+          indirizzo inet6: fe80::ea11:32ff:fe4e:486b/64 Scope:Link
+          indirizzo inet6: fd3c:6b96:5233:0:2874:d02e:50ea:409b/64 Scope:Global
+          indirizzo inet6: fd3c:6b96:5233:0:ea11:32ff:fe4e:486b/64 Scope:Global
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:109834859 errors:0 dropped:1 overruns:0 frame:0
+          TX packets:106355594 errors:0 dropped:0 overruns:0 carrier:0
+          collisioni:0 txqueuelen:1000 
+          Byte RX:81573085337 (81.5 GB)  Byte TX:105092321751 (105.0 GB)</code></pre>
+					</section>
+					<section>
+						<h2>How to get your MAC address</h2>
+						<h3>Windows</h3>
+						<pre><code>C:\>ipfconfig /all
+   Scheda Ethernet Connessione alla rete locale (LAN):
+
+   Suffisso DNS specifico per connessione: hlcs.s
+   Descrizione . . . . . . . . . . . . . : Scheda Ethernet PCI AMD PCNET Family
+   Indirizzo fisico. . . . . . . . . . . : 08-00-27-3B-1B-39
+   DHCP abilitato. . . . . . . . . . . . : Sì
+   Configurazione automatica abilitata   : Sì
+   Indirizzo IP. . . . . . . . . . . . . : 10.0.2.15
+   Subnet mask . . . . . . . . . . . . . : 255.255.255.0
+   Gateway predefinito . . . . . . . . . : 10.0.2.2
+   Server DHCP . . . . . . . . . . . . . : 10.0.2.2
+   Server DNS . . . . . . . . . . . . .  : 10.0.2.3
+   Lease ottenuto. . . . . . . . . . . . : martedì 11 novembre 2014 17.50.27
+   Scadenza lease . . . . . . . . . . .  : mercoledì 12 novembre 2014 17.50.27</code></pre>
+					</section>
 				</section>
 
 				<section>
-					<h2>MAC Address</h2>
-					<p>Is Hexadecimal</p>
-					<p><code>Ipconfig</code>, <code>ifconfig</code>, <code>ip</code>
-					<p>Unicast address and Broadcast address (FF-FF-FF-FF-FF-FF)</p>
-					<p>Multicast Address: allow a source device to send a packet to a group of devices</p>
-					<p>Starts with 01-00-5E</p>
+					<section>
+						<h2>Unicast MAC Address</h2>
+						<h3>e8:11:32:4e:48:6b</h3>
+						<p>Combines with a <strong>unicast network address</strong>, like an IP unicast address (eg. 192.168.1.127), to deliver the frame to a <u>single</u> host.</p>
+					</section>
+					<section>
+						<h2>Broadcast MAC Address</h2>
+						<h3>ff:ff:ff:ff:ff:ff</h3>
+						<h4>All 1s!</h4>
+						<p>Combines with a <strong>broadcast network address</strong>, like a broadcast IP address (eg. 192.168.1.255), to deliver the frame to <u>every</u> host on a <u>local</u> network.</p>
+						<p>Many fundamentals network protocols and mechanisms, like ARP and DHCP, <strong>rely on broadcast</strong>.</p>
+					</section>
+					<section>
+						<h2>Multicast MAC Address</h2>
+						<h3>01:00:5E:[00:00:00-7F:FF:FF]</h3>
+						<p>Combines with a <strong>multicast network address</strong>, like the multicast IP allocation (224.0.0.0 - 239.255.255.255), to deliver the frame to <u>a host group</u>.</p>
+					</section>
 				</section>
 
 				<section>
-					<h2>MAC and IP</h2>
-					<p>Physical address (the MAC address)</p>
-					<p>Logical address (the IP address)</p>
-					<p>On Ethernet networks, MAC addresses are used to identify, at a lower level, the source and destination hosts</p>
-					<p>IP addressing determines the end-to-end behavior of an IP packet.</p>
-				</section>
-
-				<section>
-					<h2>Address Resolution Protocol</h2>
-					<p>Each node on an IP network has both a MAC and an IP address</p>
-					<p>The ARP protocol provides two basic functions:</p>
-					<ul>
-						<li>Resolving IPv4 addresses to MAC addresses
-						<li>Maintaining a table of mappings
-					</ul>
-					<p>When  a node do when it needs to create a frame and the ARP cache does not contain a map of an IP address to a destination MAC address generates an ARP request!</p>
-					<p>If the destination IPv4 host is not on the local network, the source node needs to deliver the frame to the router interface that is the gateway or next hop used to reach that destination</p>
-					<p>ARP cache timer removes ARP entries that have not been used for a specified period of time</p>
-					<p>On a Cisco router, the show ip arp command is used to display the ARP table</p>
-				</section>
-
-				<section>
-					<h2>ARP Issues</h2>
-					<ul>
-						<li>Overhead on the Media
-						<li>Security
-						<li>Broadcast and security issues related to ARP can be mitigated with modern switches
-						<li>Switches provide segmentation of a LAN, dividing the LAN into independent collision domains
-				</section>
-
-				<section>
-					<h2>Switching</h2>
-					<p>A Layer 2 LAN switch performs switching and filtering based only on the OSI data link layer (Layer 2) MAC address</p>
-					<p>Layer 2 switches depend on routers to pass data between independent IP subnetworks.</p>
-					<p>A switch determines how to handle incoming data frames by using its MAC address table. </p>
-					<p>Switch builds its MAC address table by recording the MAC addresses of the nodes connected to each of its ports</p>
-				</section>
-
-				<section>
-					<h2>Duplex Settings</h2>
-					<p>Half Duplex</p>
-					<ul>
-						<li>communication relies on unidirectional data flow where sending and receiving data are not performed at the same time</li>
-						<li>communication relies on unidirectional data flow where sending and receiving data are not performed at the same time
-					</ul>
-					<p>Full Duplex</p>
-					<ul>
-						<li>data flow is bidirectional, so data can be sent and received at the same time</li>
-						<li>In full-duplex mode, the collision detect circuit is disabled</li>
-					</ul>
-					<p>Auto-MDIX</p>
-				</section>
-
-				<section>
-					<h2>Forwarding Methods</h2>
-					<h3>Store-and-forward switching</h3>
-					<ul>
-						<li>when the switch receives the frame, it stores the data in buffers until the complete frame has been received</li>
-						<li>the switch also performs an error check using the Cyclic Redundancy Check (CRC) trailer portion of the Ethernet frame.</li>
-					</ul>
-					<h3>Cut-through switching</h3>
-					<ul>
-						<li>the switch acts upon the data as soon as it is received, even if the transmission is not complete</li>
-						<li>Fast-forward switching</li>
+					<section>
+						<h2>Layer 1 and Layer 2 Devices</h2>
 						<ul>
-							<li>Fast-forward switching immediately forwards a packet after reading the destination address</li>
+							<li>An <strong>hub</strong> is a "Layer 1 device" because it <u>makes no decision</u> and only deals with <u>physically replicating every bit</u> received on one port on every other port.</li>
+							<ul>
+								<li>Ethernet was developed with a <strong>multi-access bus logical topology</strong> in mind, where <u>devices would contest the media</u> in a network segment.</li>
+								<li>Since with hubs every host receives every frame, MAC addresses were used as a <strong>solution to identify correct source and destination</strong>.</li>
+							</ul>
 						</ul>
-						<li>Fragment-free switching</li>
+					</section>
+					<section>
+						<h2>Layer 1 and Layer 2 Devices</h2>
 						<ul>
-							<li>the switch stores the first 64 bytes of the frame before forwarding
-</li>
+							<li>A <strong>switch</strong> is a "Layer 2 device", because it takes <u>decisions based on the MAC address of the Ethernet frame</u> (an L2 PDU), regardless of the content coming from upper layers.</li>
+							<ul>
+								<li>Switches enabled an "uncontested" Ethernet, because they <u>direct traffic only where necessary</u> and also they can "store" the frame while <u>waiting for the media to be available</u>.</li>
+								<li>As a result of this, plus the introduction of full-duplex capabilities, means <u>modern Ethernet does not have to worry about collisions</u> anymore.</li>
+							</ul>
 						</ul>
-					</ul>
+					</section>
 				</section>
 
 				<section>
-					<h2>Memory Buffering on Switches</h2>
-					<p>Switch may use a buffering technique to store frames before forwarding them</p>
-					<p>Buffering may also be used when the destination port is busy due to congestion and the switch stores the frame until it can be transmitted</p>
-					<p>Port-based Memory Buffering: frames are stored in queues that are linked to specific incoming and outgoing ports</p>
-					<p>Shared Memory Buffering: deposits all frames into a common memory buffer that all the ports on the switch share</p>
-				</section>
-
-				<section>
-					<h2>Switch Configuration</h2>
-					<h3>Fixed Configuration Switches</h3>
-						<p>Cannot add features or options to the switch beyond those that originally came with the switch</p>
-					<h3>Modular Switches</h3>
-						<p>More flexibility in their configuration</p>
-				</section>
-
-				<section>
-					<h2>Layer 2 vs Layer 3 Switching</h2>
-					<p>Layer 2 LAN switch</p>
+					<h2>MAC Table</h2>
+					<p>The switch has to build a <strong>MAC Table</strong> to make its decisions.</p>
+					<p>It's also called <strong>CAM table</strong> (<em>content addressable memory</em>).</p>
 					<ul>
-						<li>performs switching and filtering based only on the OSI data link layer (Layer 2) MAC address</li>
-						<li>depends upon routers to pass data between independent IP subnetworks</li>
+						<li>The MAC table associates each <strong>port with MAC addresses</strong>.</li>
+						<li>It is populated by <strong>examining source MAC adresses</strong>.</li>
 					</ul>
-					<p>Layer 3 switches</p>
-					<ul>
-						<li>are also capable of performing Layer 3 routing functions</li>
-						<li>reducing the need for dedicated routers on a LAN</li>
-					</ul>
+					<img src="http://i.imgur.com/AZ06xwX.jpg">
 				</section>
 
 				<section>
-					<h2>Cisco Express Forwardings</h2>
-					<p>Decouples the usual strict interdependence between Layer 2 and Layer 3 decision making</p>
-					<p>The two main components of CEF operation are</p>
-					<ul>
-						<li>Forwarding Information Base (FIB)</li>
+					<section>
+						<h2>How a Switch Works</h2>
+						<h3>Learning</h3>
 						<ul>
-							<li>FIB is conceptually similar to a routing table</li>
-							<li>FIB is updated when changes occur in the network and contains all routes known at the time</li>
+							<li>The MAC table is empty when the switch is first turned on.</li>
+							<li>When a frame is received, it looks at the <strong>source MAC address</strong>.</li>
+							<ul>
+								<li>If it's not on the table, <strong>an association is added</strong> between the source MAC and the incoming port.</li>
+								<li>If it was already on the table, the <strong>aging timer</strong> of the association is reset. Maximum aging time is usually 5 min.</li>
+							</ul>
 						</ul>
-						<li>Adjacency tables</li>
+					</section>
+					<section>
+						<h2>How a Switch Works</h2>
+						<h3>Forwarding</h3>
 						<ul>
-							<li>maintain Layer 2 next-hop addresses for all FIB entries</li>
+							<li>Then, it looks at the <strong>destination MAC address</strong></li>
+							<ul>
+								<li>If It's not on the table it <strong>forwards the frame to all ports</strong> except the incoming port. This is called <em>flooding</em>.</li>
+									<ul>
+										<li><strong>Only the destination will reply</strong> with a unicast frame. The switch can now add the missing association in the table.</li>
+									</ul>
+								<li>If It's already on the table, the switch forwards the frame to the <strong>associated exit port</strong>.</li>
+							</ul>
+							<li>Once all the associations have been learned the switch doesn't need flooding anymore.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Switching Methods</h2>
+						<img src="http://i.imgur.com/dMGP8Ue.gif">
+						<small>The figure above shows how many bytes of an incoming frame a switch needs to receive before making a forwarding decision, dependent of the switching method in use.</small>
+					</section>
+					<section>
+						<h2>Switching Methods</h2>
+						<h3>Store &amp; Fordward</h3>
+						<p><em>Store and Forward Switching</em> makes a forwarding decision only <strong>after receiving the entirety of the frame</strong> and error-checking it.</p>
+						<p>It is the main switching method in a Cisco LAN switch.</p>
+						<p>After receiving the frame, the switch computes its <em>checksum</em> (FCS). If it matches the FCS value the frame is forwarded through the appropriate exit port, <strong>otherwise it is dropped</strong>.</p>
+					</section>
+					<section>
+						<h2>Switching Method: Cut-Through</h2>
+						<p><em>Cut-Through Switching</em> makes a forwarding decision <strong>as soon as "enough" bytes</strong> of the frame as been received.</p>
+						<p>The actual forwarding process begins <strong>before the frame has been completely received</strong>.</p>
+						<p>There are two variants, both <strong>not verifying the checksum</strong>:</p>
+						<ul>
+							<li><strong>Rapid Frame</strong> - The switch forwards the frame <u>as soon as the destination MAC address is received</u>. This means it only needs the first 8+6=14 bytes of the frame.</li>
+							<li><strong>Fragment Free</strong> - The switch waits for the first 64 bytes (<em>collision window</em>). <u>If no fragmentation is detected it then forwards the frame</u>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Switching Methods: Comparison</h2>
+						<ul>
+							<li>With Store &amp; Forward switching <strong>invalid frames are never forwarded</strong>.</li>
+							<li>Cut-Through switching forwards <strong>almost every invalid frame</strong>.</li>
+							<li>Cut-through provides <strong>significantly better latencies</strong>.</li>
+							<li>In a network with a <strong>high error rate</strong>, C-T switching becomes counterproductive, wasting bandwidth with invalid frames.</li>
+							<li>Fragment-Free is usually the best <strong>compromise</strong>: a little better error checking with virtually no increase in latency.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Switch Buffers</h2>
+					<p>A <em>buffer</em> is a memory with the purpose of temporarily queuing something, <strong>continuously filled and emptied</strong>.</p>
+					<p>Switches use two types of memory buffer to <strong>store Ethernet frames</strong> before forwarding them:</p>
+					<ul>
+						<li><strong>Port-based</strong>: each port has its own queue of frames, and a frame must wait every frame in front.</li>
+						<ul>
+							<li>A frame is <strong>never moved off the queue and into a less congested queue</strong> of another viable destination port.</li>
+						</ul>
+						<li><strong>Shared</strong>: there's a single queue for all ports, and each frame has a destination port linked to it.</li>
+						<ul>
+							<li><strong>Frames don't have to move</strong>, just being re-linked to a different outgoing port; <strong>variable allocation</strong> of memory.</li>
 						</ul>
 					</ul>
 				</section>
 
 				<section>
-					<h2>Type of Layer 3 Interfaces</h2>
-					<h3>Switch Virtual Interface (SVI)</h3>
-					<p>Logical interface on a switch associated with a virtual local area network (VLAN)</p>
-					<h3>Routed Port</h3>
-					<p>Physical port on a Layer 3 switch configured to act as a router port.</p>
-					<h3>Layer 3 EtherChannel</h3>
-					<p>Logical interface on a Cisco device associated with a bundle of routed ports</p>
+					<h2>Matching Speed, Duplex, Cable</h2>
+					<ul>
+						<li>The switch port and the device connected to it <strong>must operate at the same speed and duplex</strong>.</li>
+						<ul>
+							<li>They can be manually set, but by default almost every device has <strong>autonegotiation</strong> for both settings enabled.</li>
+							<li>Autonegotiation must be on on both sides; Gigabit ports can only operate in full-duplex mode.</li>
+						</ul>
+						<li><em>Ethernet over copper twisted pairs</em> has 2 wiring variants: the <strong>cable connecting switch and device must be correct</strong>.</li>
+						<ul>
+							<li>However switches have <strong>Auto-MDIX</strong> capability that <strong>reconfigures the interfaces no matter the cable</strong> in use.</li>
+						</ul>
+					</ul>
 				</section>
 
 				<section>
-					<h2>Configuring port on layer 3 switch</h2>
-					<pre><code class="bash">S1(config)#interface f0/6
-S1(config-if)#no switchport
-S1(config-if)#ip address 192.168.200.1 255.255.255.0
-S1(config-if)#no shutdown
-S1(config-if)#end
-S1# show ip interface brief
-Interface         IP-Address     OK?  Method  Status                  Protocol
-Vlan1             unassigned     YES  unset   administratively down   down
-FastEthernet0/1   unassigned     YES  unset   down                    down
-FastEthernet0/2   unassigned     YES  unset   down                    down
-FastEthernet0/3   unassigned     YES  unset   down                    down
-FastEthernet0/4   unassigned     YES  unset   down                    down
-FastEthernet0/5   unassigned     YES  unset   down                    down
-FastEthernet0/6   192.168.200.1  YES  manual  up                      up
-FastEthernet0/7   unassigned     YES  unset   up                      up
-FastEthernet0/8   unassigned     YES  unset   up                      up
-[...]</code></pre>
+					<section>
+						<h2>ARP: Address Resolution Protocol</h2>
+						<p>To send a frame, we need:</p>
+						<ul>
+							<li><strong>Source IP Address</strong>: of course I know my own!</li>
+							<li><strong>Source MAC Address</strong>: of course I know my own!</li>
+							<li><strong>Destination IP Address</strong>: provided by higher layers (like L7's DNS), or <em>we just know</em>.</li>
+							<li><strong>Destination MAC Address</strong>: <u>that's what ARP is for</u>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>ARP: Address Resolution Protocol</h2>
+						<p>What ARP does is:</p>
+						<ul>
+							<li>Associating (<em>resolving</em>) <u>IP addresses to corresponding MAC addresses</u>.</li>
+							<li>Maintaining a table of these associations (<em>mappings</em>), the <strong>ARP table/cache</strong>.</li>
+							<li>Provides a mechanism to query the ARP table, through <strong>ARP requests and replies</strong>.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>How ARP operates</h2>
+					<p>When an host needs to determine the destination MAC, <strong>it searches the destination IP in the ARP table</strong> to see if there's already a mapping.</p>
+					<ul>
+						<li>If there is, it uses the MAC and generates the frame.</li>
+						<li>If there isn't, then it can't generate the frame until <u>it has populated the ARP table</u>.</li>
+					</ul>
+					<p>It has two way of doing so, an <em>active</em> and a <em>passive</em> one:</p>
+					<ul>
+						<li><strong>Address Learning</strong>: <em>the mapping comes to you</em>.</li>
+						<li><strong>ARP Requests</strong>: <em>you search for the mapping</em>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>How ARP operates: Address Learning</h2>
+						<p>Simple: the host <em>listens</em> to incoming frames, <strong>reads the source MAC and IP addresses</strong>, and if this mapping is not already on the ARP table, <strong>the mapping is added to it</strong>.</p>
+					</section>
+					<section>
+						<h2>How ARP operates: ARP Requests</h2>
+						<ul>
+							<li>The host generates a <strong>L2 broadcast</strong> frame known as an ARP Request, <u>containing the IP address whose MAC address it wants to know</u>, that will be received by every host.</li>
+							<li>Only the host that has the the IP address included in the ARP request will reply, with <strong>a (unicast) ARP Reply</strong> <u>containing its own MAC address</u>.</li>
+							<li>The original host <strong>can now create the appropriate entry</strong> in its ARP cache.</li>
+						</ul>
+						<p>ARP table entries are <em>time stamped</em>, they <em>expire</em>, and can be <em>static</em>.</p>
+						<p>If no host replies to the ARP request, <strong>the encapsulation failes, the frame is aborted</strong> and an error might be reported to the upper layers.</p>
+					</section>
+					<section>
+						<h2>How ARP operates for remote networks</h2>
+						<p>What we've seen until now <strong>only works on a local network</strong>, because broadcast (like ARP requests) doesn't propagate to other networks.</p>
+						<p>When the host recognizes that the IP address of which it wants to know the MAC address it's part of a remote network, it has to forward the frame to a (default) gateway.</p>
+						<p><strong>This means it has to use the (default) gateway MAC address as the destination</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>ARP commands</h2>
+						<h3>Consulting the ARP table on Linux</h3>
+					</section>
+					<section>
+						<h2>ARP commands</h2>
+						<h3>Consulting the ARP table on Windows</h3>
+						<pre>arp -a</pre>
+					</section>
+					<section>
+						<h2>ARP commands</h2>
+						<h3>Consulting the ARP table on Cisco IOS</h3>
+						<pre>show ip arp</pre>
+					</section>
+					<section>
+						<h2>ARP commands</h2>
+						<h3>Manipulating ARP table entries on Windows</h3>
+					</section>
+					<section>
+						<h2>ARP commands</h2>
+						<h3>Manipulating ARP table entries on Linux</h3>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>ARP Issues</h2>
+						<h3>Broadcast Overhead</h3>
+						<p>The <strong>impact of broadcast communication</strong> can be very heavy for large enterprise networks and can greatly reduce throughput.</p>
+						<p>ARP broadcast traffic decreases significantly once the ARP tables start to get populated.</p>
+					</section>
+					<section>
+						<h2>ARP Issues</h2>
+						<h3>ARP Poisoning/Spoofing</h3>
+						<p>By issuing <strong>fake ARP replies</strong> that tries to get the wrong association on the ARP tables, an attacker can <strong>capture traffic originally intended for another host</strong> on the network.</p>
+						<p>Mitigation for ARP poisoning includes:</p>
+						<ul>
+							<li>authorizing only specific MAC addresses.</li>
+							<li>using static ARP entries (<em>ARP Binding</em>).</li>
+							<li>encrypting traffic in the upper layers.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
