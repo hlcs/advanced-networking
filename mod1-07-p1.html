@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Advanced Networking - Module 1 Chapter 7 - IP Addressing</title>
+		<title>Advanced Networking - Module 1 Chapter 7, Part 1 - IPv4 Addressing</title>
 
 		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
 		<meta name="author" content="Hacklab Cosenza">
@@ -45,59 +45,10 @@
 					<h1>Advanced Networking</h1>
 					<h2>Routing & Switching:<h2>
 					<h2>Introduction to Networks</h2>
-					<h3>Chapter 7: IP Addressing</h3>
+					<h3>Chapter 7, Part 1: IPv4 Addressing</h3>
 					<p>
 						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 					</p>
-				</section>
-
-				<section>
-					<h2>Counting in bin and hex</h2>
-					<img src="http://i.imgur.com/tpI3roD.gif">
-					<p>The number of digits used in a numbering system is called <strong>number base</strong> or <strong>radix</strong>.</p>
-				</section>
-
-				<section>
-					<h2>Positional Notation</h2>
-					<p>Our number systems are <strong>positional</strong>, because each digit represents a value that is dependent of its position.</p>
-					<p>1023 and 3102 contain the same digits, but their position give them different "values".</p>
-					<p>The digit at the far left is the <em>most significant</em>, the one at the far right is the <em>least significant</em> (MSB/LSB for binary system).</p>
-					<p><strong>Math says</strong>: if we have a number formed by digits d<sub>m</sub>...d<sub>2</sub>d<sub>1</sub>d<sub>0</sub> in a given number base <em>n</em>, the number can be interpreted as:</p>
-					<p>d<sub>m</sub> * n<sup>m</sup> + ... + d<sub>2</sub> * n<sup>2</sup> + d<sub>1</sub> * n<sup>1</sup> + d<sub>0</sub> * n<sup>0</sup></p>
-					<p>3102<sub>10</sub> = 3*10<sup>3</sup> + 1*10<sup>2</sup> + 0*10<sup>1</sup> + 2*10<sup>0</sup> = 3000+100+0+2 = 3102</p>
-				</section>
-
-				<section>
-					<h2>Binary to Decimal Conversion</h2>
-					<img src="http://i.imgur.com/jrAX9NL.png">
-				</section>
-
-				<section>
-					<h2>Decimal to Binary Conversion</h2>
-					<img src="http://i.imgur.com/KBJ5GLS.jpg">
-				</section>
-
-				<section>
-					<h2>IPv4 Address: Bin to Dotted Decimal</h2>
-					<img src="http://i.imgur.com/ppJNSCo.jpg">
-					<ol>
-						<li>Group the 32 bits into 4 octects.</li>
-						<li>Convert each octet to decimal.</li>
-						<li>Add a '.' (dot) between each decimal.</li>
-					</ol>
-				</section>
-
-				<section>
-					<h2>IPv4 Address: Dotted Decimal to Bin</h2>
-					<img src="http://i.imgur.com/eLM6BPw.png">
-					<ol>
-						<li>Is the decimal number greater than the MSB (128)?</li>
-						<li>If yes, put "1" in the MSB and subtract it from the number.</li>
-						<li>If no, put "0" in the MSB.</li>
-						<li>Move to the next position and repeat with the remainder.</li>
-						<li>Repeat until you have exhausted all bit positions.</li>
-						<li>Repeat for all 4 decimals.</li>
-					</ol>
 				</section>
 
 				<section>
@@ -290,12 +241,6 @@ Hosts/Net: 254</code></pre>
 					<p>Internet Service Providers are allocated IP addresses by the RIRs. Most "final users" like companies, organizations and inviduals, <em>borrow</em> their Internet addresses from the ISP as part of some service (like web hosting or server housing).</p>
 				</section>
 
-				<!--
-				<section>
-					<h2>Tier 1, Tier 2, Tier 3 ISP</h2>
-				</section>
-				-->
-
 				<section>
 					<h2>Special IPv4 Addresses</h2>
 					<ul>
@@ -306,260 +251,6 @@ Hosts/Net: 254</code></pre>
 						<li><strong>Experimental Addresses</strong> - Reserved address block from 240.0.0.0 to 255.255.255.254, are listed by RFC3330 for <strong>future use</strong>.</li>
 					</ul>
 					<p>All these addresses <u>must never appear on the public Internet</u>.</p>
-				</section>
-
-				<section>
-					<section>
-						<h2>Transition to IPv6</h2>
-					<p>We discussed several reasons (address space exhaustion, performances, extendibility) why an upgrade to the IPv4 was badly needed.</p>
-					<p>This upgrade is <strong>IPv6</strong> and has been in the works since 1993 and has been ready for several year.</p>
-					<p>However the transition from IPv4 to IPv6 will be slow and take years, so for a long time <strong>the two protocols will coexist</strong>, thanks to several <strong>transition mechanisms</strong>:</p>
-					<ul>
-						<li><strong>Dual Stack</strong>: every host on the network runs both protocols.</li>
-						<li><strong>Tunneling</strong>: the IPv6 packet is encapsulated inside an IPv4 one.</li>
-						<li><strong>Translation</strong>: NAT64 translates IPv4 packet into IPv6 packets, and viceversa.</li>
-					</ul>
-					</section>
-					<section>
-						<h2>Transition to IPv6</h2>
-						<img src="http://i.imgur.com/vjOBHaV.jpg">
-					</section>
-				</section>
-
-				<section>
-					<h2>Hexadecimal Numbering System</h2>
-					<img src="http://i.imgur.com/37LF4pU.gif">
-					<p>Base-16 is a perfect number system to use in ICT because <u>any of the 0-F digits represents 4-bits</u>.</p>
-					<p>This means that <strong>a common grouping such as 1 byte (8 bits) can be represented in <em>hex</em> with the range 00-FF</strong>.</p>
-					<p><em>Hex</em> numbers are usually represented by preceding the value with "0x". For instance, the number 7A (122 in decimal) is represented in hex with 0x7A, 7AH, or 7A<sub>16</sub> </p>
-				</section>
-
-				<section>
-					<section>
-						<h2>IPv6 Address Format</h2>
-						<img src="http://i.imgur.com/2Xf426J.gif">
-						<p>An IPv6 address is 128 bits long and so it's expressed not with 4 decimal values, but with 32 hexadecimal values.</p>
-						<p>Each group of 16 bits/4 hex values (unofficially called an <em>hextet</em>) is separated not by a <code>.</code> but by a colon (<code>:</code>).</p>
-						<p>An example of an IPv6 address is 2607:f0d0:1002:0051:0000:0000:0000:0004</p>
-						<p>When we use all 32 hex values to write an IPv6 address, we are using the <strong><em>preferred format</em></strong>. It's not always ideal to use this many digits, but there are rules to simplify the format.</p>
-					</section>
-					<section>
-						<h2>Simplifying IPv6 Address Format</h2>
-						<h3>Rule 1: Omitting Leading 0s</h3>
-						<p>Any <strong>leading</strong> 0s in any of the hextets can be stripped out.</p>
-						<pre>Preferred - 2001:0DB8:0000:1110:0000:0000:0000:0230
-No Lead 0 - 2001:DB8:0:1110:0:0:0:230
-
-Preferred - 2001:0DB8:0000:A300:ABCD:0000:0000:1234
-No Lead 0 - 2001:DB8:0:A300:ABCD:0:1234
-
-Preferred - FE80:0000:0000:0000:0123:4567:89AB:CDEF
-No Lead 0 - FE80:0:0:0:123:4567:89AB:CDEF
-
-Preferred - FF02:0000:0000:0000:0000:0000:0000:0001
-No Lead 0 - FF02:0:0:0:0:0:0:1
-
-Preferred - 0000:0000:0000:0000:0000:0000:0000:0001
-No Lead 0 - 0:0:0:0:0:0:0:1</pre>
-						<p>You <u>must not</u> strip the <strong>trailing</strong> 0s.</p>
-					</section>
-					<section>
-						<h2>Simplifying IPv6 Address Format</h2>
-						<h3>Rule 2: Omitting All-0s</h3>
-						<p>Any <strong>contiguos</strong> string of one or more hextets that consists of <strong>all-0s</strong> can be replaced by a <u>single</u> double colon (<code>::</code>).</p>
-						<pre><code class="no-highlight">YOU CAN ONLY USE THE :: _ONCE_ IN A IPv6 ADDRES!!!
-
-Preferred  - 2001:0DB8:0000:0000:1110:0000:0000:0230
-No Lead 0  - 2001:DB8:0:0:1110:0:0:230
-Compressed - 2001:DB8::1110:0:0:230 or 2001:DB8:0:0:1110::230
-
-Preferred  - 2001:0DB8:0000:A300:ABCD:0000:0000:1234
-No Lead 0  - 2001:DB8:0:A300:ABCD:0:1234
-Compressed - 2001:DB8::A300:ABCD:0:1234 or 2001:DB8:0:A300:ABCD::1234
-
-Preferred  - FE80:0000:0000:0000:0123:4567:89AB:CDEF
-No Lead 0  - FE80:0:0:0:123:4567:89AB:CDEF
-Compressed - FE80::123:4567:89AB:CDEF
-
-Preferred  - FF02:0000:0000:0000:0000:0000:0000:0001
-No Lead 0  - FF02:0:0:0:0:0:0:1
-Compressed - FF02::1
-
-Preferred  - 0000:0000:0000:0000:0000:0000:0000:0001
-No Lead 0  - 0:0:0:0:0:0:0:1
-Compressed - ::1</code></pre>
-					</section>
-				</section>
-
-				<section>
-					<h2>IPv6 Addresses</h2>
-					<p>In IPv6 there are <strong>unicast</strong> and <strong>multicast</strong> addresses like in IPv4.</p>
-					<p>It also has <strong>anycast</strong> addresses, which are <strong>assignable to multiple hosts</strong> and are <strong>routed to the nearest</strong> device having that address.</p>
-					<p><strong>IPv6 doesn't have broadcast addresses</strong>. It achieves the same effect with a particular multicast address called <em>all-nodes</em>.</p>
-					<p>IPv6 doesn't use dotted notation for subnet masks. Instead <strong>it uses prefix lengths/slash notation ranging from 0 to 128</strong>.</p>
-					<p>A typical network prefix for IPv6 networks is 64:</p>
-					<img src="http://i.imgur.com/I2rCANR.gif">
-				</section>
-
-				<section>
-					<section>
-						<h2>Types of IPv6 (Unicast) Addresses</h2>
-						<p>Like in IPv4, in IPv6 transmissions the <strong>source address must be an unicast address</strong> that uniquely identifies that interface.</p>
-						<p>There are 6 types of IPv6 Unicast addresses:</p>
-						<ul>
-							<li><strong>Global Unicast</strong>: Similar to public IPv4 Internet addresses.</li>
-							<li><strong>Link-Local</strong>: Used only for tranmission to other IPv6 hosts on the same link (synonym to subnet)  They only must be unique in a single link, because IPv6 router will never forward packets with link-local addresses.  Their range is <code>FE80::/10</code> - <code>FEBF::/10</code></li>
-							<li><strong>Loopback</strong>: The IPv6 loopback address is <code>::1/128</code> or <code>::1</code>.</li>
-							<li><strong>Unspecified</strong>: It's the all-0s address, <code>::/128</code> or <code>::</code>. It can't be assigned, and it's only used as source address by hosts yet to have IPv6 configuration or when the source is irrelevant.</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Types of IPv6 (Unicast) Addresses</h2>
-						<ul>
-							<li><strong>Unique Local (ULA)</strong>: They are the IPv6 counterpart of RFC 1918 Private Addresses. ULAs are available for use in private networks, inside a single site or organization or spanning a limited number of sites. They are not routable in the global IPv6 Internet. The allocated block for ULAs is <code>fc00::/7</code> - <code>fdff::/7</code></li>
-							<li><strong>IPv4 Embedded</strong>: a particular type of address to help the transition from IPv4 to IPv6. They are, in fact, IPv6 addresses that contain an IPv4 address in the last 4 bytes.</li>
-						</ul>
-					</section>
-				</section>
-
-				<section>
-					<h2>IPv6 Link-Local Communications</h2>
-					<img src="http://i.imgur.com/3QmNjli.png">
-					<p>Every IPv6-enabled device <strong>must have at least one link-local address</strong>. If it is not configured statically, it will be calculated automatically by the host without the need for a DHCP server.</p>
-					<p>It will be used to communicate with other IPv6 hosts on the same link/subnet, including the default gw.</p>
-				</section>
-
-				<section>
-					<section>
-						<h2>IPv6 Global Unicast Address</h2>
-						<img src="http://i.imgur.com/LGVfYS4.png">
-						<p>These are the <strong>IPv6 Internet-routable addresses</strong>, assigned by the IANA and the RIRs. As of now, only addresses starting with <code>2000::/3</code> (first 3 bits 001) are being assigned.</p>
-					</section>
-					<section>
-						<h2>IPv6 Global Unicast Address</h2>
-						<p>A global unicast address is made of 3 components:</p>
-						<ul>
-							<li><strong>Global Routing Prefix</strong>: Currently RIR assigns IPv6 blocks with a /48 routing prefix.</li>
-							<li><strong>Subnet ID</strong>: A field available for assignees of a GRP block to define their subnets/sites. GRP + Subnet ID must be 64 bits. This makes <strong>/64 the most used subnet mask</strong> for final users.</li>
-							<li><strong>Interface ID</strong>: Equivalent to the host portion of IPv4. It's called a generic "ID" because IPv6 can have multiple global addresses on multiple interfaces.</li>
-						</ul>
-						<p>Unlike IPv4, in IPv6 it is possible to assign to hosts:</p>
-						<ul>
-							<li><strong>All 1s addresses</strong>, because IPv6 has no broadcast address.</li>
-							<li><strong>All-0s addresses</strong>, but they are reserved as anycast Subnet-routers address.</li>
-						</ul>
-					</section>
-				</section>
-
-				<section>
-					<h2>Configuring Static IPv6 Global Address</h2>
-					<p>Static configuration on <strong>Cisco routers</strong> is almost identical to IPv4, except the command is <code>ipv6 address/prefix</code> (no spaces).</p>
-					<pre><code class="bash">R1(config)# interface gigabitethernet 0/0
-R1(config-if)# ipv6 address 2001:db8:acad:1::1/64
-R1(config-if)# no shutdown
-R1(config-if)# exit</code></pre>
-					<p><strong>On a host</strong> the configuration is identical, except you will use IPv6 addresses and prefixes.</p>
-					<p>You can also use the <strong>link-local address of the default gateway</strong>.</p>
-					<p>For automatic configuration of IPv6 addresses, there are two different ways: <strong>SLAAC and DHCPv6</strong>.</p>
-				</section>
-
-				<section>
-					<section>
-						<h2>Stateless Address Autoconfiguration</h2>
-						<p>Hosts that use <strong>SLAAC</strong> rely on special, periodic messages from local IPv6 Routers called <em>ICMPv6 Router Advertisement (RA)</em>.</p>
-						<p>Hosts don't have to wait for a RA, but <strong>they can send a <em>Router Solicitation (RS)</em> message</strong> to local router(s), that will respond immediately with a RA.</p>
-						<p>RA contains everything hosts need: <strong>prefix, prefix length, default gateway</strong>. But also one of these 3 responses:</p>
-						<ul>
-							<li><strong>SLAAC only</strong>: <em>Don't count on a DHCPv6 server</em>.</li>
-							<li><strong>SLAAC + DHCPv6</strong>: <em>Other infos available from a DHCPv6 Server</em>.</li>
-							<li><strong>DHCPv6 only</strong>: <em>Please rely exclusively on the DHCPv6 Server</em>.</li>
-						</ul>
-						<p>RA messages, and the default gateway information they contain, use the <strong>link-local IPv6 address</strong> of the router.</p>
-					</section>
-					<section>
-						<h2>DHCPv6</h2>
-						<p>The DHCP for IPv6 can provide hosts with <strong>a global unicast address, prefix length, default gateway and DNS servers</strong>.</p>
-						<p>An host can receive <strong>none, some, or all</strong> this informations from a DHCPv6 Server, depending on the option specified in the RA.</p>
-						<ul>
-							<li>With <strong>Option 1</strong>, SLAAC only, a DHCPv6 server is absent.</li>
-							<li>With <strong>Option 2</strong>, SLAAC+DHCPv6, DHCPv6 operates in <strong>stateless mode</strong>: it just provides DNS servers and doesn't keep track of allocated IPv6 addresses.</li>
-							<li>With <strong>Option 3</strong>, DHCPv6 only, it behaves in the same <strong>stateful mode</strong> DHCPv4 does, keeping track of allocated resources.</li>
-						</ul>
-						<p>When in DHCPv6-only, the server will provide the entire IPv6 address to the clients. When SLAAC is involved, <strong>the client must generate its own 64-bit interface ID</strong>.</p>
-					</section>
-					<section>
-						<h2>EUI-64</h2>
-						<img src="http://i.imgur.com/08FYCF9.png">
-						<p>With the <em>Extended Unique Identifier</em> process, an host can calculate the <em>Interface ID</em> <strong>based on its own MAC address</strong>.</p>
-						<p>An host can also <strong>randomly calculate</strong> the Interface ID.</p>
-					</section>
-				</section>
-
-				<section>
-					<h2>Link-Local Addresses Generation</h2>
-					<p>The link-local addresses can be <strong>dynamically generated</strong> by appending the Interface ID to the FE80::/64 network prefix.</p>
-					<p>E.g, <code>fe80:0000:0000:0000:ea11:32ff:fe4e:486b</code>.</p>
-					<p>But because a MAC rarely contains many 0s, <strong>the resulting link-local address will be very long</strong> and uncompressable.</p>
-					<p>By <strong>statically</strong> providing link-local addresses we can make them way more easier to read. On Cisco routers:</p>
-					<pre><code class="bash">Router(config-if)# ipv6 address [link-local-address] link-local </code></pre>
-					<p>Because they must be unique only over the same link, <strong>we can use the same link-local address on all the router interfaces</strong>:</p>
-					<pre><code class="bash" style="height: 100px;">Router(config)#interface g0/0
-Router(config-if)# ipv6 address fe80::1 link-local
-Router(config-if)# exit
-Router(config)#interface g0/1
-Router(config-if)# ipv6 address fe80::1 link-local
-Router(config-if)# exit
-Router(config)#interface s0/0/0
-Router(config-if)# ipv6 address fe80::1 link-local
-Router(config-if)# exit</code></pre>
-				</section>
-
-				<section>
-					<h2>IPv6 Multicast Addresses</h2>
-					<p>As with IPv4, multicast groups are represented by addresses. There are 2 types of IPv6 multicast addresses:</p>
-					<ul>
-						<li><strong>Assigned</strong> - Reserved multicast addresses for pre-defined group on devices, or devices running a common protocol or known service. 2 common assigned multicasts are:</li>
-						<ul>
-							<li><strong>FF02::1 <em>All-Nodes Multicast Group</em></strong> - A multicast group that any IPv6-enabled host joins, effectively making it the "broadcast" address of IPv6.</li>
-							<li><strong>FF02::2 <em>All-Routers Multicast Group</em></strong> - A group joined by all IPv6 routers on the link/network.</li>
-						</ul>
-						<li><strong>Solicited Node</strong> - A multicast address created for each IPv6 interface, and consisting of a FF02:0:0:0:0:1:FF00::/104 prefix plus the <strong>least significant 24 bits of the Interface ID</strong>. They are used for obtaining the L2 addresses of other nodes.</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>IPv6 Routers</h2>
-					<p>Having an IPv6 enables is not enough to be considered an IPv6 router. The following are the <strong>basic features of an IPv6 router</strong>: 
-					<ul>
-						<li><strong>Forwarding IPv6 packets</strong> between different networks</li>
-						<li>Ability to configure <strong>static IPv6 routes</strong> or a <strong>dynamic IPv6 routing protocol</strong>.</li>
-						<li><strong>Sending ICMPv6 Router Advertisement</strong> messages.</li>
-					</ul>
-					<p><u>IPv6 routing is not enabled by default on Cisco routers</u>: you need to enable it with the <code>ipv6 unicast-routing</code> command.</p>
-				</section>
-
-				<section>
-					<section>
-						<h2>Internet Control Message Protocol v4</h2>
-						<p>The <strong>ICMPv4/v6</strong> protocols are part of the TCP/IP protocol suite and <strong>provide feedback about certain errors involving IPv4/v6 packet processing</strong>. Because of the information they provide, ICMP messages are frequently blocked for security.</p>
-						<p>These ICMP messages are common between v4 and v6:</p>
-						<ul>
-							<li><strong>Host Confirmation</strong>: an ICMP <em>Echo Request</em> is sent to test if an host in operational. If it is an <em>Echo Reply</em> is sent back.</li>
-							<li><strong>Destination or Service Unreachable</strong>: when a gateway can't forward a packet, it notifies the source with a code specifying if the net, host, protocol or port is unreachable.</li>
-							<li><strong>Time Exceeded</strong>: Used to notify the packet source that the TTL counter in the header has reached 0 and is being dropped.</li>
-							<li><strong>Route Redirection</strong>: It informs the packet source that a better route to the destination is available.</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Internet Control Message Protocol v6</h2>
-						<p>ICMPv6 introduced 4 new messages as part of the <strong>Neighbour Discovery Protocol (NDP)</strong>:
-						<ul>
-							<li><strong>Router Solicitation (RS)</strong> - Sent by hosts to routers to obtain addressing autoconfiguration information.</li>
-							<li><strong>Router Advertisement (RA)</strong> - Sent by router to hosts to provide addressing autoconfiguration information.</li>
-							<li><strong>Neighbor Solicitation (NS)</strong> -Sent by an host to another host to discover its L2 address or to detect a duplicate address.</li>
-							<li><strong>Neighbor Advertisement (NA)</strong> - Sent by an host who received a NS to comunicate its L2 address or that an IPv6 address is already in use.</li>
-						</ul>
-					</section>
 				</section>
 
 				<section>
@@ -584,10 +275,6 @@ traceroute to google.it (173.194.40.15), 30 hops max, 60 byte packets
 				<section>
 					<h1>End of Lesson</h1>
 				</section>
-				<!-- Port Numbers as identifications
-				Stateful vs stateless protocol
-				-->
-				
 			</div>
 
 		</div>
