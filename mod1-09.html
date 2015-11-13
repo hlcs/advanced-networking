@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Advanced Networking - Module 1 Chapter 9 - Subnetting IP Networks</title>
+		<title>Advanced Networking - Module 1 Chapter 9 - Transport Layer</title>
 
 		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
 		<meta name="author" content="Hacklab Cosenza">
@@ -45,431 +45,349 @@
 					<h1>Advanced Networking</h1>
 					<h2>Routing & Switching:<h2>
 					<h2>Introduction to Networks</h2>
-					<h3>Chapter 9: Subnetting IP Networks</h3>
+					<h3>Chapter 9: Transport Layer</h3>
 					<p>
 						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 					</p>
 				</section>
 
 				<section>
-					<h2>Why Subnetting?</h2>
-					<p><strong>Subnetting</strong> is the deepening of the network/host hierarcy into a network/<em>subnet(s)</em>/host one.</p>
-					<p><small>The terms <em>network</em> and <em>subnet</em> both identify computer networks. <em>Subnet</em> is just used to imply that we are talking about <strong>a part of some larger address space</strong>.</small></p>
-					<p>There are many reason for subnetting some address block:</p>
+					<h2>The OSI L4: Transport</h2>
+					<p>The transport layer provides the means for <strong>process-to-process connectivity</strong> through the network. Its functions are:</p>
 					<ul>
-						<li><strong>Optimizing address space usage</strong> by wasting less addresses.</li>
-						<li>With a minimized definition of "local", we can <strong>reduce broadcast</strong> traffic.</li>
-						<li>A <strong>better packet delivery</strong> can be achieved by providing more network targets to meet our routing requirements. This is called <em>network segmentation</em>.</li>
-						<li>Creating more targets to define our policies against  can also <strong>improve security</strong>.</li>
+						<li><strong>Tracking the individual communications</strong> initiated by applications on sender and receiver hosts.</li>
+						<li><strong>Segmenting and reassembling data streams</strong> for better manageability.</li>
+						<li><strong>Identifying the application</strong> each particular stream belongs to.</li>
 					</ul>
+					<p>L2: link-to-link; L3: end-to-end; L4: process-to-process.</p>
 				</section>
 
 				<section>
-					<h2>Subnetting and Routing</h2>
-					<p>Subnetting means taking a <strong>single network address</strong> and partitioning it into <strong>multiple logical networks</strong>.</p>
-					<p>Subnets <strong>are</strong> networks, so as with any multiple networks <strong>you need routing</strong> to exchange traffic between subnets.</p>
-					<p>Like in every network, for every subnet you need to configure:</p>
-					<ul>
-						<li>every host with <strong>network address, subnet mask and default gateway</strong> appropriate to the subnet they belong to.</li>
-						<li>the router interface that is part of the subnet with <strong>an IPv4 address that belongs to the subnet</strong> range.</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Planning Subnetting</h2>
-					<p>What we'll learn about <strong>subnetting would apply to both public and private IPv4 address space</strong>. Subnetting public addresses is an ISP concern, we'll focus on subnetting private blocks.</p>
-					<p>So we start with private IP address ranges:</p>
-					<ul>
-						<li>10.0.0.0/8 (subnet mask 255.0.0.0)</li>
-						<li>172.16.0.0/12 (subnet mask 255.240.0.0)</li>
-						<li>192.168.0.0/16 (subnet mask 255.255.0.0)</li>
-					</ul>
-					<p>and then we ask ourselves these questions:</p>
-					<p><em>How many subnets? What belongs to each subnet? How many hosts for each? What will I need in the future?</em></p>
-				</section>
-
-				<section>
-					<h2>Subnetting = Borrowing Bits</h2>
-					<p>Network address = Network part + host part, distinguished thanks to the subnet mask (or prefix).</p>
-					<p>Subnets are created by <strong>taking one or more bits of the host part</strong> and making them "network bits".</p>
-					<p>The <strong>subnet mask is expanded to account for the bits <em>borrowed</em></strong> from the host portion (previously 0s in the mask) that are now part of the network portion (becoming 1s).</p>
-					<p><strong>The more bits are borrowed the more subnets are created</strong>, but with each additional subnet the addresses available decrease. Each borrowed bit <strong>doubles the subnets and halves the addresses</strong>.</p>
-					<p>That is, an <strong>inverse relationship</strong> between the number of subnets and the number of hosts.</p>
+					<h2>Segmentation and Multiplexing</h2>
+					<img src="http://i.imgur.com/PLD8Zq4.jpg" width="55%" height="55%">
+					<img src="http://i.imgur.com/IThNYoO.jpg" width="55%" height="55%">
 				</section>
 
 				<section>
 					<section>
-						<h2>Subnetting 192.168.1.0/24</h2>
-						<h3>2 Subnets</h3>
-						<pre><code class="no-highlight">                                          1 bit borrowed
-                                          ▼
-                             NNN.NNN.NNN. HHHHHHHH
-Original Network Address     192.168.  1. 00000000 = 192.168.1.0/24
-Original Subnet Mask         255.255.255. 00000000 = 255.255.255.0</code></pre>
-						<p>By <strong>borrowing 1 bit</strong> we can create 2 different network addresses, and thus 2 different subnets.</p>
-						<pre><code class="no-highlight">                             NNN.NNN.NNN. NHHHHHHH
-Subnet 0 Network Address     192.168.  1. 00000000 = 192.168.1.0/25
-Subnet 1 Network Address     192.168.  1. 10000000 = 192.168.1.128/25
-New Subnet Mask              255.255.255. 10000000 = 255.255.255.128</code></pre>
+						<h2>TCP and UDP</h2>
+						<img src="http://i.imgur.com/5knyqyg.png">
+						<p>TCP/IP protocol suite provides 2 very different alternative as transport layer protocols: the <strong>TCP (Transmission Control Protocol)</strong> and <strong>UDP (User Datagram Protocol)</strong>.</p>
+						<p>TCP is the full-featured, reliable alternative, while UDP is the simpler and low-overhead choice.</p>
+					</section>
+					<section>
+						<h2>TCP and UDP</h2>
+						<p>TCP is considered a reliable transport protocol because it uses <strong>acknowledged delivery</strong>. It performs all the Layer 4 functions seen before, plus:</p>
 						<ul>
-							<li>You always <strong>start borrowing from the MSB</strong> of the host portion.</li>
-							<li><strong>Subnet mask is the same for every subnet</strong>.</li>
+							<li>It establishes a <strong>connection</strong> before doing anything.</li>
+							<li>It <strong>sequences</strong> (order) the data.</li>
+							<li><strong>it acknowledges received data</strong>.</li>
+							<li><strong>it retransmits any unacknowledge data</strong>.</li>
+							<li>It manages the <strong>ongoing</strong> connection.</li>
+						</ul>
+						<p>UDP doesn't do any of this, it just provides the basic L4 functions.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>TCP or UDP?</h2>
+					<p><u>There is no single answer</u>. Both are valid protocols. It depends on the <strong>application requirements</strong> to use one, the other, or even both. If, for example,:</p>
+					<ul>
+						<li><strong>all data must be received</strong> before any of it would be useful;</li>
+						<li>the application <strong>can't process unordered</strong> data;</li>
+					</ul>
+					<p>like email client or web browsers, then <u>TCP is the right choice</u>.</p>
+					<p>If, on the other hand, the application:</p>
+					<ul>
+						<li>Needs the fastest possibile communication;</li>
+						<li>Partial data loss is acceptable, but delays are not tolerated;</li>
+					</ul>
+					<p><u>UDP might be the better choice</u>, like it is for streaming audiovideo and most real-time applications.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>How TCP and UDP track data streams</h2>
+						<p>Both use <strong>port addressing</strong>, which means they assign a <strong>port number</strong> to specific applications and services to the client (source port) and the server (destination port).</p>
+						<ul>
+							<li><strong>Destination Port</strong>: it's placed in the header by the client, either by configuration or because it's a well-known and established port associated to the service being requested.</li>
+							<li><strong>Source Port</strong>: randomly generated by the client application to identify a specific application conversation, it is <strong>used as a return address</strong> by the server.</li>
+							<li>They are <strong>used in reverse</strong> by the server.</li>
 						</ul>
 					</section>
 					<section>
-						<h2>Subnetting 192.168.1.0/24</h2>
-						<h3>Available Ranges</h3>
-						<p>Before we assign addresses to devices in the subnet we must understand the available range:</p>
+						<h2>TCP+UDP Well-Known Ports and Ranges</h2>
+						<img src="http://i.imgur.com/3cI9cJF.jpg">
+						<img src="http://i.imgur.com/GnKtlBg.png">
+					</section>
+					<section>
+						<h2>Sockets</h2>
+						<p>What uniquely identifies each particular process on any single host is <strong>the combination of transport layer port numbers, and network layer IP address</strong>. This combination is called a <strong>socket</strong>.</p>
+						<p>A <strong>socket pair</strong> is the coupled source and destination IP addresses and port numbers, that <strong>uniquely identifies specific conversations</strong> between the two hosts.</p>
+						<p>A socket is commonly expressed in the <code>address:port</code> format.</p>
 						<ul>
-							<li><strong>Network Address</strong>: all 0s in the host part.</li>
-							<li><strong>First Host Address</strong>: all 0s except the last bit of the host part.</li>
-							<li><strong><em>n-th</em> Host Address</strong>: all other combinations.</li>
-							<li><strong>Last Host Address</strong>: all 1s except the last bit of the host part.</li>
-							<li><strong>Broadcast Address</strong>: all 1s in the host part.</li>
+							<li>213.92.16.101:80 (web server)</li>
+							<li>188.165.254.131:25 (smtp mail server)</li>
 						</ul>
 					</section>
 					<section>
-						<h2>Subnetting 192.168.1.0/24</h2>
-						<h3>192.168.1.0/25</h3>
-						<pre><code class="no-highlight">                             NNN.NNN.NNN. N HHHHHHH
-Subnet 0 Network Address     192.168.  1. 0 0000000 = 192.168.1.0/25
-Subnet 0 First Host Address  192.168.  1. 0 0000001 = 192.168.1.1
-Subnet 0 Last Host Address   192.168.  1. 0 1111110 = 192.168.1.126
-Subnet 0 Broadcast Address   192.168.  1. 0 1111111 = 192.168.1.127</code></pre>
-						<h3>192.168.1.128/25</h3>
-						<pre><code class="no-highlight">                             NNN.NNN.NNN. N HHHHHHH
-Subnet 1 Network Address     192.168.  1. 1 0000000 = 192.168.1.128/25
-Subnet 1 First Host Address  192.168.  1. 1 0000001 = 192.168.1.129
-Subnet 1 Last Host Address   192.168.  1. 1 1111110 = 192.168.1.254
-Subnet 1 Broadcast Address   192.168.  1. 1 1111111 = 192.168.1.255</code></pre>
-					</section>
-				</section>
-
-				<section>
-					<h2>Subnetting Formulas</h2>
-					<p>Where</p>
-					<ul>
-						<li><strong><em>n</em></strong> is the number of borrowed bits and</li>
-						<li><strong><em>h</em></strong> is the number of remaining bits in the host portion.</li>
-					</ul>
-					<ul>
-						<li><strong>To calculate the number of subnets</strong>: 2<sup>n</sup>.</li>
-						<li><strong>To calculate the number of hosts in a subnet</strong>: 2<sup>h</sup> - 2.</li>
-					</ul>
-					<p>For every network, <strong>the network address address and the broadcast address are not valid</strong> addresses to assign an host, so 2 addresses must be removed from the total.</p>
-				</section>
-
-				<section>
-					<section>
-						<h2>Subnetting 192.168.2.0/24</h2>
-						<h3>4 Subnets</h3>
-						<p><em>How many bits I need to borrow?</em> 2<sup>2</sup> = 4. So: 2 bits.</p>
-						<pre><code class="no-highlight">                                          2 bit borrowed
-                                          ▾▾
-                             NNN.NNN.NNN. HH HHHHHH
-Original Network Address     192.168.  2. 00 000000 = 192.168.2.0/24
-Original Subnet Mask         255.255.255. 00 000000 = 255.255.255.0</code></pre>
-						<p>Each subnet will have 2<sup>6</sup> - 2 = 64 - 2 = 62 hosts.</p>
-						<pre><code class="no-highlight">                             NNN.NNN.NNN. NN HHHHHH
-Subnet 0 Network Address     192.168.  2. 00 000000 = 192.168.1.0/26
-Subnet 1 Network Address     192.168.  2. 01 000000 = 192.168.1.64/26
-Subnet 2 Network Address     192.168.  2. 10 000000 = 192.168.1.128/26
-Subnet 3 Network Address     192.168.  2. 11 000000 = 192.168.1.192/26
-New Subnet Mask              255.255.255. 11 000000 = 255.255.255.192</code></pre>
-					</section>
-					<section>
-						<h2>Subnetting 192.168.2.0/24</h2>
-						<h3>Address Ranges for 4 subnets</h3>
-						<pre><code class="no-highlight">                             NNN.NNN.NNN. NN HHHHHH
-Subnet 0 Network Address     192.168.  2. 00 000000 = 192.168.2.0/26
-Subnet 0 First Host Address  192.168.  2. 00 000001 = 192.168.2.1
-Subnet 0 Last Host Address   192.168.  2. 00 111110 = 192.168.2.62
-Subnet 0 Broadcast Address   192.168.  2. 00 111111 = 192.168.2.63
-
-Subnet 1 Network Address     192.168.  2. 01 000000 = 192.168.2.64/26
-Subnet 1 First Host Address  192.168.  2. 01 000001 = 192.168.2.65
-Subnet 1 Last Host Address   192.168.  2. 01 111110 = 192.168.2.126
-Subnet 1 Broadcast Address   192.168.  2. 01 111111 = 192.168.2.127
-
-Subnet 2 Network Address     192.168.  2. 10 000000 = 192.168.2.128/26
-Subnet 2 First Host Address  192.168.  2. 10 000001 = 192.168.2.129
-Subnet 2 Last Host Address   192.168.  2. 10 111110 = 192.168.2.190
-Subnet 2 Broadcast Address   192.168.  2. 00 111111 = 192.168.2.191
-
-Subnet 3 Network Address     192.168.  2. 11 000000 = 192.168.2.192/26
-Subnet 3 First Host Address  192.168.  2. 11 000001 = 192.168.2.193
-Subnet 3 Last Host Address   192.168.  2. 11 111110 = 192.168.2.254
-Subnet 3 Broadcast Address   192.168.  2. 11 111111 = 192.168.2.255</code></pre>
-					</section>
-				</section>
-
-				<section>
-					<section>
-						<h2>Subnetting 192.168.3.0/24</h2>
-						<h3>5 Subnets</h3>
-						<img src="http://i.imgur.com/D2cTrKz.png">
-						<p>If we need 5 subnets, we have to borrow 3 bits (2<sup>4</sup> = 8 > 5).</p>
-						<p>The remaing 5 bits in the host part allow for 2<sup>5</sup> - 2 = 30 hosts.</p>
-					</section>
-					<section>
-						<h2>Subnetting 192.168.3.0/24</h2>
-						<h3>Ranges</h3>
-						<pre><code class="no-highlight">                                          ▾▾▾
-                             NNN.NNN.NNN. HHH HHHHH
-Original Network Address     192.168.  3. 000 00000 = 192.168.3.0/24
-Original Subnet Mask         255.255.255. 000 00000 = 255.255.255.0
-
-                             NNN.NNN.NNN. NNN HHHHH
-Subnet 0 Network Address     192.168.  3. 000 00000 = 192.168.3.0/27
-Subnet 1 Network Address     192.168.  3. 001 00000 = 192.168.3.32/27
-Subnet 2 Network Address     192.168.  3. 010 00000 = 192.168.3.64/27
-Subnet 3 Network Address     192.168.  3. 011 00000 = 192.168.3.96/27
-Subnet 4 Network Address     192.168.  3. 100 00000 = 192.168.3.128/27
-
-                             NNN.NNN.NNN. NNN HHHHH
-Subnet 0 Network Address     192.168.  3. 000 00000 = 192.168.3.0/27
-Subnet 0 First Host Address  192.168.  3. 000 00001 = 192.168.3.1
-Subnet 0 Last Host Address   192.168.  3. 000 11110 = 192.168.3.30
-Subnet 0 Broadcast Address   192.168.  3. 000 11111 = 192.168.3.31
-
-Subnet 1 Network Address     192.168.  3. 001 00000 = 192.168.3.32/27
-Subnet 1 First Host Address  192.168.  3. 001 00001 = 192.168.3.33
-Subnet 1 Last Host Address   192.168.  3. 001 11110 = 192.168.3.62
-Subnet 1 Broadcast Address   192.168.  3. 001 11111 = 192.168.3.63
-
-Subnet 2 Network Address     192.168.  3. 010 00000 = 192.168.3.64/27
-Subnet 2 First Host Address  192.168.  3. 010 00001 = 192.168.3.65
-Subnet 2 Last Host Address   192.168.  3. 010 11110 = 192.168.3.94
-Subnet 2 Broadcast Address   192.168.  3. 010 11111 = 192.168.3.95
-
-Subnet 3 Network Address     192.168.  3. 011 00000 = 192.168.3.96/27
-Subnet 3 First Host Address  192.168.  3. 011 00001 = 192.168.3.97
-Subnet 3 Last Host Address   192.168.  3. 011 11110 = 192.168.3.126
-Subnet 3 Broadcast Address   192.168.  3. 011 11111 = 192.168.3.127
-
-Subnet 4 Network Address     192.168.  3. 100 00000 = 192.168.3.128/27
-Subnet 4 First Host Address  192.168.  3. 100 00001 = 192.168.3.129
-Subnet 4 Last Host Address   192.168.  3. 100 11110 = 192.168.3.158
-Subnet 4 Broadcast Address   192.168.  3. 100 11111 = 192.168.3.159</code></pre>
+						<h2>Active connections on a host</h2>
+						<pre><code class="bash">stefanauss@barney:~$ netstat -tun
+Connessioni Internet attive (senza server)
+Proto CodaRic CodaInv Indirizzo locale        Indirizzo remoto       Stato
+tcp       28      0 10.87.23.2:47290        91.189.92.23:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:44180       91.189.92.23:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:44183       91.189.92.23:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:56717       91.189.92.11:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:59277        91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:52056        78.98.23.227:26050      ESTABLISHED
+tcp       28      0 10.87.1.134:45380       91.189.92.10:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:43491        188.165.254.131:143     CLOSE_WAIT
+tcp       28      0 10.87.23.2:59269        91.189.92.11:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:53684        91.189.92.10:443        CLOSE_WAIT
+tcp        1      0 10.87.23.2:56509        91.189.94.25:80         CLOSE_WAIT
+tcp        0      0 10.87.23.2:58865        79.50.31.156:30774      ESTABLISHED
+tcp        0      0 10.87.23.2:55113        95.244.65.27:50607      ESTABLISHED
+tcp       28      0 10.87.1.134:55560       91.189.92.11:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:56463       91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 127.0.0.1:45740         127.0.0.1:54099         ESTABLISHED
+tcp       28      0 10.87.23.2:49183        91.189.92.24:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:53679        74.125.195.16:993       ESTABLISHED
+tcp        0      0 10.87.23.2:60076        188.125.69.63:993       CLOSE_WAIT
+tcp        0      0 10.87.23.2:41260        157.56.53.40:12350      ESTABLISHED
+tcp        0      0 10.87.23.2:40233        108.160.167.167:80      ESTABLISHED
+tcp        0      0 127.0.0.1:35363         127.0.0.1:39587         ESTABLISHED
+tcp        0      0 10.87.23.2:48389        188.125.69.43:993       CLOSE_WAIT
+tcp       28      0 10.87.23.2:59283        91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:56480        173.194.116.0:443       ESTABLISHED
+tcp        0      0 10.87.23.2:43863        188.165.254.131:143     ESTABLISHED
+tcp        0      0 10.87.23.2:53654        74.125.206.16:993       ESTABLISHED
+tcp        1      0 127.0.0.1:38608         127.0.0.1:56675         CLOSE_WAIT
+tcp        0      0 127.0.0.1:45749         127.0.0.1:54099         ESTABLISHED
+tcp        0      0 10.87.23.2:43492        188.165.254.131:143     CLOSE_WAIT
+tcp       28      0 10.87.1.134:46308       91.189.92.10:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:59275        91.189.92.11:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:44182       91.189.92.23:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:58640        198.199.65.215:443      ESTABLISHED
+tcp       28      0 10.87.1.134:46305       91.189.92.10:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:46561       91.189.92.10:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:53676        91.189.92.10:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:47293        91.189.92.23:443        CLOSE_WAIT
+tcp        0      0 127.0.0.1:54099         127.0.0.1:45743         ESTABLISHED
+tcp       28      0 10.87.1.134:43930       91.189.92.23:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:55527       91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 127.0.0.1:54099         127.0.0.1:45740         ESTABLISHED
+tcp        0      0 10.87.23.2:48015        173.194.78.189:443      ESTABLISHED
+tcp       28      0 10.87.1.134:56479       91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:43482        188.165.254.131:143     ESTABLISHED
+tcp       28      0 10.87.1.134:46307       91.189.92.10:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:47628        173.194.78.189:443      TIME_WAIT
+tcp       28      0 10.87.1.134:46559       91.189.92.10:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:49181        91.189.92.24:443        CLOSE_WAIT
+tcp        0      0 127.0.0.1:45745         127.0.0.1:54099         ESTABLISHED
+tcp        0      0 10.87.23.2:60740        78.141.75.220:22466     ESTABLISHED
+tcp        0      0 127.0.0.1:45743         127.0.0.1:54099         ESTABLISHED
+tcp        0      0 10.87.23.2:40371        79.51.51.216:37192      ESTABLISHED
+tcp        0      0 127.0.0.1:45744         127.0.0.1:54099         ESTABLISHED
+tcp        0      0 127.0.0.1:39587         127.0.0.1:35363         ESTABLISHED
+tcp        0      0 10.87.23.2:43490        188.165.254.131:143     CLOSE_WAIT
+tcp       28      0 10.87.23.2:47294        91.189.92.23:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:54872       91.189.92.24:443        CLOSE_WAIT
+tcp       28      0 10.87.1.134:46323       91.189.92.10:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:36275        173.194.112.226:443     ESTABLISHED
+tcp       28      0 10.87.1.134:44181       91.189.92.23:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:51836        74.125.195.16:993       ESTABLISHED
+tcp       28      0 10.87.23.2:53682        91.189.92.10:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:43838        188.165.254.131:143     ESTABLISHED
+tcp       28      0 10.87.1.134:46321       91.189.92.10:443        CLOSE_WAIT
+tcp        0      0 10.87.23.2:36595        157.56.193.37:443       ESTABLISHED
+tcp        0      0 10.87.23.2:40480        157.55.235.165:40013    ESTABLISHED
+tcp       28      0 10.87.1.134:56481       91.189.92.11:443        CLOSE_WAIT
+tcp       28      0 10.87.23.2:59267        91.189.92.11:443        CLOSE_WAIT
+tcp        0      0 127.0.0.1:54099         127.0.0.1:45745         ESTABLISHED
+tcp        0      0 127.0.0.1:54099         127.0.0.1:45744         ESTABLISHED
+tcp        1      0 10.87.23.2:60475        91.198.174.208:80       CLOSE_WAIT
+tcp        1      0 127.0.0.1:38608         127.0.0.1:56677         CLOSE_WAIT
+tcp        0      0 127.0.0.1:54099         127.0.0.1:45749         ESTABLISHED
+tcp        0      0 10.87.23.2:56117        87.6.187.238:64540      ESTABLISHED
+tcp        0      0 10.87.23.2:53650        74.125.206.16:993       ESTABLISHED
+tcp6       1      0 ::1:44104               ::1:631                 CLOSE_WAIT</code></pre>
 					</section>
 				</section>
 
 				<section>
 					<section>
-						<h2>100 Subnets!</h2>
-						<p>If we need 100 subnets, we need to borrow <strong>at least 7 bits</strong> from the host part of our address block: 2<sup>7</sup> = 128 > 100.</p>
-						<p>If our address block is a /24 network, that would generate a /31 prefix and leave 1 bit in the host part, so 2<sup>1</sup>-2 = <u>0 hosts</u>!</p>
-						<p>This means we need more host bits to borrow from, and therefore <strong>a larger starting address block</strong>. For instance...</p>
+						<h2>TCP Header</h2>
+						<img src="http://i.imgur.com/zac7kmY.jpg">
 					</section>
 					<section>
-						<h2>100 Subnets?</h2>
-						<h3>172.20.0.0/16</h3>
-						<pre><code class="no-highlight">                                     ▾▾▾▾▾▾▾
-                             NNN.NNN.HHHHHHH H.HHHHHHHH
-Original Network Address     172. 20.0000000 0.00000000 = 172.20.0.0/16
-Original Subnet Mask         255.255.0000000 0.00000000 = 255.255.0.0
-
-                             NNN.NNN.NNNNNNN H.HHHHHHHH
-New Subnet Mask              255.255.1111111 0.00000000 = 255.255.254.0
-
-Subnet 0 Network Address     172. 20.0000000 0.00000000 = 172.20.0.0/23
-Subnet 1 Network Address     172. 20.0000001 0.00000000 = 172.20.2.0/23
-Subnet 2 Network Address     172. 20.0000010 0.00000000 = 172.20.4.0/23
-Subnet 3 Network Address     172. 20.0000011 0.00000000 = 172.20.6.0/23
-[..................................CUT..................................]
-Subnet 126 Network Address   172. 20.1111110 0.00000000 = 172.20.0.252/23
-Subnet 127 Network Address   172. 20.1111111 0.00000000 = 172.20.0.254/23</code></pre>
-						<p>Subnetting is done in the 3rd octect, <strong>host bits share part of the 3rd</strong> and have the 4th octect.</p>
-						<p>Total hosts per subnet: 2<sup>9</sup> - 2 = 512 - 2 = 510.</p>
-					</section>
-				</section>
-
-				<section>
-					<section>
-						<h2>5000+ Hosts?</h2>
-						<p>Let's say we need subnets capable of supporting more than 5000 hosts. The formulas say we would:</p>
+						<h2>TCP Header</h2>
 						<ul>
-							<li>need at least <strong>13 bits</strong> left in the host part, <strong>after</strong> the subnetting borrows (2<sup>13</sup> - 2 = 8190 > 5000).</li>
-							<li>be left with <strong>just 3 bits to borrow</strong> for subnetting, in a /16 space. This amounts to just 2<sup>3</sup> = 8 subnets.</li>
-						</ul>
-						<p>This could very well not be enough for most needs. <strong>The solution is to start from a larger block</strong>, like the 10.0.0.0/8 private space.</p>
-						<p>In a "10/8", after reserving the last 13 bits for our 5000+ hosts, we are left with 11 bits to borrow for subnetting. That's 2<sup>11</sup> = 2048 possible subnets with a /19 prefix (255.255.224.0).</p>
-					</section>
-					<section>
-						<h2>5000+ Hosts?</h2>
-						<pre><code class="no-highlight">                               ▾▾▾▾▾▾▾▾ ▾▾▾
-                           NNN.HHHHHHHH.HHH HHHHH.HHHHHHHH
-Original Network Address    10.00000000.000 00000.00000000 = 10.0.0.0/8
-Original Subnet Mask       255.00000000.000 00000.00000000 = 255.255.255.0
-
-
-New Subnet Mask            255.11111111.111 00000.00000000 = 255.255.224.0
-
-                           NNN.NNNNNNNN.NNN HHHHH.HHHHHHHH
-Subnet 0 Network Address    10.00000000.000 00000.00000000 = 10.0.0.0/19
-Subnet 1 Network Address    10.00000000.001 00000.00000000 = 10.0.32.0/19
-Subnet 2 Network Address    10.00000000.010 00000.00000000 = 10.0.64.0/19
-[...................................CUT...................................]
-Subnet 2045 Network Address 10.11111111.101 00000.00000000 = 10.255.160.0/19
-Subnet 2046 Network Address 10.11111111.110 00000.00000000 = 10.255.192.0/19
-Subnet 2047 Network Address 10.11111111.111 00000.00000000 = 10.255.224.0/19</code></pre>
-					</section>
-				</section>
-
-				<section>
-					<h2>Subnetting "Short Blanket"</h2>
-					<p>The <strong>key to basic subnetting</strong> is to balance the number of subnets, and hosts for each subnet, based on our requirements.</p>
-					<ul>
-						<li>Start by determining the <strong>total number of hosts</strong> to be served. This will give you an hint about <strong>which starting address space</strong> you will need.</li>
-						<li>Analize how your network is organized to <strong>determine the number of subnetworks you need</strong>. Think about possibile <strong>future segmentations</strong>.</li>
-						<li>Determine the <strong>highest number of host you will have on a single subnet</strong>. Try to think about if and how much this number will <strong>grow in the foreseeable future</strong>.</li>
-						<li>The last two points are <strong>the data you need to choose</strong> how many bits to borrow and how many host bits to "leave alone".</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>VLSM: Variable Length Subnet Mask</h2>
-					<p><strong>With basic subnetting, every subnet has the same size</strong>. When the number of hosts needed in each is very different, that would lead to significant <strong>waste and unused addresses</strong>.</p>
-					<p>Subnets too large for the actual requirements will also <strong>limit growth</strong> by needlessly reducing the number of available subnets.</p>
-					<p>The solution to these scenarios is a subnetting method called <em>Variable Length Subnet Mask (VLSM)</em>.</p>
-					<p>It does what the name says: the number of bits borrowed (hence, the subnet mask) <strong>varies with each subnet</strong>.</p>
-				</section>
-
-				<section>
-					<h2>How does VLSM work?</h2>
-					<img src="http://i.imgur.com/8JdgAJz.png">
-					<p>With VLSM:</p>
-					<ul>
-						<li>you still borrow bits to create subnets.</li>
-						<li>the subnetting formulas are still valid.</li>
-					</ul>
-					<p>The difference is that <strong>it's not a single-pass process</strong> anymore:</p>
-					<ul>
-						<li>The network is subnetted, and <strong>subnets are subnetted again</strong>.</li>
-						<li>This <strong>process is repeated</strong> to create the various size needed.</li>
-					</ul>
-				</section>
-
-				<section>
-					<section>
-						<h2>VLSM Scenario</h2>
-						<img src="http://i.imgur.com/QMjXJ6M.jpg">
-						<p>We need 9 subnets, so 4 bits to borrow: a /24 network into 16 subnets with a /28 prefix, each capable of 14 hosts.</p>
-						<p>This means <u>12 wasted address on each PtP link</u>, 48 total!</p>
-						<p>And 14 hosts/subnet are a bit low, aren't they?</p>
-					</section>
-					<section>
-						<h2>VLSM Scenario</h2>
-						<h3>Traditional Subnetting</h3>
-						<pre><code class="no-highlight">Original Network Address     192.168.1.0/24
-Original Subnet Mask         255.255.255.0
-New Subnet Mask              255.255.255.240 = /28
-
-Subnet 0                     192.168.1.0/28
-Subnet 1                     192.168.1.16/28
-Subnet 2                     192.168.1.32/28
-Subnet 3                     192.168.1.48/28
-[...]
-Subnet 14                    192.168.1.224/28
-Subnet 15                    192.168.1.240/28</code></pre>
-						<p>Wasteful. So let's take the first /28 subnet and subnet it again:</p>
-						<ul>
-							<li>2 hosts needed mean 2 host bits (2<sup>2</sup> - 2 = 2 hosts)</li>
-							<li>this left us with 2 bits to borrow: 2<sup>2</sup> = 4 subnets.</li>
-						</ul>
-						<p>So we turned a single /28 subnet into <strong>4 /30 subnets</strong> each capable of 2 hosts: <u>0 wasted addresses</u>!</p>
-					</section>
-					<section>
-						<h2>VLSM Scenario</h2>
-						<h3>VLSM Applied</h3>
-						<pre><code class="no-highlight">Subnet 0 - PtP #1       192.168.1.0/30   # subnetted from 192.168.1.0/28
-Subnet 1 - PtP #2       192.168.1.4/30   # subnetted from 192.168.1.0/28
-Subnet 2 - PtP #3       192.168.1.8/30   # subnetted from 192.168.1.0/28
-Subnet 3 - PtP #4       192.168.1.12/30  # subnetted from 192.168.1.0/28
-Subnet 4                192.168.1.16/28
-Subnet 5                192.168.1.32/28
-Subnet 6                192.168.1.48/28
-[...]
-Subnet 12               192.168.1.144/28
-Subnet 13               192.168.1.160/27 # 30 hosts capable
-Subnet 14               192.168.1.192/27 # 30 hosts capable
-Subnet 15               192.168.1.224/27 # 30 hosts capable</code></pre>
-						<p>In addition to the perfect fit for the PtP links, VLSM also allows us to create <strong>more flexible subnetting</strong>.</p>
-						<p>In this example we ditched the last 6 /28 subnets for 3 /27 subnets in which we can host up to 30 devices.</p>
-					</section>
-					<section>
-						<h2>VLSM Charts</h2>
-						<img src="http://i.imgur.com/WgSJYKv.jpg">
-					</section>
-				</section>
-
-				<section>
-					<section>
-					<h2>Addressing Plan</h2>
-						<p>We plan the addressing scheme for our network for the following purposes:</p>
-						<ul>
-							<li><strong>Preventing address duplication</strong>: by carefully documenting how the addresses are assigned we can prevent address collision.</li>
-							<li><strong>Access control</strong>: by knowing precisely which address is assigned to which host, we can better control the access to network resources based on our policies.</li>
-							<li><strong>Network monitoring</strong>: the network administrator needs to be able to readily identify sources and destinations of the traffic while analyzing it for performance and security issues.</li>
+							<li>Sequence number (32 bits) - Used for data reassembly purposes.
+							<li>Acknowledgement number (32 bits) - Indicates the data that has been received.</li>
+							<li>Header length (4 bits) - Known as ʺdata offsetʺ. Indicates the length of the TCP segment header.</li>
+							<li>Reserved (6 bits) - This field is reserved for the future.</li>
+							<li>Control bits (6 bits) - Includes bit codes, or flags, that indicate the purpose and function of the TCP segment.</li>
+							<li>Window size (16 bits) - Indicates the number of segments that can be accepted at one time.</li>
+							<li>Checksum (16 bits) - Used for error checking of the segment header and data.</li>
+							<li>Urgent (16 bits) - Indicates if data is urgent.</li>
 						</ul>
 					</section>
 					<section>
-						<h2>Assigning Addresses</h2>
-						<p>It is best to assign addresses to devices based on a <strong>recognizable pattern</strong>, which will help administrator and documentation.</p>
+						<h2>TCP Flags/Control Bits</h2>
 						<ul>
-							<li><strong>Clients</strong> - DHCP is the common assignment method.</li>
-							<li><strong>Servers and peripherals</strong> - As they provide almost all network resources, they sould have a static addressing, preferably with a consistent numbering, making them easy to remember.</li>
-							<li><strong>Internet-accessible hosts</strong> - Both public and private static addressing. Public addresses are mostly associated to these by NAT on the perimeter.</li>
-							<li><strong>Intermediary Devices</strong>: if they are L3-capable, they should have a static, predictable address to allow management.</li>
-							<li><strong>Gateways</strong>: they belong to multiple network, so they have an IP address assigned to each interface. Almost always it is the <u>highest or lowest address available on that network segment</u>.</li>
+							<li><strong>URG</strong> (1 bit) – indicates that the Urgent pointer field is significant.</li>
+							<li><strong>ACK</strong> (1 bit) – indicates that the Acknowledgment field is significant. All packets after the initial SYN packet sent by the client should have this flag set.</li>
+							<li><strong>PSH</strong> (1 bit) – Push function. Asks to push the buffered data to the receiving application.</li>
+							<li><strong>RST</strong> (1 bit) – Reset the connection</li>
+							<li><strong>SYN</strong> (1 bit) – Synchronize sequence numbers. Only the first packet sent from each end should have this flag set. Some other flags and fields change meaning based on this flag, and some are only valid for when it is set, and others when it is clear.</li>
+							<li><strong>FIN</strong> (1 bit) – No more data from sender</li>
 						</ul>
 					</section>
 				</section>
 
 				<section>
 					<section>
-						<h2>IPv6 Subnetting</h2>
-						<p>IPv4 Subnetting is done to manage address scarcity.</p>
-						<p>Subnetting IPv6 is done for an entirely different reason: to support <strong>hierarchical and logical network design</strong>.</p>
-						<img src="http://i.imgur.com/LGVfYS4.png">
-						<p>An IPv6 (public) address block with a /48 (Global Routing) prefix has <strong>16 bits for subnet ID</strong> (65536 /64 subnets).</p>
-						<p>There's <u>no need to borrow bits</u> from Interface ID (host portion).</p>
+						<h2>UDP Header</h2>
+						<img src="http://i.imgur.com/cHTDUXN.png">
+						<p><small>TCP overhead for carrying its functions it's really clear now.</small></p>
+						<p>UDP Payload is called a <em>datagram</em>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>TCP 3-Way Handshake</h2>
+						<p>It's the process through which <strong>TCP establishes a connection</strong> before any data can be exchanged. What it does is:</p>
+						<ol>
+							<li>The initiating client requests a client-to-server communication session with the server.</li>
+							<li>The server acknowledges the client-to-server session and requests a server-to-client session.</li>
+							<li>The initiating client acknowledges the server-to-client session.</li>
+						</ol>
+						<p>The 3-way handshake sets up the <strong>2 one-way data streams</strong> that form a full-duplex TCP conversation.</p>
+						<p>It relies on <strong>SYN, ACK flags and sequence and acknowledgment numbers</strong> of the TCP Header.</p>
 					</section>
 					<section>
-						<h2>IPv6 Subnetting Example</h2>
-						<p>Subnets created by the Subnet ID are easy to identify and represent, it just works like an hexadecimal counter.</p>
-						<pre><code class="no-highlight">Address Block   2001:0DB8:ACAD::/48
-Subnet 0        2001:0DB8:ACAD:0000::/64
-Subnet 1        2001:0DB8:ACAD:0001::/64
-Subnet 2        2001:0DB8:ACAD:0002::/64
-Subnet 3        2001:0DB8:ACAD:0003::/64
-Subnet 4        2001:0DB8:ACAD:0004::/64
-Subnet 5        2001:0DB8:ACAD:0005::/64
-Subnet 6        2001:0DB8:ACAD:0006::/64
-Subnet 7        2001:0DB8:ACAD:0007::/64
-Subnet 8        2001:0DB8:ACAD:0008::/64
-Subnet 9        2001:0DB8:ACAD:0009::/64
-Subnet 10       2001:0DB8:ACAD:000A::/64
-Subnet 11       2001:0DB8:ACAD:000B::/64
-[ . . . . . . . . . . . . . . . . . . . ]
-Subnet 65533    2001:0DB8:ACAD:FFFD::/64
-Subnet 65534    2001:0DB8:ACAD:FFFE::/64
-Subnet 65535    2001:0DB8:ACAD:FFFF::/64</code></pre>
+						<h2>TCP 3-Way Handshake</h2>
+						<img src="http://i.imgur.com/zy76Rp5.gif">
 					</section>
 					<section>
-						<h2>IPv6 Subnetting Considerations</h2>
-						<p>Subnetting IPv6 is not that much different from IPv4.</p>
-						<p>The leading practice is to receive at least a <strong>/48 prefix from an ISP</strong>. This leaves you with 2<sup>80</sup> bits to manipulate for subnetting.</p>
-						<p>According to <a href="https://tools.ietf.org/html/rfc4291">RFC 4291</a> the <strong>current smallest recommended prefix</strong> is a /64. You can assign a /64 to PtP links and <em>not feel guilty</em>.</p>
-						<p>If you need, you can of course <strong>borrow bits from the Interface ID</strong> to have a deeper hierarchy. The best practice is to borrow <strong>4 bits at a time</strong> and used aligned netmasks (/68, /72, /76, etc.). Why?</p>
-						<p>A <strong>nibble</strong> is a 4 bit group, or one hexadecimal digit. By subnetting on <em>nibble boundaries</em> we can easily create subnet just by upping the count by 0x01.</p>
+						<h2>TCP 3-Way Handshake</h2>
+						<img src="http://i.imgur.com/ghaC3KL.png">
 					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>TCP 3-Way Handshake - Step 1 (SYN)</h2>
+							<p>A TCP client begins the three-way handshake by
+sending a segment with:</p>
+						<ul>
+							<li><strong>SYN control flag set to 1</strong>, to validate the ISN.</li>
+							<li>Initial sequence number <strong>(ISN) randomly chosen</strong> (A) and beginning to track data flow.</li>
+						</ul>
+						<p>The ISN in the header of each segment will be <strong>increased by one for each byte of data</strong> sent from the client to the server as the data conversation continues.</p>
+						<p><strong>In Wireshark sequence numbers are relative</strong> to ISN always shown as 0 </li>
+						</ul>
+					</section>
+					<section>
+						<h2>TCP 3-Way Handshake - Step 2 (SYN ACK)</h2>
+						<ul>
+							<li>The <strong>server replies with SYN control bit set to 1</strong>, to validate server's ISN.</li>
+							<li>The <strong>server replies with ACK control bit set to 1</strong>, to validate server's acknowledge number.</li>
+							<li>The acknowledgment number is set to Client ISN + 1 (A+1)</li>
+							<li>The new sequence number that the server chooses for the segment is another random number (B)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>TCP 3-Way Handshake - Step 3 (ACK)</h2>
+						<ul>
+							<li>Finally, <strong>the client sends an ACK back</strong> to the server.</li>
+							<li>The sequence number is set to the received acknowledgement value (A+1)</li>
+							<li>and the acknowledgement number is set to one more than the received sequence number (B+1)</li>
+						</ul>
+						<p>Data conversation is now in place, and the <strong>client and the server exchange (one's) data and ACKs (of the other host's data)</strong>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>TCP Connection Termination</h2>
+						<p>The connection termination phase uses a 4-way handshake, with <strong>each side of the connection terminating independently</strong>.</p>
+						<p>Termination <strong>can be initiated by any side</strong>.</p>
+						<ol>
+							<li>When the "client" has no more data to send in the stream, it <strong>sends a segment with the FIN flag set</strong>.</li>
+							<li>The "server" sends <strong>an ACK to acknowledge the receipt of the FIN</strong> to terminate the session from client to server.</li>
+							<li>The <strong>server keeps sending data until it has them, then it sends a FIN</strong> to the client, to terminate the server to client session.</li>
+							<li>The <strong>client responds with an ACK to acknowledge the FIN</strong> from the server.</li>
+						</ol>
+						<p>These steps can be combined into a 3-way handshake if both the <em>initiator</em> and the <em>terminated</em> have no more data to send.</p>
+					</section>
+					<section>
+						<h2>TCP Connection Termination</h2>
+						<h3>4-Way Handshake</h3>
+						<img src="http://i.imgur.com/a3dWHUc.png" width="60%" height="60%">
+					</section>
+				</section>
+
+				<section>
+					<h1>Practice</h1>
+					<h2>TCP 3-Way and 4-Way Handshake</h2>
+					<h2>with Wireshark</h2>
+				</section>
+
+				<section>
+					<h2>ACK and SEQ numbers</h2>
+					<p>The <strong>SEQ number indicates the relative number of bytes</strong> that have been transmitted in this session</p>
+					<p>TCP uses the ACK number sent back to the source to indicate the next byte that the receiver expects to receive. This is called <strong><em>expectational acknowledgement</em></strong>.</p>
+					<p>The sending host is expected to send a segment that uses <strong>a new sequence number that is equal to the ACK number</strong>.</p>
+					<p>SEQ and ACK numbers are being <strong>exchanged in both directions</strong>.</p>
+				</section>
+
+				<section>
+					<h2>TCP Combined ACK</h2>
+					<p>To <strong>reduce the overhead</strong> of the acknowledgements, multiple segments of data can be sent and <strong>acknowledged with a single TCP message</strong> in the opposite direction.</p>
+					<p>This acknowledgement <strong>contains an ACK number based on the total number of bytes received</strong> in the session.</p>
+					<p>For example, starting with a sequence number of 2000, if 10 segments of 1,000 bytes each were received, an ACK number of 12001 would be returned to the source.</p>
+				</section>
+
+				<section>
+					<h2>TCP Retransmissions</h2>
+					<p>When TCP at the source host has not received an acknowledgement <strong>after a predetermined amount of time, it returns to the last ACK number received</strong> and retransmits the data from that point forward.</p>
+					<p>The retransmission process is not specified by the TCP's RFC, but is left up to the particular implementation of TCP.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Flow Control and Window Size</h2>
+						<p>Flow control helps maintain the reliability of TCP transmission by <strong>adjusting the rate of data flow</strong> between source and destination for a given session.</p>
+						<p>The TCP header includes a 16-bit field called the <strong>window size. This is the number of bytes</strong> that the destination device of a TCP session is able to <strong>accept and process at one time</strong>.</p>
+						<p>The initial window size is agreed upon during the three-way handshake.</p>
+					</section>
+					<section>
+						<h2>TCP Flow Control</h2>
+						<h3>Window Size Management</h3>
+						<img src="http://i.imgur.com/zapGiTx.gif">
+					</section>
+					<section>
+						<h2>TCP Flow Control</h2>
+						<h3>Window Size Management and Combined ACK</h3>
+						<img src="http://i.imgur.com/Amb71xv.gif">
+					</section>
+				</section>
+
+				<section>
+					<h1>Practice</h1>
+					<h2>UDP with Wireshark</h2>
 				</section>
 
 				<section>
 					<h1>End of Lesson</h1>
 				</section>
-
+				<!-- Port Numbers as identifications
+				Stateful vs stateless protocol
+				-->
+				
 			</div>
 
 		</div>

@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Advanced Networking - Module 1 Chapter 8 - IP Addressing</title>
+		<title>Advanced Networking - Module 1 Chapter 8 - Subnetting IP Networks</title>
 
 		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
 		<meta name="author" content="Hacklab Cosenza">
@@ -45,549 +45,431 @@
 					<h1>Advanced Networking</h1>
 					<h2>Routing & Switching:<h2>
 					<h2>Introduction to Networks</h2>
-					<h3>Chapter 8: IP Addressing</h3>
+					<h3>Chapter 8: Subnetting IP Networks</h3>
 					<p>
 						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 					</p>
 				</section>
 
 				<section>
-					<h2>Counting in bin and hex</h2>
-					<img src="http://i.imgur.com/tpI3roD.gif">
-					<p>The number of digits used in a numbering system is called <strong>number base</strong> or <strong>radix</strong>.</p>
-				</section>
-
-				<section>
-					<h2>Positional Notation</h2>
-					<p>Our number systems are <strong>positional</strong>, because each digit represents a value that is dependent of its position.</p>
-					<p>1023 and 3102 contain the same digits, but their position give them different "values".</p>
-					<p>The digit at the far left is the <em>most significant</em>, the one at the far right is the <em>least significant</em> (MSB/LSB for binary system).</p>
-					<p><strong>Math says</strong>: if we have a number formed by digits d<sub>m</sub>...d<sub>2</sub>d<sub>1</sub>d<sub>0</sub> in a given number base <em>n</em>, the number can be interpreted as:</p>
-					<p>d<sub>m</sub> * n<sup>m</sup> + ... + d<sub>2</sub> * n<sup>2</sup> + d<sub>1</sub> * n<sup>1</sup> + d<sub>0</sub> * n<sup>0</sup></p>
-					<p>3102<sub>10</sub> = 3*10<sup>3</sup> + 1*10<sup>2</sup> + 0*10<sup>1</sup> + 2*10<sup>0</sup> = 3000+100+0+2 = 3102</p>
-				</section>
-
-				<section>
-					<h2>Binary to Decimal Conversion</h2>
-					<img src="http://i.imgur.com/jrAX9NL.png">
-				</section>
-
-				<section>
-					<h2>Decimal to Binary Conversion</h2>
-					<img src="http://i.imgur.com/KBJ5GLS.jpg">
-				</section>
-
-				<section>
-					<h2>IPv4 Address: Bin to Dotted Decimal</h2>
-					<img src="http://i.imgur.com/ppJNSCo.jpg">
-					<ol>
-						<li>Group the 32 bits into 4 octects.</li>
-						<li>Convert each octet to decimal.</li>
-						<li>Add a '.' (dot) between each decimal.</li>
-					</ol>
-				</section>
-
-				<section>
-					<h2>IPv4 Address: Dotted Decimal to Bin</h2>
-					<img src="http://i.imgur.com/eLM6BPw.png">
-					<ol>
-						<li>Is the decimal number greater than the MSB (128)?</li>
-						<li>If yes, put "1" in the MSB and subtract it from the number.</li>
-						<li>If no, put "0" in the MSB.</li>
-						<li>Move to the next position and repeat with the remainder.</li>
-						<li>Repeat until you have exhausted all bit positions.</li>
-						<li>Repeat for all 4 decimals.</li>
-					</ol>
-				</section>
-
-				<section>
-					<h2>IPv4 Address: Network and Host Part</h2>
-					<p>An IP address is hierarchical, and made by 2 parts: the <strong>network</strong> and the <strong>host</strong> part. The network part is <strong>used by each host to decide</strong> if the destination is in their local network or if is remote.</p>
-					<p>So far we've simplified, by assuming that the first 3 decimals were the network part and the last one was the host part.</p>
-					<p>Actually, it could very well be that 172.16.2.4 and 172.18.58.9 belong in the same network and have the same network part!</p>
-					<p>So how does the host know which is the network part of an address? Thanks to the <strong>binary representation</strong> of the address and the <strong>subnet mask</strong>.</p>
-				</section>
-
-				<section>
-					<h2>Subnet Mask</h2>
-					<p>The <em>network part</em> is intended as the portion of the address <u>32-bit stream</u> that represents the network the address belongs to.</p>
-					<p>That means in most cases <u>it's more difficult</u> trying to identify the network part just by looking at the decimal dotted notation.</p>
-					<p>To separate the bits belonging to the network or host part in the 32-bit stream, we use the <strong>subnet mask</strong>, which is also 32 bit long.</p>
-					<p>The subnet mask is composed of <strong>consecutive 1s, followed by consecutive 0s</strong>. The 1s represent the network part, the 0s the host part.</p>
-					<p>An IP address always <strong>needs a subnet mask associated to it</strong>. The host does an operation called <em>bitwise AND</em> between the two to determine what the (sub)network is.</p>
-				</section>
-
-				<section>
-					<h2>Subnet Mask: Examples</h2>
-					<pre>
-Address:   192.168.1.200        11000000.10101000.00000001. 11001000
-Netmask:   255.255.255.0 = 24   11111111.11111111.11111111. 00000000
-=>
-                                ----------NETWORK---------- --HOST--
-Address:   192.168.1.200        11000000.10101000.00000001. 11001000</pre>
-					<pre>
-Address:   172.16.2.4           10101100.0001 0000.00000010.00000100
-Netmask:   255.240.0.0 = 12     11111111.1111 0000.00000000.00000000
-=>
-                                ---NETWORK--- ---------HOST---------
-Address:   172.16.2.4           10101100.0001 0000.00000010.00000100</pre>
-					<pre>
-Address:   172.18.58.9          10101100.0001 0010.00111010.00001001
-Netmask:   255.240.0.0 = 12     11111111.1111 0000.00000000.00000000
-=>
-                                ---NETWORK--- ---------HOST---------
-Address:   172.18.58.9          10101100.0001 0010.00111010.00001001</pre>
-				</section>
-
-				<section>
-					<section>
-						<h2>Subnet Mask Representations</h2>
-						<p>For convenience, <strong>the subnet mask can also be represented as dotted decimal</strong> and therefore looks like an IPv4 address.</p>
-						<p>The subnet mask <strong>doesn't contain the network park itself</strong>. It just provides the host with a way to figure it out.</p>
-						<p>Another, more compact way to express the subnet mask is through the <strong>prefix length</strong> (or <strong>network prefix</strong>) and the <em>slash notation</em>.</p>
-						<p><strong>Prefix length is the number of 1s in the subnet mask</strong>. We write the IP address, followed by a slash ("/") and then by the prefix length, as in 192.168.1.200/24.</p>
-					</section>
-					<section>
-						<h2>Notable Subnet Masks</h2>
-						<img src="http://i.imgur.com/uOjEuMH.jpg">
-					</section>
-				</section>
-
-				<section>
-					<section>
-						<h2>Network, Host, Broadcast Addresses</h2>
-						<p>Within the range of addresses belonging to an IPv4 (sub)network, we can identify 3 types:</p>
-						<ul>
-							<li><strong>Network Address</strong>: It's the first address in the range, because it's the one having all 0s in the host portion. It consists only of the network part, so it's a standard way to refer to a network.</li>
-							<li><strong>Broadcast Address</strong>: It's a special address that allows to reach every host in the network. It's the higher address in the range, because it consists of all 1s in the host portion.</li>
-							<li><strong>Host Address</strong>: It's any address between the network and the broadcast addresses. They can be assigned to hosts and must be unique. They contain any combination of 0 and 1 in the host portion, except for all-0s and all-1s.</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Network, Host, Broadcast Addresses</h2>
-						<pre><code>:~$ # EXAMPLE 1
-:~$ ipcalc 10.1.1.0/24
-Address:   10.1.1.0             00001010.00000001.00000001. 00000000
-Netmask:   255.255.255.0 = 24   11111111.11111111.11111111. 00000000
-=>
-Network:   10.1.1.0/24          00001010.00000001.00000001. 00000000
-HostMin:   10.1.1.1             00001010.00000001.00000001. 00000001
-HostMax:   10.1.1.254           00001010.00000001.00000001. 11111110
-Broadcast: 10.1.1.255           00001010.00000001.00000001. 11111111
-Hosts/Net: 254
-:~$ # EXAMPLE 2
-:~$ ipcalc 172.18.0.0/16
-Address:   172.18.0.0           10101100.00010010. 00000000.00000000
-Netmask:   255.255.0.0 = 16     11111111.11111111. 00000000.00000000
-=>
-Network:   172.18.0.0/16        10101100.00010010. 00000000.00000000
-HostMin:   172.18.0.1           10101100.00010010. 00000000.00000001
-HostMax:   172.18.255.254       10101100.00010010. 11111111.11111110
-Broadcast: 172.18.255.255       10101100.00010010. 11111111.11111111
-Hosts/Net: 65534
-:~$ # EXAMPLE 3
-:~$ ipcalc 192.168.2.16/28
-Address:   192.168.2.16         11000000.10101000.00000010.0001 0000
-Netmask:   255.255.255.240 = 28 11111111.11111111.11111111.1111 0000
-=>
-Network:   192.168.2.16/28      11000000.10101000.00000010.0001 0000
-HostMin:   192.168.2.17         11000000.10101000.00000010.0001 0001
-HostMax:   192.168.2.30         11000000.10101000.00000010.0001 1110
-Broadcast: 192.168.2.31         11000000.10101000.00000010.0001 1111
-Hosts/Net: 14
-:~$ # EXAMPLE 4
-:~$ ipcalc 10.87.23.123/24
-Address:   10.87.23.123         00001010.01010111.00010111. 01111011
-Netmask:   255.255.255.0 = 24   11111111.11111111.11111111. 00000000
-=>
-Network:   10.87.23.0/24        00001010.01010111.00010111. 00000000
-HostMin:   10.87.23.1           00001010.01010111.00010111. 00000001
-HostMax:   10.87.23.254         00001010.01010111.00010111. 11111110
-Broadcast: 10.87.23.255         00001010.01010111.00010111. 11111111
-Hosts/Net: 254</code></pre>
-						<ul>
-							<li><strong>First Host</strong>: all-0 in the host portion except for 1 at the far right.</li>
-							<li><strong>Last Host</strong>: all-1 in the host portion except for 0 at the far right.</li>
-						</ul>
-					</section>
-				</section>
-
-				<section>
-					<h2>Host Assignment of an IPv4 Address</h2>
-					<p>Any host on a IPv4 network needs <u>an IPv4 Address, a Subnet Mask and a default gateway</u> to fully operate. These parameters could be obtained manually or automatically.</p>
+					<h2>Why Subnetting?</h2>
+					<p><strong>Subnetting</strong> is the deepening of the network/host hierarcy into a network/<em>subnet(s)</em>/host one.</p>
+					<p><small>The terms <em>network</em> and <em>subnet</em> both identify computer networks. <em>Subnet</em> is just used to imply that we are talking about <strong>a part of some larger address space</strong>.</small></p>
+					<p>There are many reason for subnetting some address block:</p>
 					<ul>
-						<li><strong>Static Assignment</strong>: the network administrator manually enters the above parameters on a host. A <em>static</em> or <em>fixed</em> IPv4 address is useful when a host must be accessible on a known address, and can increase control on resources, but it really doesn't scale on big networks.</li>
-						<li><strong>Dynamic Assignment</strong>: the host requests the above network parameters using the <strong>Dynamic Host Configuration Protocol (DHCP)</strong>. The address is <em>leased</em> to the host for a certain period of time, taken from a <em>pool</em> available on the DHCP server. It's the most used assignment method on large networks and those full of temporary users.</li>
+						<li><strong>Optimizing address space usage</strong> by wasting less addresses.</li>
+						<li>With a minimized definition of "local", we can <strong>reduce broadcast</strong> traffic.</li>
+						<li>A <strong>better packet delivery</strong> can be achieved by providing more network targets to meet our routing requirements. This is called <em>network segmentation</em>.</li>
+						<li>Creating more targets to define our policies against  can also <strong>improve security</strong>.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Subnetting and Routing</h2>
+					<p>Subnetting means taking a <strong>single network address</strong> and partitioning it into <strong>multiple logical networks</strong>.</p>
+					<p>Subnets <strong>are</strong> networks, so as with any multiple networks <strong>you need routing</strong> to exchange traffic between subnets.</p>
+					<p>Like in every network, for every subnet you need to configure:</p>
+					<ul>
+						<li>every host with <strong>network address, subnet mask and default gateway</strong> appropriate to the subnet they belong to.</li>
+						<li>the router interface that is part of the subnet with <strong>an IPv4 address that belongs to the subnet</strong> range.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Planning Subnetting</h2>
+					<p>What we'll learn about <strong>subnetting would apply to both public and private IPv4 address space</strong>. Subnetting public addresses is an ISP concern, we'll focus on subnetting private blocks.</p>
+					<p>So we start with private IP address ranges:</p>
+					<ul>
+						<li>10.0.0.0/8 (subnet mask 255.0.0.0)</li>
+						<li>172.16.0.0/12 (subnet mask 255.240.0.0)</li>
+						<li>192.168.0.0/16 (subnet mask 255.255.0.0)</li>
+					</ul>
+					<p>and then we ask ourselves these questions:</p>
+					<p><em>How many subnets? What belongs to each subnet? How many hosts for each? What will I need in the future?</em></p>
+				</section>
+
+				<section>
+					<h2>Subnetting = Borrowing Bits</h2>
+					<p>Network address = Network part + host part, distinguished thanks to the subnet mask (or prefix).</p>
+					<p>Subnets are created by <strong>taking one or more bits of the host part</strong> and making them "network bits".</p>
+					<p>The <strong>subnet mask is expanded to account for the bits <em>borrowed</em></strong> from the host portion (previously 0s in the mask) that are now part of the network portion (becoming 1s).</p>
+					<p><strong>The more bits are borrowed the more subnets are created</strong>, but with each additional subnet the addresses available decrease. Each borrowed bit <strong>doubles the subnets and halves the addresses</strong>.</p>
+					<p>That is, an <strong>inverse relationship</strong> between the number of subnets and the number of hosts.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Subnetting 192.168.1.0/24</h2>
+						<h3>2 Subnets</h3>
+						<pre><code class="no-highlight">                                          1 bit borrowed
+                                          ▼
+                             NNN.NNN.NNN. HHHHHHHH
+Original Network Address     192.168.  1. 00000000 = 192.168.1.0/24
+Original Subnet Mask         255.255.255. 00000000 = 255.255.255.0</code></pre>
+						<p>By <strong>borrowing 1 bit</strong> we can create 2 different network addresses, and thus 2 different subnets.</p>
+						<pre><code class="no-highlight">                             NNN.NNN.NNN. NHHHHHHH
+Subnet 0 Network Address     192.168.  1. 00000000 = 192.168.1.0/25
+Subnet 1 Network Address     192.168.  1. 10000000 = 192.168.1.128/25
+New Subnet Mask              255.255.255. 10000000 = 255.255.255.128</code></pre>
+						<ul>
+							<li>You always <strong>start borrowing from the MSB</strong> of the host portion.</li>
+							<li><strong>Subnet mask is the same for every subnet</strong>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Subnetting 192.168.1.0/24</h2>
+						<h3>Available Ranges</h3>
+						<p>Before we assign addresses to devices in the subnet we must understand the available range:</p>
+						<ul>
+							<li><strong>Network Address</strong>: all 0s in the host part.</li>
+							<li><strong>First Host Address</strong>: all 0s except the last bit of the host part.</li>
+							<li><strong><em>n-th</em> Host Address</strong>: all other combinations.</li>
+							<li><strong>Last Host Address</strong>: all 1s except the last bit of the host part.</li>
+							<li><strong>Broadcast Address</strong>: all 1s in the host part.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Subnetting 192.168.1.0/24</h2>
+						<h3>192.168.1.0/25</h3>
+						<pre><code class="no-highlight">                             NNN.NNN.NNN. N HHHHHHH
+Subnet 0 Network Address     192.168.  1. 0 0000000 = 192.168.1.0/25
+Subnet 0 First Host Address  192.168.  1. 0 0000001 = 192.168.1.1
+Subnet 0 Last Host Address   192.168.  1. 0 1111110 = 192.168.1.126
+Subnet 0 Broadcast Address   192.168.  1. 0 1111111 = 192.168.1.127</code></pre>
+						<h3>192.168.1.128/25</h3>
+						<pre><code class="no-highlight">                             NNN.NNN.NNN. N HHHHHHH
+Subnet 1 Network Address     192.168.  1. 1 0000000 = 192.168.1.128/25
+Subnet 1 First Host Address  192.168.  1. 1 0000001 = 192.168.1.129
+Subnet 1 Last Host Address   192.168.  1. 1 1111110 = 192.168.1.254
+Subnet 1 Broadcast Address   192.168.  1. 1 1111111 = 192.168.1.255</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>Subnetting Formulas</h2>
+					<p>Where</p>
+					<ul>
+						<li><strong><em>n</em></strong> is the number of borrowed bits and</li>
+						<li><strong><em>h</em></strong> is the number of remaining bits in the host portion.</li>
+					</ul>
+					<ul>
+						<li><strong>To calculate the number of subnets</strong>: 2<sup>n</sup>.</li>
+						<li><strong>To calculate the number of hosts in a subnet</strong>: 2<sup>h</sup> - 2.</li>
+					</ul>
+					<p>For every network, <strong>the network address address and the broadcast address are not valid</strong> addresses to assign an host, so 2 addresses must be removed from the total.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Subnetting 192.168.2.0/24</h2>
+						<h3>4 Subnets</h3>
+						<p><em>How many bits I need to borrow?</em> 2<sup>2</sup> = 4. So: 2 bits.</p>
+						<pre><code class="no-highlight">                                          2 bit borrowed
+                                          ▾▾
+                             NNN.NNN.NNN. HH HHHHHH
+Original Network Address     192.168.  2. 00 000000 = 192.168.2.0/24
+Original Subnet Mask         255.255.255. 00 000000 = 255.255.255.0</code></pre>
+						<p>Each subnet will have 2<sup>6</sup> - 2 = 64 - 2 = 62 hosts.</p>
+						<pre><code class="no-highlight">                             NNN.NNN.NNN. NN HHHHHH
+Subnet 0 Network Address     192.168.  2. 00 000000 = 192.168.1.0/26
+Subnet 1 Network Address     192.168.  2. 01 000000 = 192.168.1.64/26
+Subnet 2 Network Address     192.168.  2. 10 000000 = 192.168.1.128/26
+Subnet 3 Network Address     192.168.  2. 11 000000 = 192.168.1.192/26
+New Subnet Mask              255.255.255. 11 000000 = 255.255.255.192</code></pre>
+					</section>
+					<section>
+						<h2>Subnetting 192.168.2.0/24</h2>
+						<h3>Address Ranges for 4 subnets</h3>
+						<pre><code class="no-highlight">                             NNN.NNN.NNN. NN HHHHHH
+Subnet 0 Network Address     192.168.  2. 00 000000 = 192.168.2.0/26
+Subnet 0 First Host Address  192.168.  2. 00 000001 = 192.168.2.1
+Subnet 0 Last Host Address   192.168.  2. 00 111110 = 192.168.2.62
+Subnet 0 Broadcast Address   192.168.  2. 00 111111 = 192.168.2.63
+
+Subnet 1 Network Address     192.168.  2. 01 000000 = 192.168.2.64/26
+Subnet 1 First Host Address  192.168.  2. 01 000001 = 192.168.2.65
+Subnet 1 Last Host Address   192.168.  2. 01 111110 = 192.168.2.126
+Subnet 1 Broadcast Address   192.168.  2. 01 111111 = 192.168.2.127
+
+Subnet 2 Network Address     192.168.  2. 10 000000 = 192.168.2.128/26
+Subnet 2 First Host Address  192.168.  2. 10 000001 = 192.168.2.129
+Subnet 2 Last Host Address   192.168.  2. 10 111110 = 192.168.2.190
+Subnet 2 Broadcast Address   192.168.  2. 00 111111 = 192.168.2.191
+
+Subnet 3 Network Address     192.168.  2. 11 000000 = 192.168.2.192/26
+Subnet 3 First Host Address  192.168.  2. 11 000001 = 192.168.2.193
+Subnet 3 Last Host Address   192.168.  2. 11 111110 = 192.168.2.254
+Subnet 3 Broadcast Address   192.168.  2. 11 111111 = 192.168.2.255</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Subnetting 192.168.3.0/24</h2>
+						<h3>5 Subnets</h3>
+						<img src="http://i.imgur.com/D2cTrKz.png">
+						<p>If we need 5 subnets, we have to borrow 3 bits (2<sup>4</sup> = 8 > 5).</p>
+						<p>The remaing 5 bits in the host part allow for 2<sup>5</sup> - 2 = 30 hosts.</p>
+					</section>
+					<section>
+						<h2>Subnetting 192.168.3.0/24</h2>
+						<h3>Ranges</h3>
+						<pre><code class="no-highlight">                                          ▾▾▾
+                             NNN.NNN.NNN. HHH HHHHH
+Original Network Address     192.168.  3. 000 00000 = 192.168.3.0/24
+Original Subnet Mask         255.255.255. 000 00000 = 255.255.255.0
+
+                             NNN.NNN.NNN. NNN HHHHH
+Subnet 0 Network Address     192.168.  3. 000 00000 = 192.168.3.0/27
+Subnet 1 Network Address     192.168.  3. 001 00000 = 192.168.3.32/27
+Subnet 2 Network Address     192.168.  3. 010 00000 = 192.168.3.64/27
+Subnet 3 Network Address     192.168.  3. 011 00000 = 192.168.3.96/27
+Subnet 4 Network Address     192.168.  3. 100 00000 = 192.168.3.128/27
+
+                             NNN.NNN.NNN. NNN HHHHH
+Subnet 0 Network Address     192.168.  3. 000 00000 = 192.168.3.0/27
+Subnet 0 First Host Address  192.168.  3. 000 00001 = 192.168.3.1
+Subnet 0 Last Host Address   192.168.  3. 000 11110 = 192.168.3.30
+Subnet 0 Broadcast Address   192.168.  3. 000 11111 = 192.168.3.31
+
+Subnet 1 Network Address     192.168.  3. 001 00000 = 192.168.3.32/27
+Subnet 1 First Host Address  192.168.  3. 001 00001 = 192.168.3.33
+Subnet 1 Last Host Address   192.168.  3. 001 11110 = 192.168.3.62
+Subnet 1 Broadcast Address   192.168.  3. 001 11111 = 192.168.3.63
+
+Subnet 2 Network Address     192.168.  3. 010 00000 = 192.168.3.64/27
+Subnet 2 First Host Address  192.168.  3. 010 00001 = 192.168.3.65
+Subnet 2 Last Host Address   192.168.  3. 010 11110 = 192.168.3.94
+Subnet 2 Broadcast Address   192.168.  3. 010 11111 = 192.168.3.95
+
+Subnet 3 Network Address     192.168.  3. 011 00000 = 192.168.3.96/27
+Subnet 3 First Host Address  192.168.  3. 011 00001 = 192.168.3.97
+Subnet 3 Last Host Address   192.168.  3. 011 11110 = 192.168.3.126
+Subnet 3 Broadcast Address   192.168.  3. 011 11111 = 192.168.3.127
+
+Subnet 4 Network Address     192.168.  3. 100 00000 = 192.168.3.128/27
+Subnet 4 First Host Address  192.168.  3. 100 00001 = 192.168.3.129
+Subnet 4 Last Host Address   192.168.  3. 100 11110 = 192.168.3.158
+Subnet 4 Broadcast Address   192.168.  3. 100 11111 = 192.168.3.159</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>100 Subnets!</h2>
+						<p>If we need 100 subnets, we need to borrow <strong>at least 7 bits</strong> from the host part of our address block: 2<sup>7</sup> = 128 > 100.</p>
+						<p>If our address block is a /24 network, that would generate a /31 prefix and leave 1 bit in the host part, so 2<sup>1</sup>-2 = <u>0 hosts</u>!</p>
+						<p>This means we need more host bits to borrow from, and therefore <strong>a larger starting address block</strong>. For instance...</p>
+					</section>
+					<section>
+						<h2>100 Subnets?</h2>
+						<h3>172.20.0.0/16</h3>
+						<pre><code class="no-highlight">                                     ▾▾▾▾▾▾▾
+                             NNN.NNN.HHHHHHH H.HHHHHHHH
+Original Network Address     172. 20.0000000 0.00000000 = 172.20.0.0/16
+Original Subnet Mask         255.255.0000000 0.00000000 = 255.255.0.0
+
+                             NNN.NNN.NNNNNNN H.HHHHHHHH
+New Subnet Mask              255.255.1111111 0.00000000 = 255.255.254.0
+
+Subnet 0 Network Address     172. 20.0000000 0.00000000 = 172.20.0.0/23
+Subnet 1 Network Address     172. 20.0000001 0.00000000 = 172.20.2.0/23
+Subnet 2 Network Address     172. 20.0000010 0.00000000 = 172.20.4.0/23
+Subnet 3 Network Address     172. 20.0000011 0.00000000 = 172.20.6.0/23
+[..................................CUT..................................]
+Subnet 126 Network Address   172. 20.1111110 0.00000000 = 172.20.0.252/23
+Subnet 127 Network Address   172. 20.1111111 0.00000000 = 172.20.0.254/23</code></pre>
+						<p>Subnetting is done in the 3rd octect, <strong>host bits share part of the 3rd</strong> and have the 4th octect.</p>
+						<p>Total hosts per subnet: 2<sup>9</sup> - 2 = 512 - 2 = 510.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>5000+ Hosts?</h2>
+						<p>Let's say we need subnets capable of supporting more than 5000 hosts. The formulas say we would:</p>
+						<ul>
+							<li>need at least <strong>13 bits</strong> left in the host part, <strong>after</strong> the subnetting borrows (2<sup>13</sup> - 2 = 8190 > 5000).</li>
+							<li>be left with <strong>just 3 bits to borrow</strong> for subnetting, in a /16 space. This amounts to just 2<sup>3</sup> = 8 subnets.</li>
+						</ul>
+						<p>This could very well not be enough for most needs. <strong>The solution is to start from a larger block</strong>, like the 10.0.0.0/8 private space.</p>
+						<p>In a "10/8", after reserving the last 13 bits for our 5000+ hosts, we are left with 11 bits to borrow for subnetting. That's 2<sup>11</sup> = 2048 possible subnets with a /19 prefix (255.255.224.0).</p>
+					</section>
+					<section>
+						<h2>5000+ Hosts?</h2>
+						<pre><code class="no-highlight">                               ▾▾▾▾▾▾▾▾ ▾▾▾
+                           NNN.HHHHHHHH.HHH HHHHH.HHHHHHHH
+Original Network Address    10.00000000.000 00000.00000000 = 10.0.0.0/8
+Original Subnet Mask       255.00000000.000 00000.00000000 = 255.255.255.0
+
+
+New Subnet Mask            255.11111111.111 00000.00000000 = 255.255.224.0
+
+                           NNN.NNNNNNNN.NNN HHHHH.HHHHHHHH
+Subnet 0 Network Address    10.00000000.000 00000.00000000 = 10.0.0.0/19
+Subnet 1 Network Address    10.00000000.001 00000.00000000 = 10.0.32.0/19
+Subnet 2 Network Address    10.00000000.010 00000.00000000 = 10.0.64.0/19
+[...................................CUT...................................]
+Subnet 2045 Network Address 10.11111111.101 00000.00000000 = 10.255.160.0/19
+Subnet 2046 Network Address 10.11111111.110 00000.00000000 = 10.255.192.0/19
+Subnet 2047 Network Address 10.11111111.111 00000.00000000 = 10.255.224.0/19</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>Subnetting "Short Blanket"</h2>
+					<p>The <strong>key to basic subnetting</strong> is to balance the number of subnets, and hosts for each subnet, based on our requirements.</p>
+					<ul>
+						<li>Start by determining the <strong>total number of hosts</strong> to be served. This will give you an hint about <strong>which starting address space</strong> you will need.</li>
+						<li>Analize how your network is organized to <strong>determine the number of subnetworks you need</strong>. Think about possibile <strong>future segmentations</strong>.</li>
+						<li>Determine the <strong>highest number of host you will have on a single subnet</strong>. Try to think about if and how much this number will <strong>grow in the foreseeable future</strong>.</li>
+						<li>The last two points are <strong>the data you need to choose</strong> how many bits to borrow and how many host bits to "leave alone".</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>VLSM: Variable Length Subnet Mask</h2>
+					<p><strong>With basic subnetting, every subnet has the same size</strong>. When the number of hosts needed in each is very different, that would lead to significant <strong>waste and unused addresses</strong>.</p>
+					<p>Subnets too large for the actual requirements will also <strong>limit growth</strong> by needlessly reducing the number of available subnets.</p>
+					<p>The solution to these scenarios is a subnetting method called <em>Variable Length Subnet Mask (VLSM)</em>.</p>
+					<p>It does what the name says: the number of bits borrowed (hence, the subnet mask) <strong>varies with each subnet</strong>.</p>
+				</section>
+
+				<section>
+					<h2>How does VLSM work?</h2>
+					<img src="http://i.imgur.com/8JdgAJz.png">
+					<p>With VLSM:</p>
+					<ul>
+						<li>you still borrow bits to create subnets.</li>
+						<li>the subnetting formulas are still valid.</li>
+					</ul>
+					<p>The difference is that <strong>it's not a single-pass process</strong> anymore:</p>
+					<ul>
+						<li>The network is subnetted, and <strong>subnets are subnetted again</strong>.</li>
+						<li>This <strong>process is repeated</strong> to create the various size needed.</li>
 					</ul>
 				</section>
 
 				<section>
 					<section>
-						<h2>Unicast</h2>
-						<p>As we've seen in Chapter 2, transmissions can be <strong>unicast, multicast or broadcast</strong> depending on those who will receive and process the content. IPv4 networks have all these 3 types.</p>
-						<p><strong>Unicast</strong> is used for normal host-to-host communication in a client/server of P2P fashion.</p>
-						<p>Host addresses that are source and destination addresses of a unicast transmission are considered <em>unicast addresses</em>.</p>
-						<p>The IPv4 range for unicast addresses is 0.0.0.0 - 223.255.255.255, but inside there are many reserved subranges.</p>
-						<p><strong>Unicast packets can be routed</strong> throughout networks.</p>
+						<h2>VLSM Scenario</h2>
+						<img src="http://i.imgur.com/QMjXJ6M.jpg">
+						<p>We need 9 subnets, so 4 bits to borrow: a /24 network into 16 subnets with a /28 prefix, each capable of 14 hosts.</p>
+						<p>This means <u>12 wasted address on each PtP link</u>, 48 total!</p>
+						<p>And 14 hosts/subnet are a bit low, aren't they?</p>
 					</section>
 					<section>
-						<h2>Broadcast</h2>
-						<p>Using the broadcast address of the network, it is possibile to send packets to all its hosts. Each hosts will process the packet like it was sent to its unicast address, so <strong>the broadcast address is an address that is "common" to every host on the network</strong>.</p>
-						<p><strong>Broadcast packets are not routed by default</strong>, and stay confined in the local network. This means routers define the boundaries of the <em>broadcast domain</em>.</p>
+						<h2>VLSM Scenario</h2>
+						<h3>Traditional Subnetting</h3>
+						<pre><code class="no-highlight">Original Network Address     192.168.1.0/24
+Original Subnet Mask         255.255.255.0
+New Subnet Mask              255.255.255.240 = /28
+
+Subnet 0                     192.168.1.0/28
+Subnet 1                     192.168.1.16/28
+Subnet 2                     192.168.1.32/28
+Subnet 3                     192.168.1.48/28
+[...]
+Subnet 14                    192.168.1.224/28
+Subnet 15                    192.168.1.240/28</code></pre>
+						<p>Wasteful. So let's take the first /28 subnet and subnet it again:</p>
 						<ul>
-							<li><strong>Directed Broadcast</strong>: a broadcast sent to <u>all hosts on a specific, non-local</u> network. Cisco routers don't enable directed broadcast forwarding by default. Linux doesn't support it.</li>
-							<li><strong>Limited Broadcast</strong>: intended for communication with every host on the local network only. Packets use <strong>255.255.255.255</strong> as destination address. <u>Routers never forward them</u>. </li>
+							<li>2 hosts needed mean 2 host bits (2<sup>2</sup> - 2 = 2 hosts)</li>
+							<li>this left us with 2 bits to borrow: 2<sup>2</sup> = 4 subnets.</li>
+						</ul>
+						<p>So we turned a single /28 subnet into <strong>4 /30 subnets</strong> each capable of 2 hosts: <u>0 wasted addresses</u>!</p>
+					</section>
+					<section>
+						<h2>VLSM Scenario</h2>
+						<h3>VLSM Applied</h3>
+						<pre><code class="no-highlight">Subnet 0 - PtP #1       192.168.1.0/30   # subnetted from 192.168.1.0/28
+Subnet 1 - PtP #2       192.168.1.4/30   # subnetted from 192.168.1.0/28
+Subnet 2 - PtP #3       192.168.1.8/30   # subnetted from 192.168.1.0/28
+Subnet 3 - PtP #4       192.168.1.12/30  # subnetted from 192.168.1.0/28
+Subnet 4                192.168.1.16/28
+Subnet 5                192.168.1.32/28
+Subnet 6                192.168.1.48/28
+[...]
+Subnet 12               192.168.1.144/28
+Subnet 13               192.168.1.160/27 # 30 hosts capable
+Subnet 14               192.168.1.192/27 # 30 hosts capable
+Subnet 15               192.168.1.224/27 # 30 hosts capable</code></pre>
+						<p>In addition to the perfect fit for the PtP links, VLSM also allows us to create <strong>more flexible subnetting</strong>.</p>
+						<p>In this example we ditched the last 6 /28 subnets for 3 /27 subnets in which we can host up to 30 devices.</p>
+					</section>
+					<section>
+						<h2>VLSM Charts</h2>
+						<img src="http://i.imgur.com/WgSJYKv.jpg">
+					</section>
+				</section>
+
+				<section>
+					<section>
+					<h2>Addressing Plan</h2>
+						<p>We plan the addressing scheme for our network for the following purposes:</p>
+						<ul>
+							<li><strong>Preventing address duplication</strong>: by carefully documenting how the addresses are assigned we can prevent address collision.</li>
+							<li><strong>Access control</strong>: by knowing precisely which address is assigned to which host, we can better control the access to network resources based on our policies.</li>
+							<li><strong>Network monitoring</strong>: the network administrator needs to be able to readily identify sources and destinations of the traffic while analyzing it for performance and security issues.</li>
 						</ul>
 					</section>
 					<section>
-						<h2>Multicast</h2>
-						<p>With multicast transmission, <strong>an host can communicate with any subset of hosts</strong> without having to send multiple unicast packets or overreaching with a broadcast packet.</p>
-						<p>Hosts interested in participating in a multicast communications joins the <strong>multicast group</strong>, and then the multicast protocols will ensure packet flows to all subscribing hosts.</p>
-						<p>Multicast groups are represented by IPv4 addresses.</p>
+						<h2>Assigning Addresses</h2>
+						<p>It is best to assign addresses to devices based on a <strong>recognizable pattern</strong>, which will help administrator and documentation.</p>
 						<ul>
-							<li><strong>Link-Local multicast</strong> [224.0.0.0/24]: to be used for multicast in a local network, never to be forwarded by routers.</li>
-							<li><strong>Globally scoped multicast</strong> [224.0.1.0 - 238.255.255.255]: to be used for multicasting across the Internet.</li>
-							<li><strong>Administratively scoped multicast</strong> [239.0.0.0/8]: for multicasting within a certain organization's boundaries.</li>
-						</ul>
-					</section>
-				</section>
-
-				<section>
-					<h2>Public and Private IPv4 Addresses</h2>
-					<p>A <strong>public IPv4 address</strong> is a unicast address that is <strong>routable on the Internet</strong>. This means it can be a source or destination address of a packet appearing on the public Internet and can be included in the routing table of Internet routers.</p>
-					<p><strong>RFC 1918</strong> defines 3 ranges of IPv4 addresses that are not meant to be Internet routable, and are therefore referred to as <strong>private</strong>.</p>
-					<ul>
-						<li><strong>10.0.0.0/8</strong> - from 10.0.0.0 to 10.255.255.255</li>
-						<li><strong>172.16.0.0/12</strong> - from 172.16.0.0 to 172.31.255.255</li>
-						<li><strong>192.168.0.0/16</strong> - from 192.168.0.0 to 192.168.255.255</li>
-					</ul>
-					<p>Unlike public addresses, these are <strong>not meant to be globally unique</strong>,  but they must be within each private networks.</p>
-					<p>Packets from private networks <strong>must be blocked or NATted</strong> by perimeter routers before reaching the Internet.</p>
-				</section>
-
-				<section>
-					<section>
-						<h2>Classful Addressing</h2>
-						<img src="http://i.imgur.com/fQAqxLy.jpg">
-					</section>
-					<section>
-						<h2>Classful Addressing</h2>
-						<p>The RFC 1700 divides the unicast ranges into classes, specified in terms of network size and assigned specific IP blocks. </p>
-						<p><strong>Classful addressing</strong> refers to the (legacy) practice of assigning an entire network from one of this pre-defined classes.</p>
-						<ul>
-							<li><strong>Class A</strong> [0.0.0.0/8 to 127.0.0.0/8]: designed for enormous networks, it divided 50% of the IPv4 space into 128 /8 networks supporting up to 16 mln hosts.</li>
-							<li><strong>Class B</strong> [128.0.0.0/16 to 191.255.0.0/16]: designed for medium and large networks, 25% of the space was divided into 16000 /16 networks supporting up to 65000 hosts.</li>
-							<li><strong>Class C</strong> [192.0.0.0/24 to 233.255.255.0/24]: designed for small networks, 12.5% of the total IPv4 space splitted into 2+ mln networks of up 254 hosts.</li>
-						</ul>
-					</section>
-				</section>
-
-				<section>
-					<h2>Classless Addressing</h2>
-					<p>Classfull addressing was <strong>highly inefficient</strong>, leading to many wasted addresses, so it was progressively abandoned.</p>
-					<p><strong>Classless addressing</strong>, also known as <strong>Classless Inter-Domain Routing (CIDR)</strong>, allows to allocate address ranges from the public space with prefix lengths other than just /8, /16 or /24.</p>
-					<p>The various blocks of <strong>available public IPv4 addresses are assigned by the IANA, who delegates several Regional Internet Registries</strong> to manage assignments in different areas.</p>
-					<p>Internet Service Providers are allocated IP addresses by the RIRs. Most "final users" like companies, organizations and inviduals, <em>borrow</em> their Internet addresses from the ISP as part of some service (like web hosting or server housing).</p>
-				</section>
-
-				<!--
-				<section>
-					<h2>Tier 1, Tier 2, Tier 3 ISP</h2>
-				</section>
-				-->
-
-				<section>
-					<h2>Special IPv4 Addresses</h2>
-					<ul>
-						<li><strong>Network and Broadcast addresses</strong></li>
-						<li><strong>Loopback</strong> - Used for TCP/IP testing purposes. 127.0.0.1 is the common loopback addresses, but every 127.0.0.0/8 address will loop back to the local host Network Layer.</li>
-						<li><strong>Link-Local Addresses</strong> - Addresses in the 169.254.0.0/16 are designated as link-local and are <strong>automatically assigned when no IPv4 configuration is available</strong> (for instance when a DHCP server doesn't respond).</li>
-						<li><strong>TEST-NET Addresses</strong> - Block 192.0.2.0/24 is reserved for use in documentation, classes, etc, to provide examples.</li>
-						<li><strong>Experimental Addresses</strong> - Reserved address block from 240.0.0.0 to 255.255.255.254, are listed by RFC3330 for <strong>future use</strong>.</li>
-					</ul>
-					<p>All these addresses <u>must never appear on the public Internet</u>.</p>
-				</section>
-
-				<section>
-					<section>
-						<h2>Transition to IPv6</h2>
-					<p>We discussed several reasons (address space exhaustion, performances, extendibility) why an upgrade to the IPv4 was badly needed.</p>
-					<p>This upgrade is <strong>IPv6</strong> and has been in the works since 1993 and has been ready for several year.</p>
-					<p>However the transition from IPv4 to IPv6 will be slow and take years, so for a long time <strong>the two protocols will coexist</strong>, thanks to several <strong>transition mechanisms</strong>:</p>
-					<ul>
-						<li><strong>Dual Stack</strong>: every host on the network runs both protocols.</li>
-						<li><strong>Tunneling</strong>: the IPv6 packet is encapsulated inside an IPv4 one.</li>
-						<li><strong>Translation</strong>: NAT64 translates IPv4 packet into IPv6 packets, and viceversa.</li>
-					</ul>
-					</section>
-					<section>
-						<h2>Transition to IPv6</h2>
-						<img src="http://i.imgur.com/vjOBHaV.jpg">
-					</section>
-				</section>
-
-				<section>
-					<h2>Hexadecimal Numbering System</h2>
-					<img src="http://i.imgur.com/37LF4pU.gif">
-					<p>Base-16 is a perfect number system to use in ICT because <u>any of the 0-F digits represents 4-bits</u>.</p>
-					<p>This means that <strong>a common grouping such as 1 byte (8 bits) can be represented in <em>hex</em> with the range 00-FF</strong>.</p>
-					<p><em>Hex</em> numbers are usually represented by preceding the value with "0x". For instance, the number 7A (122 in decimal) is represented in hex with 0x7A, 7AH, or 7A<sub>16</sub> </p>
-				</section>
-
-				<section>
-					<section>
-						<h2>IPv6 Address Format</h2>
-						<img src="http://i.imgur.com/2Xf426J.gif">
-						<p>An IPv6 address is 128 bits long and so it's expressed not with 4 decimal values, but with 32 hexadecimal values.</p>
-						<p>Each group of 16 bits/4 hex values (unofficially called an <em>hextet</em>) is separated not by a <code>.</code> but by a colon (<code>:</code>).</p>
-						<p>An example of an IPv6 address is 2607:f0d0:1002:0051:0000:0000:0000:0004</p>
-						<p>When we use all 32 hex values to write an IPv6 address, we are using the <strong><em>preferred format</em></strong>. It's not always ideal to use this many digits, but there are rules to simplify the format.</p>
-					</section>
-					<section>
-						<h2>Simplifying IPv6 Address Format</h2>
-						<h3>Rule 1: Omitting Leading 0s</h3>
-						<p>Any <strong>leading</strong> 0s in any of the hextets can be stripped out.</p>
-						<pre>Preferred - 2001:0DB8:0000:1110:0000:0000:0000:0230
-No Lead 0 - 2001:DB8:0:1110:0:0:0:230
-
-Preferred - 2001:0DB8:0000:A300:ABCD:0000:0000:1234
-No Lead 0 - 2001:DB8:0:A300:ABCD:0:1234
-
-Preferred - FE80:0000:0000:0000:0123:4567:89AB:CDEF
-No Lead 0 - FE80:0:0:0:123:4567:89AB:CDEF
-
-Preferred - FF02:0000:0000:0000:0000:0000:0000:0001
-No Lead 0 - FF02:0:0:0:0:0:0:1
-
-Preferred - 0000:0000:0000:0000:0000:0000:0000:0001
-No Lead 0 - 0:0:0:0:0:0:0:1</pre>
-						<p>You <u>must not</u> strip the <strong>trailing</strong> 0s.</p>
-					</section>
-					<section>
-						<h2>Simplifying IPv6 Address Format</h2>
-						<h3>Rule 2: Omitting All-0s</h3>
-						<p>Any <strong>contiguos</strong> string of one or more hextets that consists of <strong>all-0s</strong> can be replaced by a <u>single</u> double colon (<code>::</code>).</p>
-						<pre><code class="no-highlight">YOU CAN ONLY USE THE :: _ONCE_ IN A IPv6 ADDRES!!!
-
-Preferred  - 2001:0DB8:0000:0000:1110:0000:0000:0230
-No Lead 0  - 2001:DB8:0:0:1110:0:0:230
-Compressed - 2001:DB8::1110:0:0:230 or 2001:DB8:0:0:1110::230
-
-Preferred  - 2001:0DB8:0000:A300:ABCD:0000:0000:1234
-No Lead 0  - 2001:DB8:0:A300:ABCD:0:1234
-Compressed - 2001:DB8::A300:ABCD:0:1234 or 2001:DB8:0:A300:ABCD::1234
-
-Preferred  - FE80:0000:0000:0000:0123:4567:89AB:CDEF
-No Lead 0  - FE80:0:0:0:123:4567:89AB:CDEF
-Compressed - FE80::123:4567:89AB:CDEF
-
-Preferred  - FF02:0000:0000:0000:0000:0000:0000:0001
-No Lead 0  - FF02:0:0:0:0:0:0:1
-Compressed - FF02::1
-
-Preferred  - 0000:0000:0000:0000:0000:0000:0000:0001
-No Lead 0  - 0:0:0:0:0:0:0:1
-Compressed - ::1</code></pre>
-					</section>
-				</section>
-
-				<section>
-					<h2>IPv6 Addresses</h2>
-					<p>In IPv6 there are <strong>unicast</strong> and <strong>multicast</strong> addresses like in IPv4.</p>
-					<p>It also has <strong>anycast</strong> addresses, which are <strong>assignable to multiple hosts</strong> and are <strong>routed to the nearest</strong> device having that address.</p>
-					<p><strong>IPv6 doesn't have broadcast addresses</strong>. It achieves the same effect with a particular multicast address called <em>all-nodes</em>.</p>
-					<p>IPv6 doesn't use dotted notation for subnet masks. Instead <strong>it uses prefix lengths/slash notation ranging from 0 to 128</strong>.</p>
-					<p>A typical network prefix for IPv6 networks is 64:</p>
-					<img src="http://i.imgur.com/I2rCANR.gif">
-				</section>
-
-				<section>
-					<section>
-						<h2>Types of IPv6 (Unicast) Addresses</h2>
-						<p>Like in IPv4, in IPv6 transmissions the <strong>source address must be an unicast address</strong> that uniquely identifies that interface.</p>
-						<p>There are 6 types of IPv6 Unicast addresses:</p>
-						<ul>
-							<li><strong>Global Unicast</strong>: Similar to public IPv4 Internet addresses.</li>
-							<li><strong>Link-Local</strong>: Used only for tranmission to other IPv6 hosts on the same link (synonym to subnet)  They only must be unique in a single link, because IPv6 router will never forward packets with link-local addresses.  Their range is <code>FE80::/10</code> - <code>FEBF::/10</code></li>
-							<li><strong>Loopback</strong>: The IPv6 loopback address is <code>::1/128</code> or <code>::1</code>.</li>
-							<li><strong>Unspecified</strong>: It's the all-0s address, <code>::/128</code> or <code>::</code>. It can't be assigned, and it's only used as source address by hosts yet to have IPv6 configuration or when the source is irrelevant.</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Types of IPv6 (Unicast) Addresses</h2>
-						<ul>
-							<li><strong>Unique Local (ULA)</strong>: They are the IPv6 counterpart of RFC 1918 Private Addresses. ULAs are available for use in private networks, inside a single site or organization or spanning a limited number of sites. They are not routable in the global IPv6 Internet. The allocated block for ULAs is <code>fc00::/7</code> - <code>fdff::/7</code></li>
-							<li><strong>IPv4 Embedded</strong>: a particular type of address to help the transition from IPv4 to IPv6. They are, in fact, IPv6 addresses that contain an IPv4 address in the last 4 bytes.</li>
+							<li><strong>Clients</strong> - DHCP is the common assignment method.</li>
+							<li><strong>Servers and peripherals</strong> - As they provide almost all network resources, they sould have a static addressing, preferably with a consistent numbering, making them easy to remember.</li>
+							<li><strong>Internet-accessible hosts</strong> - Both public and private static addressing. Public addresses are mostly associated to these by NAT on the perimeter.</li>
+							<li><strong>Intermediary Devices</strong>: if they are L3-capable, they should have a static, predictable address to allow management.</li>
+							<li><strong>Gateways</strong>: they belong to multiple network, so they have an IP address assigned to each interface. Almost always it is the <u>highest or lowest address available on that network segment</u>.</li>
 						</ul>
 					</section>
 				</section>
 
 				<section>
-					<h2>IPv6 Link-Local Communications</h2>
-					<img src="http://i.imgur.com/3QmNjli.png">
-					<p>Every IPv6-enabled device <strong>must have at least one link-local address</strong>. If it is not configured statically, it will be calculated automatically by the host without the need for a DHCP server.</p>
-					<p>It will be used to communicate with other IPv6 hosts on the same link/subnet, including the default gw.</p>
-				</section>
-
-				<section>
 					<section>
-						<h2>IPv6 Global Unicast Address</h2>
+						<h2>IPv6 Subnetting</h2>
+						<p>IPv4 Subnetting is done to manage address scarcity.</p>
+						<p>Subnetting IPv6 is done for an entirely different reason: to support <strong>hierarchical and logical network design</strong>.</p>
 						<img src="http://i.imgur.com/LGVfYS4.png">
-						<p>These are the <strong>IPv6 Internet-routable addresses</strong>, assigned by the IANA and the RIRs. As of now, only addresses starting with <code>2000::/3</code> (first 3 bits 001) are being assigned.</p>
+						<p>An IPv6 (public) address block with a /48 (Global Routing) prefix has <strong>16 bits for subnet ID</strong> (65536 /64 subnets).</p>
+						<p>There's <u>no need to borrow bits</u> from Interface ID (host portion).</p>
 					</section>
 					<section>
-						<h2>IPv6 Global Unicast Address</h2>
-						<p>A global unicast address is made of 3 components:</p>
-						<ul>
-							<li><strong>Global Routing Prefix</strong>: Currently RIR assigns IPv6 blocks with a /48 routing prefix.</li>
-							<li><strong>Subnet ID</strong>: A field available for assignees of a GRP block to define their subnets/sites. GRP + Subnet ID must be 64 bits. This makes <strong>/64 the most used subnet mask</strong> for final users.</li>
-							<li><strong>Interface ID</strong>: Equivalent to the host portion of IPv4. It's called a generic "ID" because IPv6 can have multiple global addresses on multiple interfaces.</li>
-						</ul>
-						<p>Unlike IPv4, in IPv6 it is possible to assign to hosts:</p>
-						<ul>
-							<li><strong>All 1s addresses</strong>, because IPv6 has no broadcast address.</li>
-							<li><strong>All-0s addresses</strong>, but they are reserved as anycast Subnet-routers address.</li>
-						</ul>
-					</section>
-				</section>
-
-				<section>
-					<h2>Configuring Static IPv6 Global Address</h2>
-					<p>Static configuration on <strong>Cisco routers</strong> is almost identical to IPv4, except the command is <code>ipv6 address/prefix</code> (no spaces).</p>
-					<pre><code class="bash">R1(config)# interface gigabitethernet 0/0
-R1(config-if)# ipv6 address 2001:db8:acad:1::1/64
-R1(config-if)# no shutdown
-R1(config-if)# exit</code></pre>
-					<p><strong>On a host</strong> the configuration is identical, except you will use IPv6 addresses and prefixes.</p>
-					<p>You can also use the <strong>link-local address of the default gateway</strong>.</p>
-					<p>For automatic configuration of IPv6 addresses, there are two different ways: <strong>SLAAC and DHCPv6</strong>.</p>
-				</section>
-
-				<section>
-					<section>
-						<h2>Stateless Address Autoconfiguration</h2>
-						<p>Hosts that use <strong>SLAAC</strong> rely on special, periodic messages from local IPv6 Routers called <em>ICMPv6 Router Advertisement (RA)</em>.</p>
-						<p>Hosts don't have to wait for a RA, but <strong>they can send a <em>Router Solicitation (RS)</em> message</strong> to local router(s), that will respond immediately with a RA.</p>
-						<p>RA contains everything hosts need: <strong>prefix, prefix length, default gateway</strong>. But also one of these 3 responses:</p>
-						<ul>
-							<li><strong>SLAAC only</strong>: <em>Don't count on a DHCPv6 server</em>.</li>
-							<li><strong>SLAAC + DHCPv6</strong>: <em>Other infos available from a DHCPv6 Server</em>.</li>
-							<li><strong>DHCPv6 only</strong>: <em>Please rely exclusively on the DHCPv6 Server</em>.</li>
-						</ul>
-						<p>RA messages, and the default gateway information they contain, use the <strong>link-local IPv6 address</strong> of the router.</p>
+						<h2>IPv6 Subnetting Example</h2>
+						<p>Subnets created by the Subnet ID are easy to identify and represent, it just works like an hexadecimal counter.</p>
+						<pre><code class="no-highlight">Address Block   2001:0DB8:ACAD::/48
+Subnet 0        2001:0DB8:ACAD:0000::/64
+Subnet 1        2001:0DB8:ACAD:0001::/64
+Subnet 2        2001:0DB8:ACAD:0002::/64
+Subnet 3        2001:0DB8:ACAD:0003::/64
+Subnet 4        2001:0DB8:ACAD:0004::/64
+Subnet 5        2001:0DB8:ACAD:0005::/64
+Subnet 6        2001:0DB8:ACAD:0006::/64
+Subnet 7        2001:0DB8:ACAD:0007::/64
+Subnet 8        2001:0DB8:ACAD:0008::/64
+Subnet 9        2001:0DB8:ACAD:0009::/64
+Subnet 10       2001:0DB8:ACAD:000A::/64
+Subnet 11       2001:0DB8:ACAD:000B::/64
+[ . . . . . . . . . . . . . . . . . . . ]
+Subnet 65533    2001:0DB8:ACAD:FFFD::/64
+Subnet 65534    2001:0DB8:ACAD:FFFE::/64
+Subnet 65535    2001:0DB8:ACAD:FFFF::/64</code></pre>
 					</section>
 					<section>
-						<h2>DHCPv6</h2>
-						<p>The DHCP for IPv6 can provide hosts with <strong>a global unicast address, prefix length, default gateway and DNS servers</strong>.</p>
-						<p>An host can receive <strong>none, some, or all</strong> this informations from a DHCPv6 Server, depending on the option specified in the RA.</p>
-						<ul>
-							<li>With <strong>Option 1</strong>, SLAAC only, a DHCPv6 server is absent.</li>
-							<li>With <strong>Option 2</strong>, SLAAC+DHCPv6, DHCPv6 operates in <strong>stateless mode</strong>: it just provides DNS servers and doesn't keep track of allocated IPv6 addresses.</li>
-							<li>With <strong>Option 3</strong>, DHCPv6 only, it behaves in the same <strong>stateful mode</strong> DHCPv4 does, keeping track of allocated resources.</li>
-						</ul>
-						<p>When in DHCPv6-only, the server will provide the entire IPv6 address to the clients. When SLAAC is involved, <strong>the client must generate its own 64-bit interface ID</strong>.</p>
+						<h2>IPv6 Subnetting Considerations</h2>
+						<p>Subnetting IPv6 is not that much different from IPv4.</p>
+						<p>The leading practice is to receive at least a <strong>/48 prefix from an ISP</strong>. This leaves you with 2<sup>80</sup> bits to manipulate for subnetting.</p>
+						<p>According to <a href="https://tools.ietf.org/html/rfc4291">RFC 4291</a> the <strong>current smallest recommended prefix</strong> is a /64. You can assign a /64 to PtP links and <em>not feel guilty</em>.</p>
+						<p>If you need, you can of course <strong>borrow bits from the Interface ID</strong> to have a deeper hierarchy. The best practice is to borrow <strong>4 bits at a time</strong> and used aligned netmasks (/68, /72, /76, etc.). Why?</p>
+						<p>A <strong>nibble</strong> is a 4 bit group, or one hexadecimal digit. By subnetting on <em>nibble boundaries</em> we can easily create subnet just by upping the count by 0x01.</p>
 					</section>
-					<section>
-						<h2>EUI-64</h2>
-						<img src="http://i.imgur.com/08FYCF9.png">
-						<p>With the <em>Extended Unique Identifier</em> process, an host can calculate the <em>Interface ID</em> <strong>based on its own MAC address</strong>.</p>
-						<p>An host can also <strong>randomly calculate</strong> the Interface ID.</p>
-					</section>
-				</section>
-
-				<section>
-					<h2>Link-Local Addresses Generation</h2>
-					<p>The link-local addresses can be <strong>dynamically generated</strong> by appending the Interface ID to the FE80::/64 network prefix.</p>
-					<p>E.g, <code>fe80:0000:0000:0000:ea11:32ff:fe4e:486b</code>.</p>
-					<p>But because a MAC rarely contains many 0s, <strong>the resulting link-local address will be very long</strong> and uncompressable.</p>
-					<p>By <strong>statically</strong> providing link-local addresses we can make them way more easier to read. On Cisco routers:</p>
-					<pre><code class="bash">Router(config-if)# ipv6 address [link-local-address] link-local </code></pre>
-					<p>Because they must be unique only over the same link, <strong>we can use the same link-local address on all the router interfaces</strong>:</p>
-					<pre><code class="bash" style="height: 100px;">Router(config)#interface g0/0
-Router(config-if)# ipv6 address fe80::1 link-local
-Router(config-if)# exit
-Router(config)#interface g0/1
-Router(config-if)# ipv6 address fe80::1 link-local
-Router(config-if)# exit
-Router(config)#interface s0/0/0
-Router(config-if)# ipv6 address fe80::1 link-local
-Router(config-if)# exit</code></pre>
-				</section>
-
-				<section>
-					<h2>IPv6 Multicast Addresses</h2>
-					<p>As with IPv4, multicast groups are represented by addresses. There are 2 types of IPv6 multicast addresses:</p>
-					<ul>
-						<li><strong>Assigned</strong> - Reserved multicast addresses for pre-defined group on devices, or devices running a common protocol or known service. 2 common assigned multicasts are:</li>
-						<ul>
-							<li><strong>FF02::1 <em>All-Nodes Multicast Group</em></strong> - A multicast group that any IPv6-enabled host joins, effectively making it the "broadcast" address of IPv6.</li>
-							<li><strong>FF02::2 <em>All-Routers Multicast Group</em></strong> - A group joined by all IPv6 routers on the link/network.</li>
-						</ul>
-						<li><strong>Solicited Node</strong> - A multicast address created for each IPv6 interface, and consisting of a FF02:0:0:0:0:1:FF00::/104 prefix plus the <strong>least significant 24 bits of the Interface ID</strong>. They are used for obtaining the L2 addresses of other nodes.</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>IPv6 Routers</h2>
-					<p>Having an IPv6 enables is not enough to be considered an IPv6 router. The following are the <strong>basic features of an IPv6 router</strong>: 
-					<ul>
-						<li><strong>Forwarding IPv6 packets</strong> between different networks</li>
-						<li>Ability to configure <strong>static IPv6 routes</strong> or a <strong>dynamic IPv6 routing protocol</strong>.</li>
-						<li><strong>Sending ICMPv6 Router Advertisement</strong> messages.</li>
-					</ul>
-					<p><u>IPv6 routing is not enabled by default on Cisco routers</u>: you need to enable it with the <code>ipv6 unicast-routing</code> command.</p>
-				</section>
-
-				<section>
-					<section>
-						<h2>Internet Control Message Protocol v4</h2>
-						<p>The <strong>ICMPv4/v6</strong> protocols are part of the TCP/IP protocol suite and <strong>provide feedback about certain errors involving IPv4/v6 packet processing</strong>. Because of the information they provide, ICMP messages are frequently blocked for security.</p>
-						<p>These ICMP messages are common between v4 and v6:</p>
-						<ul>
-							<li><strong>Host Confirmation</strong>: an ICMP <em>Echo Request</em> is sent to test if an host in operational. If it is an <em>Echo Reply</em> is sent back.</li>
-							<li><strong>Destination or Service Unreachable</strong>: when a gateway can't forward a packet, it notifies the source with a code specifying if the net, host, protocol or port is unreachable.</li>
-							<li><strong>Time Exceeded</strong>: Used to notify the packet source that the TTL counter in the header has reached 0 and is being dropped.</li>
-							<li><strong>Route Redirection</strong>: It informs the packet source that a better route to the destination is available.</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Internet Control Message Protocol v6</h2>
-						<p>ICMPv6 introduced 4 new messages as part of the <strong>Neighbour Discovery Protocol (NDP)</strong>:
-						<ul>
-							<li><strong>Router Solicitation (RS)</strong> - Sent by hosts to routers to obtain addressing autoconfiguration information.</li>
-							<li><strong>Router Advertisement (RA)</strong> - Sent by router to hosts to provide addressing autoconfiguration information.</li>
-							<li><strong>Neighbor Solicitation (NS)</strong> -Sent by an host to another host to discover its L2 address or to detect a duplicate address.</li>
-							<li><strong>Neighbor Advertisement (NA)</strong> - Sent by an host who received a NS to comunicate its L2 address or that an IPv6 address is already in use.</li>
-						</ul>
-					</section>
-				</section>
-
-				<section>
-					<h2>Traceroute</h2>
-					<p>While ping just test connectivity between 2 hosts, <code>traceroute</code> (<code>tracert</code> in Windows) <strong>details the path</strong> taken by the packet.</p>
-					<p>traceroute provides its functions by <strong>exploiting the ICMP time exceeded messages caused by deliberately low TTL values</strong>.</p>
-					<p><strong>Each row in its output is a hop</strong> the packet traversed. An asterisk (*) means a <strong>lost packet</strong>. Times represent the <strong>Round Trip Time (RTT)</strong> between sending the packet and getting the response. </p>
-					<pre><code class="no-highlight" style="height: 250px;">stefanauss@barney:~$ traceroute -n google.it
-traceroute to google.it (173.194.40.15), 30 hops max, 60 byte packets
- 1  10.87.23.1  0.257 ms  0.284 ms  0.346 ms
- 2  * * *
- 3  172.18.1.129  25.915 ms  28.067 ms  30.293 ms
- 4  172.18.0.77  31.994 ms  40.412 ms 172.18.0.73  36.516 ms
- 5  172.19.240.173  56.398 ms  58.932 ms  58.996 ms
- 6  195.22.192.85  59.228 ms  63.312 ms  66.776 ms
- 7  74.125.51.12  62.567 ms 72.14.196.141  41.077 ms  40.297 ms
- 8  209.85.249.54  40.273 ms  40.186 ms  40.549 ms
- 9  64.233.174.245  40.962 ms  40.498 ms  39.815 ms
-10  173.194.40.15  43.655 ms  43.748 ms  40.498 ms</code></pre>
 				</section>
 
 				<section>
 					<h1>End of Lesson</h1>
 				</section>
-				<!-- Port Numbers as identifications
-				Stateful vs stateless protocol
-				-->
-				
+
 			</div>
 
 		</div>
