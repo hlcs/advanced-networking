@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Advanced Networking - Module 1 Chapter 7 - Binary &amp; Hex</title>
+
+		<meta name="description" content="Abilitante alle certificazioni Cisco CCENT e CCNA">
+		<meta name="author" content="Hacklab Cosenza">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Advanced Networking</h1>
+					<h2>Routing &amp; Switching:<h2>
+					<h2>Introduction to Networks</h2>
+					<h3>Chapter 7: Binary &amp; Hex</h3>
+					<p>
+						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Counting in bin and hex</h2>
+					<img src="http://i.imgur.com/tpI3roD.gif">
+					<p>The number of digits used in a numbering system is called <strong>number base</strong> or <strong>radix</strong>.</p>
+				</section>
+
+				<section>
+					<h2>Positional Notation</h2>
+					<p>Our number systems are <strong>positional</strong>, because each digit represents <strong>a value that is dependent of its position</strong>.</p>
+					<p>1023 and 3102 contain the same digits, but their position give them different "values".</p>
+					<p>The digit at the far left is the <em>most significant</em>, the one at the far right is the <em>least significant</em> (MSB/LSB for binary system).</p>
+					<p><strong>Math says</strong>: if we have a number formed by digits d<sub>m</sub>...d<sub>2</sub>d<sub>1</sub>d<sub>0</sub> in a given number base <em>n</em>, the number can be interpreted as:</p>
+					<p>d<sub>m</sub> * n<sup>m</sup> + ... + d<sub>2</sub> * n<sup>2</sup> + d<sub>1</sub> * n<sup>1</sup> + d<sub>0</sub> * n<sup>0</sup></p>
+					<p>3102<sub>10</sub> = 3*10<sup>3</sup> + 1*10<sup>2</sup> + 0*10<sup>1</sup> + 2*10<sup>0</sup> = 3000+100+0+2 = 3102</p>
+				</section>
+
+				<section>
+					<h2>Decimal Positional System</h2>
+					<ul>
+						<li><strong>Example 1</strong>: 10359</li>
+						<li><strong>Example 2</strong>: 296312</li>
+					</ul>
+					<table>
+						<tr>
+							<td><strong>Base<sup>exp</sup></strong></td>
+							<td>10<sup>7</sup></td>
+							<td>10<sup>6</sup></td>
+							<td>10<sup>5</sup></td>
+							<td>10<sup>4</sup></td>
+							<td>10<sup>3</sup></td>
+							<td>10<sup>2</sup></td>
+							<td>10<sup>1</sup></td>
+							<td>10<sup>0</sup></td>
+						</tr>
+						<tr>
+							<td><strong>Weight</strong></td>
+							<td>10M</td>
+							<td>1M</td>
+							<td>100k</td>
+							<td>10k</td>
+							<td>1k</td>
+							<td>100</td>
+							<td>10</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td><strong>Ex. 1</strong></td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+							<td>1</td>
+							<td>0</td>
+							<td>3</td>
+							<td>5</td>
+							<td>9</td>
+						</tr>
+						<tr>
+							<td><strong>Ex. 2</strong></td>
+							<td>0</td>
+							<td>0</td>
+							<td>2</td>
+							<td>5</td>
+							<td>9</td>
+							<td>3</td>
+							<td>1</td>
+							<td>2</td>
+						</tr>
+					</table>
+					<ul>
+						<li><strong>10359</strong> = (1*10000) + (0*1000) + (3*100) + (5*10) + (9*1) = <strong><u>10359</u></strong></li>
+						<li><strong>296312</strong> = (2*100000) + (9*10000) + (6*1000) + (3*100) + (1*10) + (2*1) = <strong><u>296312</u></strong></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Binary to Decimal Conversion</h2>
+					<ul>
+						<li><strong>Example 1</strong>: 11011010</li>
+						<li><strong>Example 2</strong>: 10011101</li>
+					</ul>
+					<table>
+						<tr>
+							<td><strong>Base<sup>exp</sup></strong></td>
+							<td>2<sup>7</sup></td>
+							<td>2<sup>6</sup></td>
+							<td>2<sup>5</sup></td>
+							<td>2<sup>4</sup></td>
+							<td>2<sup>3</sup></td>
+							<td>2<sup>2</sup></td>
+							<td>2<sup>1</sup></td>
+							<td>2<sup>0</sup></td>
+						</tr>
+						<tr>
+							<td><strong>Weight</strong></td>
+							<td>128</td>
+							<td>64</td>
+							<td>32</td>
+							<td>16</td>
+							<td>8</td>
+							<td>4</td>
+							<td>2</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td><strong>Example 1</strong></td>
+							<td>1</td>
+							<td>1</td>
+							<td>0</td>
+							<td>1</td>
+							<td>1</td>
+							<td>0</td>
+							<td>1</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td><strong>Example 2</strong></td>
+							<td>1</td>
+							<td>0</td>
+							<td>0</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>0</td>
+							<td>1</td>
+						</tr>
+					</table>
+					<ul>
+						<li><strong>11011010</strong> = (1*128) + (1*64) + (0*32) + (1*16) + (1*8) + (0*4) + (1*2) + (0*1) = <strong><u>218</u></strong></li>
+						<li><strong>10011101</strong> = (1*128) + (0*64) + (0*32) + (1*16) + (1*8) + (1*4) + (0*2) + (1*1) = <strong><u>157</u></strong></li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Decimal to Binary Conversion</h2>
+						<h3>Example: 225</h3>
+						<small>
+							<table>
+								<tr>
+									<td><strong>Division</strong></td>
+									<td><strong>Quotient</strong></td>
+									<td><strong>Remainder</strong></td>
+								</tr>
+								<tr>
+									<td>225/2</td>
+									<td>112</td>
+									<td><span style="color: red;">1</span></td>
+								</tr>
+								<tr>
+									<td>112/2</td>
+									<td>56</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td>56/2</td>
+									<td>28</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td>28/2</td>
+									<td>14</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td>14/2</td>
+									<td>7</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td>7/2</td>
+									<td>3</td>
+									<td>1</td>
+								</tr>
+								<tr>
+									<td>3/2</td>
+									<td>1</td>
+									<td>1</td>
+								</tr>
+								<tr>
+									<td>1/2</td>
+									<td>0</td>
+									<td>1</td>
+								</tr>
+							</table>
+						</small>
+						<p><strong>Result</strong>: 1110000<span style="color: red;">1</span></p>
+					</section>
+					<section>
+						<h2>Decimal to Binary Conversion</h2>
+						<h3>Example: 8</h3>
+						<small>
+							<table>
+								<tr>
+									<td><strong>Division</strong></td>
+									<td><strong>Quotient</strong></td>
+									<td><strong>Remainder</strong></td>
+								</tr>
+								<tr>
+									<td>8/2</td>
+									<td>4</td>
+									<td><span style="color: red;">0</span></td>
+								</tr>
+								<tr>
+									<td>4/2</td>
+									<td>2</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td>2/2</td>
+									<td>1</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td>1/2</td>
+									<td>0</td>
+									<td>1</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>0</td>
+								</tr>
+							</table>
+						</small>
+						<p><strong>Result</strong>: 0000100<span style="color: red;">0</span></p>
+					</section>
+					<section>
+						<h2>Decimal to Binary Conversion</h2>
+						<h3>Example: 77</h3>
+						<small>
+							<table>
+								<tr>
+									<td><strong>Division</strong></td>
+									<td><strong>Quotient</strong></td>
+									<td><strong>Remainder</strong></td>
+								</tr>
+								<tr>
+									<td>77/2</td>
+									<td>38</td>
+									<td><span style="color: red;">1</span></td>
+								</tr>
+								<tr>
+									<td>38/2</td>
+									<td>19</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td>19/2</td>
+									<td>9</td>
+									<td>1</td>
+								</tr>
+								<tr>
+									<td>9/2</td>
+									<td>4</td>
+									<td>1</td>
+								</tr>
+								<tr>
+									<td>4/2</td>
+									<td>2</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td>2/2</td>
+									<td>1</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td>1/2</td>
+									<td>0</td>
+									<td>1</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>0</td>
+								</tr>
+							</table>
+						</small>
+						<p><strong>Result</strong>: 0100110<span style="color: red;">1</span></p>
+					</section>
+				</section>
+
+				<section>
+					<h2>IPv4: Bin to Dotted Decimal</h2>
+					<img src="http://i.imgur.com/ppJNSCo.jpg">
+					<ol>
+						<li>Group the 32 bits into 4 octects.</li>
+						<li>Convert each octet to decimal.</li>
+						<li>Add a '.' (dot) between each decimal.</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>IPv4: Dotted Decimal to Bin</h2>
+					<table>
+						<tr>
+							<td><strong>Base<sup>exp</sup></strong></td>
+							<td>2<sup>7</sup></td>
+							<td>2<sup>6</sup></td>
+							<td>2<sup>5</sup></td>
+							<td>2<sup>4</sup></td>
+							<td>2<sup>3</sup></td>
+							<td>2<sup>2</sup></td>
+							<td>2<sup>1</sup></td>
+							<td>2<sup>0</sup></td>
+						</tr>
+						<tr>
+							<td><strong>Weight</strong></td>
+							<td>128</td>
+							<td>64</td>
+							<td>32</td>
+							<td>16</td>
+							<td>8</td>
+							<td>4</td>
+							<td>2</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td><strong>Bin</strong></td>
+							<td>?</td>
+							<td>?</td>
+							<td>?</td>
+							<td>?</td>
+							<td>?</td>
+							<td>?</td>
+							<td>?</td>
+							<td>?</td>
+						</tr>
+					</table>
+					<ol>
+						<li>Is the decimal number > or = than the MSB (128)?</li>
+						<ul>
+							<li>If yes, put "1" in the MSB and subtract it from the number.</li>
+							<li>If no, put "0" in the MSB.</li>
+						</ul>
+						<li>Move to the next (less significant) position and repeat with the remainder.</li>
+						<li>Repeat until you have exhausted all bit positions.</li>
+						<li>Repeat for all 4 decimals.</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Bit-wise Operation: Logic AND</h2>
+					<table>
+						<tr>
+							<td><strong>Operation</strong></td>
+							<td><strong>Result</strong></td>
+						</tr>
+						<tr>
+							<td>0 AND 0</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>0 AND 1</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>1 AND 0</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>1 AND 1</td>
+							<td>0</td>
+						</tr>
+					</table>
+					<ul>
+						<li>1011 AND 0010 = 0010</li>
+						<li>1011011 AND 1111010 = 1011010</li>
+						<li>10011 AND 11111 = 10011</li>
+						<li>10011 AND 00000 = 00000</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Bit-wise Operation: Logic OR</h2>
+					<table>
+						<tr>
+							<td><strong>Operation</strong></td>
+							<td><strong>Result</strong></td>
+						</tr>
+						<tr>
+							<td>0 OR 0</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>0 OR 1</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>1 OR 0</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>1 OR 1</td>
+							<td>1</td>
+						</tr>
+					</table>
+					<ul>
+						<li>0100 OR 0010 = 0110</li>
+						<li>1011011 OR 1111010 = 1111011</li>
+						<li>10011 OR 11111 = 11111</li>
+						<li>10011 OR 00000 = 10011</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Bit-wise Operation: Logic NOT</h2>
+					<table>
+						<tr>
+							<td><strong>Operation</strong></td>
+							<td><strong>Result</strong></td>
+						</tr>
+						<tr>
+							<td>NOT 0</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>NOT 1</td>
+							<td>0</td>
+						</tr>
+					</table>
+					<ul>
+						<li>NOT 10110010 = 01001101</li>
+						<li>NOT 110101 = 001010</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Hexadecimal Numbering System</h2>
+					<img src="http://i.imgur.com/37LF4pU.gif" style="float: right;">
+					<p>Base-16 is a perfect number system to use in technology because <u>any of the 0-F digits represent a group of 4 bits</u>.</p>
+					<p>This means that <strong>a common grouping such as 1 byte (8 bits) can be represented in <em>hex</em> with the range 00-FF</strong>.</p>
+					<p><em>Hex</em> numbers are usually represented by preceding the value with "0x". For instance, the number 7A (122 in decimal) is represented in hex with 0x7A, 7AH, or 7A<sub>16</sub>.</p>
+				</section>
+
+				<section>
+					<h2>Hex Conversions</h2>
+					<ul>
+						<li><strong>Hex to Binary</strong>: just convert each hex digit into its binary 4-bits values and write them one after the other.</li>
+						<li><strong>Binary to Hex</strong>: split the binary number into 4-bits groups and convert them into their hex values, and write them one after the other.</li>
+						<li><strong>Hex to Decimal</strong>: use the positional system or convert first to binary and then to decimal.</li>
+						<li><strong>Decimal to Hex</strong>: use the repeated divisions-by-16 method (write down the remainders in hex digits, e.g. "C" for a remainder of 12), or convert first to binary and then to Hex.</li>
+					</ul>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
