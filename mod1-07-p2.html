@@ -168,21 +168,21 @@ Compressed - ::1</code></pre>
 
 				<section>
 					<section>
-						<h2>Types of IPv6 (Unicast) Addresses</h2>
-						<p>Like in IPv4, in IPv6 transmissions the <strong>source address must be an unicast address</strong> that uniquely identifies that interface.</p>
-						<p>There are 6 types of IPv6 Unicast addresses:</p>
+						<h2>IPv6 Unicast Addresses</h2>
+						<p>As in IPv4, in IPv6 transmissions the <strong>source address must be an unicast address</strong> that uniquely identifies that interface.</p>
+						<p>There are 6 types of IPv6 unicast addresses:</p>
 						<ul>
-							<li><strong>Global Unicast</strong>: Similar to public IPv4 Internet addresses.</li>
-							<li><strong>Link-Local</strong>: Used only for tranmission to other IPv6 hosts on the same link (synonym to subnet)  They only must be unique in a single link, because IPv6 router will never forward packets with link-local addresses.  Their range is <code>FE80::/10</code> - <code>FEBF::/10</code></li>
+							<li><strong>Global Unicast</strong>: Similar to <u>public</u> IPv4 Internet addresses.</li>
+							<li><strong>Link-Local</strong>: Used only for tranmission to other IPv6 hosts on the same link (subnet). They only must be unique in a single link, because <u>IPv6 router will never forward packets with link-local addresses</u>.  Their range is <code>FE80::/10</code> - <code>FEBF::/10</code></code></li>
 							<li><strong>Loopback</strong>: The IPv6 loopback address is <code>::1/128</code> or <code>::1</code>.</li>
-							<li><strong>Unspecified</strong>: It's the all-0s address, <code>::/128</code> or <code>::</code>. It can't be assigned, and it's only used as source address by hosts yet to have IPv6 configuration or when the source is irrelevant.</li>
 						</ul>
 					</section>
 					<section>
-						<h2>Types of IPv6 (Unicast) Addresses</h2>
+						<h2>IPv6 Unicast Addresses</h2>
 						<ul>
-							<li><strong>Unique Local (ULA)</strong>: They are the IPv6 counterpart of RFC 1918 Private Addresses. ULAs are available for use in private networks, inside a single site or organization or spanning a limited number of sites. They are not routable in the global IPv6 Internet. The allocated block for ULAs is <code>fc00::/7</code> - <code>fdff::/7</code></li>
-							<li><strong>IPv4 Embedded</strong>: a particular type of address to help the transition from IPv4 to IPv6. They are, in fact, IPv6 addresses that contain an IPv4 address in the last 4 bytes.</li>
+							<li><strong>Unspecified</strong>: It's the <u>all-0s address</u>, <code>::/128</code> or <code>::</code>. It can't be assigned, and only used as source address by hosts yet to have IPv6 configured or when the source is irrelevant.</li>
+							<li><strong>Unique Local (ULA)</strong>: They are the <u>IPv6 counterpart of RFC 1918 Private Addresses</u>. ULAs are available for use in private networks, inside a single site or organization or spanning a limited number of sites. They are not routable in the global IPv6 Internet. The allocated block for ULAs is <code>fc00::/7</code> - <code>fdff::/7</code></li>
+							<li><strong>IPv4 Embedded</strong>: a particular type of address to help the transition from IPv4 to IPv6. They are, in fact, <u>IPv6 addresses that contain an IPv4 address</u> in the last 4 bytes.</li>
 						</ul>
 					</section>
 				</section>
