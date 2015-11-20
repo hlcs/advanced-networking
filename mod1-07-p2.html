@@ -209,23 +209,25 @@ Compressed - ::1</code></pre>
 							<li><strong>Subnet ID</strong>: A field available for assignees of a GRP block to define their subnets/sites. GRP + Subnet ID must be 64 bits. This makes <strong>/64 the most used subnet mask</strong> for final users.</li>
 							<li><strong>Interface ID</strong>: Equivalent to the host portion of IPv4. It's called a generic "ID" because IPv6 can have multiple global addresses on multiple interfaces.</li>
 						</ul>
+					</section>
+					<section>
+						<h2>IPv6 Global Unicast Address</h2>
 						<p>Unlike IPv4, in IPv6 it is possible to assign to hosts:</p>
 						<ul>
-							<li><strong>All 1s addresses</strong>, because IPv6 has no broadcast address.</li>
+							<li><strong>All-1s addresses</strong>, because IPv6 has no broadcast address.</li>
 							<li><strong>All-0s addresses</strong>, but they are reserved as anycast Subnet-routers address.</li>
 						</ul>
 					</section>
 				</section>
 
 				<section>
-					<h2>Configuring Static IPv6 Global Address</h2>
-					<p>Static configuration on <strong>Cisco routers</strong> is almost identical to IPv4, except the command is <code>ipv6 address/prefix</code> (no spaces).</p>
+					<h2>Configure Static IPv6 Global Address</h2>
+					<p>Static configuration on <strong>Cisco routers</strong> is almost identical to IPv4, except the command is <code>ipv6 {address/prefix}</code>.</p>
 					<pre><code class="bash">R1(config)# interface gigabitethernet 0/0
 R1(config-if)# ipv6 address 2001:db8:acad:1::1/64
 R1(config-if)# no shutdown
 R1(config-if)# exit</code></pre>
-					<p><strong>On a host</strong> the configuration is identical, except you will use IPv6 addresses and prefixes.</p>
-					<p>You can also use the <strong>link-local address of the default gateway</strong>.</p>
+					<p><strong>On a host</strong> the configuration is identical to IPv4, except it's IPv6 addresses and prefixes. The <strong>default gateway can be configured with its link-local address</strong>.</p>
 					<p>For automatic configuration of IPv6 addresses, there are two different ways: <strong>SLAAC and DHCPv6</strong>.</p>
 				</section>
 
