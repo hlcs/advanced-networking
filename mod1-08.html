@@ -100,19 +100,19 @@
 					<section>
 						<h2>Subnetting 192.168.1.0/24</h2>
 						<h3>2 Subnets</h3>
-						<pre><code class="no-highlight">                                          1 bit borrowed
-                                          ▼
-                             NNN.NNN.NNN. HHHHHHHH
-Original Network Address     192.168.  1. 00000000 = 192.168.1.0/24
-Original Subnet Mask         255.255.255. 00000000 = 255.255.255.0</code></pre>
+						<pre><code class="no-highlight">                                       1 bit borrowed
+                                       ▼
+                          NNN.NNN.NNN. HHHHHHHH
+Original Network Address  192.168.  1. 00000000 = 192.168.1.0/24
+Original Subnet Mask      255.255.255. 00000000 = 255.255.255.0</code></pre>
 						<p>By <strong>borrowing 1 bit</strong> we can create 2 different network addresses, and thus 2 different subnets.</p>
-						<pre><code class="no-highlight">                             NNN.NNN.NNN. NHHHHHHH
-Subnet 0 Network Address     192.168.  1. 00000000 = 192.168.1.0/25
-Subnet 1 Network Address     192.168.  1. 10000000 = 192.168.1.128/25
-New Subnet Mask              255.255.255. 10000000 = 255.255.255.128</code></pre>
+						<pre><code class="no-highlight">                          NNN.NNN.NNN. NHHHHHHH
+Subnet 0 Network Address  192.168.  1. 00000000 = 192.168.1.0/25
+Subnet 1 Network Address  192.168.  1. 10000000 = 192.168.1.128/25
+New Subnet Mask           255.255.255. 10000000 = 255.255.255.128</code></pre>
 						<ul>
 							<li>You always <strong>start borrowing from the MSB</strong> of the host portion.</li>
-							<li><strong>Subnet mask is the same for every subnet</strong>.</li>
+							<li><strong>Subnet mask is the same for every generated subnet</strong>.</li>
 						</ul>
 					</section>
 					<section>
