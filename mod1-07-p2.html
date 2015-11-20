@@ -275,14 +275,18 @@ R1(config-if)# exit</code></pre>
 				</section>
 
 				<section>
-					<h2>Link-Local Addresses Generation</h2>
-					<p>The link-local addresses can be <strong>dynamically generated</strong> by appending the Interface ID to the FE80::/64 network prefix.</p>
-					<p>E.g, <code>fe80:0000:0000:0000:ea11:32ff:fe4e:486b</code>.</p>
-					<p>But because a MAC rarely contains many 0s, <strong>the resulting link-local address will be very long</strong> and uncompressable.</p>
-					<p>By <strong>statically</strong> providing link-local addresses we can make them way more easier to read. On Cisco routers:</p>
-					<pre><code class="bash">Router(config-if)# ipv6 address [link-local-address] link-local </code></pre>
-					<p>Because they must be unique only over the same link, <strong>we can use the same link-local address on all the router interfaces</strong>:</p>
-					<pre><code class="bash" style="height: 100px;">Router(config)#interface g0/0
+					<section>
+						<h2>Link-Local Addresses Generation</h2>
+						<p>The link-local addresses can be <strong>dynamically generated</strong> by appending the Interface ID to the FE80::/64 network prefix.</p>
+						<p>Example: <code>fe80:0000:0000:0000:ea11:32ff:fe4e:486b</code>.</p>
+						<p>But because a MAC rarely contains many 0s, <strong>the resulting link-local address will be very long</strong> and uncompressable.</p>
+						<p>By <strong>statically</strong> providing link-local addresses we can make them way more easier to read. On Cisco routers:</p>
+						<pre><code class="bash">Router(config-if)# ipv6 address [link-local-address] link-local </code></pre>
+					</section>
+					<section>
+						<h2>Link-Local Addresses Generation</h2>
+						<p>Because they must be unique only over the same link, <strong>we can use the same link-local address on all the router interfaces</strong>:</p>
+						<pre><code class="bash">Router(config)#interface g0/0
 Router(config-if)# ipv6 address fe80::1 link-local
 Router(config-if)# exit
 Router(config)#interface g0/1
