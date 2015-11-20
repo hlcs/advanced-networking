@@ -55,12 +55,11 @@
 					<h2>Why Subnetting?</h2>
 					<p><strong>Subnetting</strong> is the deepening of the network/host hierarcy into a network/<em>subnet(s)</em>/host one.</p>
 					<p><small>The terms <em>network</em> and <em>subnet</em> both identify computer networks. <em>Subnet</em> is just used to imply that we are talking about <strong>a part of some larger address space</strong>.</small></p>
-					<p>There are many reason for subnetting some address block:</p>
 					<ul>
-						<li><strong>Optimizing address space usage</strong> by wasting less addresses.</li>
-						<li>With a minimized definition of "local", we can <strong>reduce broadcast</strong> traffic.</li>
+						<li><strong>Optimizing address space usage</strong> by wasting less.</li>
+						<li>By minimizing the definition of "local", we can <strong>reduce broadcast</strong> traffic.</li>
 						<li>A <strong>better packet delivery</strong> can be achieved by providing more network targets to meet our routing requirements. This is called <em>network segmentation</em>.</li>
-						<li>Creating more targets to define our policies against  can also <strong>improve security</strong>.</li>
+						<li>Creating more targets against which to define our policies can also <strong>improve security</strong>.</li>
 					</ul>
 				</section>
 
@@ -68,7 +67,7 @@
 					<h2>Subnetting and Routing</h2>
 					<p>Subnetting means taking a <strong>single network address</strong> and partitioning it into <strong>multiple logical networks</strong>.</p>
 					<p>Subnets <strong>are</strong> networks, so as with any multiple networks <strong>you need routing</strong> to exchange traffic between subnets.</p>
-					<p>Like in every network, for every subnet you need to configure:</p>
+					<p>As in every network, for every subnet you need to configure:</p>
 					<ul>
 						<li>every host with <strong>network address, subnet mask and default gateway</strong> appropriate to the subnet they belong to.</li>
 						<li>the router interface that is part of the subnet with <strong>an IPv4 address that belongs to the subnet</strong> range.</li>
@@ -90,8 +89,8 @@
 
 				<section>
 					<h2>Subnetting = Borrowing Bits</h2>
-					<p>Network address = Network part + host part, distinguished thanks to the subnet mask (or prefix).</p>
-					<p>Subnets are created by <strong>taking one or more bits of the host part</strong> and making them "network bits".</p>
+					<p>Network address = Network part + all-0s host part, distinguished thanks to the subnet mask (or prefix).</p>
+					<p><u>Subnets are created by <strong>taking one or more bits of the host part</strong> and making them "network bits"</u>.</p>
 					<p>The <strong>subnet mask is expanded to account for the bits <em>borrowed</em></strong> from the host portion (previously 0s in the mask) that are now part of the network portion (becoming 1s).</p>
 					<p><strong>The more bits are borrowed the more subnets are created</strong>, but with each additional subnet the addresses available decrease. Each borrowed bit <strong>doubles the subnets and halves the addresses</strong>.</p>
 					<p>That is, an <strong>inverse relationship</strong> between the number of subnets and the number of hosts.</p>
