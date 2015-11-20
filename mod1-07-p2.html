@@ -54,18 +54,43 @@
 				<section>
 					<section>
 						<h2>Transition to IPv6</h2>
-					<p>We discussed several reasons (address space exhaustion, performances, extendibility) why an upgrade to the IPv4 was badly needed.</p>
+					<p>An upgrade from IPv4 was badly needed for several reasons (address space exhaustion, performances, extendibility).</p>
 					<p>This upgrade is <strong>IPv6</strong> and has been in the works since 1993 and has been ready for several year.</p>
 					<p>However the transition from IPv4 to IPv6 will be slow and take years, so for a long time <strong>the two protocols will coexist</strong>, thanks to several <strong>transition mechanisms</strong>:</p>
 					<ul>
-						<li><strong>Dual Stack</strong>: every host on the network runs both protocols.</li>
-						<li><strong>Tunneling</strong>: the IPv6 packet is encapsulated inside an IPv4 one.</li>
-						<li><strong>Translation</strong>: NAT64 translates IPv4 packet into IPv6 packets, and viceversa.</li>
+						<li><strong>Dual Stack</strong>: every host on the network runs both IPv4/6.</li>
+						<li><strong>Tunneling</strong>: IPv6 packets encapsulated inside IPv4 packets.</li>
+						<li><strong>Translation</strong>: NAT64 translates IPv4 packets into IPv6 packets, and viceversa.</li>
 					</ul>
 					</section>
 					<section>
-						<h2>Transition to IPv6</h2>
-						<img src="http://i.imgur.com/vjOBHaV.jpg">
+						<h2>Transition to IPv6: Dual Stack</h2>
+						<img src="https://i.imgur.com/k3f0jsb.jpg">
+						<ul>
+							<li>If (an) <u>entire route between two networks</u> runs <strong>both IPv4/IPv6</strong>, their hosts can use IPv6-only between them.</li>
+							<li>For two networks, <strong>IPv6 routing could use different routes than IPv4</strong> routing.</li>
+							<li>IPv6 is growing, but <strong>only a fraction of the Internet is running on IPv6</strong>.</li>
+							<li>As of now, even if the entire path is dual stack, often <strong>IPv4 has priority</strong> (it's just easier this way).</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Transition to IPv6: Tunneling</h2>
+						<img src="https://i.imgur.com/GhiQBhC.jpg">
+						<ul>
+							<li>To traverse an IPv4-only network, a tunnel is created that <strong>makes it transparent to dual-stack hosts</strong>.</li>
+							<li>It's an IP-IP tunnel, precisely an <em>IPv6-in-IPv4</em> tunnel.</li>
+							<li><u>IPv6 packets are encapsulated inside IPv4 packets</u>, which are able to traverse the IPv4-only networks.</li>
+							<li>At the end of the tunnel, the (de-encapsulated) IPv6 layer 3 takes the place of the IPv4 L3.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Transition to IPv6: NAT64</h2>
+						<img src="https://i.imgur.com/cMLFJfE.jpg">
+						<ul>
+							<li>If IPv4 hosts need <strong>to traverse IPv6-only networks</strong>, an <em>IPv4-in-IPv6</em> tunnel is definitely a possibility.</li>
+							<li>However, IPv6 has an explicit <strong>translation capability</strong> that can be used for this purpose: <strong>NAT64</strong> translates IPv4 addresses into corresponding IPv6 addresses.</li>
+							<li>Notice that <u>NAT64 is not about preserving addresses</u>, as it's the case with NAT for IPv4.</li>
+						</ul>
 					</section>
 				</section>
 
