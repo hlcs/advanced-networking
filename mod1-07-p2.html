@@ -234,32 +234,43 @@ R1(config-if)# exit</code></pre>
 				<section>
 					<section>
 						<h2>Stateless Address Autoconfiguration</h2>
-						<p>Hosts that use <strong>SLAAC</strong> rely on special, periodic messages from local IPv6 Routers called <em>ICMPv6 Router Advertisement (RA)</em>.</p>
-						<p>Hosts don't have to wait for a RA, but <strong>they can send a <em>Router Solicitation (RS)</em> message</strong> to local router(s), that will respond immediately with a RA.</p>
-						<p>RA contains everything hosts need: <strong>prefix, prefix length, default gateway</strong>. But also one of these 3 responses:</p>
+						<p>Hosts using <strong>SLAAC</strong> rely on special, periodic messages from local IPv6 Routers called <em>ICMPv6 Router Advertisement (RA)</em>.</p>
+						<p>Hosts don't have to wait for a RA, but <strong>they can send a <em>Router Solicitation (RS)</em> message</strong> to local router(s).</p>
+						<p>RA contains everything hosts need: <strong>prefix, prefix length, default gateway</strong>. But also one of 3 possible responses:</p>
+					</section>
+					<section>
+						<h2>Stateless Address Autoconfiguration</h2>
 						<ul>
-							<li><strong>SLAAC only</strong>: <em>Don't count on a DHCPv6 server</em>.</li>
-							<li><strong>SLAAC + DHCPv6</strong>: <em>Other infos available from a DHCPv6 Server</em>.</li>
-							<li><strong>DHCPv6 only</strong>: <em>Please rely exclusively on the DHCPv6 Server</em>.</li>
+							<li><strong>SLAAC only</strong> (Option 1): <em>Don't count on a DHCPv6 server</em>.</li>
+							<li><strong>SLAAC + DHCPv6</strong> (Option 2): <em>Other infos available from a DHCPv6 Server</em>.</li>
+							<li><strong>DHCPv6 only</strong> (Option 3): <em>Please rely exclusively on the DHCPv6 Server</em>.</li>
 						</ul>
 						<p>RA messages, and the default gateway information they contain, use the <strong>link-local IPv6 address</strong> of the router.</p>
 					</section>
 					<section>
 						<h2>DHCPv6</h2>
 						<p>The DHCP for IPv6 can provide hosts with <strong>a global unicast address, prefix length, default gateway and DNS servers</strong>.</p>
-						<p>An host can receive <strong>none, some, or all</strong> this informations from a DHCPv6 Server, depending on the option specified in the RA.</p>
+						<p>An host can use <strong>none, some, or all</strong> theses informations, depending on the option specified in RAs:</p>
 						<ul>
 							<li>With <strong>Option 1</strong>, SLAAC only, a DHCPv6 server is absent.</li>
 							<li>With <strong>Option 2</strong>, SLAAC+DHCPv6, DHCPv6 operates in <strong>stateless mode</strong>: it just provides DNS servers and doesn't keep track of allocated IPv6 addresses.</li>
 							<li>With <strong>Option 3</strong>, DHCPv6 only, it behaves in the same <strong>stateful mode</strong> DHCPv4 does, keeping track of allocated resources.</li>
 						</ul>
-						<p>When in DHCPv6-only, the server will provide the entire IPv6 address to the clients. When SLAAC is involved, <strong>the client must generate its own 64-bit interface ID</strong>.</p>
+					</section>
+					<section>
+						<h2>IPv6 Address Generation</h2>
+						<ul>
+							<li>With DHCPv6-only, the server will provide <strong>the entire IPv6 address</strong> to the clients.</li>
+							<li>With SLAAC, <strong>the client must generate its own 64-bit interface ID</strong>.</li>
+							<ul>
+								<li>With the <em>Extended Unique Identifier</em> process, an host can calculate the <em>Interface ID</em> <strong>based on its own MAC address</strong>.</li>
+								<li>An host can also <strong>randomly calculate</strong> the Interface ID.</li>
+							</ul>
+						</ul>
 					</section>
 					<section>
 						<h2>EUI-64</h2>
-						<img src="http://i.imgur.com/08FYCF9.png">
-						<p>With the <em>Extended Unique Identifier</em> process, an host can calculate the <em>Interface ID</em> <strong>based on its own MAC address</strong>.</p>
-						<p>An host can also <strong>randomly calculate</strong> the Interface ID.</p>
+						<img src="http://i.imgur.com/08FYCF9.png" style="width: 850px;">
 					</section>
 				</section>
 
