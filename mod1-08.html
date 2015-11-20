@@ -92,8 +92,7 @@
 					<p>Network address = Network part + all-0s host part, distinguished thanks to the subnet mask (or prefix).</p>
 					<p><u>Subnets are created by <strong>taking one or more bits of the host part</strong> and making them "network bits"</u>.</p>
 					<p>The <strong>subnet mask is expanded to account for the bits <em>borrowed</em></strong> from the host portion (previously 0s in the mask) that are now part of the network portion (becoming 1s).</p>
-					<p><strong>The more bits are borrowed the more subnets are created</strong>, but with each additional subnet the addresses available decrease. Each borrowed bit <strong>doubles the subnets and halves the addresses</strong>.</p>
-					<p>That is, an <strong>inverse relationship</strong> between the number of subnets and the number of hosts.</p>
+					<p><strong>The more bits are borrowed the more subnets are created</strong>, but with each additional subnet the available addresses decrease. Each borrowed bit <strong>doubles the subnets and halves the addresses</strong>.</p>
 				</section>
 
 				<section>
@@ -263,22 +262,20 @@ Subnet4 Broadcast Addr. 192.168.  3. 100 11111 = 192.168.3.159</code></pre>
 					<section>
 						<h2>100 Subnets?</h2>
 						<h3>172.20.0.0/16</h3>
-						<pre><code class="no-highlight">                                     ▾▾▾▾▾▾▾
-                             NNN.NNN.HHHHHHH H.HHHHHHHH
-Original Network Address     172. 20.0000000 0.00000000 = 172.20.0.0/16
-Original Subnet Mask         255.255.0000000 0.00000000 = 255.255.0.0
+						<pre><code class="no-highlight">                              ▾▾▾▾▾▾▾
+                      NNN.NNN.HHHHHHH H.HHHHHHHH
+Original Network Add. 172. 20.0000000 0.00000000 = 172.20.0.0/16
+Original Subnet Mask  255.255.0000000 0.00000000 = 255.255.0.0
+                      NNN.NNN.NNNNNNN H.HHHHHHHH
+New Subnet Mask       255.255.1111111 0.00000000 = 255.255.254.0
 
-                             NNN.NNN.NNNNNNN H.HHHHHHHH
-New Subnet Mask              255.255.1111111 0.00000000 = 255.255.254.0
-
-Subnet 0 Network Address     172. 20.0000000 0.00000000 = 172.20.0.0/23
-Subnet 1 Network Address     172. 20.0000001 0.00000000 = 172.20.2.0/23
-Subnet 2 Network Address     172. 20.0000010 0.00000000 = 172.20.4.0/23
-Subnet 3 Network Address     172. 20.0000011 0.00000000 = 172.20.6.0/23
-[..................................CUT..................................]
-Subnet 126 Network Address   172. 20.1111110 0.00000000 = 172.20.0.252/23
-Subnet 127 Network Address   172. 20.1111111 0.00000000 = 172.20.0.254/23</code></pre>
-						<p>Subnetting is done in the 3rd octect, <strong>host bits share part of the 3rd</strong> and have the 4th octect.</p>
+Subnet0 Network Addr. 172. 20.0000000 0.00000000 = 172.20.0.0/23
+Subnet1 Network Addr. 172. 20.0000001 0.00000000 = 172.20.2.0/23
+Subnet2 Network Addr. 172. 20.0000010 0.00000000 = 172.20.4.0/23
+Subnet3 Network Addr. 172. 20.0000011 0.00000000 = 172.20.6.0/23
+Subnet126 Netw. Addr. 172. 20.1111110 0.00000000 = 172.20.0.252/23
+Subnet127 Netw. Addr. 172. 20.1111111 0.00000000 = 172.20.0.254/23</code></pre>
+						<p>Subnetting is done in the 3rd octect, <strong>host bits share part of the 3rd</strong>, plus the whole 4th octect.</p>
 						<p>Total hosts per subnet: 2<sup>9</sup> - 2 = 512 - 2 = 510.</p>
 					</section>
 				</section>
@@ -286,84 +283,81 @@ Subnet 127 Network Address   172. 20.1111111 0.00000000 = 172.20.0.254/23</code>
 				<section>
 					<section>
 						<h2>5000+ Hosts?</h2>
-						<p>Let's say we need subnets capable of supporting more than 5000 hosts. The formulas say we would:</p>
+						<p>Let's say we need subnets capable of &gt; 5000 hosts. We:</p>
 						<ul>
-							<li>need at least <strong>13 bits</strong> left in the host part, <strong>after</strong> the subnetting borrows (2<sup>13</sup> - 2 = 8190 > 5000).</li>
+							<li>need at least <strong>13 bits</strong> left in the host part, <strong>after</strong> the subnetting borrowings (2<sup>13</sup> - 2 = 8190 > 5000).</li>
 							<li>be left with <strong>just 3 bits to borrow</strong> for subnetting, in a /16 space. This amounts to just 2<sup>3</sup> = 8 subnets.</li>
 						</ul>
-						<p>This could very well not be enough for most needs. <strong>The solution is to start from a larger block</strong>, like the 10.0.0.0/8 private space.</p>
-						<p>In a "10/8", after reserving the last 13 bits for our 5000+ hosts, we are left with 11 bits to borrow for subnetting. That's 2<sup>11</sup> = 2048 possible subnets with a /19 prefix (255.255.224.0).</p>
+						<p>This could very well not be enough for most needs. <strong>The solution is to start from a larger block</strong>, like 10.0.0.0/8.</p>
+						<p>In a "10/8", after reserving the last 13 bits for our 5000+ hosts, we are left with 11 bits to borrow for subnetting. That's 2<sup>11</sup> = 2048 subnets with a /19 prefix (255.255.224.0).</p>
 					</section>
 					<section>
 						<h2>5000+ Hosts?</h2>
-						<pre><code class="no-highlight">                               ▾▾▾▾▾▾▾▾ ▾▾▾
-                           NNN.HHHHHHHH.HHH HHHHH.HHHHHHHH
-Original Network Address    10.00000000.000 00000.00000000 = 10.0.0.0/8
-Original Subnet Mask       255.00000000.000 00000.00000000 = 255.255.255.0
+						<pre><code class="no-highlight">                        ▾▾▾▾▾▾▾▾ ▾▾▾
+                    NNN.HHHHHHHH.HHH HHHHH.HHHHHHHH
+Original Net. Addr.  10.00000000.000 00000.00000000 = 10.0.0.0/8
+Original Mask       255.00000000.000 00000.00000000 = 255.255.255.0
 
+New Subnet Mask     255.11111111.111 00000.00000000 = 255.255.224.0
 
-New Subnet Mask            255.11111111.111 00000.00000000 = 255.255.224.0
-
-                           NNN.NNNNNNNN.NNN HHHHH.HHHHHHHH
-Subnet 0 Network Address    10.00000000.000 00000.00000000 = 10.0.0.0/19
-Subnet 1 Network Address    10.00000000.001 00000.00000000 = 10.0.32.0/19
-Subnet 2 Network Address    10.00000000.010 00000.00000000 = 10.0.64.0/19
-[...................................CUT...................................]
-Subnet 2045 Network Address 10.11111111.101 00000.00000000 = 10.255.160.0/19
-Subnet 2046 Network Address 10.11111111.110 00000.00000000 = 10.255.192.0/19
-Subnet 2047 Network Address 10.11111111.111 00000.00000000 = 10.255.224.0/19</code></pre>
+                    NNN.NNNNNNNN.NNN HHHHH.HHHHHHHH
+Subnet0 Net. Addr.   10.00000000.000 00000.00000000 = 10.0.0.0/19
+Subnet1 Net. Addr.   10.00000000.001 00000.00000000 = 10.0.32.0/19
+Subnet2 Net. Addr.   10.00000000.010 00000.00000000 = 10.0.64.0/19
+[..............................CUT...............................]
+Subnet2045 Net.Addr. 10.11111111.101 00000.00000000 = 10.255.160.0/19
+Subnet2046 Net.Addr. 10.11111111.110 00000.00000000 = 10.255.192.0/19
+Subnet2047 Net.Addr. 10.11111111.111 00000.00000000 = 10.255.224.0/19</code></pre>
 					</section>
 				</section>
 
 				<section>
 					<h2>Subnetting "Short Blanket"</h2>
-					<p>The <strong>key to basic subnetting</strong> is to balance the number of subnets, and hosts for each subnet, based on our requirements.</p>
+					<p>The <strong>key to basic subnetting</strong> is to balance number of subnets, and hosts for each, based on requirements.</p>
 					<ul>
-						<li>Start by determining the <strong>total number of hosts</strong> to be served. This will give you an hint about <strong>which starting address space</strong> you will need.</li>
+						<li>Start by determining the <strong>total number of hosts</strong> to serve. This will hint at the <strong> starting address space</strong> you need.</li>
 						<li>Analize how your network is organized to <strong>determine the number of subnetworks you need</strong>. Think about possibile <strong>future segmentations</strong>.</li>
 						<li>Determine the <strong>highest number of host you will have on a single subnet</strong>. Try to think about if and how much this number will <strong>grow in the foreseeable future</strong>.</li>
-						<li>The last two points are <strong>the data you need to choose</strong> how many bits to borrow and how many host bits to "leave alone".</li>
+						<li>Now you have <strong>the data you need to choose</strong> how many bits to borrow and how many host bits to "leave alone".</li>
 					</ul>
 				</section>
 
 				<section>
-					<h2>VLSM: Variable Length Subnet Mask</h2>
-					<p><strong>With basic subnetting, every subnet has the same size</strong>. When the number of hosts needed in each is very different, that would lead to significant <strong>waste and unused addresses</strong>.</p>
-					<p>Subnets too large for the actual requirements will also <strong>limit growth</strong> by needlessly reducing the number of available subnets.</p>
-					<p>The solution to these scenarios is a subnetting method called <em>Variable Length Subnet Mask (VLSM)</em>.</p>
+					<h2>Variable Length Subnet Mask</h2>
+					<p><strong>With basic subnetting, every subnet has the same size</strong>. <u>When the number of hosts needed in each is very different</u>, that would lead to significant <strong>waste and unused addresses</strong>.</p>
+					<p>Subnets too large for the actual need will also <strong>limit growth</strong> by reducing the number of available subnets.</p>
+					<p>The solution to these scenarios is a <strong>subnetting method</strong> called <em>Variable Length Subnet Mask (VLSM)</em>.</p>
 					<p>It does what the name says: the number of bits borrowed (hence, the subnet mask) <strong>varies with each subnet</strong>.</p>
 				</section>
 
 				<section>
 					<h2>How does VLSM work?</h2>
 					<img src="http://i.imgur.com/8JdgAJz.png">
-					<p>With VLSM:</p>
 					<ul>
 						<li>you still borrow bits to create subnets.</li>
 						<li>the subnetting formulas are still valid.</li>
 					</ul>
-					<p>The difference is that <strong>it's not a single-pass process</strong> anymore:</p>
+					<p>The difference is <strong>it's not a single-pass process</strong> anymore:</p>
 					<ul>
-						<li>The network is subnetted, and <strong>subnets are subnetted again</strong>.</li>
-						<li>This <strong>process is repeated</strong> to create the various size needed.</li>
+						<li>The network is subnetted, and <strong>subnets are subnetted again</strong>, creating differently-sized subnets.</li>
+						<li>The <strong>process is repeated</strong> as needed.</li>
 					</ul>
 				</section>
 
 				<section>
 					<section>
 						<h2>VLSM Scenario</h2>
-						<img src="http://i.imgur.com/QMjXJ6M.jpg">
-						<p>We need 9 subnets, so 4 bits to borrow: a /24 network into 16 subnets with a /28 prefix, each capable of 14 hosts.</p>
+						<img src="http://i.imgur.com/QMjXJ6M.jpg" style="width: 550px;">
+						<p><u>Starting from a /24</u>: we need 9 subnets, so 4 bits to borrow. It means 16 subnets with a /28 mask, each capable of 14 hosts.</p>
 						<p>This means <u>12 wasted address on each PtP link</u>, 48 total!</p>
-						<p>And 14 hosts/subnet are a bit low, aren't they?</p>
+						<p>And 14 hosts per subnet are a bit low, aren't they?</p>
 					</section>
 					<section>
 						<h2>VLSM Scenario</h2>
-						<h3>Traditional Subnetting</h3>
+						<p>Operating with <strong>traditional, basic</strong> subnetting:</p>
 						<pre><code class="no-highlight">Original Network Address     192.168.1.0/24
 Original Subnet Mask         255.255.255.0
 New Subnet Mask              255.255.255.240 = /28
-
 Subnet 0                     192.168.1.0/28
 Subnet 1                     192.168.1.16/28
 Subnet 2                     192.168.1.32/28
@@ -371,34 +365,33 @@ Subnet 3                     192.168.1.48/28
 [...]
 Subnet 14                    192.168.1.224/28
 Subnet 15                    192.168.1.240/28</code></pre>
-						<p>Wasteful. So let's take the first /28 subnet and subnet it again:</p>
+						<p>Wasteful. Let's take the first /28 subnet and subnet it again into <strong>4 /30 subnets</strong> of 2 hosts each: <u>0 wasted addresses</u>!:</p>
 						<ul>
-							<li>2 hosts needed mean 2 host bits (2<sup>2</sup> - 2 = 2 hosts)</li>
+							<li>2 hosts needed meant 2 host bits (2<sup>2</sup> - 2 = 2 hosts)</li>
 							<li>this left us with 2 bits to borrow: 2<sup>2</sup> = 4 subnets.</li>
 						</ul>
-						<p>So we turned a single /28 subnet into <strong>4 /30 subnets</strong> each capable of 2 hosts: <u>0 wasted addresses</u>!</p>
 					</section>
 					<section>
 						<h2>VLSM Scenario</h2>
 						<h3>VLSM Applied</h3>
-						<pre><code class="no-highlight">Subnet 0 - PtP #1       192.168.1.0/30   # subnetted from 192.168.1.0/28
-Subnet 1 - PtP #2       192.168.1.4/30   # subnetted from 192.168.1.0/28
-Subnet 2 - PtP #3       192.168.1.8/30   # subnetted from 192.168.1.0/28
-Subnet 3 - PtP #4       192.168.1.12/30  # subnetted from 192.168.1.0/28
-Subnet 4                192.168.1.16/28
-Subnet 5                192.168.1.32/28
-Subnet 6                192.168.1.48/28
+						<pre><code class="no-highlight">Subnet0 - PtP #1  192.168.1.0/30   # subnetted from 192.168.1.0/28
+Subnet1 - PtP #2  192.168.1.4/30   # subnetted from 192.168.1.0/28
+Subnet2 - PtP #3  192.168.1.8/30   # subnetted from 192.168.1.0/28
+Subnet3 - PtP #4  192.168.1.12/30  # subnetted from 192.168.1.0/28
+Subnet4           192.168.1.16/28
+Subnet5           192.168.1.32/28
+Subnet6           192.168.1.48/28
 [...]
-Subnet 12               192.168.1.144/28
-Subnet 13               192.168.1.160/27 # 30 hosts capable
-Subnet 14               192.168.1.192/27 # 30 hosts capable
-Subnet 15               192.168.1.224/27 # 30 hosts capable</code></pre>
+Subnet12          192.168.1.144/28
+Subnet13          192.168.1.160/27 # 30 hosts capable
+Subnet14          192.168.1.192/27 # 30 hosts capable
+Subnet15          192.168.1.224/27 # 30 hosts capable</code></pre>
 						<p>In addition to the perfect fit for the PtP links, VLSM also allows us to create <strong>more flexible subnetting</strong>.</p>
-						<p>In this example we ditched the last 6 /28 subnets for 3 /27 subnets in which we can host up to 30 devices.</p>
+						<p>In this example <u>we ditched the last 6 /28 subnets for 3 /27 subnets</u> in which we can host up to 30 devices.</p>
 					</section>
 					<section>
 						<h2>VLSM Charts</h2>
-						<img src="http://i.imgur.com/WgSJYKv.jpg">
+						<img src="http://i.imgur.com/WgSJYKv.jpg" style="width: 900px;">
 					</section>
 				</section>
 
@@ -409,18 +402,23 @@ Subnet 15               192.168.1.224/27 # 30 hosts capable</code></pre>
 						<ul>
 							<li><strong>Preventing address duplication</strong>: by carefully documenting how the addresses are assigned we can prevent address collision.</li>
 							<li><strong>Access control</strong>: by knowing precisely which address is assigned to which host, we can better control the access to network resources based on our policies.</li>
-							<li><strong>Network monitoring</strong>: the network administrator needs to be able to readily identify sources and destinations of the traffic while analyzing it for performance and security issues.</li>
+							<li><strong>Network monitoring</strong>: the network admin needs to be able to readily identify sources and destinations of the traffic while analyzing it for performance and security issues.</li>
 						</ul>
 					</section>
 					<section>
 						<h2>Assigning Addresses</h2>
-						<p>It is best to assign addresses to devices based on a <strong>recognizable pattern</strong>, which will help administrator and documentation.</p>
+						<p>It is best to assign addresses to hosts based on a <strong>recognizable pattern</strong>, which will help the administrator and the documentation process.</p>
 						<ul>
 							<li><strong>Clients</strong> - DHCP is the common assignment method.</li>
-							<li><strong>Servers and peripherals</strong> - As they provide almost all network resources, they sould have a static addressing, preferably with a consistent numbering, making them easy to remember.</li>
+							<li><strong>Servers &amp; peripherals</strong> - As they provide almost all network resources, they should have static addressing, with consistent numbering, making them easy to remember.</li>
 							<li><strong>Internet-accessible hosts</strong> - Both public and private static addressing. Public addresses are mostly associated to these by NAT on the perimeter.</li>
-							<li><strong>Intermediary Devices</strong>: if they are L3-capable, they should have a static, predictable address to allow management.</li>
-							<li><strong>Gateways</strong>: they belong to multiple network, so they have an IP address assigned to each interface. Almost always it is the <u>highest or lowest address available on that network segment</u>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Assigning Addresses</h2>
+						<ul>
+							<li><strong>Intermediary Devices</strong> - If they are L3-capable, they should have a static, predictable address to allow management.</li>
+							<li><strong>Gateways</strong> - They belong to multiple networks, so they have an IP address assigned to each interface. Almost always it is the <u>highest or lowest address available on that network segment</u>.</li>
 						</ul>
 					</section>
 				</section>
@@ -429,10 +427,10 @@ Subnet 15               192.168.1.224/27 # 30 hosts capable</code></pre>
 					<section>
 						<h2>IPv6 Subnetting</h2>
 						<p>IPv4 Subnetting is done to manage address scarcity.</p>
-						<p>Subnetting IPv6 is done for an entirely different reason: to support <strong>hierarchical and logical network design</strong>.</p>
+						<p>Subnetting IPv6 is done for an <u>entirely different reason</u>: to support <strong>hierarchical and logical network design</strong>.</p>
 						<img src="http://i.imgur.com/LGVfYS4.png">
 						<p>An IPv6 (public) address block with a /48 (Global Routing) prefix has <strong>16 bits for subnet ID</strong> (65536 /64 subnets).</p>
-						<p>There's <u>no need to borrow bits</u> from Interface ID (host portion).</p>
+						<p>There's <u>no need to borrow bits</u> from Interface ID (host portion), but that's also <strong>possible if needed</strong>.</p>
 					</section>
 					<section>
 						<h2>IPv6 Subnetting Example</h2>
@@ -449,7 +447,6 @@ Subnet 7        2001:0DB8:ACAD:0007::/64
 Subnet 8        2001:0DB8:ACAD:0008::/64
 Subnet 9        2001:0DB8:ACAD:0009::/64
 Subnet 10       2001:0DB8:ACAD:000A::/64
-Subnet 11       2001:0DB8:ACAD:000B::/64
 [ . . . . . . . . . . . . . . . . . . . ]
 Subnet 65533    2001:0DB8:ACAD:FFFD::/64
 Subnet 65534    2001:0DB8:ACAD:FFFE::/64
@@ -458,10 +455,10 @@ Subnet 65535    2001:0DB8:ACAD:FFFF::/64</code></pre>
 					<section>
 						<h2>IPv6 Subnetting Considerations</h2>
 						<p>Subnetting IPv6 is not that much different from IPv4.</p>
-						<p>The leading practice is to receive at least a <strong>/48 prefix from an ISP</strong>. This leaves you with 2<sup>80</sup> bits to manipulate for subnetting.</p>
-						<p>According to <a href="https://tools.ietf.org/html/rfc4291">RFC 4291</a> the <strong>current smallest recommended prefix</strong> is a /64. You can assign a /64 to PtP links and <em>not feel guilty</em>.</p>
-						<p>If you need, you can of course <strong>borrow bits from the Interface ID</strong> to have a deeper hierarchy. The best practice is to borrow <strong>4 bits at a time</strong> and used aligned netmasks (/68, /72, /76, etc.). Why?</p>
-						<p>A <strong>nibble</strong> is a 4 bit group, or one hexadecimal digit. By subnetting on <em>nibble boundaries</em> we can easily create subnet just by upping the count by 0x01.</p>
+						<p>The leading practice is to receive at least a <strong>/48 prefix from an ISP</strong>. This leaves 2<sup>80</sup> bits to manipulate for subnetting.</p>
+						<p><a href="https://tools.ietf.org/html/rfc4291">RFC 4291</a> says the <strong>current smallest recommended prefix</strong> is /64. You can assign a /64 to PtP links and <em>not feel guilty</em>.</p>
+						<p>You can of course <strong>borrow bits from the Interface ID</strong> to have a deeper hierarchy. The best practice is to borrow <strong>4 bits at a time</strong> and used aligned netmasks (/68, /72, /76, etc.). Why?</p>
+						<p>A <strong>nibble</strong> is a 4 bit group, or <u>one hex digit</u>. By subnetting on <em>nibble boundaries</em> we create subnets <strong>just by adding 0x01</strong>.</p>
 					</section>
 				</section>
 
