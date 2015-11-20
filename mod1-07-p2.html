@@ -299,16 +299,27 @@ Router(config-if)# exit</code></pre>
 				</section>
 
 				<section>
-					<h2>IPv6 Multicast Addresses</h2>
-					<p>As with IPv4, multicast groups are represented by addresses. There are 2 types of IPv6 multicast addresses:</p>
-					<ul>
-						<li><strong>Assigned</strong> - Reserved multicast addresses for pre-defined group on devices, or devices running a common protocol or known service. 2 common assigned multicasts are:</li>
+					<section>
+						<h2>IPv6 Multicast Addresses</h2>
+						<p>As with IPv4, <strong>multicast groups are represented by addresses</strong>. There are 2 types of IPv6 multicast addresses:</p>
 						<ul>
-							<li><strong>FF02::1 <em>All-Nodes Multicast Group</em></strong> - A multicast group that any IPv6-enabled host joins, effectively making it the "broadcast" address of IPv6.</li>
-							<li><strong>FF02::2 <em>All-Routers Multicast Group</em></strong> - A group joined by all IPv6 routers on the link/network.</li>
+							<li><strong>Assigned</strong> - Reserved multicast addresses for pre-defined group on devices, or devices running a common protocol or known service. 2 common assigned multicasts are:</li>
+							<ul>
+								<li><strong>FF02::1 <em>All-Nodes Multicast Group</em></strong> - A multicast group that any IPv6-enabled host joins, effectively making it the "broadcast" address of IPv6.</li>
+								<li><strong>FF02::2 <em>All-Routers Multicast Group</em></strong> - A group joined by all IPv6 routers on the link/network.</li>
+							</ul>
 						</ul>
-						<li><strong>Solicited Node</strong> - A multicast address created for each IPv6 interface, and consisting of a FF02:0:0:0:0:1:FF00::/104 prefix plus the <strong>least significant 24 bits of the Interface ID</strong>. They are used for obtaining the L2 addresses of other nodes.</li>
-					</ul>
+					</section>
+					<section>
+						<h2>IPv6 Multicast Addresses</h2>
+						<ul>
+							<li><strong>Solicited Node</strong> - A multicast address created for each IPv6 interface, and consisting of a FF02::1:FF00:0:/104 prefix plus the <strong>least significant 24 bits of the Interface ID</strong> from the unicast address.</li>
+							<ul>
+								<li><strong><u>Important</u></strong>: the "00" in the FF00 is not part of the prefix.</li>
+								<li>They are used for obtaining the L2 addresses of other nodes with the <em>IPv6 Neighbor Discovery Protocol</em> (equivalent to IPv4's ARP).</li>
+							</ul>
+						</ul>
+					</section>
 				</section>
 
 				<section>
