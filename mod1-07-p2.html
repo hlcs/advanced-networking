@@ -324,13 +324,14 @@ Router(config-if)# exit</code></pre>
 
 				<section>
 					<h2>IPv6 Routers</h2>
-					<p>Having an IPv6 enables is not enough to be considered an IPv6 router. The following are the <strong>basic features of an IPv6 router</strong>: 
+					<p>Being IPv6-enabled is not enough to be considered an IPv6 router. The <strong>basic features of an IPv6 router</strong> are:
 					<ul>
 						<li><strong>Forwarding IPv6 packets</strong> between different networks</li>
 						<li>Ability to configure <strong>static IPv6 routes</strong> or a <strong>dynamic IPv6 routing protocol</strong>.</li>
 						<li><strong>Sending ICMPv6 Router Advertisement</strong> messages.</li>
 					</ul>
-					<p><u>IPv6 routing is not enabled by default on Cisco routers</u>: you need to enable it with the <code>ipv6 unicast-routing</code> command.</p>
+					<p><u>IPv6 routing is not enabled by default on Cisco routers</u>: you need to enable it with <code>ipv6 unicast-routing</code>.</p>
+					<p>Link-local addresses are assigned to interfaces only after this <u>global config</u> command is executed.</p>
 				</section>
 
 				<section>
