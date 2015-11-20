@@ -130,17 +130,17 @@ New Subnet Mask           255.255.255. 10000000 = 255.255.255.128</code></pre>
 					<section>
 						<h2>Subnetting 192.168.1.0/24</h2>
 						<h3>192.168.1.0/25</h3>
-						<pre><code class="no-highlight">                             NNN.NNN.NNN. N HHHHHHH
-Subnet 0 Network Address     192.168.  1. 0 0000000 = 192.168.1.0/25
-Subnet 0 First Host Address  192.168.  1. 0 0000001 = 192.168.1.1
-Subnet 0 Last Host Address   192.168.  1. 0 1111110 = 192.168.1.126
-Subnet 0 Broadcast Address   192.168.  1. 0 1111111 = 192.168.1.127</code></pre>
+						<pre><code class="no-highlight">                          NNN.NNN.NNN. N HHHHHHH
+Subnet0 Network Address   192.168.  1. 0 0000000 = 192.168.1.0/25
+Subnet0 1st Host Address  192.168.  1. 0 0000001 = 192.168.1.1
+Subnet0 Last Host Address 192.168.  1. 0 1111110 = 192.168.1.126
+Subnet0 Broadcast Address 192.168.  1. 0 1111111 = 192.168.1.127</code></pre>
 						<h3>192.168.1.128/25</h3>
-						<pre><code class="no-highlight">                             NNN.NNN.NNN. N HHHHHHH
-Subnet 1 Network Address     192.168.  1. 1 0000000 = 192.168.1.128/25
-Subnet 1 First Host Address  192.168.  1. 1 0000001 = 192.168.1.129
-Subnet 1 Last Host Address   192.168.  1. 1 1111110 = 192.168.1.254
-Subnet 1 Broadcast Address   192.168.  1. 1 1111111 = 192.168.1.255</code></pre>
+						<pre><code class="no-highlight">                          NNN.NNN.NNN. N HHHHHHH
+Subnet1 Network Address   192.168.  1. 1 0000000 = 192.168.1.128/25
+Subnet1 1st Host Address  192.168.  1. 1 0000001 = 192.168.1.129
+Subnet1 Last Host Address 192.168.  1. 1 1111110 = 192.168.1.254
+Subnet1 Broadcast Address 192.168.  1. 1 1111111 = 192.168.1.255</code></pre>
 					</section>
 				</section>
 
@@ -163,42 +163,42 @@ Subnet 1 Broadcast Address   192.168.  1. 1 1111111 = 192.168.1.255</code></pre>
 						<h2>Subnetting 192.168.2.0/24</h2>
 						<h3>4 Subnets</h3>
 						<p><em>How many bits I need to borrow?</em> 2<sup>2</sup> = 4. So: 2 bits.</p>
-						<pre><code class="no-highlight">                                          2 bit borrowed
-                                          ▾▾
-                             NNN.NNN.NNN. HH HHHHHH
-Original Network Address     192.168.  2. 00 000000 = 192.168.2.0/24
-Original Subnet Mask         255.255.255. 00 000000 = 255.255.255.0</code></pre>
+						<pre><code class="no-highlight">                                      2 bit borrowed
+                                      ▾▾
+                         NNN.NNN.NNN. HH HHHHHH
+Original Network Address 192.168.  2. 00 000000 = 192.168.2.0/24
+Original Subnet Mask     255.255.255. 00 000000 = 255.255.255.0</code></pre>
 						<p>Each subnet will have 2<sup>6</sup> - 2 = 64 - 2 = 62 hosts.</p>
-						<pre><code class="no-highlight">                             NNN.NNN.NNN. NN HHHHHH
-Subnet 0 Network Address     192.168.  2. 00 000000 = 192.168.1.0/26
-Subnet 1 Network Address     192.168.  2. 01 000000 = 192.168.1.64/26
-Subnet 2 Network Address     192.168.  2. 10 000000 = 192.168.1.128/26
-Subnet 3 Network Address     192.168.  2. 11 000000 = 192.168.1.192/26
-New Subnet Mask              255.255.255. 11 000000 = 255.255.255.192</code></pre>
+						<pre><code class="no-highlight">                         NNN.NNN.NNN. NN HHHHHH
+Subnet0 Network Address  192.168.  2. 00 000000 = 192.168.1.0/26
+Subnet1 Network Address  192.168.  2. 01 000000 = 192.168.1.64/26
+Subnet2 Network Address  192.168.  2. 10 000000 = 192.168.1.128/26
+Subnet3 Network Address  192.168.  2. 11 000000 = 192.168.1.192/26
+New Subnet Mask          255.255.255. 11 000000 = 255.255.255.192</code></pre>
 					</section>
 					<section>
 						<h2>Subnetting 192.168.2.0/24</h2>
 						<h3>Address Ranges for 4 subnets</h3>
-						<pre><code class="no-highlight">                             NNN.NNN.NNN. NN HHHHHH
-Subnet 0 Network Address     192.168.  2. 00 000000 = 192.168.2.0/26
-Subnet 0 First Host Address  192.168.  2. 00 000001 = 192.168.2.1
-Subnet 0 Last Host Address   192.168.  2. 00 111110 = 192.168.2.62
-Subnet 0 Broadcast Address   192.168.  2. 00 111111 = 192.168.2.63
+						<pre><code class="no-highlight">                        NNN.NNN.NNN. NN HHHHHH
+Subnet0 Network Addr.   192.168.  2. 00 000000 = 192.168.2.0/26
+Subnet0 1st Host Addr.  192.168.  2. 00 000001 = 192.168.2.1
+Subnet0 Last Host Addr. 192.168.  2. 00 111110 = 192.168.2.62
+Subnet0 Broadcast Addr. 192.168.  2. 00 111111 = 192.168.2.63
 
-Subnet 1 Network Address     192.168.  2. 01 000000 = 192.168.2.64/26
-Subnet 1 First Host Address  192.168.  2. 01 000001 = 192.168.2.65
-Subnet 1 Last Host Address   192.168.  2. 01 111110 = 192.168.2.126
-Subnet 1 Broadcast Address   192.168.  2. 01 111111 = 192.168.2.127
+Subnet1 Network Addr.   192.168.  2. 01 000000 = 192.168.2.64/26
+Subnet1 1st Host Addr.  192.168.  2. 01 000001 = 192.168.2.65
+Subnet1 Last Host Addr. 192.168.  2. 01 111110 = 192.168.2.126
+Subnet1 Broadcast Addr. 192.168.  2. 01 111111 = 192.168.2.127
 
-Subnet 2 Network Address     192.168.  2. 10 000000 = 192.168.2.128/26
-Subnet 2 First Host Address  192.168.  2. 10 000001 = 192.168.2.129
-Subnet 2 Last Host Address   192.168.  2. 10 111110 = 192.168.2.190
-Subnet 2 Broadcast Address   192.168.  2. 00 111111 = 192.168.2.191
+Subnet2 Network Addr.   192.168.  2. 10 000000 = 192.168.2.128/26
+Subnet2 1st Host Addr.  192.168.  2. 10 000001 = 192.168.2.129
+Subnet2 Last Host Addr. 192.168.  2. 10 111110 = 192.168.2.190
+Subnet2 Broadcast Addr. 192.168.  2. 00 111111 = 192.168.2.191
 
-Subnet 3 Network Address     192.168.  2. 11 000000 = 192.168.2.192/26
-Subnet 3 First Host Address  192.168.  2. 11 000001 = 192.168.2.193
-Subnet 3 Last Host Address   192.168.  2. 11 111110 = 192.168.2.254
-Subnet 3 Broadcast Address   192.168.  2. 11 111111 = 192.168.2.255</code></pre>
+Subnet3 Network Addr.   192.168.  2. 11 000000 = 192.168.2.192/26
+Subnet3 1st Host Addr.  192.168.  2. 11 000001 = 192.168.2.193
+Subnet3 Last Host Addr. 192.168.  2. 11 111110 = 192.168.2.254
+Subnet3 Broadcast Addr. 192.168.  2. 11 111111 = 192.168.2.255</code></pre>
 					</section>
 				</section>
 
@@ -206,50 +206,50 @@ Subnet 3 Broadcast Address   192.168.  2. 11 111111 = 192.168.2.255</code></pre>
 					<section>
 						<h2>Subnetting 192.168.3.0/24</h2>
 						<h3>5 Subnets</h3>
-						<img src="http://i.imgur.com/D2cTrKz.png">
+						<img src="http://i.imgur.com/D2cTrKz.png" style="width: 450px;">
 						<p>If we need 5 subnets, we have to borrow 3 bits (2<sup>4</sup> = 8 > 5).</p>
 						<p>The remaing 5 bits in the host part allow for 2<sup>5</sup> - 2 = 30 hosts.</p>
 					</section>
 					<section>
 						<h2>Subnetting 192.168.3.0/24</h2>
 						<h3>Ranges</h3>
-						<pre><code class="no-highlight">                                          ▾▾▾
-                             NNN.NNN.NNN. HHH HHHHH
-Original Network Address     192.168.  3. 000 00000 = 192.168.3.0/24
-Original Subnet Mask         255.255.255. 000 00000 = 255.255.255.0
+						<pre><code class="no-highlight">                                     ▾▾▾
+                        NNN.NNN.NNN. HHH HHHHH
+Original Network Addr.  192.168.  3. 000 00000 = 192.168.3.0/24
+Original Subnet Mask    255.255.255. 000 00000 = 255.255.255.0
 
-                             NNN.NNN.NNN. NNN HHHHH
-Subnet 0 Network Address     192.168.  3. 000 00000 = 192.168.3.0/27
-Subnet 1 Network Address     192.168.  3. 001 00000 = 192.168.3.32/27
-Subnet 2 Network Address     192.168.  3. 010 00000 = 192.168.3.64/27
-Subnet 3 Network Address     192.168.  3. 011 00000 = 192.168.3.96/27
-Subnet 4 Network Address     192.168.  3. 100 00000 = 192.168.3.128/27
+                        NNN.NNN.NNN. NNN HHHHH
+Subnet0 Network Addr.   192.168.  3. 000 00000 = 192.168.3.0/27
+Subnet1 Network Addr.   192.168.  3. 001 00000 = 192.168.3.32/27
+Subnet2 Network Addr.   192.168.  3. 010 00000 = 192.168.3.64/27
+Subnet3 Network Addr.   192.168.  3. 011 00000 = 192.168.3.96/27
+Subnet4 Network Addr.   192.168.  3. 100 00000 = 192.168.3.128/27
 
-                             NNN.NNN.NNN. NNN HHHHH
-Subnet 0 Network Address     192.168.  3. 000 00000 = 192.168.3.0/27
-Subnet 0 First Host Address  192.168.  3. 000 00001 = 192.168.3.1
-Subnet 0 Last Host Address   192.168.  3. 000 11110 = 192.168.3.30
-Subnet 0 Broadcast Address   192.168.  3. 000 11111 = 192.168.3.31
+                        NNN.NNN.NNN. NNN HHHHH
+Subnet0 Network Addr.   192.168.  3. 000 00000 = 192.168.3.0/27
+Subnet0 1st Host Addr.  192.168.  3. 000 00001 = 192.168.3.1
+Subnet0 Last Host Addr. 192.168.  3. 000 11110 = 192.168.3.30
+Subnet0 Broadcast Addr. 192.168.  3. 000 11111 = 192.168.3.31
 
-Subnet 1 Network Address     192.168.  3. 001 00000 = 192.168.3.32/27
-Subnet 1 First Host Address  192.168.  3. 001 00001 = 192.168.3.33
-Subnet 1 Last Host Address   192.168.  3. 001 11110 = 192.168.3.62
-Subnet 1 Broadcast Address   192.168.  3. 001 11111 = 192.168.3.63
+Subnet1 Network Addr.   192.168.  3. 001 00000 = 192.168.3.32/27
+Subnet1 1st Host Addr.  192.168.  3. 001 00001 = 192.168.3.33
+Subnet1 Last Host Addr. 192.168.  3. 001 11110 = 192.168.3.62
+Subnet1 Broadcast Addr. 192.168.  3. 001 11111 = 192.168.3.63
 
-Subnet 2 Network Address     192.168.  3. 010 00000 = 192.168.3.64/27
-Subnet 2 First Host Address  192.168.  3. 010 00001 = 192.168.3.65
-Subnet 2 Last Host Address   192.168.  3. 010 11110 = 192.168.3.94
-Subnet 2 Broadcast Address   192.168.  3. 010 11111 = 192.168.3.95
+Subnet2 Network Addr.   192.168.  3. 010 00000 = 192.168.3.64/27
+Subnet2 1st Host Addr.  192.168.  3. 010 00001 = 192.168.3.65
+Subnet2 Last Host Addr. 192.168.  3. 010 11110 = 192.168.3.94
+Subnet2 Broadcast Addr. 192.168.  3. 010 11111 = 192.168.3.95
 
-Subnet 3 Network Address     192.168.  3. 011 00000 = 192.168.3.96/27
-Subnet 3 First Host Address  192.168.  3. 011 00001 = 192.168.3.97
-Subnet 3 Last Host Address   192.168.  3. 011 11110 = 192.168.3.126
-Subnet 3 Broadcast Address   192.168.  3. 011 11111 = 192.168.3.127
+Subnet3 Network Addr.   192.168.  3. 011 00000 = 192.168.3.96/27
+Subnet3 1st Host Addr.  192.168.  3. 011 00001 = 192.168.3.97
+Subnet3 Last Host Addr. 192.168.  3. 011 11110 = 192.168.3.126
+Subnet3 Broadcast Addr. 192.168.  3. 011 11111 = 192.168.3.127
 
-Subnet 4 Network Address     192.168.  3. 100 00000 = 192.168.3.128/27
-Subnet 4 First Host Address  192.168.  3. 100 00001 = 192.168.3.129
-Subnet 4 Last Host Address   192.168.  3. 100 11110 = 192.168.3.158
-Subnet 4 Broadcast Address   192.168.  3. 100 11111 = 192.168.3.159</code></pre>
+Subnet4 Network Addr.   192.168.  3. 100 00000 = 192.168.3.128/27
+Subnet4 1st Host Addr.  192.168.  3. 100 00001 = 192.168.3.129
+Subnet4 Last Host Addr. 192.168.  3. 100 11110 = 192.168.3.158
+Subnet4 Broadcast Addr. 192.168.  3. 100 11111 = 192.168.3.159</code></pre>
 					</section>
 				</section>
 
