@@ -326,7 +326,7 @@ Router(config-if)# exit</code></pre>
 					<h2>IPv6 Routers</h2>
 					<p>Being IPv6-enabled is not enough to be considered an IPv6 router. The <strong>basic features of an IPv6 router</strong> are:
 					<ul>
-						<li><strong>Forwarding IPv6 packets</strong> between different networks</li>
+						<li><strong>Forwarding IPv6 packets</strong> between different networks.</li>
 						<li>Ability to configure <strong>static IPv6 routes</strong> or a <strong>dynamic IPv6 routing protocol</strong>.</li>
 						<li><strong>Sending ICMPv6 Router Advertisement</strong> messages.</li>
 					</ul>
@@ -336,24 +336,28 @@ Router(config-if)# exit</code></pre>
 
 				<section>
 					<section>
-						<h2>Internet Control Message Protocol v4</h2>
-						<p>The <strong>ICMPv4/v6</strong> protocols are part of the TCP/IP protocol suite and <strong>provide feedback about certain errors involving IPv4/v6 packet processing</strong>. Because of the information they provide, ICMP messages are frequently blocked for security.</p>
+						<h2>ICMP v4/v6</h2>
+						<p>The <strong>ICMP v4/v6</strong> (<em>Internet Control Protocol Message</em>) protocols are part of the TCP/IP protocol suite and <strong>provide feedback about certain errors involving IPv4/v6 packet processing</strong>.</p>
+						<p>Because of the information they provide, ICMP messages are frequently blocked for security.</p>
+					</section>
+					<section>
+						<h2>ICMP v4/v6</h2>
 						<p>These ICMP messages are common between v4 and v6:</p>
 						<ul>
-							<li><strong>Host Confirmation</strong>: an ICMP <em>Echo Request</em> is sent to test if an host in operational. If it is an <em>Echo Reply</em> is sent back.</li>
-							<li><strong>Destination or Service Unreachable</strong>: when a gateway can't forward a packet, it notifies the source with a code specifying if the net, host, protocol or port is unreachable.</li>
-							<li><strong>Time Exceeded</strong>: Used to notify the packet source that the TTL counter in the header has reached 0 and is being dropped.</li>
-							<li><strong>Route Redirection</strong>: It informs the packet source that a better route to the destination is available.</li>
+							<li><strong>Host Confirmation</strong>: an ICMP <em>Echo Request</em> is sent to <u>test if an host in operational</u>. If it is an <em>Echo Reply</em> is sent back.</li>
+							<li><strong>Destination or Service Unreachable</strong>: when a <u>gateway can't forward a packet</u>, it notifies the source with a code specifying if the net, host, protocol or port is unreachable.</li>
+							<li><strong>Time Exceeded</strong>: Used to notify the packet source that the <u>TTL counter in the header has reached 0</u> and the packet is being dropped.</li>
+							<li><strong>Route Redirection</strong>: It informs the packet source that <u>a better route to the destination</u> is available.</li>
 						</ul>
 					</section>
 					<section>
-						<h2>Internet Control Message Protocol v6</h2>
+						<h2>ICMP v6</h2>
 						<p>ICMPv6 introduced 4 new messages as part of the <strong>Neighbour Discovery Protocol (NDP)</strong>:
 						<ul>
-							<li><strong>Router Solicitation (RS)</strong> - Sent by hosts to routers to obtain addressing autoconfiguration information.</li>
-							<li><strong>Router Advertisement (RA)</strong> - Sent by router to hosts to provide addressing autoconfiguration information.</li>
-							<li><strong>Neighbor Solicitation (NS)</strong> -Sent by an host to another host to discover its L2 address or to detect a duplicate address.</li>
-							<li><strong>Neighbor Advertisement (NA)</strong> - Sent by an host who received a NS to comunicate its L2 address or that an IPv6 address is already in use.</li>
+							<li><strong>Router Solicitation (RS)</strong> - Sent by hosts to routers to <u>obtain addressing</u> autoconfiguration information.</li>
+							<li><strong>Router Advertisement (RA)</strong> - Sent by router to hosts to <u>provide addressing</u> autoconfiguration information.</li>
+							<li><strong>Neighbor Solicitation (NS)</strong> -Sent by an host to another host to <u>discover its L2 address</u> or to <u>detect a duplicate address</u>.</li>
+							<li><strong>Neighbor Advertisement (NA)</strong> - <u>Sent by an host who received a NS</u> to comunicate its L2 address or that an IPv6 address is already in use.</li>
 						</ul>
 					</section>
 				</section>
