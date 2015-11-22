@@ -273,8 +273,8 @@ Subnet0 Network Addr. 172. 20.0000000 0.00000000 = 172.20.0.0/23
 Subnet1 Network Addr. 172. 20.0000001 0.00000000 = 172.20.2.0/23
 Subnet2 Network Addr. 172. 20.0000010 0.00000000 = 172.20.4.0/23
 Subnet3 Network Addr. 172. 20.0000011 0.00000000 = 172.20.6.0/23
-Subnet126 Netw. Addr. 172. 20.1111110 0.00000000 = 172.20.0.252/23
-Subnet127 Netw. Addr. 172. 20.1111111 0.00000000 = 172.20.0.254/23</code></pre>
+Subnet126 Netw. Addr. 172. 20.1111110 0.00000000 = 172.20.252.0/23
+Subnet127 Netw. Addr. 172. 20.1111111 0.00000000 = 172.20.254.0/23</code></pre>
 						<p>Subnetting is done in the 3rd octect, <strong>host bits share part of the 3rd</strong>, plus the whole 4th octect.</p>
 						<p>Total hosts per subnet: 2<sup>9</sup> - 2 = 512 - 2 = 510.</p>
 					</section>
@@ -285,8 +285,8 @@ Subnet127 Netw. Addr. 172. 20.1111111 0.00000000 = 172.20.0.254/23</code></pre>
 						<h2>5000+ Hosts?</h2>
 						<p>Let's say we need subnets capable of &gt; 5000 hosts. We:</p>
 						<ul>
-							<li>need at least <strong>13 bits</strong> left in the host part, <strong>after</strong> the subnetting borrowings (2<sup>13</sup> - 2 = 8190 > 5000).</li>
-							<li>be left with <strong>just 3 bits to borrow</strong> for subnetting, in a /16 space. This amounts to just 2<sup>3</sup> = 8 subnets.</li>
+							<li>need at least <strong>13 bits</strong> left in the host part, <strong>after</strong> the subnetting borrowings (2<sup>13</sup> - 2 = 8190 &gt; 5000).</li>
+							<li>are left with <strong>just 3 bits to borrow</strong> for subnetting, in a /16 space. This amounts to just 2<sup>3</sup> = 8 subnets.</li>
 						</ul>
 						<p>This could very well not be enough for most needs. <strong>The solution is to start from a larger block</strong>, like 10.0.0.0/8.</p>
 						<p>In a "10/8", after reserving the last 13 bits for our 5000+ hosts, we are left with 11 bits to borrow for subnetting. That's 2<sup>11</sup> = 2048 subnets with a /19 prefix (255.255.224.0).</p>
@@ -296,14 +296,15 @@ Subnet127 Netw. Addr. 172. 20.1111111 0.00000000 = 172.20.0.254/23</code></pre>
 						<pre><code class="no-highlight">                        ▾▾▾▾▾▾▾▾ ▾▾▾
                     NNN.HHHHHHHH.HHH HHHHH.HHHHHHHH
 Original Net. Addr.  10.00000000.000 00000.00000000 = 10.0.0.0/8
-Original Mask       255.00000000.000 00000.00000000 = 255.255.255.0
-
+Original Mask       255.00000000.000 00000.00000000 = 255.0.0.0
 New Subnet Mask     255.11111111.111 00000.00000000 = 255.255.224.0
 
                     NNN.NNNNNNNN.NNN HHHHH.HHHHHHHH
 Subnet0 Net. Addr.   10.00000000.000 00000.00000000 = 10.0.0.0/19
 Subnet1 Net. Addr.   10.00000000.001 00000.00000000 = 10.0.32.0/19
 Subnet2 Net. Addr.   10.00000000.010 00000.00000000 = 10.0.64.0/19
+[..............................CUT...............................]
+Subnet8 Net. Addr.   10.00000001.000 00000.00000000 = 10.1.0.0/19
 [..............................CUT...............................]
 Subnet2045 Net.Addr. 10.11111111.101 00000.00000000 = 10.255.160.0/19
 Subnet2046 Net.Addr. 10.11111111.110 00000.00000000 = 10.255.192.0/19
