@@ -92,7 +92,7 @@
 							<li><strong>it retransmits any unacknowledge data</strong>.</li>
 							<li>It manages the <strong>ongoing</strong> connection (<em>TCP is stateful</em>).</li>
 						</ul>
-						<p><u>UDP doesn't do any of this</u>, it just provides the basic L4 functions.</p>
+						<p><u>UDP doesn't do any of this</u>, it just provides the basic L4 functions: then <strong>a subset of these could be implemented by the application using UDP</strong>, avoiding the overhead of TCP.</p>
 					</section>
 				</section>
 
@@ -333,36 +333,35 @@ tcp6       1      0 ::1:44104               ::1:631                 CLOSE_WAIT</
 				<section>
 					<section>
 						<h2>TCP 3-Way Handshake</h2>
-						<p>It's the process through which <strong>TCP establishes a connection</strong> before any data can be exchanged. What it does is:</p>
+						<p>It's the process through which <strong>TCP establishes a connection</strong> before any data can be exchanged. How?</p>
 						<ol>
 							<li>The initiating client requests a client-to-server communication session with the server.</li>
 							<li>The server acknowledges the client-to-server session and requests a server-to-client session.</li>
 							<li>The initiating client acknowledges the server-to-client session.</li>
 						</ol>
-						<p>The 3-way handshake sets up the <strong>2 one-way data streams</strong> that form a full-duplex TCP conversation.</p>
-						<p>It relies on <strong>SYN, ACK flags and sequence and acknowledgment numbers</strong> of the TCP Header.</p>
+						<p>The 3-way handshake sets up the <strong><u>2 one-way data streams</u></strong> that form a full-duplex TCP conversation. It relies on <strong>SYN, ACK flags and sequence and acknowledgment numbers</strong>.</p>
 					</section>
 					<section>
 						<h2>TCP 3-Way Handshake</h2>
-						<img src="http://i.imgur.com/zy76Rp5.gif">
+						<img src="http://i.imgur.com/zy76Rp5.gif" style="width: 800px;">
 					</section>
 					<section>
 						<h2>TCP 3-Way Handshake</h2>
-						<img src="http://i.imgur.com/ghaC3KL.png">
+						<img src="http://i.imgur.com/ghaC3KL.png" style="width: 800px;">
 					</section>
 				</section>
 
 				<section>
 					<section>
 						<h2>TCP 3-Way Handshake - Step 1 (SYN)</h2>
-							<p>A TCP client begins the three-way handshake by
+							<p>A TCP client begins the 3-way handshake by
 sending a segment with:</p>
 						<ul>
 							<li><strong>SYN control flag set to 1</strong>, to validate the ISN.</li>
 							<li>Initial sequence number <strong>(ISN) randomly chosen</strong> (A) and beginning to track data flow.</li>
 						</ul>
 						<p>The ISN in the header of each segment will be <strong>increased by one for each byte of data</strong> sent from the client to the server as the data conversation continues.</p>
-						<p><strong>In Wireshark sequence numbers are relative</strong> to ISN always shown as 0 </li>
+						<p><strong>In Wireshark sequence numbers are relative</strong> to ISN and always starts as 0.</li>
 						</ul>
 					</section>
 					<section>
@@ -371,15 +370,15 @@ sending a segment with:</p>
 							<li>The <strong>server replies with SYN control bit set to 1</strong>, to validate server's ISN.</li>
 							<li>The <strong>server replies with ACK control bit set to 1</strong>, to validate server's acknowledge number.</li>
 							<li>The acknowledgment number is set to Client ISN + 1 (A+1)</li>
-							<li>The new sequence number that the server chooses for the segment is another random number (B)</li>
+							<li>The new sequence number that the server chooses for the segment is another random number (B).</li>
 						</ul>
 					</section>
 					<section>
 						<h2>TCP 3-Way Handshake - Step 3 (ACK)</h2>
 						<ul>
 							<li>Finally, <strong>the client sends an ACK back</strong> to the server.</li>
-							<li>The sequence number is set to the received acknowledgement value (A+1)</li>
-							<li>and the acknowledgement number is set to one more than the received sequence number (B+1)</li>
+							<li>The sequence number is set to the received acknowledgement value (A+1).</li>
+							<li>and the acknowledgement number is set to one more than the received sequence number (B+1).</li>
 						</ul>
 						<p>Data conversation is now in place, and the <strong>client and the server exchange (one's) data and ACKs (of the other host's data)</strong>.</p>
 					</section>
@@ -388,15 +387,13 @@ sending a segment with:</p>
 				<section>
 					<section>
 						<h2>TCP Connection Termination</h2>
-						<p>The connection termination phase uses a 4-way handshake, with <strong>each side of the connection terminating independently</strong>.</p>
-						<p>Termination <strong>can be initiated by any side</strong>.</p>
+						<p>The connection termination phase uses a 4-way handshake, that <strong>each side can initiate independently</strong> (if they do it at the same time, it becomes a <u>3-way termination handshake</u>).</p>
 						<ol>
 							<li>When the "client" has no more data to send in the stream, it <strong>sends a segment with the FIN flag set</strong>.</li>
 							<li>The "server" sends <strong>an ACK to acknowledge the receipt of the FIN</strong> to terminate the session from client to server.</li>
-							<li>The <strong>server keeps sending data until it has them, then it sends a FIN</strong> to the client, to terminate the server to client session.</li>
+							<li>The <strong>server keeps sending data until (and if) it has them, then it sends a FIN</strong> to the client, to terminate the server to client session.</li>
 							<li>The <strong>client responds with an ACK to acknowledge the FIN</strong> from the server.</li>
 						</ol>
-						<p>These steps can be combined into a 3-way handshake if both the <em>initiator</em> and the <em>terminated</em> have no more data to send.</p>
 					</section>
 					<section>
 						<h2>TCP Connection Termination</h2>
@@ -413,8 +410,8 @@ sending a segment with:</p>
 
 				<section>
 					<h2>ACK and SEQ numbers</h2>
-					<p>The <strong>SEQ number indicates the relative number of bytes</strong> that have been transmitted in this session</p>
-					<p>TCP uses the ACK number sent back to the source to indicate the next byte that the receiver expects to receive. This is called <strong><em>expectational acknowledgement</em></strong>.</p>
+					<p>The <strong>SEQ number indicates the relative number of bytes</strong> that have been transmitted in this session.</p>
+					<p>TCP uses the ACK number sent back to the source to indicate <u>the next byte that the receiver expects to receive</u>. This is called <strong><em>expectational acknowledgement</em></strong>.</p>
 					<p>The sending host is expected to send a segment that uses <strong>a new sequence number that is equal to the ACK number</strong>.</p>
 					<p>SEQ and ACK numbers are being <strong>exchanged in both directions</strong>.</p>
 				</section>
@@ -423,31 +420,32 @@ sending a segment with:</p>
 					<h2>TCP Combined ACK</h2>
 					<p>To <strong>reduce the overhead</strong> of the acknowledgements, multiple segments of data can be sent and <strong>acknowledged with a single TCP message</strong> in the opposite direction.</p>
 					<p>This acknowledgement <strong>contains an ACK number based on the total number of bytes received</strong> in the session.</p>
-					<p>For example, starting with a sequence number of 2000, if 10 segments of 1,000 bytes each were received, an ACK number of 12001 would be returned to the source.</p>
+					<p><u>Example</u>: starting with a sequence number of 2000, if 10 segments of 1000 bytes each were received, an ACK number of 12001 would be returned to the source.</p>
 				</section>
 
 				<section>
 					<h2>TCP Retransmissions</h2>
-					<p>When TCP at the source host has not received an acknowledgement <strong>after a predetermined amount of time, it returns to the last ACK number received</strong> and retransmits the data from that point forward.</p>
-					<p>The retransmission process is not specified by the TCP's RFC, but is left up to the particular implementation of TCP.</p>
+					<p><u>TCP acknowledges data that has received in a contiguous sequence of bytes</u> (no holes in SEQ numbers).</p>
+					<p>When TCP at the source host has not received an acknowledgement <strong>after a predetermined amount of time, it returns to the last ACK number received</strong> and <u>retransmits the data from that point forward</u>.</p>
+					<p>The retransmission process is not specified by the TCP's RFC, but is left up to the particular implementation of TCP. Some are implementing <strong>SACK</strong> (<em>Selective ACK</em>).</p>
 				</section>
 
 				<section>
 					<section>
 						<h2>Flow Control and Window Size</h2>
-						<p>Flow control helps maintain the reliability of TCP transmission by <strong>adjusting the rate of data flow</strong> between source and destination for a given session.</p>
-						<p>The TCP header includes a 16-bit field called the <strong>window size. This is the number of bytes</strong> that the destination device of a TCP session is able to <strong>accept and process at one time</strong>.</p>
-						<p>The initial window size is agreed upon during the three-way handshake.</p>
+						<p>Flow control helps the reliability of TCP transmissions by <strong>adjusting the rate of data flow</strong> between source and destination in a given session.</p>
+						<p>The TCP header includes a 16-bit field, the <strong><em>window size</em>. This is the number of bytes</strong> that the destination of a TCP session is able to <strong>accept before requiring an acknowledgment</strong>.</p>
+						<p>The initial window size is agreed upon during the 3-way handshake, and then <strong>renegotiated as needed</strong> (<em>sliding window</em>).</p>
 					</section>
 					<section>
 						<h2>TCP Flow Control</h2>
 						<h3>Window Size Management</h3>
-						<img src="http://i.imgur.com/zapGiTx.gif">
+						<img src="http://i.imgur.com/zapGiTx.gif" style="width: 600px;">
 					</section>
 					<section>
 						<h2>TCP Flow Control</h2>
-						<h3>Window Size Management and Combined ACK</h3>
-						<img src="http://i.imgur.com/Amb71xv.gif">
+						<h3>Window Size + Combined ACK</h3>
+						<img src="http://i.imgur.com/Amb71xv.gif" style="width: 600px;">
 					</section>
 				</section>
 
