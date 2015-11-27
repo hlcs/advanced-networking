@@ -54,13 +54,13 @@
 				<section>
 					<section>
 						<h2>The OSI L7: Application</h2>
-						<img src="http://i.imgur.com/DrBlKz8.gif">
+						<img src="http://i.imgur.com/DrBlKz8.gif" style="float: right;">
 						<p>The <strong>Application Layer</strong> involves the <strong>protocols used by programs</strong> to exchange data, regardless of the underlying network.</p>
 						<p>L2 is <em>link-to-link</em>, L3 is <em>end-to-end</em>, L4 is <em>process-to-process</em>. <strong>L7 is <em>application-to-application</em></strong>.</p>
 						<p>It is the closest to the user and the one actually <strong>producing the data</strong> content.</p>
 					</section>
 					<section>
-						<h2>TCP/IP vs ISO/OSI Application Layer</h2>
+						<h2>TCP/IP vs ISO/OSI L7</h2>
 						<img src="http://i.imgur.com/DrBlKz8.gif">
 						<p>The TCP/IP Application Layer functionality is splitted into <strong>3 layers in the ISO/OSI framework</strong>.</p>
 						<p>Application Layer protocols in the TCP/IP protocol suite includes HTTP, FTP, IMAP, POP, DNS, SMTP, DHCP, Telnet, TFTP, etc.</p>
@@ -68,31 +68,35 @@
 				</section>
 
 				<section>
-					<h2>Presentation and Session Layers</h2>
-					<h3>Layer 6 - Presentation Layer</h3>
-					<p>Its purpose is to <strong>represent data in a common way</strong>:</p>
-					<ul>
-						<li>It <strong>encodes data in a compatible format</strong>, understandable by the destination.</li>
-						<li>It handles <strong>data compression and decompression</strong>.</li>
-						<li>It <strong>encrypts and decrypts</strong> for transmission/reception.</li>
-					</ul>
-					<p>It's about <strong>file formats and standards</strong> (like JPG, PNG, MPEG).</p>
-					<h3>Layer 5 - Session Layer</h3>
+					<section>
+						<h2>Presentation and Session Layers</h2>
+						<h3>Layer 6 - Presentation Layer</h3>
+						<p>Its purpose is to <strong>represent data in a common way</strong>:</p>
+						<ul>
+							<li>It <strong>encodes data in a compatible format</strong>, understandable by the destination.</li>
+							<li>It handles <strong>data compression and decompression</strong>.</li>
+							<li>It <strong>encrypts and decrypts</strong> for transmission/reception.</li>
+						</ul>
+						<p>It's about <strong>file formats and standards</strong> (like JPG, PNG, MPEG).</p>
+					</section>
+					<section>
+						<h2>Presentation and Session Layers</h2>
+						<h3>Layer 5 - Session Layer</h3>
 					<p>L5 protocols <strong>initiate (authenticating and authorizing, if necessary), keep active, terminate or restart dialogues</strong> (<em>sessions</em>) between source and destination applications.</p>
 					<p>Examples are: PAP, SCP, RPC, PPTP, L2TP, etc.</p>
+					</section>
 				</section>
 
 				<section>
 					<h2>The Client-Server Model</h2>
-					<p>In the client-server model:</p>
 					<ul>
-						<li>the host <strong>requesting the information</strong> is a <strong>client</strong>.</li>
-						<li>the host <strong>responding to the request and providing the information</strong> is a <strong>server</strong>.</li>
+						<li>The host <strong>requesting the information</strong> is a <strong>client</strong>.</li>
+						<li>The host <strong>responding to the request and providing the information</strong> is a <strong>server</strong>.</li>
 					</ul>
 					<p><strong>The client begins the exchange</strong> by requesting data from the server, which responds with stream(s) of data to the client.</p>
 					<p>Application layer protocols describe the <strong>format of these exchanges between clients and servers</strong>.</p>
-					<p>In addition to the actual data (L6) transfer, these exchanges (L7) may require user authentication and session management (L5).</p>
-					<p>Server software is often implemented as a <strong>background service</strong> that waits for requests by the clients.</p>
+					<p><u>Actual data (L6)</u> transfer aside, these <u>exchanges (L7)</u> may require user authentication and <u>session management (L5)</u>.</p>
+					<p>Server software is often implemented as a <strong>background service</strong> (<em>daemon</em>) that waits for requests by the clients.</p>
 				</section>
 
 				<section>
@@ -101,7 +105,7 @@
 						<p>In the P2P network model devices are <strong><em>peers</em></strong> to one another: they carry <strong>both roles (client and server) simultaneously</strong>.</p>
 						<p>Each peer can assume the role of the <strong>client for a particular request</strong>, while acting as a <strong>server role for another</strong> one.</p>
 						<p>In the P2P network model, <strong>P2P Applications</strong> are essential to coordinate the roles of the peers without centralizing accounts, permissions, data.</p>
-						<p>They can also operate as an <strong>hybrid</strong>: the actual sharing of the resources (file, peripherals, etc) is P2P-based and decentralized, but the <strong>resource indexes are stored on 1 or more centralized servers</strong>. eMule and early BitTorrent are notable examples. </p>
+						<p>They can also operate as an <strong>hybrid</strong>: the actual resource sharing is P2P-based and decentralized, but the <strong>resource indexes are stored on centralized server(s)</strong>. eMule and early BitTorrent are notable examples. </p>
 					</section>
 					<section>
 						<h2>Common P2P Applications</h2>
@@ -118,15 +122,15 @@
 
 				<section>
 					<section>
-						<h2>HyperText Transfer Protocol (HTTP)</h2>
-						<p>Browsers interpret the URL parts, recognize the type of data and organize retrieval with the server using the right protocol.</p>
+						<h2>HyperText Transfer Protocol</h2>
+						<p>Browsers interpret the URL, recognize the type of data and organize retrieval with the server using the right protocol.</p>
 						<p>Web pages are identified by their <strong>URL (Uniform Resource Locator)</strong>. When we type an URL into our browser, <strong>pages are requested and served by the HTTP Protocol</strong>.</p>
 						<p>HTTP is a request/response protocol. It operates exchanging messages and status codes. The 3 most important messages are <strong>GET, POST and PUT</strong>. Releavant status codes include <strong>200 OK, 304 Not Modified, 404 Not Found</strong>.</p>
-						<p>HTTP is not a secure protocol and its exhanges are transmitted in plain text, easily interceptable. <strong>HTTPS</strong> combines HTTP with <strong>Secure Socket Layer (SSL)</strong> and <strong>Transport Secure Layer (TLS)</strong> to provide authentication and encryption.</p>
 					</section>
 					<section>
-						<h2>HyperText Transfer Protocol (HTTP)</h2>
+						<h2>HyperText Transfer Protocol</h2>
 						<img src="http://i.imgur.com/DcUYaKW.png">
+						<p>HTTP is not a secure protocol and its exhanges are transmitted in plain text, easily interceptable. <strong>HTTPS</strong> combines HTTP with <strong>Secure Socket Layer (SSL)</strong> and <strong>Transport Secure Layer (TLS)</strong> to provide authentication and encryption.</p>
 					</section>
 				</section>
 
@@ -134,17 +138,16 @@
 					<h2>How E-Mail Works</h2>
 					<p>Email is a <strong>store-and-forward</strong> messaging system.</p>
 					<p>Email clients never communicates directly with one another, they <strong>communicate with servers to send and receive email</strong>.</p>
-					<p><strong>Mail servers communicate between them</strong> to relay messages from domain to domain (or even in the same domain).</p>
+					<p><strong>Mail servers communicate between them</strong> to relay messages from domain to domain (or even within one).</p>
 					<p>The protocol used for <strong>sending mail</strong> (both client-to-server and server-to-server) is the SMTP Protocol.</p>
 					<p>Clients' MUAs (Mail User Agent) do <strong>mail retrieval</strong> from servers using either POP or IMAP protocols.</p>
 					<p>All these mail protocols needs <strong>proper configuration of the server address</strong> in the MUA.</p>
 				</section>
 
 				<section>
-					<h2>Simple Mail Transfer Protocol (SMTP)</h2>
-					<p>SMTP server software runs <strong>TCP port 25</strong> (587 for Secure SMTP).</p>
-					<p>The message format used by SMTP <strong>requires at least 2 headers (sender and recipient addresses)</strong> and a message body.</p>
-					<p>Other headers exist, but are optional.</p>
+					<h2>Simple Mail Transfer Protocol</h2>
+					<p>SMTP servers run on <strong>TCP port 25</strong> (587 for Secure SMTP).</p>
+					<p>The message format used by SMTP <strong>requires at least 2 headers (sender and recipient addresses)</strong> and a message body. Other headers exist, but are optional.</p>
 					<p>When the SMTP server receives a message, it:</p>
 					<ul>
 						<li>stores it on a local account, if the recipient is local.</li>
@@ -154,21 +157,25 @@
 				</section>
 
 				<section>
-					<h2>Post Office Protocol</h2>
-					<p>Server listen for POP connection by clients on <strong>TCP Port 110</strong>.</p>
-					<p>Generally POP servers <strong>delete the messages</strong> after client retrieval, making it <strong>not ideal for centralized backups and account synchronization</strong>.</p>
-					<h2>Internet Message Access Protocol</h2>
-					<p>IMAP server software runs on <strong>TCP Port 143</strong> (993 for IMAPS).</p>
-					<p><strong>Messages are always kept on the server</strong> until manual deletion. Clients make a local copy of their inbox on the server.</p>
-					<p>It's not only message content that is synchronized with the server, but also <strong>folder hierarchy and other metadata</strong>.</p>
-					<p><strong>Synchronization is 2-way</strong>, so a mailbox server through IMAP is seamlessly usable on different devices at once.</p>
+					<section>
+						<h2>Post Office Protocol</h2>
+						<p>Server listen for POP connection by clients on <strong>TCP Port 110</strong>.</p>
+						<p>Generally POP servers <strong>delete the messages</strong> after client retrieval, making it <strong>not ideal for centralized backups and account synchronization</strong>.</p>
+					</section>
+					<section>
+						<h2>Internet Message Access Protocol</h2>
+						<p>IMAP server software runs on <strong>TCP Port 143</strong> (993 for IMAPS).</p>
+						<p><strong>Messages are always kept on the server</strong> until manual deletion. Clients make a local copy of their inbox on the server.</p>
+						<p>It's not only message content that is synchronized with the server, but also <strong>folder hierarchy and other metadata</strong>.</p>
+						<p><strong>Synchronization is 2-way</strong>, so a mailbox server through IMAP is seamlessly usable on different devices at once.</p>
+					</section>
 				</section>
 
 				<section>
 					<section>
 					<h2>Domain Name System (DNS)</h2>
-						<p>DNS was created to solve the problem of having to remember long numeric addresses. It matches <strong><em>domain names</em></strong> to network addresses and performs <em>address resolution</em>.</p>
-						<p>The DNS protocol defines:</p>
+						<p>DNS was created to solve the problem of having to remember long numeric addresses.</p>
+						<p>It matches <strong><em>domain names</em></strong> to network addresses and performs <em>address resolution</em>. The DNS protocol defines:</p>
 						<ul>
 							<li>a <strong>message format</strong> that is used for all kinds of DNS communications (client queries, server responses, error messages, DNS records transfer betweeen servers).</li>
 							<li><strong>DNS records</strong> and their purposes.</li>
@@ -187,8 +194,7 @@
 						<h2>DNS Hierarchy</h2>
 						<p>DNS uses a hierarchical system to <strong>build the name-to-address mapping database</strong>. It looks like a reverted tree.</p>
 						<img src="http://i.imgur.com/MafkxjC.gif">
-						<p>The database is splitted into small, manageable <strong>DNS zones</strong>. If a server has records corresponding to a certain level in the hierarchy, it is said to be <strong>authoritative</strong> for those records.</p>
-						<p>The hierarchy is made by <strong>Root Servers, TLDs</strong> (Top-Level Domain), secondary and so on.</p>
+						<p>The database is splitted into small, manageable <strong>DNS zones</strong>. If a server is the <u>original source</u> for records in a certain zone, it is said to be <strong><em>authoritative</em></strong> for those records.</p>
 					</section>
 					<section>
 						<h2>DNS Records</h2>
@@ -243,11 +249,14 @@ Address: 74.125.232.152</code></pre>
 
 				<section>
 					<section>
-						<h2>Dynamic Host Configuration Protocol</h2>
-						<img src="http://i.imgur.com/yq2gExU.jpg">
-						<p>DHCP allows hosts to <strong>autoconfigure network parameters</strong> such IP address, subnet mask, default gateway and DNS servers.</p>
-						<p>Addresses are <strong>dynamically</strong> <em>leased</em> from and <strong>address pool</strong>. An address no longer used is returned to the pool for reallocation.</p>
+						<h2>DHCP</h2>
+						<p><em>Dynamic Host Configuration Protocol</em> allows hosts to <strong>autoconfigure network parameters</strong> such IP address, subnet mask, default gateway and DNS servers.</p>
+						<p>Addresses are <strong>dynamically</strong> <em>leased</em> from an <strong>address pool</strong>. Those no longer used are returned to the pool for reallocation.</p>
 						<p>A DHCP server keeps track of leased addresses in the <strong>configured range</strong>, assuring their uniqueness.</p>
+					</section>
+					<section>
+						<h2>DHCP Operations</h2>
+						<img src="http://i.imgur.com/yq2gExU.jpg">
 					</section>
 					<section>
 						<h2>DHCP Operations</h2>
@@ -255,9 +264,9 @@ Address: 74.125.232.152</code></pre>
 							<li>Client broadcasts a <strong>DHCP discover (<em>DHCPDISCOVER</em>)</strong> that will reach any available DHCP server.</li>
 							<li>Server replies with a <strong>DHCP offer (<em>DHCPOFFER</em>)</strong>, proposing a lease and providing all network parameters and lease duration.</li>
 							<li>Client sends a <strong>DHCP request (<em>DHCPREQUEST</em>)</strong> precisely to the server and lease offer it is accepting.</li>
-							<li>Server returns a <strong>DHCP acknowledgment, positive or negative (<em>DHCPACK</em> or <em>DHCPNAK)</em></strong>, finally registering the lease.</li>
+							<li>Server returns a <strong>DHCP acknowledgment, positive or negative (<em>DHCPACK</em> or <em>DHCPNAK)</em></strong>, and records the lease.</li>
 						</ol>
-						<p>Client can also <strong>renew their lease</strong> before expiration, or request a previously assigned address through a DHCPREQUEST.</p>
+						<p>Client can <strong>renew their lease</strong> before expiration, or request a previously assigned address through a DHCPREQUEST.</p>
 					</section>
 				</section>
 
