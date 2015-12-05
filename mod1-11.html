@@ -76,11 +76,10 @@
 
 				<section>
 					<h2>Redundancy</h2>
-					<img src="http://i.imgur.com/xma5uuw.jpg">
-					<p>Redundancy provides networks with <strong>reliability</strong>.</p>
-					<p>It is achieved by <strong>duplicating</strong>: devices, links, power supplies, services.</p>
-					<p>Redundancy can be introduces progressively, starting with a second connection between multiple intermediary devices.</p>
-					<p>Small networks have typically one gateway to the Internet. A backup connection to a second ISP has to be considered.</p>
+					<img src="http://i.imgur.com/xma5uuw.jpg" style="float: left;">
+					<p>Redundancy provides networks with <strong>reliability</strong>. It is achieved by <strong>duplicating</strong>: devices, links, power supplies, services.</p>
+					<p>Redundancy can be introduced progressively, starting with a second connection between multiple intermediary devices.</p>
+					<p>Small networks have typically one gateway to the Internet. A backup connection to a second ISP can be considered.</p>
 				</section>
 
 				<section>
@@ -106,31 +105,34 @@
 
 				<section>
 					<h2>Real-Time Applications</h2>
-					<p>Real-time applications are the ones that stress the most the need for a good network design.</p>
-					<p>They rely on <strong>priority delivery</strong>, which needs careful planning, a capable infrastructure, proper equipment and configurations.</p>
-					<p>Typical real-time applications in a small network are <strong>Voice Over IP (VoIP)</strong> and <strong>IP Telephony</strong>. The difference stands in whether the phone performs the voice-to-IP conversion or not.</p>
-					<p>However, <strong>VoIP</strong> is the term universally used.</p>
-					<p>Real-Time applications need protocols that supports <em><strong>delay-sensitive delivery</strong></em> and QoS, like the <strong>Real-Time Transport Protocol (RTP)</strong> or the <strong>Real-Time Transport Control Protocol (RTCP)</strong>.</p>
+					<p>Real-time applications are the ones that stress the most a network design, because they rely on <strong>priority delivery</strong>.</p>
+					<p>Typical examples are <strong>Voice Over IP (VoIP)</strong> and <strong>IP Telephony</strong>. The difference being whether the voice-to-IP conversion is performed by the phone. However, <strong>VoIP</strong> is the go-to term.</p>
+					<p>Real-Time applications need protocols that supports <em><strong>delay-sensitive delivery</strong></em> and QoS, like <strong>RTP (Real-Time Transport Protocol)</strong> or <strong>RTCP (Real-Time Transport Control Protocol)</strong>.</p>
 					<p>Often <strong>QoS is implemented in-hardware</strong>.</p>
 				</section>
 
 				<section>
-					<h2>From Small to Larger Network</h2>
-					<p>Networks can grow either <em>reactively</em> (responding to needs) or <em>proactively</em> (anticipating needs). It is clearly better to grow the network alongside its needs.</p>
-					<p>To carefully plan the <strong><em>scaling</em></strong> of a network you need: <strong>documentation, inventory, budget, traffic analysis</strong>.</p>
-					<p><strong>Traffic/Protocol analysis</strong> allows an administrator to collect statistics about the traffic flowing in the network. With the right data, optimizations can be made. Some suggestions:</p>
-					<ul>
-						<li>Analyze the traffic in the <strong>peak hours</strong>.</li>
-						<li>Analyze traffic globally, but also in <strong>each specific segment</strong>.</li>
-						<li>Document employee-<em>snapshots</em> over time.</li>
-					</ul>
-					<p>Analysis could reveal <strong>optimization paths that are trivial</strong>, or others requiring <strong>major overhaul</strong> of the network design.</p>
+					<section>
+						<h2>From Small to Larger Network</h2>
+						<p>Networks can grow either <em>reactively</em> (<u>responding</u> to needs) or <em>proactively</em> (<u>anticipating</u> needs). It is clearly better to grow the network alongside its needs.</p>
+						<p>To carefully plan the <strong><em>scaling</em></strong> of a network you need: <strong>documentation, inventory, budget, traffic analysis</strong>.</p>
+					</section>
+					<section>
+						<h2>From Small to Larger Network</h2>
+						<p><strong>Traffic/Protocol analysis</strong> allows an administrator to collect statistics about the traffic flowing in the network. With the right data, optimizations can be made. Some suggestions:</p>
+						<ul>
+							<li>Analyze the traffic in the <strong>peak hours</strong>.</li>
+							<li>Analyze traffic globally, but also in <strong>each specific segment</strong>.</li>
+							<li>Document employee-<em>snapshots</em> over time.</li>
+						</ul>
+						<p>Analysis could reveal <strong>optimization paths that are trivial</strong>, or others requiring <strong>major overhaul</strong> of the network design.</p>
+					</section>
 				</section>
 
 				<section>
 					<h2>Types of Network Threats</h2>
 					<ul>
-						<li><strong>Information Theft</strong>: information is obtained that was supposed to be confidential and that is now out of control and can be used or sold or otherwise damage the original owner.</li>
+						<li><strong>Information Theft</strong>: information is obtained that was meant to be confidential and it's now out of control and can be used, sold or otherwise damage the victim.</li>
 						<li><strong>Identity Theft</strong>: like the above, but the information allows the attacker to assume someone else's identity in order to achieve access or other type of unauthorized usage.</li>
 						<li><strong>Data Loss or Tampering</strong>: computer data that is purposefully damaged to harm the owener of the data, or altered to obtain an advantage.</li>
 						<li><strong>Disruption of Service</strong>: even without breaking into a system, attackers can impede legitimate users of a service to access it.</li>
@@ -139,9 +141,9 @@
 
 				<section>
 					<h2>Physical Security</h2>
-					<img src="http://i.imgur.com/KNahJGB.jpg" width="35%" height="35%">
 					<p>Device physical protection is as important as protecting the software stack. The Attacker can be an outsider, but <strong>we can also play our (negative) part</strong> in these categories of threats:</p>
 					<ul>
+						<li><strong>Unauthorized Access</strong>: if an attacker is right in front of your devices, many software protections are useless.</li>
 						<li><strong>Hardware</strong>: intentional physical damage to hosts or links.</li>
 						<li><strong>Environmental</strong>: making a device operate outside of its temperature window.</li>
 						<li><strong>Electrical</strong>: over/under-voltage, partial/unstable/total power loss, incorrect grounding, electrostatic discharge.</li>
@@ -160,34 +162,39 @@
 				</section>
 
 				<section>
-					<h2>Network Attacks - Malicious Code</h2>
-					<p>There are programs created for the purpose of causing harm:</p>
-					<ul>
-						<li><strong>Viruses</strong> - software included in another programs to perform malicious functions. Often human interactions is required.</li>
-						<li><strong>Worms</strong> - Stand-alone applications written to exploit targeted vulnerabilities. They don't need human interaction.</li>
-						<li><strong>Trojan Horses</strong> - Applications that are written to appear normal, while performing attacks on the system.</li>
-					</ul>
-					<p>In order to be executed, malicious code attacks need:</p>
-					<ul>
-						<li>Some <strong>vulnerability to exploit</strong>, whether software or human.</li>
-						<li>A <strong>propagation mechanism</strong> to spread themselves.</li>
-						<li>The actual <strong>payload</strong> to propagate and execute.</li>
-					</ul>
+					<section>
+						<h2>Malicious Code</h2>
+						<p>There are programs (collectively known as <strong><em>malware</em></strong>) created for the purpose of causing harm:</p>
+						<ul>
+							<li><strong>Viruses</strong> - Software included in another programs to perform malicious functions. Often human interactions is required.</li>
+							<li><strong>Worms</strong> - Stand-alone applications written to exploit targeted vulnerabilities. They don't need human interaction.</li>
+							<li><strong>Trojan Horses</strong> - Applications that are written to appear normal, while performing attacks on the system.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Malicious Code</h2>
+						<p>In order to be executed, malicious code attacks need:</p>
+						<ul>
+							<li>Some <strong>vulnerability to exploit</strong>, whether software or human.</li>
+							<li>A <strong>propagation mechanism</strong> to spread themselves.</li>
+							<li>The actual <strong>payload</strong> to propagate and execute.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
 					<section>
-						<h2>Network Attacks - Reconnaissance</h2>
-						<p>Reconnaissance (<em>ricognizione</em>, in Italian) involves the <strong>search, discovery and mapping</strong> of vulnerabilities in victim's systems.</p>
+						<h2>Reconnaissance</h2>
+						<p><em>Reconnaissance</em> involves the <strong>search, discovery and mapping</strong> of vulnerabilities in victim's systems.</p>
 						<ul>
 							<li><strong>Queries</strong> - Tools like <code>nslookup</code> or <code>whois</code> can be used to determine the address space belonging to the victim.</li>
-							<li><strong>Mass Pings</strong> - The attacker can use tools to automatically ping large block of addresses to discover which one are active.</li>
+							<li><strong>Mass Pings</strong> - The attacker uses tools to automatically ping large block of addresses to discover the active ones.</li>
 							<li><strong>Port Scanning</strong> - Using automated tools like <code>nmap</code> an attacker can discover the transport layer ports that are opened on a system.</li>
 							<li><strong>Packet Sniffing</strong> - If an attacker takes control of a system along the traffic paths, He can monitor traffic using software like Wireshark.</li>
 						</ul>
 					</section>
 					<section>
-						<h2>Network Attacks - Reconnaisance</h2>
+						<h2>Reconnaisance</h2>
 						<pre><code class="bash">stefanauss@barney:~$ nslookup hlcs.it
 Server:		127.0.1.1
 Address:	127.0.1.1#53
@@ -266,62 +273,86 @@ Nmap done: 1 IP address (1 host up) scanned in 20.66 seconds
 
 				<section>
 					<section>
-						<h2>Network Attacks - Access</h2>
-						<p>Access attacks consist of  unauthorized (attempted or successful) access to systems and exploitation of user privileges.</p>
+						<h2>Access Attacks</h2>
+						<p>When <strong>unauthorized</strong> (attempted or successful) access to systems and exploitation of user privileges takes place.</p>
 						<ul>
 							<li><strong>Password Attacks</strong> - They can be performed with trojan horses, packet sniffers or as <em>brute force</em> attacks.</li>
 							<li><strong>Trust Exploitation</strong> - Instead of attacking a system directly, the attacker takes control of a system or service (e.g. Active Directory, or NFS) trusted by the victim.</li>
-							<li><strong>Port Redirection</strong> - A cas of trust exploitation where an attacker compromises an host to bypass firewall rules that drops direct attacks (see the next slides).</li>
-							<li><strong>Man-In-The-Middle</strong> - The attacker acquires the ability to monitor a comunication channel, altering traffic and injecting messages.</li>
+							<li><strong>Port Redirection</strong> - A case of trust exploitation where an attacker compromises an host to bypass firewall rules that drops direct attacks (see the next slide).</li>
+							<li><strong>Man-In-The-Middle</strong> - The attacker acquires the ability to monitor an exchange, altering traffic and injecting it.</li>
 						</ul>
 					</section>
 					<section>
-						<h2>Network Attacks - Port Redirection</h2>
+						<h2>Port Redirection Attacks</h2>
 						<img src="http://i.imgur.com/RuDvYTo.jpg">
 					</section>
 				</section>
 
 				<section>
 					<section>
-					<h2>Network Attacks - Denial of Service</h2>
-					<p>There are many types of DoS attacks, but they all have the purpose of <strong>exhausting system and network resources</strong> to the point where it's hard or impossible to legitimately use them.</p>
+					<h2>Denial of Service</h2>
+					<p>There are many types of DoS attacks. They all target the <strong>exhaustion of system and network resources</strong> to the point where it's hard or impossible to legitimately use them.</p>
 					<p>Some kinds of Denial of Service attacks are:</p>
 					<ul>
 						<li><strong>Ping of Death</strong> - Malformed, large (more than IP max size) ICMP packets that are meant to crash receiving hosts.</li>
 						<li><strong>SYN Flood</strong> - The attacker begins (SYN) a lot of TCP 3-Way Handshakes without ever completing them (SYN ACK).</li>
-						<li><strong>Smurf Attack</strong> - The attacker directs large amount of traffic to a victim by using the <em>spoofed</em> address as the source, and a broadcast address as the destination of malformed packets.</li>
 						<li><strong>Distributed Denial of Service (DDoS)</strong> - When the attacker has a large number of compromised systems (<em>Handlers</em> and <em>Zombies</em>) at his disposal, simultaneously targeting a victim.</li>
 					</ul>
 					</section>
 					<section>
 						<h2>Network Attacks - Smurf</h2>
-						<img src="http://i.imgur.com/TvNS5xK.gif">
+						<img src="http://i.imgur.com/TvNS5xK.gif" style="width:700px;">
+						<ul>
+							<li><strong>Smurf Attack</strong> - The attacker directs large amount of traffic to a victim by using the <em>spoofed</em> address as source, and a broadcast address as destination of malformed packets.</li>
+						</ul>
 					</section>
 				</section>
 
 				<section>
-					<h2>Network Attack Mitigation</h2>
-					<p>If an attack is successful, administrators have to perform these steps in order to regain control: <strong>containment, inoculation (<em>immunization</em>), quarantine, treatment</strong>.</p>
-					<p>A central patch server, automatic updates, and a standard software image can be good strategies to keep systems secure.</p>
-					<p>The <strong><em>Triple A</em></strong> governs access control by providing:</p>
-					<ul>
-						<li><strong>Authentication</strong> - Who is permitted to access the network. <em>Local</em> authentication, like authentication commands on IOS, doesn't scale. External authentication like RADIUS or TACACS+, is recommended for large networks.</li>
-						<li><strong>Authorization</strong> - What authorized users can or cannot do.</li>
-						<li><strong>Accounting</strong> - Keeping tracks (<em>logging</em>) of accessed resources and users' activity on a network.</li>
-					</ul>
+					<section>
+						<h2>Network Attack Mitigation</h2>
+						<p>If an attack is successful, administrators have to perform these steps in order to regain control:</p>
+						<ul>
+							<li><strong>Containment</strong></li>
+							<li><strong>Inoculation</strong> (<em>immunization</em>)</li>
+							<li><strong>Quarantine</strong></li>
+							<li><strong>Treatment</strong></li>
+						</ul>
+						<p>A central <u>patch server</u>, <u>automatic updates</u>, and a <u>standard software image</u> can be good strategies to keep systems secure.</p>
+					</section>
+					<section>
+						<h2>Network Attack Mitigation</h2>
+						<p>The <strong><em>Triple A</em></strong> governs access control by providing:</p>
+						<ul>
+							<li><strong>Authentication</strong> - Who is permitted to access the network. <em>Local</em> authentication, like authentication commands on IOS, doesn't scale. External authentication like <strong>RADIUS</strong> or <strong>TACACS+</strong>, is recommended for large networks.</li>
+							<li><strong>Authorization</strong> - What authorized users can or cannot do.</li>
+							<li><strong>Accounting</strong> - Keeping tracks (<em>logging</em>) of accessed resources and users' activity on a network.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
-					<h2>Firewalls</h2>
-					<p>Firewalls are systems placed between networks, <strong>controlling the traffic flow</strong> between them using several techniques:</p>
-					<ul>
-						<li><strong>Packet Filtering</strong> based on L2 or L3 addresses.</li>
-						<li><strong>Application Filtering</strong> based on port numbers and associated applications.</li>
-						<li><strong>URL filtering</strong> targeted at specific websites or keywords.</li>
-						<li><strong>Stateful Packet Inspection (SPI)</strong> can recognize if incoming packets are responses or unsolicited traffic.</li>
-						<li><strong>Network Address Translation</strong> is often performed by firewalls, and it allows to hide internal IP addresses.</li>
-					</ul>
-					<p>Firewall can take differents forms, such as <strong>appliances</strong> (dedicated hardware), <strong>server software</strong> (running on a full OS), <strong>integrated</strong> (in multi-purpose devices) or <strong>personal firewalls</strong> (on each host).</p>
+					<section>
+						<h2>Firewalls</h2>
+							<p>Firewalls are systems placed between networks, <strong>controlling the traffic flow</strong> between them using several techniques:</p>
+							<ul>
+								<li><strong>Packet Filtering</strong> based on L2 or L3 addresses.</li>
+								<li><strong>Application Filtering</strong> based on port numbers and associated applications.</li>
+								<li><strong>URL filtering</strong> targeted at specific websites or keywords.</li>
+								<li><strong>Stateful Packet Inspection (SPI)</strong> can recognize if incoming packets are responses or unsolicited traffic, and also alarming patterns in traffic (typical of DDoS).</li>
+								<li><strong>Network Address Translation</strong> is often performed by firewalls, and it allows to hide internal IP addresses.</li>
+							</ul>
+					</section>
+					<section>
+						<h2>Firewalls</h2>
+						<p>Firewall can take differents forms, such as:</p>
+						<ul>
+							<li><strong>appliances</strong> (dedicated hardware)</li>
+							<li><strong>server software</strong> (running on a full OS)</li>
+							<li><strong>integrated</strong> (in multi-purpose devices)</li>
+							<li><strong>personal firewalls</strong> (on each host)</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
@@ -329,11 +360,11 @@ Nmap done: 1 IP address (1 host up) scanned in 20.66 seconds
 					<ul>
 						<li>Don't rely on <strong>default settings</strong> being secure, review them!</li>
 						<li>Change default username and passwords.</li>
-						<li><em>Principle of Least Priviledge</em>: configure users and permissions to provide access only to the minimum extent necessary.</li>
+						<li><em>Principle of Least Priviledge</em>: configure permissions to user to provide access only to the minimum extent necessary.</li>
 						<li><em>Least Attack Surface</em>: uninstall or disable unused services.</li>
 						<li>New device != up-to-date device. Patch first!</li>
 						<li>The longer the password, the better. Use <strong>passphrases</strong>.</li>
-						<li>Avoid dictionary words, common or easily guessable patterns.</li>
+						<li>Avoid dictionary words, common, easy to guess patterns.</li>
 						<li><strong>Entropy</strong> is good: <strong>mispell</strong> the passwords, <strong>mix</strong> the letter case, symbols, numbers.</li>
 						<li>Change the password often to reduce opportunity window and <u>do not write it down</u>.</li>
 					</ul>
@@ -348,22 +379,20 @@ Router(config)# login block-for 240 attempts 3 within 60
 Router(config)# line console 0
 Router(config-line)# exec-timeout 10
 Router(config-line)# end</code></pre>
+					<p><code>exec timeout</code> tells the device to automatically disconnect logged-in users after the specified number of minutes of <u>inactivy</u> (<em>idle</em>).</p>
 					</section>
 					<section>
 						<h2>Securing Cisco IOS - SSH</h2>
-						<pre><code class="no-higlight">Router# configure terminal
-Router(config)# ip domain-name hlcs.it
+						<pre><code class="no-higlight">Router(config)# ip domain-name hlcs.it
 Router(config)# crypto key generate rsa general-keys modulus 2048
 The name for the keys will be: Router.hlcs.it
 % The key modulus is 2048 bits
 % Generating 1024 RSA keys, keys will be non-exportable...[OK]
-Router(config)#
 *Dec 5 03:12:52.628: %SSH-5-ENABLED: SSH 1.99 has been enabled
 Router(config)# username HLCS secret cisco
 Router(config)# line vty 0 15
 Router(config-line)# login local
-Router(config-line)# transport input ssh
-Router(config-line)# exit</code></pre>
+Router(config-line)# transport input ssh</code></pre>
 						<ul>
 							<li><code>crypto key generate rsa</code> uses the RSA algorhythm to generate encryption keys.</li>
 							<li><code>login local</code> enables password checking against a user database on the device.</li>
@@ -373,12 +402,16 @@ Router(config-line)# exit</code></pre>
 				</section>
 
 				<section>
-					<h2>Network Baseline</h2>
-					<p>Establishing a <em>network baseline</em> means detailing network performances over time to create a <strong>reference point</strong>.</p>
-					<p>Basic performance tests like <code>ping</code> or <code>traceroute</code> should be executed at different times of the day, days of the week, and <strong>stored as documentation for future comparisons</strong>.</p>
-					<p>There are integrated softwares that manage the creation and storage of large and detailed baselines.</p>
-					<p>On Cisco IOS, by just typing <code>ping</code> in privileg EXEC mode, without an address, a mode called <strong>extended ping</strong> is accessed.</p>
-					<pre><code class="no-highlight" style="max-height: 125px;">R2# ping
+					<section>
+						<h2>Network Baseline</h2>
+						<p>Establishing a <em>network baseline</em> means detailing network performances over time to create a <strong>reference point</strong>.</p>
+						<p>Basic performance tests like <code>ping</code> or <code>traceroute</code> should be executed at different times of the day, days of the week, and <strong>stored as documentation for future comparisons</strong>.</p>
+						<p>There are integrated softwares that manage the creation and storage of large and detailed baselines.</p>
+					</section>
+					<section>
+						<h2>Network Baseline</h2>
+						<p>On Cisco IOS, by typing <code>ping</code> in privileg EXEC mode, without an address, an <strong>extended ping</strong> mode is accessed.</p>
+						<pre><code class="no-highlight">R2# ping
 
 Protocol [ip]:
 Target IP address: 10.87.7.1
@@ -398,6 +431,7 @@ Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 10.87.7.1, timeout is 2 seconds:
 !!!!!
 Success rate is 100 percent (5/5), round-trip min/avg/max = 36/97/132 ms </code></pre>
+					</section>
 				</section>
 
 				<section>
@@ -462,6 +496,20 @@ Duplex: full</code></pre>
 				</section>
 
 				<section>
+					<h2>Interface Summary</h2>
+					<p>One of the most useful Cisco IOS commands:</p>
+					<pre><code class="no-highlight">Router# show ip interface brief
+Interface     IP-Address     OK?  Method  Status                  Protocol
+Ethernet0     10.108.00.5    YES  NVRAM   up                      up
+Ethernet1     unassigned     YES  unset   administratively down   down
+Loopback0     10.108.200.5   YES  NVRAM   up                      up
+Serial0       10.108.100.5   YES  NVRAM   up                      up
+Serial1       10.108.40.5    YES  NVRAM   up                      up
+Serial2       10.108.100.5   YES  manual  up                      up
+Serial3       unassigned     YES  unset   administratively down   down </code></pre>
+				</section>
+
+				<section>
 					<section>
 						<h2>Cisco IOS File System (IFS)</h2>
 						<p>The Cisco IOS File System is a <strong>unified interface to every file system</strong> that is available on a switch or a router.</p>
@@ -503,12 +551,11 @@ Router#</code></pre>
 				</section>
 
 				<section>
-					<h2>Backup & Restore IOS Configuration</h2>
+					<h2>Backup & Restore IOS Config</h2>
 					<ul>
 						<li><strong>Using Text Files</strong> - The output of <code>show running-config</code> is basically a list of IOS command that generates the current configuration. Using our <strong>terminal emulator</strong> we can backup this output to a <strong>plain text file</strong>. We can also restore a configuration from that file, albeit it will <strong>require some editing</strong> for non-commands and encrypted passwords.</li>
-						<li>
-							<strong>Using a TFTP Server or USB</strong>
-							<pre><code class="no-highlight" style="max-height: 250px;">CE_2#copy running-config tftp:
+						<li><strong>Using a TFTP Server or USB</strong></li>
+						<pre><code class="no-highlight" style="max-height: 220px;">CE_2#copy running-config tftp:
 Address or name of remote host []? 64.104.207.171
 Destination filename [ce_2-confg]? backup_cfg_for_my_router
 !!
@@ -525,24 +572,7 @@ Loading backup_cfg_for_router from 64.104.207.171 (via FastEthernet0/0): !
 
 1030 bytes copied in 9.612 secs (107 bytes/sec)
 CE_2#</code></pre>
-						</li>
 					</ul>
-				</section>
-
-				<section>
-					<h2>Wireless Settings and Security</h2>
-					<ul>
-						<li><strong>Wireless Mode</strong> - It's the wireless standard revision (<strong>802.11a/b/g/n/ac</strong>) that will be used. Many routers support <em>mixed</em> mode, and the standard themselves are backwards-compatible, but it can result in reduced performances.</li>
-						<li><strong>Service Set Identifier (SSID)</strong> - Alphanumeric, case-sensitive, unique name for a WLAN, up to 32 chars.</li>
-						<li><strong>Channel</strong> - The exact frequency range that the communication over that WLAN will use. There are multiple channels so that many WLANs can works in proximity.</li>
-						<li><strong>SSID Broadcast</strong> - As a security feature, <strong>WLAN names can be hidden</strong>. Only those who know its value can then connect to it.</li>
-						<li><strong>Encryption</strong> - WEP and WPA/WPA2 are protocols to encrypt WiFi data. WEP is old and very easily crackable, so you <strong>MUST use WPA</strong> (that uses dynamically-generated keys).</li>
-					</ul>
-				</section>
-
-				<section>
-					<h1>Practice</h1>
-					<h2>Configuring Wireless on OpenWrt</h2>
 				</section>
 
 				<section>
