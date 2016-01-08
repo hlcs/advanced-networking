@@ -43,10 +43,10 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
-					<h2>Routing and Switching Essentials</h2>
+					<h2>Routing &amp; Switching:<h2>
+					<h2>Routing &amp; Switching Essentials</h2>
 					<h3>Chapter 2:</h3>
-					<h3>Basic Switching Concepts and Configuration</h3>
+					<h3>Basic Switching Concepts &amp; Config</h3>
 					<p>
 						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 					</p>
@@ -57,8 +57,7 @@
 					<ul>
 						<li>Power-on self-test (<strong>POST</strong>) is loaded from ROM.</li>
 						<li>The <strong>bootloader</strong> is run and iniziatalizes CPU registers.</li>
-						<li>The bootloader initializes the flash file system.</li>
-						<li>The bootloader tries to locate a Cisco IOS image, boot it and switch control to it.</li>
+						<li>The bootloader initializes the flash file system, tries to locate a Cisco IOS image, boot it and switch control to it.</li>
 						<ul>
 							<li>First, it uses the <strong>BOOT environment variable</strong>, if set, to load the executable image.</li>
 							<li>If the BOOT variable is unset or points to the wrong location, it performs a <strong>depth-first recursive search</strong> starting at the root directory of the flash file system.</li>
@@ -69,7 +68,7 @@
 
 				<section>
 					<h2>Bootloader Recovery Mode</h2>
-					<p>If bootstrap fails because of <strong>missing/damaged system files</strong>, the bootloader has a <strong>CLI mode</strong> that can be accessed to fix them.</p>
+					<p>If bootstrap fails because of <strong>missing/damaged system files</strong>, the bootloader has a <strong>CLI mode</strong> for recovery purposes.</p>
 					<ul>
 						<li>Set up a console cable connection to the switch.</li>
 						<li>Unplug the switch power cord.</li>
@@ -82,7 +81,7 @@
 				<section>
 					<section>
 						<h2>Cisco Switch LEDs</h2>
-						<img src="http://i.imgur.com/In7aorZ.jpg">
+						<img src="http://i.imgur.com/In7aorZ.jpg" style="width: 890px; height: 500px;">
 					</section>
 					<section>
 						<h2>Cisco Switch LEDs</h2>
@@ -92,6 +91,9 @@
 							<li><strong>Port indicator LEDs</strong> to show the <strong>per-port status</strong> concerning the type of information highlighted by the Status Indicator.</li>
 							<li>There's a <strong>Mode Button</strong> to flip through available LEDs modes.</li>
 						</ul>
+					</section>
+					<section>
+						<h2>Cisco Switch LEDs</h2>
 						<p>Available LEDs mode are:</p>
 						<ul>
 							<li>System Status (<strong><em>SYST</em></strong>), Redundant Power Supply (<strong><em>RPS</em></strong>). These modes are global and are not fipped through the Mode button.</li>
@@ -102,15 +104,14 @@
 					<section>
 						<h2>Cisco Switch LEDs: Example</h2>
 						<p>LEDs can be off, or lighted up in <strong>green</strong> and <strong>amber</strong> colours. They can also be <strong>solid</strong> or <strong>blinking</strong>, and they can alternate between colours with <strong>different timings</strong>.</p>
-						<p>All these combinations are used to provide a specific message.</p>
-						<p>Using the <strong><em>STAT</em></strong> LED as an example:</p>
+						<p>All these combinations are used to provide a specific message. Using the <strong><em>STAT</em></strong> LED as an example:</p>
 						<ul>
-							<li><strong>Off</strong>: no link or administratively shut down</li>
-							<li><strong>Green</strong>: link is active</li>
-							<li><strong>Blinking Green</strong>: link is active and there is traffic on the port</li>
+							<li><strong>Off</strong>: no link or administratively shut down.</li>
+							<li><strong>Green</strong>: link is active.</li>
+							<li><strong>Blinking Green</strong>: link is active and traffic is flowing.</li>
 							<li><strong>Alternating Green/Amber</strong>: link fault.</li>
 							<li><strong>Amber</strong>: port is temporarily (30s after activation) blocked to ensure there is no switching loop.</li>
-							<li><strong>Blinking Amber</strong>: port is blocked because of possible loop(s).</li>
+							<li><strong>Blinking Amber</strong>: port blocked because of possible loop(s).</li>
 						</ul>
 					</section>
 				</section>
@@ -121,10 +122,10 @@
 						<p>A L3 switch has an <strong>SVI, Switch Virtual Interface</strong> that allows for remote management. </p>
 						<p>The SVI on a Cisco Switch is <strong>VLAN1</strong>.</p>
 						<p>VLANs can be thought of as groups of ports. By default, <strong>every switch port is a member of VLAN1</strong>.</p>
-						<p>To communicate with a remote network, a switch SVI must be activated and assigned an IP address and a default gateway.</p>
+						<p>To communicate with a remote network, a switch SVI must be activated and assigned an IP address and a default gateway. This doesn't mean routing functions are available.</p>
 					</section>
 					<section>
-						<h2>Switch Remote Management Access</h2>
+						<h2>Switch IPv4 Remote Management</h2>
 						<p>Obviously, this must first be setup from a console connection...</p>
 						<pre><code class="no-highlight">## Create VLAN ##
 S1(config)# vlan [vlan_id]
@@ -148,40 +149,36 @@ S1# copy run start</code></pre>
 
 				<section>
 					<section>
-						<h2>Duplex Communication</h2>
-						<h3>Half-Duplex</h3>
+						<h2>Half-Duplex Communication</h2>
 						<img src="http://i.imgur.com/i9TlQxC.jpg">
-						<p><strong>Half-Duplex</strong>: unidirectional transmission; TX and RX cannot occur simultaneously; collisions are possible; typically seen in legacy hardware; 50-60% bandwidth efficiency</p>
+						<p><strong>Half-Duplex</strong>: unidirectional transmission; TX and RX cannot occur simultaneously; collisions are possible; typically seen in legacy hardware; 50-60% bandwidth efficiency.</p>
 					</section>
 					<section>
-						<h2>Duplex Communication</h2>
-						<h3>Full-Duplex</h3>
+						<h2>Full Duplex Communication</h2>
 						<img src="http://i.imgur.com/hIr9KJA.jpg">
 						<p><strong>Full-Duplex</strong>: Bidirectional transmission; simultaneous TX+RX; enabled in Ethernet LANs by switches; 100% bandwidth efficiency.</p>
 						<p>A device operating in full-duplex has a <strong>micro collision domain</strong> composed of the device itself, and is said to be <strong>collison-free</strong>.</p>
-						<p>New generation connections like <strong>10Gb Ethernet</strong> operate <strong>only in full-duplex</strong> mode.</p>
+						<p><strong>10Gb Ethernet</strong> operates <strong>only in full-duplex</strong> mode.</p>
 					</section>
 				</section>
 
 				<section>
-					<h2>Duplex and Speed Configuration</h2>
-					<p>In the interface configuration mode, the command:</p>
-					<ul>
-						<li><code>duplex [auto|half|full]</code> is used to set the duplex mode of the port. Default is: <code>duplex auto</code>.</li>
-						<li><code>speed [auto|10|100|1000]</code> is used to set the speed of the port. Default is: <code>speed auto</code>.</li>
-					</ul>
+					<h2>Duplex &amp; Speed Config</h2>
+					<pre><code class="no-highlight">Switch(config-if)# duplex [auto|half|full]</code></pre>
+					<pre><code class="no-highlight">Switch(config-if)# speed [auto|10|100|1000]</code></pre>
+					<p>are used to set the duplex and speed of a port.</p>
 					<p>If a port capable of 10/100/1000 speeds is operating in:</p>
 					<ul>
 						<li>half-duplex mode, it can be set to 10/100 Mbps speed.</li>
 						<li>full-duplex mode, it can only operate at 1 Gbps.</li>
 					</ul>
-					<p>The <strong>recommended settings</strong> is <code>auto</code> for both duplex and speed. If the autonegotiation fails, or incompatible settings are entered, there will be connectivity issues.</p>
-					<p><strong>Fiber optics Ethernet</strong> such as 100BASE-FX ports always operates at a predefined speed in full-duplex mode.</p>
+					<p>The <strong>recommended (<u>default</u>) settings</strong> is <code>auto</code> for both duplex and speed. If autonegotiation fails, or incompatible settings are entered, there will be connectivity issues.</p>
+					<p><strong>Fiber optics Ethernet</strong> such as 100BASE-FX ports always operates at one predefined speed in full-duplex mode.</p>
 				</section>
 
 				<section>
 					<h2>Auto-MDIX</h2>
-					<p>The <strong>Automatic medium-dependent interface crossover</strong> is able to detect the <strong>type of Ethernet cable</strong> in use (straight/crossover) and "rewire" the internal circuit of the port to <strong>adapt to it</strong>.</p>
+					<p><strong><em>Automatic medium-dependent interface crossover</em></strong> is able to detect the <strong>type of Ethernet cable</strong> in use (straight/crossover) and "rewire" the internal circuit of the port to <strong>adapt to it</strong>.</p>
 					<p>To enable the feature on a switch port, the command <code>mdix auto</code> is entered in interface configuration mode.</p>
 					<p>When <code>mdix auto</code> is set, <code>speed</code> and <code>duplex</code> <strong>must</strong> also be set to <code>auto</code> for the feature to work as intented.</p>
 					<p>Auto-MDIX is enabled by default on newer switches, but not available at all on older ones. To display the current status:</p>
@@ -225,34 +222,46 @@ S1# copy run start</code></pre>
 				</section>
 
 				<section>
-					<h2>Line and Protocol Status</h2>
-					<p>The <code>show interfaces [interface_id]</code> output first line reports the current status for the interface and line protocol.</p>
-					<ul>
-						<li>The first parameter ("<em>[interface_id] is [status]</em>") refers to the hardware layer: is the interface <strong>receiving a carrier signal</strong>?</li>
-						<li>The second one ("<em>line protocol is [status]</em>") refer to wether or not <strong>a data link layer protocol is operational</strong> on the link.</li>
-					</ul>
-					<p>Based on the output, following considerations are possible:</p>
-					<ul>
-						<li><strong>interface up, protocol up</strong> - all is well.</li>
-						<li><strong>both down</strong> - a cable isn't connected, or some other unknown issue regarding the interface is taking place.</li>
-						<li><strong>interface is up, protocol down</strong> - error-disabled interface on the other end, encapsulation mismatch, hardware problem.</li>
-						<li><strong>interface administratively down</strong> - manually disabled.</li>
-					</ul>
+					<section>
+						<h2>Line and Protocol Status</h2>
+						<p>The <code>show interfaces [interface_id]</code> output first line reports the current status for the interface and line protocol.</p>
+						<ul>
+							<li>The first parameter ("<em>[interface_id] is [status]</em>") refers to the hardware layer: is the interface <strong>receiving a carrier signal</strong>?</li>
+							<li>The second one ("<em>line protocol is [status]</em>") refer to wether or not <strong>a data link layer protocol is operational</strong> on the link.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Line and Protocol Status</h2>
+						<p>Based on the output, following considerations are possible:</p>
+						<ul>
+							<li><strong>interface up, protocol up</strong> - all is well.</li>
+							<li><strong>both down</strong> - a cable isn't connected, the other end is administratively down, or some other unknown issue regarding the interface is taking place.</li>
+							<li><strong>interface is up, protocol down</strong> - error-disabled interface on the other end, encapsulation mismatch, hardware problem.</li>
+							<li><strong>interface administratively down</strong> - manually disabled.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
-					<h2>Interface Statistics</h2>
-					<p><strong>Input errors</strong> are those found in received frames.</p>
-					<ul>
-						<li><strong>Runt frames</strong>: frames shorter than the 64-byte minimum lenght. Usually caused by malfunctioning NICs.</li>
-						<li><strong>Giants</strong>: frames longer than the maximum length.</li>
-						<li><strong>CRC errors</strong>: checksum failed verification. Usually indicates error on the medium, maybe due to damage or interferences.</li>
-					</ul>
-					<p><strong>Output errors</strong> are those that blocked a transmission.</p>
-					<ul>
-						<li><strong>Collisions</strong>: normal in half-duplex mode, never to be seen on full-duplex links.</li>
-						<li><strong>Late collisions</strong>: a collision that occurs after the first 64 bytes have been transmitted. Probably caused by excessive cable lenght or duplex mismatch. Unlike collisions, <strong>late collisions are not re-sent</strong>.</li>
-					</ul>
+					<section>
+						<h2>Interface Statistics</h2>
+						<h3>Input Errors</h3>
+						<p><strong>Input errors</strong> are those found in received frames.</p>
+						<ul>
+							<li><strong>Runt frames</strong>: frames shorter than the 64-byte minimum lenght. Usually caused by malfunctioning NICs.</li>
+							<li><strong>Giants</strong>: frames longer than the maximum length.</li>
+							<li><strong>CRC errors</strong>: checksum failed verification. Usually indicates error generated over the medium, maybe due to damage or interferences.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Interface Statistics</h2>
+						<h3>Output Errors</h3>
+						<p><strong>Output errors</strong> are those that blocked a transmission.</p>
+						<ul>
+							<li><strong>Collisions</strong>: normal in half-duplex mode, never to be seen on full-duplex links.</li>
+							<li><strong>Late collisions</strong>: a collision that occurs after the first 64 bytes have been transmitted. Probably caused by excessive cable lenght or duplex mismatch. Unlike collisions, <strong>late collisions are not re-sent</strong>.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
@@ -268,16 +277,16 @@ S1# copy run start</code></pre>
 					<h2>DHCP Attacks</h2>
 					<p>There are 2 kind of common security attacks on DHCP:</p>
 					<ul>
-						<li><strong>DHCP Starvation</strong> - The attacker acts as a DHCP client, but it floods the legitimate server with many fake requests for the purpose of <strong>exhausting the address pool</strong> and causing a DoS.</li>
-						<li><strong>DHCP Spofing</strong> - The attacker acts as a DHCP server. It provides legitimate IP addresses to the client, but a <strong>fake DNS server and default gateway addresses</strong>. This causes the attacker to intercept all the traffic.</li>
-						<li>Often <strong>DHCP starvation is executed before DHCP Spoofing</strong>, so that it is easier to act as a unlegitimate DHCP server.</li>
+						<li><strong>DHCP Starvation</strong> - The attacker acts as a DHCP client, but it floods the legitimate server with many fake requests in order to <strong>exhaust the address pool</strong> and cause a DoS.</li>
+						<li><strong>DHCP Spoofing</strong> - The attacker acts as a DHCP server. It provides legitimate IP addresses to the client, but a <strong>fake DNS server and default gateway addresses</strong>. This causes the attacker to intercept all the traffic.</li>
+						<li>Often <strong>starvation is executed before Spoofing</strong>, so that it is easier to act as a unlegitimate DHCP server.</li>
 					</ul>
-					<p>Mitigating DHCP attacks involves configuring port security and using the <strong>anti-DHCP snooping feature</strong> in Cisco IOS</p>
+					<p>Mitigating DHCP attacks involves configuring port security and using the <strong>anti-DHCP snooping feature</strong> in Cisco IOS.</p>
 				</section>
 
 				<section>
 					<h2>Auditing</h2>
-					<p>The process of analyzing a system in search of vulnerabilities that can be exploited is called <strong><em>(security) auditing</em></strong>.</p>
+					<p>Analyzing a system in search of vulnerabilities that can be exploited is a process called <strong><em>(security) auditing</em></strong>.</p>
 					<p>When someone <strong>legitimately</strong> attack your/his own system to test its strength, a <strong><em>penetration testing</em></strong> is being performed.</p>
 					<p>There are network security tools that administrators can use to test their networks for vulnerabilities. Many are FOSS!</p>
 					<p>A lot of enterprises <strong>hire security firm to audit their systems</strong>, often on a regular basis (with <strong>very strict</strong> contract clauses!)</p>
@@ -285,17 +294,22 @@ S1# copy run start</code></pre>
 				</section>
 
 				<section>
-					<h2>Switch Port Security Basics</h2>
-					<h3>Disable Unused Port</h3>
-					<pre><code class="no-highlight">Switch(config)# interface range [type/first - last]
+					<section>
+						<h2>Switch Port Security Basics</h2>
+						<h3>Disable Unused Port</h3>
+						<pre><code class="no-highlight">Switch(config)# interface range [type/first - last]
 Switch(config-if)# shutdown</code></pre>
-					<h3>DHCP Snooping</h3>
-					<p>Enables to limit the ports allowed to respond to DHCP requests.</p>
-					<ul>
-						<li><strong>Trusted Ports</strong> - they can have a <strong>DHCP server behind them</strong>, either directly or behind other switches.</li>
-						<li><strong>Untrusted Ports</strong> - only allowed to forward <strong>DHCP requests</strong>, and gets shut down if any other DHCP message is detected.</li>
-					</ul>
-					<pre><code class="no-highlight" style="max-height:140px;"># Enables DHCP Snooping globally
+						<p>It is a simple but very effective application of the <strong><em>least privilege</em> principle</strong> of information security.</p>
+					</section>
+					<section>
+						<h2>Switch Port Security Basics</h2>
+						<h3>DHCP Snooping</h3>
+						<p>It limits the ports allowed to respond to DHCP requests.</p>
+						<ul>
+							<li><strong>Trusted Ports</strong> - they can have a <strong>DHCP server behind them</strong>, either directly or behind other switches.</li>
+							<li><strong>Untrusted Ports</strong> - only allowed to forward <strong>DHCP requests</strong>; shut down if any other DHCP message is detected.</li>
+						</ul>
+						<pre><code class="no-highlight" style="max-height:140px;"># Enables DHCP Snooping globally
 S1(config)# ip dhcp snooping
 # By default, it is inactive on every VLAN
 # To enable it for a VLAN range:
@@ -305,19 +319,19 @@ S1(config)# interface [type] [slot/number]
 S1(config-if)# ip dhcp snooping trust
 # Optional: limit the rate of DHCP requests to prevent DHCP starvation
 S1(config-ig)# ip dhcp snooping limit rate [max_requests]</code></pre>
+					</section>
 				</section>
 
 				<section>
 					<section>
 						<h2>Secure MAC Addresses</h2>
-						<p><strong>Port Security</strong> is about restricting the MAC addresses allowed to communicate through a swich port.</p>
-						<p>The <strong>amount</strong> and also the <strong>specific</strong> addresses allowed can be set.</p>
+						<p><strong>Port Security</strong> is about restricting amount and specific MAC addresses allowed to communicate through a swich port.</p>
 						<p>A <strong>security violation</strong> takes place if an unauthorized MAC tries to access it or if the maximum number of MACs is reached.</p>
-						<p>Secure MAC addresses, based on <strong>how they're learned and stored</strong>, can be of the following types:</p>
+						<p>Based on <strong>how they're learned and stored</strong>, they can be:</p>
 						<ul>
 							<li><strong>Static Secure</strong> - Manually configured, stored in the security table and in the running config.</li>
 							<li><strong>Dynamic Secure</strong> - Learned "on-the-fly", stored in the security table, removed after restart or port shutdown.</li>
-							<li><strong>Sticky Secure</strong> - Learned manually or dinamically,  stored in the security table, added in the running configuration.</li>
+							<li><strong>Sticky Secure</strong> - Learned manually or dinamically, stored in the security table, added in the running configuration.</li>
 						</ul>
 					</section>
 					<section>
@@ -334,11 +348,11 @@ S1(config-ig)# ip dhcp snooping limit rate [max_requests]</code></pre>
 
 				<section>
 					<h2>Violation Modes</h2>
-					<p><em>Violation Modes</em> specify the <strong>action to be taken</strong> if a security violation is detected. The possible ones are:</p>
+					<p><strong>Action to be taken</strong> if a security violation is detected:</p>
 					<ul>
 						<li><strong>Protect</strong> - Traffic is dropped only for exceeding or unauthorized MACs. No syslog notification, no increase in violation counter.</li>
 						<li><strong>Restrict</strong> - Traffic is dropped only for exceeding or unauthorized MACs. There is a syslog notification and violation counter increases.</li>
-						<li><strong>Shutdown</strong> (default) - Interface becomes <em>error-disabled</em> and is shut down to all traffic. Must be brought back up with the <code>shutdown</code>/<code>no shutdown</code> commands. Link and line protocol changed to down. Port status appear as <code>err-disabled</code> or <code>SecureShutdown</code> in show commands.</li>
+						<li><strong>Shutdown</strong> (default) - Interface is <em>error-disabled</em> and shut down to all traffic. Must be brought back up with the <code>[no] shutdown</code> commands. Link and line protocol changed to down. Port status appear as <code>err-disabled</code> or <code>SecureShutdown</code> in show commands.</li>
 					</ul>
 				</section>
 
@@ -371,7 +385,7 @@ Switch(config-if)# switchport port-security mac-address sticky [mac_address]</co
 					</section>
 					<section>
 						<h2>Verifying Port Security</h2>
-						<p>The output for a port where port security has just been enabled:</p>
+						<p>Output for a port with freshly-enabled port security:</p>
 						<pre><code class="no-highlight" style="max-height:200px;">Switch# show port-security [interface interface_id]
 Port Security              : Enabled
 Port Status                : Secure-down
