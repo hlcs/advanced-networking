@@ -43,8 +43,8 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
-					<h2>Routing and Switching Essentials</h2>
+					<h2>Routing &amp; Switching:<h2>
+					<h2>Routing &amp; Switching Essentials</h2>
 					<h3>Chapter 1: Introduction to Switched Networks</h3>
 					<p>
 						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
@@ -53,30 +53,30 @@
 
 				<section>
 					<h2>Hyerarchical Network Design</h2>
-					<p>Cisco has a design guideline for network architecture called <em>Cisco Borderless Network</em>. What they mean is <em>the best possible network, of course with our products</em>. Its principles are:</p>
+					<p>Cisco has a design guideline for network architecture called <em>Cisco Borderless Network</em>. Its principles are:</p>
 					<ul>
 						<li><strong>Hierarchy</strong> - Deploying complex systems in <u>tiers</u>, each with a clear role and structure.</li>
 						<li><strong>Modularity</strong> - Expansions, improvements, upgrades at any of these tiers are made as easy as possible.</li>
 						<li><strong>Resiliency</strong> - Network reacts well to changes, growth, faults.</li>
-						<li><strong>Flexibility</strong> - The network load is intelligently splitted to make the best use of resouces.</li>
+						<li><strong>Flexibility</strong> - The network load is intelligently splitted to make the best use of resources.</li>
 					</ul>
 					<p>Time has proved that the best way to achieve the last 3 is through a <strong>hierarchical network architecture</strong>.</p>
 				</section>
 
 				<section>
-					<h2>Access, Distribution, Core Layers</h2>
+					<h2>Access, Distribution, Core</h2>
 					<img src="http://i.imgur.com/ugMjfRW.jpg">
-					<p>Tiers In a Cisco network architecture are <em><strong>Access, Distrubution and Core</strong></em>, usually deployed in a 3-tier or 2-tier (with collapsed Distribution/Core) framework.</p>
+					<p>Tiers In a Cisco network architecture are <em><strong>Access, Distrubution and Core</strong></em>, usually deployed in a 3-tier or 2-tier (with <em>collapsed</em> Distribution/Core) framework.</p>
 				</section>
 
 				<section>
 					<h2>Access Layer</h2>
 					<ul>
-						<li>It's the network edge, where <strong>traffic enters or exits the network</strong>.</li>
-						<li>It's also where devices that <strong>extends the network out one more level</strong> are placed - like IP phones, wireless APs, WAN connectivity.</li>
+						<li>It's the network edge, where <strong>traffic enters or exits it</strong>.</li>
+						<li>It's also where devices that <strong>extend the network out one more level</strong> are placed - like IP phones, wireless APs, WAN connectivity.</li>
 						<li>It's primary function is to provide <strong>access to the network for most users</strong> (and thus generic computing devices, end stations access here).</li>
 						<li>This is the layer where <strong>most traffic originates</strong> from.</li>
-						<li>It provides the intelligent <strong>demarcation</strong> between the network infrastructure and the computing devices that leverage it.</li>
+						<li>It provides the <strong>demarcation</strong> between the network infrastructure and the computing devices that leverage it.</li>
 					<li>The traditional focus at the access layer is <strong>minimizing <em>cost-per-port</em></strong>.</li>
 					</ul>
 				</section>
@@ -85,26 +85,26 @@
 						<h2>Distribution Layer</h2>
 						<ul>
 							<li>It's the most "smart" layer, <strong>implementing network foundation technologies</strong> like routing, advanced switching, filtering, QoS.</li>
-							<li><strong>Interface</strong> between Access and Core Layers</li>
+							<li><strong>Interface</strong> between Access and Core Layers:</li>
 							<ul>
-								<li><strong>Aggregation point for all access switches</strong> (large-scale wiring closet).</li>
-								<li><strong>Aggregating L2 broadcast domains and L3 routing boundaries and summarization boundaries</strong> for network control plane protocols (EIGRP, OSPF, Spanning Tree)</li>
-								<li><strong>Demarcation and isolation</strong> between the campus distribution building block and the rest of the network</li>
+								<li><strong>Aggregation point for access switches</strong> (wiring closet).</li>
+								<li><strong>Aggregating L2 broadcast domains and L3 routing and summarization boundaries</strong> for network control plane protocols (EIGRP, OSPF, Spanning Tree).</li>
+								<li><strong>Demarcation and isolation</strong> between the campus distribution building block and the rest of the network.</li>
 							</ul>
 							<li><strong>Very little traffic originates</strong> directly from here.</li>
-							<li><strong>High availability</strong> through redundant distribution layer switches to the end-user and <strong>equal cost paths to the core</strong>.</li>
+							<li><strong>High availability</strong> through redundant distribution layer switches and <strong>equal cost paths to the core</strong>.</li>
 						</ul>
 				</section>
 
 				<section>
-					<h2>Core Layer</h2>
+					<h2>Core Layer (Backbone)</h2>
 					<ul>
 						<li>Very limited set of services, provides <u>24/7 always-on</u> (<em>Fault Isolation</em>) connectivity <u>across the entire network</u> (<em>end-to-end</em> connectivity).</li>
 						<li>Basically <strong>no traffic originates</strong> from here.</li>
-						<li>It serves as the <strong>aggregator</strong> for all of the other campus blocks and ties the campus together with the rest of the network.</li>
+						<li>It serves as the <strong>aggregator</strong> for the other campus blocks and ties the campus together with the rest of the network.</li>
 						<li>Very little decisions about traffic, just <u>collects as much as possible, moves it as fast and reliably as possible</u>.</li>
 						<li>So: <strong>high-speed, high-redundancy forwarding</strong> services between "regions" (campus) of the network.</li>
-						<li>That means the <strong>most powerful switches</strong> and routers, capable of managing the fastest connections (e.g. 10 Gigabit Ethernet)</li>
+						<li>That means the <strong>most powerful switches</strong> and routers, capable of the fastest connections (e.g. 10 GiB Ethernet)</li>
 					</ul>
 				</section>
 
@@ -114,7 +114,8 @@
 					<ul>
 						<li><strong>Cost</strong>: dependent by the trade-off involving all other parameters in function of the requirements.</li>
 						<li><strong>Port Density</strong>: number of ports available.</li>
-						<li><strong>Port Speed</strong>: network connection speed that can be provided to users.</li>
+						<li><strong>Port Speed</strong>: network connection speed to users.</li>
+						<li><strong>Backplane</strong>: the maximum switching capacity.</li>
 						<li><strong>Power</strong>: Redundant power supply, PoE.</li>
 						<li><strong>Frame Buffers</strong>: the amount of frames that the switch can store before it must forward or discard them.</li>
 						<li><strong>Scalability</strong>: the ability of the switch to support network growth.</li>
@@ -124,15 +125,15 @@
 
 				<section>
 					<h2>Switch Form Factor</h2>
-					<p>There are some configuration option for switches that represents the switch <em>form factor</em>.</p>
+					<p>Configuration options representing the switch <em>form factor</em>:</p>
 					<ul>
-						<li><strong>Fixed Configuration</strong> - These are switches that cannot be expanded with additional ports or port types.</li>
-						<li><strong>Modular Configuration</strong> - Chassis with free slot for installation of <em>modular line cards</em> that expand ports number/type.</li>
-						<li><strong>Stackable Configuration</strong> - <img style="float:right;" src="http://i.imgur.com/zEt76as.jpg"> Switches that can be interconnected with a high-bandwidth special cable, effectively operating as a single logical switch.</li>
+						<li><strong>Fixed</strong> - These are switches that cannot be expanded with additional ports or port types.</li>
+						<li><strong>Modular</strong> - Chassis with free slots for installation of <em>modular line cards</em> that expand ports number/type.</li>
+						<li><strong>Stackable</strong> - <img style="float:right;" src="http://i.imgur.com/zEt76as.jpg"> Switches that can be interconnected with a high-bandwidth special cable, effectively operating as a single logical switch.</li>
 						<ul>
 							<li>Cisco Stackwise: up to 9 switches.</li>
 							<li>Cross-connected for fault tolerance.</li>
-							<li>Cisco StackPower for sharing power supply.</li>
+							<li>Cisco StackPower for sharing PSUs.</li>
 						</ul>
 					</ul>
 				</section>
@@ -142,8 +143,8 @@
 					<p><em>Switching</em> is the process through which a device makes a decision about <strong>where to forward network traffic</strong>. It is based on the <em>ingress port</em> and the <em>destination address</em>.</p>
 					<p>This is true regardless of the port (technology) and address (protocol) type. Switching is a telecommunication concept.</p>
 					<ul>
-						<li><strong>Ingress</strong> - Describes the spot where a frame enters a device.</li>
-						<li><strong>Egress</strong> - Describes the spot where a frame leaves a device.</li>
+						<li><strong>Ingress</strong> - The spot where a frame enters a device.</li>
+						<li><strong>Egress</strong> - The spot where a frame leaves a device.</li>
 						<li>We'll typically talk about <em>ingress port(s)</em> and <em>egress port(s)</em>.</li>
 					</ul>
 					<p>A <em>LAN Switch</em>, the type we'll focus on, has the ability to build a table based on Ethernet MAC Addresses, called <strong>MAC Table</strong>, which we'll be used to make switching decisions.</p>
@@ -151,6 +152,7 @@
 
 				<section>
 					<h2>CAM Table</h2>
+					<img src="http://i.imgur.com/AZ06xwX.jpg" style="float: right;">
 					<p>Switches are made by dedicated-purposes motherboards (<em>ASICs</em>) that can internally move large amount of received frames at very high speed.</p>
 					<p>The switch has to build a <strong>MAC Table</strong> to make its decisions.</p>
 					<p>It's also called <strong>CAM table</strong> because of the specialized (<em>content addressable</em>) memory in which switches stores it.</p>
@@ -158,28 +160,34 @@
 						<li>The MAC table associates each <strong>port with MAC addresses</strong>.</li>
 						<li>It is populated by <strong>examining source MAC adresses</strong>.</li>
 					</ul>
-					<img src="http://i.imgur.com/AZ06xwX.jpg">
 				</section>
 
 				<section>
-					<h2>Frame Forwarding</h2>
-					<ul>
-						<li>The MAC table is empty when the switch is first powered on.</li>
-						<li>When a frame is received, it looks at the <strong>source MAC address</strong>.</li>
+					<section>
+						<h2>Frame Forwarding - Ingress</h2>
 						<ul>
-							<li>If it's not on the table, an association is added between the source MAC and the ingress port the frame appeared on.</li>
-							<li>If it was already on the table, the <strong>aging timer</strong> of the association is reset. Maximum aging time is usually 5 min.</li>
+							<li>The MAC table is empty when the switch is first powered on.</li>
+							<li>When a frame is received, it looks at the <strong>source MAC address</strong>.</li>
+							<ul>
+								<li>If it's not on the table, an association is added between the source MAC and the ingress port the frame appeared on.</li>
+								<li>If it was already on the table, the <strong>aging timer</strong> of the association is reset. Maximum aging time is usually 5 min.</li>
+							</ul>
 						</ul>
-						<li>Then, it looks at the <strong>destination MAC address</strong></li>
+					</section>
+					<section>
+						<h2>Frame Forwarding - Egress</h2>
 						<ul>
-							<li>If It's not on the table it <strong>forwards the frame to all ports</strong> except the ingress port. This is called <em>flooding</em>.</li>
-								<ul>
-									<li><strong>Only the destination will reply</strong> with a unicast frame. The switch can now add the missing association in the table.</li>
-								</ul>
-							<li>If It's already on the table, the switch forwards the frame to the <strong>associated egress port</strong>.</li>
+							<li>Then, it looks at the <strong>destination MAC address</strong></li>
+							<ul>
+								<li>If It's not on the table it <strong>forwards the frame to all ports</strong> except the ingress port. This is called <em>flooding</em>.</li>
+									<ul>
+										<li><strong>Only the destination will reply</strong> with a unicast frame. The switch can now add the missing association in the table.</li>
+									</ul>
+								<li>If It's already on the table, the switch forwards the frame to the <strong>associated egress port</strong>.</li>
+							</ul>
+							<li>Once all the associations have been learned the switch doesn't need flooding anymore.</li>
 						</ul>
-						<li>Once all the associations have been learned the switch doesn't need flooding anymore.</li>
-					</ul>
+					</section>
 				</section>
 
 				<section>
@@ -189,26 +197,26 @@
 						<small>The figure above shows how many bytes of an incoming frame a switch needs to receive before making a forwarding decision, dependent of the switching method in use.</small>
 					</section>
 					<section>
-						<h2>Switching Method: Store & Fordward</h2>
+						<h2>Store &amp; Fordward Switching</h2>
 						<p><em>Store and Forward Switching</em> makes a forwarding decision only <strong>after receiving the entirety of the frame</strong> and error-checking it.</p>
 						<p>It is the main switching method in a Cisco LAN switch.</p>
-						<p>After receiving the frame, the switch calculate its <em>checksum</em> (FCS). If it matches the frame FCS value the frame is forwarded through the appropriate egress port, <strong>otherwise it is dropped</strong>.</p>
-						<p>S&F switching could be problematic if the switch ingress and egress ports are operating at different speeds. That's why the switch automatically sets up an appropriate <strong>buffer</strong>.</p>
+						<p>After receiving the frame, the switch calculate its <em>checksum</em> (FCS). If it matches the frame's FCS value then it's forwarded through an egress port, <strong>otherwise it's dropped</strong>.</p>
+						<p>S&amp;F switching could be problematic if the switch ingress and egress ports are operating at different speeds. That's why the switch automatically sets up an appropriate <strong>buffer</strong>.</p>
 					</section>
 					<section>
-						<h2>Switching Method: Cut-Through</h2>
+						<h2>Cut-Through Switching</h2>
 						<p><em>Cut-Through Switching</em> makes a forwarding decision <strong>as soon as "enough" bytes</strong> of the frame as been received.</p>
-						<p>This means that with C-T switching the actual forwarding process begins <strong>before the frame has been completely received</strong>.</p>
+						<p>Thus with C-T switching the actual forwarding process begins <strong>before the frame has been completely received</strong>.</p>
 						<p>There are two variants of cut-through switching, and both of them <strong>do not perform a checksum verification</strong>:</p>
 						<ul>
-							<li><strong>Rapid Frame</strong> - The switch forwards the frame <u>as soon as the destination MAC address is received</u>. This means it only needs the first 8+6=14 bytes of the frame.</li>
+							<li><strong>Rapid Frame</strong> - The switch forwards the frame <u>as soon as the destination MAC address (first 6 bytes) is received</u>.</li>
 							<li><strong>Fragment Free</strong> - The switch waits for the first 64 bytes (<em>collision window</em>). <u>If no fragmentation is detected it then forwards the frame</u>.</li>
 						</ul>
 					</section>
 					<section>
-						<h2>Switching Methods: Comparison</h2>
+						<h2>Switching Methods Comparison</h2>
 						<ul>
-							<li>With Store & Forward switching <strong>invalid frames are never forwarded</strong>.</li>
+							<li>With Store &amp; Forward switching <strong>invalid frames are never forwarded</strong>.</li>
 							<li>Cut-Through switching forwards <strong>almost every invalid frame</strong>.</li>
 							<li>Cut-through provides <strong>significantly better latencies</strong>.</li>
 							<li>In a network with a <strong>high error rate</strong>, C-T switching becomes counterproductive, wasting bandwidth with invalid frames.</li>
@@ -220,14 +228,13 @@
 				<section>
 					<section>
 						<h2>Collision Domain</h2>
-						<p>A <em>collision domain</em> is a portion (<em>segment</em>) of the network when frames can physically collide if transmitted at the same time, because they <strong>share a common medium</strong> and its bandwidth.</p>
+						<p>A <em>collision domain</em> is a portion (<em>segment</em>) of the network where frames can physically collide if transmitted at the same time, because they <strong>share a common medium</strong> and its bandwidth.</p>
 						<p>Hubs constitute a single collision domain: a frame is forwarded on every port, making the medium <strong>unavailable to other transmissions in any direction</strong>.</p>
-						<p>A device, like a <strong>switch</strong>, capable of <strong>reducing the competition</strong> (<em>microsegmentation</em>) on a medium is used to eliminate collisions.</p>
-						<p>In a switch, either <strong>each port becomes its own collision domain</strong> (half-duplex links) or <strong>collisions are impossible</strong> (full-duplex).</p>
+						<p>A <strong>switch</strong> is capable (though <em>microsegmentation</em>) of <strong>reducing or avoiding the competition</strong> on a medium: either <strong>each port becomes its own collision domain</strong> (half-duplex links) or <strong>collisions are impossible</strong> (full-duplex).</p>
 					</section>
 					<section>
 						<h2>Collision Domain: Example</h2>
-						<img src="http://i.imgur.com/pFbYqnH.jpg">
+						<img src="http://i.imgur.com/pFbYqnH.jpg" style="width: 600px; height: 600px;">
 					</section>
 				</section>
 
@@ -237,16 +244,19 @@
 						<p>When a switch receives an <strong>Ethernet broadcast frame</strong> (all-1s source MAC), it floods it on every port. <u>Other connected switches will forward the frame in the same way</u>.</p>
 						<p>These behaviour allows to define the <em>broadcast domain</em>: the portion of a network in which devices <strong>can reach each other through broadcast frames at the data link layer</strong>.</p>
 						<p>They are said to <em>see each other at Layer 2</em>.</p>
+					</section>
+					<section>
+						<h2>Broadcast Domain</h2>
 						<p>Each interconnected switch <strong>increases the broadcast domain</strong>. A network layer/L3 device such as a <strong>router</strong> must be used to put boundaries on (<em>segment</em>) a broadcast domain.</p>
 						<p>Broadcast is necessary, but due to the way it propagates it can quickly produce a lot of traffic and slow-downs. A <strong>broadcast domain control</strong> strategy is essential.</p>
 					</section>
 					<section>
 						<h2>Broadcast Domain: Example</h2>
-						<img src="http://i.imgur.com/umu9uaK.jpg">
+						<img src="http://i.imgur.com/kOqSE6S.jpg" style="width: 720px; heigth: 600px;">
 					</section>
 					<section>
 						<h2>Broadcast Domain: Example</h2>
-						<img src="http://i.imgur.com/kOqSE6S.jpg">
+						<img src="http://i.imgur.com/umu9uaK.jpg" style="width: 848px; heigth: 600px;">
 					</section>
 				</section>
 
