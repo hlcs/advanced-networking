@@ -43,8 +43,8 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
-					<h2>Routing and Switching Essentials</h2>
+					<h2>Routing &amp; Switching:<h2>
+					<h2>Routing &amp; Switching Essentials</h2>
 					<h3>Chapter 3: VLANs</h3>
 					<p>
 						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
@@ -52,31 +52,45 @@
 				</section>
 
 				<section>
-					<h2>What We Know So Far</h2>
-					<ul>
-						<li>A switch connects every device attached to it in a <strong>single LAN</strong>.</li>
-						<li>It operates at Layer 1 and <strong>Layer 2</strong> of the ISO/OSI stack.</li>
-						<li>Switches propagates Ethernet <strong>broadcast frames to all ports</strong>.</li>
-						<li>A LAN therefore represents a <strong>single broadcast domain</strong>.</li>
-						<li>Multiple <strong>interconnected switches extend broadcast</strong> domains.</li>
-						<li>There is a <strong>1:1 relationship</strong> between interconnected switches, a LAN, and its broadcast domain.</li>
-						<li>Broadcast domains can be <strong>segmented by phisically separating</strong> switches and/or connecting switches/LANs to a router.</li>
-						<li>Broadcast is necessary (many broadcast-based protocols) but <strong>large broadcast domains reduce network efficiency</strong>.</li>
-						<li>VLANs are "<em>groups of ports on a switch</em>".</li>
-					</ul>
+					<section>
+						<h2>What We Know So Far</h2>
+						<ul>
+							<li>A switch connects every device attached to it in a <strong>single LAN</strong>.</li>
+							<li>It operates at Layer 1 and <strong>Layer 2</strong> of the ISO/OSI stack.</li>
+							<li>Switches propagates Ethernet <strong>broadcast frames to all ports</strong>.</li>
+							<li>A LAN therefore represents a <strong>single broadcast domain</strong>.</li>
+							<li>Multiple <strong>interconnected switches extend broadcast</strong> domains.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>What We Know So Far</h2>
+						<ul>
+							<li>There is a <strong>1:1 relationship</strong> between interconnected switches, a LAN, and its broadcast domain.</li>
+							<li>Broadcast domains can be <strong>segmented by phisically separating</strong> switches and/or connecting switches/LANs to a router.</li>
+							<li>Broadcast is necessary (many broadcast-based protocols) but <strong>large broadcast domains reduce network efficiency</strong>.</li>
+							<li>VLANs are "<em>groups of ports on a switch</em>".</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
-					<h2>Definition of VLAN</h2>
-					<p><strong>VLANs (<em>Virtual LANs</em>)</strong> are subsets of devices within a single physical LAN that behave <em><u>just like they are on their own, separate LAN</u></em>. What are the implications, exactly?</p>
-					<ul>
-						<li>The <strong>VLAN has its own, separate, <u>reduced</u> broadcast domain</strong>: broadcast frames will reach all other hosts in the VLAN...</li>
-						<li>... and none of those that are not in the VLAN.</li>
-						<li>Broadcast sent by hosts that are not part of the VLAN won't reach those that are part of the VLAN.</li>
-						<li><strong>L2-based protocols (including broadcast-</strong>based ones) will work inside the VLAN.</li>
-						<li>No need of routing through a gateway to communicate between hosts in the same VLAN.</li>
-						<li>Their own, separate ARP/MAC tables.</li>
-					</ul>
+					<section>
+						<h2>Definition of VLAN</h2>
+						<p><strong>VLANs (<em>Virtual LANs</em>)</strong> are subsets of devices within a single physical LAN that behave <em><u>just like they are on their own, separate LAN</u></em>. What are the implications, exactly?</p>
+						<ul>
+							<li>The <strong>VLAN has its own, separate, <u>reduced</u> broadcast domain</strong>: broadcast frames will reach all other hosts in the VLAN...</li>
+							<li>... and none of those that are not in the VLAN.</li>
+							<li>Broadcast sent by hosts that are not part of the VLAN won't reach those that are part of the VLAN.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Definition of VLAN</h2>
+						<ul>
+							<li><strong>L2-based protocols (including broadcast-</strong>based ones) will work inside the VLAN.</li>
+							<li>No need of routing through a gateway to communicate between hosts in the same VLAN.</li>
+							<li>Their own, separate ARP/MAC tables.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
@@ -102,37 +116,42 @@
 
 				<section>
 					<section>
-						<h2>Creating VLANs: Port-Based VLANs</h2>
-						<p>A VLAN is <strong>created by defining a logical group of switch ports</strong> and then making each of those ports a <em>member</em> of that group.</p>
-						<p><strong>That group is the VLAN</strong>, and it is identified by a number called <strong>VLAN ID</strong>, ranging from 0 to 4095.</p>
+						<h2>Creating (Port-Based) VLANs</h2>
+						<p>A VLAN is <strong>created by defining a logical group of switch ports</strong> and making each one a <em>member</em> of that group.</p>
+						<p><strong>That group is the VLAN</strong>, and it is identified by a number (0-4095) called <strong>VLAN ID</strong>. All hosts connected to a given port <strong>become members of the VLAN(s)</strong> that port is a member of.</p>
 						<p>Switches <strong>must support</strong> the creation of VLANs (<em>VLAN-aware</em>) and the <strong>VLAN standard 802.1Q</strong>.</p>
-						<p>All hosts connected to a given port <strong>become members of the VLAN(s)</strong> that port is a member of.</p>
 						<p>Creating VLANs is the equivalent of <strong>dividing a switch into multiple sub-switches, independent</strong> from one another.</p>
 						<p>When every port is a member of <u>exactly one</u> VLAN, we are creating <em>port-based VLANs</em> using <strong><em>access ports</em></strong>.</p>
 					</section>
 					<section>
-						<h2>Creating VLANs: Port-Based VLANs</h2>
-						<p><img src="http://i.imgur.com/qovQm1S.png"></p>
+						<h2>Creating (Port-Based) VLANs</h2>
+						<div><img src="http://i.imgur.com/qovQm1S.png"></div>
 						<small>A single switch, without any VLAN.</small>
-						<p><img src="http://i.imgur.com/WB5WZLF.png"></p>
+						<div><img src="http://i.imgur.com/WB5WZLF.png"></div>
 						<small>A single switch segmented into 2 port-based VLANs. The behaviour is the same of 2 independent switches.</small>
 					</section>
 					<section>
-						<h2>Creating VLANs: Port-Based VLANs</h2>
-						<p>VLANs can <strong>span multiple interconnected switches</strong> while still maintaining isolation. Simply setup VLANs on every switch and connect them with one cable for each VLAN you want to extend.</p>
+						<h2>Creating (Port-Based) VLANs</h2>
+						<p>VLANs can <strong>span multiple interconnected switches</strong> and still maintain isolation. Setup VLANs on every switch and connect them with one cable for each VLAN to extend.</p>
 						<img src="http://i.imgur.com/IMZURZP.png">
 						<small>Without VLANs, this would require 2+2=4 switches.</small>
-						<p>These setups can quickly become <strong>a problem when you have many VLANs and many switches</strong>, since you need to waste ports and provide cables just for interconnecting switches.</p>
+						<p>These setups quickly become troubling, <strong>wasting lots of ports when you have many VLANs and switches</strong>.</p>
 					</section>
 				</section>
 
 				<section>
-					<h2>VLAN Trunking</h2>
-					<p>Ideally, we would like to use a <strong>single connection to distribute all the VLANs</strong> from switch to switch, like this:</p>
-					<img src="http://i.imgur.com/vzfojVR.png">
-					<p>A <em><strong>trunk</strong></em> is a point-to-point connection between VLAN-aware devices that is <strong>capable of transporting more than one VLAN</strong>.</p>
-					<p>Similarly, a <em>trunk port</em> is a switch port participating in a trunk.</p>
-					<p>There's <u>one problem</u>: when it receives frames from a trunk, <strong>how can a switch know to which VLAN a frame belongs</strong>?</p>
+					<section>
+						<h2>VLAN Trunking</h2>
+						<p>Ideally, we would like to use a <strong>single connection to distribute all the VLANs</strong> from switch to switch, like this:</p>
+						<img src="http://i.imgur.com/vzfojVR.png">
+						<p>A <em><strong>trunk</strong></em> is a point-to-point connection between VLAN-aware devices that's <strong>capable of transporting more than one VLAN</strong>.</p>
+						<p>A <em>trunk port</em> is a switch port participating in a trunk.</p>
+					</section>
+					<section>
+						<h2>VLAN Trunking</h2>
+						<img src="http://i.imgur.com/vzfojVR.png">
+						<p>There's <u>one problem</u>: when it receives frames from a trunk, <strong>how can a switch know to which VLAN a frame belongs</strong>?</p>
+					</section>
 				</section>
 
 				<section>
@@ -145,10 +164,9 @@
 				<section>
 					<h2>802.1q</h2>
 					<img src="http://i.imgur.com/fpJ9xUH.gif">
-					<p>The 4 bytes VLAN Tag fields are:</p>
 					<ul>
-						<li><strong>Type/TPID</strong> (2 bytes) - 0x8100, indicating it's a 802.1Q frame.</li>
-						<li><strong>Priority</strong> (3 bits) - Used to support 7-priorities QoS (802.1p).</li>
+						<li><strong>Type/TPID</strong> (2 bytes) - 0x8100, indicating a 802.1Q frame.</li>
+						<li><strong>Priority</strong> (3 bits) - It supports 7-priorities QoS (802.1p).</li>
 						<li><strong>CFI</strong> (1 bit) - Enables Token Ring encapsulation.</li>
 						<li><strong>VID</strong> (12 bit) - The actual "tag", indentifies up to 4096 VLANs.</li>
 					</ul>
@@ -156,30 +174,42 @@
 				</section>
 
 				<section>
-					<h2>Special-Function VLANs</h2>
-					<ul>
-						<li><strong>Data VLAN</strong> - The typical VLAN: manually configured by admins to divide one physical LAN into multiple ones, and transport traffic generated by final users.</li>
-						<li><strong>Default VLAN</strong> - The VLAN that every port belongs to when a switch is in its default configuration. On a Cisco Switch, the default VLAN has VID 1, it's called <em>default</em> and it's just like every other VLAN except it cannot be deleted or renamed.</li>
-						<li><strong>Management VLAN</strong> - The VLAN(s) that is/are used to access  a switch remotely for administration. A Management VLAN must have an address configuration provided to its associated SVI. It is strongly adviced to move the Management VLAN away from the default VLAN 1 on a Cisco Switch.</li>
-						<li><strong>Voice VLAN</strong> - One or more VLAN(s) reserved to IP telephony and VoIP.</li>
-					</ul>
+					<section>
+						<h2>Special-Function VLANs</h2>
+						<ul>
+							<li><strong>Data VLAN</strong> - The typical VLAN: manually configured by admins to divide one physical LAN into multiple ones, and transport traffic generated by final users.</li>
+							<li><strong>Default VLAN</strong> - The VLAN that every port belongs in a switch default configuration. On a Cisco Switch, the default VLAN has VID 1, it's called <em>default</em> and it's just like every other VLAN except it cannot be deleted or renamed.</li>
+					</section>
+					<section>
+						<h2>Special-Function VLANs</h2>
+						<ul>
+							<li><strong>Management VLAN</strong> - The VLAN(s) that is/are used to access  a switch remotely for administration. A Management VLAN must have an address configuration provided to its associated SVI. It is strongly adviced to move the Management VLAN away from the default VLAN 1 on a Cisco Switch.</li>
+							<li><strong>Voice VLAN</strong> - One or more VLAN(s) reserved to IP telephony and VoIP.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
-					<h2>Native VLAN</h2>
-					<p>Every VLAN on a trunk link has its frames <em>tagged</em>. There is one possible exception, a single VLAN allowed to have its frames <em>untagged</em>. This VLAN is called the <strong><em>Native VLAN</em></strong> of that <u>trunk</u> port.</p>
-					<p>There can be <u>only one</u> Native VLAN: if 2 VLANs were allowed to have untagged frame, how could the trunk distinguish the two?</p>
-					<p>Every trunk port has a parameter called <strong><em>Default Port VLAN ID (PVID)</em></strong>, which has the value of the Native VLAN ID assigned to it.</p>
-					<p><em>Tagged</em> frames with the Native VLAN ID are <u>rejected</u> on Cisco switches. All untagged traffic is forwarded to the Native VLAN.</p>
-					<p>It is mostly used for <strong>backward compatibility</strong> with non-VLAN compatible devices, but using them it's not recommended.</p>
-					<p>Best Practice: configure an unused VLAN as Native VLAN for all trunk ports.</p>
+					<section>
+						<h2>Native VLAN</h2>
+						<p>Every VLAN on a trunk link has its frames <em>tagged</em>. There's one possible exception, a single VLAN allowed to have its frames <em>untagged</em>.</p>
+						<p>This VLAN is called the <strong><em>Native VLAN</em></strong> of that <u>trunk</u> port.</p>
+						<p>There can be <u>only one</u> Native VLAN on a trunk port: if 2 VLANs were allowed to have untagged frames, how could the trunk distinguish the two?</p>
+						<p>Every trunk port has a parameter called <strong><em>Default Port VLAN ID (PVID)</em></strong>, which has the value of the Native VLAN ID assigned to it.</p>
+					</section>
+					<section>
+						<h2>Native VLAN</h2>
+						<p><em>Tagged</em> frames with the Native VLAN ID are <u>rejected</u> on Cisco switches. All untagged traffic is forwarded to the Native VLAN.</p>
+						<p>It is mostly used for <strong>backward compatibility</strong> with non-VLAN compatible devices, but using them it's not recommended.</p>
+						<p><u>Best Practice</u>: configure an unused VLAN as Native VLAN for all trunk ports.</p>
+					</section>
 				</section>
 
 				<section>
 					<h2>Voice VLAN</h2>
 					<p>It's best practice to <strong>reserve VLAN(s) for voice services</strong> with transmission priority over other VLAN(s).</p>
-					<p>It's very important to have <strong>less than 100ms</strong> end-to-end delay.</p>
-					<p><strong>Cisco IP Phones have integrated switched</strong> that are configured to send <em>tagged</em> Voice and Data VLAN traffic.</p>
+					<p>It's very important to have <strong>&lt; 100ms</strong> end-to-end delay.</p>
+					<p><strong>Cisco IP Phones have integrated switches</strong> that are configured to send <em>tagged</em> Voice and Data VLAN traffic.</p>
 					<img src="http://i.imgur.com/1SKSmBG.jpg">
 					<small>The host is connected to the phone and send normal <em>untagged</em> frame. It's up to the phone to tag Data and Voice appropriately. The switch <em>access</em> port has to be configured with a Voice VLAN.</small>
 				</section>
@@ -205,23 +235,23 @@
 				<section>
 					<section>
 						<h2>VLAN Configuration</h2>
-						<h3>VLAN creation</h3>
+						<ul><li>VLAN creation</li></ul>
 						<pre><code class="no-highlight">Switch(config)# vlan [vlan_id | vlan_id,vlan_id,... | vlan_id - vlan_id]
 Switch(config-vlan)# name [vlan_name]</code></pre>
-						<h3>Assigning Ports</h3>
+						<ul><li>Assigning ports</li></ul>
 						<pre><code class="no-highlight">Switch(config)# interface [interface_id]
 Switch(config-if)# switchport mode access
 Switch(config-if)# switchport access vlan [vlan_id]</code></pre>
 						<p>If the VLAN wasn't previously created, it will be now.</p>
-						<h3>Return to Default VLAN Membership</h3>
+						<ul><li>Return to Default VLAN Membership</li></ul>
 						<pre><code class="no-highlight">Switch(config-if)# no switchport access vlan</code></pre>
-						<p>To change the membership of an access port, simply re-assign the port, <strong>it's not necessary to delete current membership first</strong>.</p>
+						<p>To change the membership of access ports, simply re-assign them, <strong>it's not necessary to delete current membership first</strong>.</p>
 					</section>
 					<section>
 						<h2>VLAN Configuration</h2>
 						<h3>VLAN Deletion</h3>
 						<pre><code class="no-highlight">Switch(config)# no vlan [vlan_id]</code></pre>
-						<p>After deleting a VLAN, <strong>ports won't be able to communicate until they are reassigned</strong> to an active VLAN.</p>
+						<p>After deleting a VLAN, <strong>ports won't be able to communicate until they are reassigned</strong> to an active VLAN, so it may be better to do it before beleting.</p>
 						<p>All the configured VLANs can be <strong>deleted at once</strong> by deleting the vlan.dat file:</p>
 						<pre><code class="no-highlight">Switch# delete flash:vlan.dat</code></pre>
 					</section>
@@ -231,22 +261,22 @@ Switch(config-if)# switchport access vlan [vlan_id]</code></pre>
 						<pre><code class="no-highlight">S2>enable
 S2#show vlan brief
 
-VLAN Name                             Status    Ports
----- -------------------------------- --------- -------------------------------
-1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
-                                                Fa0/5, Fa0/7, Fa0/8, Fa0/9
-                                                Fa0/10, Fa0/12, Fa0/13, Fa0/14
-                                                Fa0/15, Fa0/16, Fa0/17, Fa0/19
-                                                Fa0/20, Fa0/21, Fa0/22, Fa0/23
-                                                Fa0/24, Gig0/1, Gig0/2
-10   Faculty/Staff                    active    
-20   Students                         active    Fa0/18
-30   Guest                            active    Fa0/6, Fa0/11
-99   Management+Native                active    
-1002 fddi-default                     active    
-1003 token-ring-default               active    
-1004 fddinet-default                  active    
-1005 trnet-default                    active    
+VLAN Name                  Status    Ports
+---- --------------------- --------- -------------------------------
+1    default               active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                     Fa0/5, Fa0/7, Fa0/8, Fa0/9
+                                     Fa0/10, Fa0/12, Fa0/13, Fa0/14
+                                     Fa0/15, Fa0/16, Fa0/17, Fa0/19
+                                     Fa0/20, Fa0/21, Fa0/22, Fa0/23
+                                     Fa0/24, Gig0/1, Gig0/2
+10   Faculty/Staff         active
+20   Students              active    Fa0/18
+30   Guest                 active    Fa0/6, Fa0/11
+99   Management+Native     active
+1002 fddi-default          active
+1003 token-ring-default    active
+1004 fddinet-default       active
+1005 trnet-default         active
 S2#show vlan id 20
 
 VLAN Name                             Status    Ports
@@ -284,8 +314,8 @@ Operational Mode: down
 Administrative Trunking Encapsulation: dot1q
 Operational Trunking Encapsulation: native
 Negotiation of Trunking: Off
-Access Mode VLAN: 56 (Management&Native)
-Trunking Native Mode VLAN: 56 (Management&Native)
+Access Mode VLAN: 56 (Management&amp;Native)
+Trunking Native Mode VLAN: 56 (Management&amp;Native)
 Voice VLAN: none
 Administrative private-vlan host-association: none
 Administrative private-vlan mapping: none
@@ -316,12 +346,13 @@ S1(config-if)# switchport trunk allowed vlan [vlan_list]</code></pre>
 					<pre><code class="no-highlight">S1(config)# interface [interface_id]
 S1(config-if)# no switchport trunk native vlan
 S1(config-if)# no switchport trunk allowed vlan
+# Back to Native VLAN = 1 and All VLANs allowed on the trunk
 S1(config-if)# switcport mode access</code></pre>
 				</section>
 
 				<section>
 					<section>
-						<h2>DTP - Dynamic Trunking Protocol</h2>
+						<h2>Dynamic Trunking Protocol</h2>
 						<p>DTP is a <strong>Cisco proprietary protocol</strong> that is able to automatically manage point-to-point trunk links.</p>
 						<p>A port can be put into different <strong>trunk and non-trunk modes</strong>. Some of these modes supports <strong>DTP autonegotiation</strong> of trunk status, by <strong></strong>sending and receiving DTP frames <strong>with the neighbour</strong>.</p>
 						<p>Non-Cisco devices don't support DTP, or even forward it correctly. In these cases it is recommended to disable DTP.</p>
@@ -330,7 +361,7 @@ S1(config-if)# switcport mode access</code></pre>
 S1(config-if)# switchport nonegotiate</code></pre>
 					</section>
 					<section>
-						<h2>Interface Modes and DTP Negotiation</h2>
+						<h2>Interface Modes and DTP</h2>
 						<ul>
 							<li><strong>switchport mode access</strong> - Turn a port into an access port and permanent nontrunking mode.</li>
 							<li><strong>switchport mode dynamic auto</strong> (default) -  Turn the interface into a trunk if needed (neighbour set to trunk or desirable).</li>
@@ -340,7 +371,7 @@ S1(config-if)# switchport nonegotiate</code></pre>
 						</ul>
 					</section>
 					<section>
-						<h2>Interface Modes and DTP Negotiation</h2>
+						<h2>Interface Modes and DTP</h2>
 						<img src="http://i.imgur.com/3Xl9zAm.png">
 						<p>The best practice is:</p>
 						<ul>
@@ -378,6 +409,13 @@ Statistics
  0 link downs</code></pre>
 						<small>TOS/TAS/TNS = Trunk Operational/Administrative/Negotiation Status.</small>
 						<small>TOT/TAT/TNT = Trunk Operational/Administrative/Negotiation Encapsulation.</small>
+						<small>
+							<ul>
+								<li>Operational = The current, actual status of the trunk</li>
+								<li>Administrative = How we configured it</li>
+								<li>Negotiated = What the switch asked during negotiation</li>
+							</ul>
+						</small>
 					</section>
 				</section>
 
@@ -388,6 +426,11 @@ Statistics
 							<li>An <strong>unique subnet</strong> must be assigned to each VLAN.</li>
 							<li>The most common mistake is to <strong>assign the wrong VLAN</strong> to ports.</li>
 							<li>Ports become inactive if their VLAN is deleted, so always remember to <strong>reassign the port to another VLAN</strong> or recreate the VLAN.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Troubleshooting VLANs</h2>
+						<ul>
 							<li><strong><em>VLAN Leaking</em></strong> - When ports accept traffic from VLAN they are not intended to be a part of.</li>
 							<li>VLAN Leaking occurs when a trunk link has a <strong>native VLAN mismatch</strong> and <em>untagged</em> traffic is directed to the wrong VLAN. CDP generates debug messages in such a case.</li>
 							<li>Trunk links also must have <strong>compatible trunk modes and identical sets of allowed VLANs</strong>, otherwise no traffic or unexpected traffic issues could arise.</li>
@@ -395,7 +438,7 @@ Statistics
 					</section>
 					<section>
 						<h2>Troubleshooting VLAN Trunks</h2>
-						<pre><code class="no-highlight">Cat3550#show interfaces trunk 
+						<pre><code class="no-highlight">Cat3550#show interfaces trunk
 
 Port    Mode     Encapsulation  Status     Native vlan
 Fa0/17  auto     802.1q         trunking   1
@@ -452,8 +495,9 @@ Administrative Mode: dynamic auto
 					</section>
 					<section>
 						<h2>VLAN Security: PVLAN Edge</h2>
-						<p>It's possible to elect specific port as <strong><em>protected</em></strong>: those ports <strong>don't allow any L2 traffic</strong> (unicast, broadcast, multicast) between them. This feature is called <em>Private VLAN Edge</em>.</p>
-						<p>Traffic <strong>between unprotected and protected</strong> port is treated in the usual way.</p>
+						<p>By electing specific ports as <strong><em>protected</em></strong> we can <strong>forbid any L2 traffic</strong> (unicast, broadcast, multicast) between them.</p>
+						<p>This feature is called <em>Private VLAN Edge</em> and <u>only has local switch significance</u>.</p>
+						<p>Traffic <strong>between unprotected and protected</strong> ports on the same switch or <strong>protected ports belonging to different switches</strong> is treated in the usual way.</p>
 						<p>To configure a port as protected:</p>
 						<pre><code class="no-highlight">Switch(config-if)# switchport protected</code></pre>
 						<p>To restore a port as unprotected:</p>
