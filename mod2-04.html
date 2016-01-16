@@ -43,8 +43,8 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
-					<h2>Routing and Switching Essentials</h2>
+					<h2>Routing &amp; Switching:<h2>
+					<h2>Routing &amp; Switching Essentials</h2>
 					<h3>Chapter 4: Routing Concepts</h3>
 					<p>
 						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
@@ -63,7 +63,7 @@
 					<h2>Network Characteristics</h2>
 					<p>A good network must guarantee:</p>
 					<ul>
-						<li>Enough <strong>speed</strong> for data traveling</li>
+						<li>Enough <strong>speed</strong> for data traveling.</li>
 						<li>Reasonable <strong>Cost</strong> for purchasing and maintainance of the network.</li>
 						<li>Good <strong>Security</strong> for information transmitted over the network.</li>
 						<li><strong>Availability</strong> of the network service when it is required.</li>
@@ -73,20 +73,16 @@
 				</section>
 
 				<section>
-					<h2>What routers are?</h2>
-					<p>Routers are meant to be computer <strong>specialized in forwarding</strong> IP packets. They have:</p>
-					<ul>
-						<li>Central Processing Unit (CPU)</li>
-						<li>Operating System (OS)</li>
-						<li>Memory and storage (RAM, ROM, NVRAM, Flash, hard drive.</li>
+					<h2>What are routers?</h2>
+					<p>Routers are meant to be computer <strong>specialized in forwarding</strong> IP packets. They have a Central Processing Unit (CPU), an Operating System (OS), and Memory/storage (RAM, ROM, NVRAM, Flash, HDDs).</li>
 					</ul>
 					<p>A router connects <strong>at least two networks using multiple interfaces</strong> that each belong to a different IP network. IP packets received on one interface are forwarded toward destination.</p>
-					<p>The decision regarding which interface to use for forwarding the packet is based on the <strong>router’s knowledge of the network</strong>.</p>
+					<p>The decision about the interface to use for forwarding the packet relies on the <strong>router’s knowledge of the network</strong>.</p>
 					<p>This knowledge is summarized in the <strong>routing table</strong>.</p>
 				</section>
 
 				<section>
-					<h2>Methods for Packet Forwarding</h2>
+					<h2>Packet Forwarding Methods</h2>
 					<ul>
 						<li><strong>Process switching</strong> - Every packet is processed by the CPU. Used on old routers. It is slow and inefficient because it constantly searches the routing table for matches.</li>
 						<li><strong>Fast switching</strong> - Only the first packet of a stream is processed by the CPU and the next hop is calculated, a cache is built and used for the other packets of the stream. Routing table searches are <em>packet-triggered</em>.</li>
@@ -107,7 +103,7 @@
 					<h2>Initial router configuration</h2>
 					<p>Cisco routers and switches have a similar modal operating system and command structures.</p>
 					<p><strong>Many commands are exactly the same</strong> and both devices have similar initial configuration steps:</p>
-					<pre><code class="no-highlight">## Set a name ##
+					<pre><code class="no-highlight" style="max-height: 350px;">## Set a name ##
 Router(config)# hostname [my name]
 # Protect privileged EXEC, user EXEC, and Telnet access ##
 # w/ encrypted password ##
@@ -117,7 +113,6 @@ Router(config-line)#password console_password
 Router(config-line)#login
 Router(config-line)#exit
 Router(config)#line vty 0 15
-Router(config-line)#passw
 Router(config-line)#password vty_password
 Router(config-line)#login
 Router(config-line)#exit
@@ -135,7 +130,7 @@ Router# copy running-config startup-config</code></pre>
 						<pre><code class="no-highlight">Router(config)#interface gigabitEthernet 0/0
 Router(config-if)#description Link to Lan
 Router(config-if)#ip address 10.1.1.1 255.0.0.0
-Router(config-if)#no shutdown 
+Router(config-if)#no shutdown
 %LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
 Router(config-if)#exit</code></pre>
 						<p>For <strong>serial links</strong> you must set the clock only on one side (DCE) of the link with the command <code>clock rate [clock_rate]</code>.</p>
@@ -157,8 +152,8 @@ Router(config-if)#exit</code></pre>
 						<p>To configure a global unicast IPv6 address with an <strong>EUI-64-generated</strong> interface identifier (ID) in the last 64 bits, use:</p>
 						<pre><code class="no-highlight">Router(config-ig)# ipv6 address 2001:0410:0:1::/64 eui-64</code></pre>
 						<p>To <strong>manually assign a link-local address</strong> use the command:</p>
-							<pre><code>ipv6 address [ipv6_address/prefix_length] link-local</code></pre>
-						<p>The <code>ipv6 unicast-routing</code> global configuration command <strong>enables IPv6 routing</strong> and the router begins sending ICMPv6 Router Advertisement messages out the interface.</p>
+							<pre><code class="no-highlight">ipv6 address [ipv6_address/prefix_length] link-local</code></pre>
+						<p>The <code>ipv6 unicast-routing</code> global configuration command <strong>enables IPv6 routing</strong>: the router starts sending ICMPv6 Router Advertisement messages out the interface.</p>
 						<p>A PC connected to the interface will automatically configure an IPv6 address and default gateway without needing a DHCPv6 server.</p>
 					</section>
 				</section>
@@ -167,7 +162,7 @@ Router(config-if)#exit</code></pre>
 					<h2>The Loopback interface</h2>
 					<p>The <strong><em>loopback</em> interface</strong> is a logical interface not assigned to any physical port.</p>
 					<p>It is <strong>useful for testing</strong> and managing purposes, for example to check the routing process is functioning.</p>
-					<p>In some cases, such as with the Open Shortest Path First (OSPF) routing process, it is <strong>used for identification</strong> purposes.</p>
+					<p>In some cases, such as with the Open Shortest Path First (OSPF) routing, it's <strong>used for identification</strong> purposes.</p>
 					<p>To assign a loopback address use the commands:</p>
 					<pre><code class="no-highlight">Router(config)# interface loopback 0
 Router(config-if)# ip address 127.0.0.1 255.0.0.0
@@ -182,23 +177,21 @@ Router(config-if)# exit</code></pre>
 						<li><code>show ip interface</code> - Detailed infos for all interfaces.</li>
 						<li><code>show ip interface brief</code> - Summary for all interfaces.
 </li>
-						<li><code>show ip route</code> - Displays the IPv4 routing table stored in RAM</li>
+						<li><code>show ip route</code> - The IPv4 routing table stored in RAM.</li>
 					</ul>
-					<p>For IPv6 the same commands apply, but with the <code>ipv6</code> keyword.</p>
-					<p>General informations can be obtained with:</p>
+					<p>For IPv6 the same commands apply, but with the <code>ipv6</code> keyword. Other informations can be obtained with:</p>
 					<ul>
-						<li><code>show running-config interface [interface_id]</code> - Show commands configured on the specified interface.</li>
+						<li><code>show running-config interface [iface_id]</code> - Show commands configured on the specified interface.</li>
 						<li><code>show interfaces</code> - Interface informations and statistics about packet flow.</li>
 					</ul>
 				</section>
 
 				<section>
 					<section>
-						<h2>Filtering outputs (*)</h2>
-						<small>(*) not implemented in Packet Tracer 6.1.</small>
+						<h2>Filtering outputs</h2>
 						<p>The console output is, by default, <strong>paused after 24 lines</strong>.</p>
-						<p>The command <code>terminal length [number]</code> can be used to change the value and specify the number of lines to be displayed.</p>
-						<p>A value of <strong>0 (zero) avoids pausing</strong> between screens of output.</p>
+						<p><code>terminal length [number]</code> can be used to change the value and specify the number of lines to be displayed.</p>
+						<p>A value of <strong>0 (zero) avoids pausing</strong> between screens.</p>
 						<p>To <strong>filter the output</strong>, use the | character (<em>pipe</em>) followed by:</p>
 						<ul>
 							<li><strong>section</strong> - Shows entire section that starts with the filtering expression (a <em>regex</em>, regular expression).</li>
@@ -210,21 +203,22 @@ Router(config-if)# exit</code></pre>
 					<section>
 						<h2>Filtering Output Examples</h2>
 						<pre><code class="no-highlight"> Router# show interface | include protocol
- FastEthernet0/0 is up, line protocol is up 
- Serial4/0 is up, line protocol is up 
- Serial4/1 is up, line protocol is up 
- Serial4/2 is administratively down, line protocol is down 
+ FastEthernet0/0 is up, line protocol is up
+ Serial4/0 is up, line protocol is up
+ Serial4/1 is up, line protocol is up
+ Serial4/2 is administratively down, line protocol is down
  Serial4/3 is administratively down, line protocol is down</code></pre>
+						<p>Unfortunately, output filtering is yet to be implemented in Cisco Packet Tracer.</p>
 					</section>
 				</section>
 
 				<section>
 					<h2>Router (De)Encapsulation</h2>
-					<p>When a router selects the best path for a packet and forwards it towards destination, it performs a "<em>switching</em>" function.</p>
+					<p>When a router selects the best path for a packet and forwards it towards destination, it performs "<em>switching</em>".</p>
 					<p>Unlike switches, <u>routers perform this function at Layer 3</u>.</p>
 					<p>Routers <strong>de-encapsulates L1 and L2 of incoming packets</strong> in order to examine the IP header, where the informations necessary to the "switching" function are.</p>
 					<p>After the router has made its forwarding decision, <strong>it re-encapsulate the packet into a new L2 frame</strong>.</p>
-					<p>The new L2 frame can be of an <strong>entirely different data link protocol and addresses</strong>, since routers can have very different interfaces (perhaps through expansion slots like <strong>HWIC</strong>).</p>
+					<p>The new L2 frame can be of an <strong>entirely different data link protocol and addresses</strong>, since routers can have very different interfaces (and expansion slots like <strong>HWIC</strong>).</p>
 				</section>
 
 				<section>
@@ -238,9 +232,8 @@ Router(config-if)# exit</code></pre>
 
 				<section>
 					<h2>Sources of routes</h2>
-					<p>There are 4 different sources of routes in the routing table:</p>
 					<ul>
-						<li><strong>Local Route</strong> interfaces (code: L)  - Automatically added when an interface is configured and active, so the router can <strong>efficiently detect a packet destined to itself</strong>. This entry is only displayed in Cisco IOS 15 and IPv6-enabled IOS releases.</li>
+						<li><strong>Local Route</strong> interfaces (code: L)  - Automatically added when an interface is configured and active, so the router can <strong>efficiently detect a packet destined to itself</strong>. Only displayed in Cisco IOS 15 and IPv6-enabled IOS releases.</li>
 						<li><strong>Directly connected</strong> interfaces (code: C) - Automatically added when an interface is configured and active.</li>
 						<li><strong>Static routes</strong> (code: S) - Added to the table when a route is <strong>manually configured</strong> and the exit interface is active.</li>
 						<li><strong>(Dynamic) routing protocols</strong> (codes: D, O, R, etc) - Added when routing protocols that dynamically learn about the network, such as EIGRP or OSPF, are running on the router.</li>
@@ -249,6 +242,7 @@ Router(config-if)# exit</code></pre>
 
 				<section>
 					<h2>Codes used for routes</h2>
+					<p>Even if you forgot, the output of the routing table in Cisco IOS is there to remind you:</p>
 					<pre><code class="no-highlight">Router# show ip route
 Codes:  L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
   D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -276,71 +270,130 @@ Codes:  L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
 				</section>
 
 				<section>
-					<h2>Administrative Distance</h2>
-					<p>A router has multiple route sources, and <strong>many routing protocols can simultaneously be running</strong>. Routes to the same destination can be learned through 2 or more of them.</p>
-					<p>When this happens, the router has to decide wich of these "duplicates" to <em>install</em> in the routing table.</p>
-					<p>The router uses the <strong><em>administrative distance (AD)</em></strong>, which is a number used only to <strong>rank which route source is the most "trusted"</strong> when 2 of them are <u>competing for a specific route</u>.</p>
-					<img src="http://i.imgur.com/rFDnhYY.jpg">
+					<section>
+						<h2>Administrative Distance</h2>
+						<p>A router has multiple route sources, and <strong>many routing protocols can simultaneously be running</strong>. Routes to the same destination can be learned through 2 or more of them.</p>
+						<p>When this happens, the router has to decide wich of these "duplicates" to <em>install</em> in the routing table.</p>
+						<p>The router uses the <strong><em>administrative distance (AD)</em></strong>, which is a number used only to <strong>rank which route source is the most "trusted"</strong> when 2 of them are <u>competing for a specific route</u>.</p>
+					</section>
+					<section>
+						<h2>Administrative Distance</h2>
+						<small>
+							<table>
+								<tr>
+									<td><strong>Route Source</strong></td>
+									<td><strong>AD</strong></td>
+								</tr>
+								<tr>
+									<td>Directly Connected</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td>Static</td>
+									<td>1</td>
+								</tr>
+								<tr>
+									<td>EIGRP Summary Route</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>External BGP</td>
+									<td>20</td>
+								</tr>
+								<tr>
+									<td>Internal EIGRP</td>
+									<td>90</td>
+								</tr>
+								<tr>
+									<td>IGRP</td>
+									<td>100</td>
+								</tr>
+								<tr>
+									<td>OSPF</td>
+									<td>110</td>
+								</tr>
+								<tr>
+									<td>IS-IS</td>
+									<td>115</td>
+								</tr>
+								<tr>
+									<td>RIP</td>
+									<td>120</td>
+								</tr>
+								<tr>
+									<td>External EIGRP</td>
+									<td>170</td>
+								</tr>
+								<tr>
+									<td>Internal BGP</td>
+									<td>200</td>
+								</tr>
+							</table>
+						</small>
+					</section>
 				</section>
 
 				<section>
-					<h2>Best Path</h2>
-					<p>Normally a router has a single path towards a specific destination. However there’s the chance of <strong>more than one path available, each with a different exit interface</strong>.</p>
-					<p>It’s the router’s job to select the <strong>best path</strong>.</p>
-					<p>Routing protocols calculate the <strong><em>metric</em> (cost)</strong> for each route, which is a number that translates <strong>one or more criteria</strong> into the "distance" of the destination network along that path.</p>
-					<p><u>The best path is identified by the lowest metric</u>.</p>
-					<p>Some of the criteria used by popular routing protocols for determining the route metric:</p>
-					<ul>
-						<li>RIP - Hop Count</li>
-						<li>OSPF - Cumulative bandwidth towards the destination</li>
-						<li>EIGRP - A combination of bandwidth, delay, load, reliability</li>
-					</ul>
+					<section>
+						<h2>Best Path</h2>
+						<p>Normally a router has a single path towards a specific destination. However there’s the chance of <strong>more than one path available, each with a different exit interface</strong>.</p>
+						<p>It’s the router’s job to select the <strong>best path</strong>.</p>
+						<p>Routing protocols calculate the <strong><em>metric</em> (cost)</strong> for each route, which is a number that translates <strong>one or more criteria</strong> into the "distance" of the destination network along that path.</p>
+						<p><u>The best path is identified by the lowest metric</u>.</p>
+					</section>
+					<section>
+						<h2>Best Path</h2>
+						<p>Some of the criteria used by popular routing protocols for determining the route metric:</p>
+						<ul>
+							<li>RIP - Hop Count.</li>
+							<li>OSPF - Cumulative bandwidth towards the destination.</li>
+							<li>EIGRP - A combination of bandwidth, delay, load, reliability.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
 					<h2>Load Balancing</h2>
 					<p>If multiple paths have the same metric, the router will contain a <strong>single entry with multiple exit interfaces</strong>, and will use them all.</p>
-					<p>This process is known as (Equal Cost) <strong>Load Balancing</strong>.</p>
+					<p>This process is known as <em>(Equal Cost) <strong>Load Balancing</strong></em>.</p>
 					<p>Only EIGRP has the capability for load balancing between multiple paths of unequal metric.</p>
 				</section>
 
 				<section>
 					<h2>Reading the routing table</h2>
-					<pre><code class="no-highlight">R0# show ip route
-.....
-O    1.1.1.4 [110/2] via 1.1.1.2, 00:10:04, FastEthernet0/1</code></pre>
+					<pre><code class="no-highlight">O    1.1.1.4/30 [110/2] via 1.1.1.2, 00:10:04, FastEthernet0/1</code></pre>
 					<ul>
-						<li><strong>O</strong> is the <u>route source</u> - Identifies how the route was learned.</li>
-						<li><strong>1.1.1.4</strong> is the <u>destination network</u> (the network address of the remote network)</li>
+						<li><strong>O</strong> is the <u>route source</u> - how the route was learned</li>
+						<li><strong>1.1.1.4/30</strong> is the <u>destination network</u> (the network address of the remote network)</li>
 						<li><strong>110</strong> is the <u>administrative distance</u></li>
 						<li><strong>2</strong> is the <u>metric</u></li>
-						<li><strong>1.1.1.2</strong> is the <u>Next-hop</u> (The next router to forward the packet to)</li>
+						<li><strong>1.1.1.2</strong> is the <u>Next-hop</u> (The next router to forward the packet to, also said to be <em>the gateway to that network</em>)</li>
 						<li><strong>00:10:04</strong> is the <u>Route timestamp</u> (Time since the route was learned)</li>
 						<li><strong>FastEthernet0/1</strong> is the <u>outgoing interface</u> (Exit interface to use to forward a packet toward the final destination)</li>
 					</ul>
 				</section>
 
 				<section>
-					<h2>Directly Connected Example Entries</h2>
+					<h2>Directly Connected Entries</h2>
 					<pre><code class="no-highlight">=== IPv4 ===
 Router(config)#interface gigabitEthernet 0/1
 Router(config-if)#ip address 10.2.3.1 255.0.0.0
 Router(config-if)#no shutdown
-Router(config-if)#end 
+Router(config-if)#end
 Router#show ip route
 ...
 10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
 C 10.0.0.0/8 is directly connected, GigabitEthernet0/1
-L 10.1.1.1/32 is directly connected, GigabitEthernet0/1</code></pre>
+L 10.2.3.1/32 is directly connected, GigabitEthernet0/1</code></pre>
 					<pre><code class="no-highlight">=== IPv6 ===
 Router(config)#interface gigabitEthernet 0/0
 Router(config-if)#ipv6 address 2001:db8:4096::1/64
 Router(config-if)#no shutdown
 Router(config-if)#end
-Router#show  ipv6 route 
+Router#show ipv6 route
 [...]
-C   2001:DB8:1012::/64 [0/0] via GigabitEthernet0/0, directly connected
-L   2001:DB8:1012::1/128 [0/0] via GigabitEthernet0/0, receive
+C   2001:DB8:4096::/64 [0/0] via GigabitEthernet0/0, directly connected
+L   2001:DB8:4096::1/128 [0/0] via GigabitEthernet0/0, receive
 C   FE08:1111::/64 [0/0] via GigabitEthernet0/0, directly connected
 L   FE08:1111::1/128 [0/0] via GigabitEthernet0/0, receive
 L   FF00::/8 [0/0] via Null0, receive</code></pre>
@@ -359,47 +412,39 @@ L   FF00::/8 [0/0] via Null0, receive</code></pre>
 					</section>
 					<section>
 						<h2>Static Routes Configuration</h2>
-						<p>There are two common types of static routes in the routing table: <strong>static route to a specific network</strong> and <strong>default static route</strong>.</p>
-						<p>To configure a static route use the commands:</p>
-						<pre><code class="no-highlight">=== IPv4 ==
-Router(config)# ip route [network_mask] [next_hop_ip | exit_interface]
-=== IPv6 ==
-Router(config)# ipv6 route [ipv6_prefix/prefix-length]  [ipv6_address | exit_interface]</code></pre>
-						<p>To configure a static default route use the commands:</p>
-						<pre><code class="no-highlight">=== IPv4 ==
+						<p>There are two types of static routes in the routing table: <strong>static route to a specific network</strong> and <strong>default static route</strong>.</p>
+						<pre><code class="no-highlight">=== IPv4 Static Route ==
+Router(config)# ip route [mask] [next_hop_ip | exit_iface]
+=== IPv6 Static Route ==
+Router(config)# ipv6 route [ipv6_prefix/prefix-length]  [ipv6_addr | exit_iface]</code></pre>
+						<pre><code class="no-highlight">=== IPv4 Default Static Route ==
 Router(config)#ip route 0.0.0.0 0.0.0.0 gigabitEthernet 0/0
 Router#show ip route
 [...]
 S* 0.0.0.0/0 is directly connected, GigabitEthernet0/0
-=== IPv6 ==
+=== IPv6 Default Static Route ==
 Router(config)# ipv6 route ::/0 {ipv6-address | interface-type interface-number}</code></pre>
-						<p>A static route and a default static route are identified in the routing table with the codes "</code>S</code>" and "<code>S*</code>", respectively.</p>
+						<p>A static route and a (possible) default static route are identified in the routing table with the codes "</code>S</code>" and "<code>S*</code>". Chosen default static route is <em>Gateway of Last Resort</em>.</p>
 					</section>
 				</section>
 
 				<section>
 					<section>
 						<h2>Dynamic Routing Protocols</h2>
-						<p>To share with others routers informations about reachability status of remote networks routers use dynamic routing protocols.</p>
+						<p>To share with others routers informations about reachability status of remote networks routers use routing protocols.</p>
 						<p>The discovery of new networks is performed by the routing protocols through <strong>specific messages that other routers running the same protocol can understand</strong>.</p>
-						<p>Routing protocols reacts to <strong>topology changes</strong>.</p>
-						<p>The new or updated paths to remote networks are written in the routing table.</p>
+						<p>Routing protocols react (<em>dynamic</em>) to <strong>topology changes</strong>. New or updated paths to remote networks are written in the routing table.</p>
 						<p>When <strong>every router has acquired the updated routing informations</strong> through the routing protocol, it is said that they have <em>converged</em>.</p>
 					</section>
 					<section>
-						<h2>IPv4 and IPv6 Routing Protocols</h2>
-						<p>Examples of dynamic routing protocols for IPv4 are:
+						<h2>IPv4/IPv6 Routing Protocols</h2>
 						<ul>
-							<li>EIGRP - Enhanced Interior Gateway Routing Protocol</li>
-							<li>OSPF - Open Shortest Path First</li>
-							<li>IS-IS - Intermediate System-to-Intermediate System</li>
-							<li>RIP - Routing Information Protocol</li>
-						</ul>
-						<p>For IPv6:</p>
-						<ul>
-							<li>RIPng (RIP next generation)</li>
-							<li>OSPFv3</li>
-							<li>EIGRP for IPv6</li>
+							<li><u>EIGRP</u> (IPv4/6) - Enhanced Interior Gateway Routing Protocol</li>
+							<li><u>OSPF</u> (IPv4) - Open Shortest Path First</li>
+							<li>IS-IS (IPv4) - Intermediate System-to-Intermediate System</li>
+							<li><u>RIP</u> (IPv4) - Routing Information Protocol</li>
+							<li><u>RIPng</u> (IPv6) - RIP next generation</li>
+							<li><u>OSPFv3</u> (IPv6)</li>
 						</ul>
 						<p>To show the supported routing protocols on a Cisco Router:</p>
 						<pre><code class="no-highlight">=== IPv4 ===
