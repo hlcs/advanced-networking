@@ -43,8 +43,8 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
-					<h2>Routing and Switching Essentials</h2>
+					<h2>Routing &amp; Switching:<h2>
+					<h2>Routing &amp; Switching Essentials</h2>
 					<h3>Chapter 6: Static Routing</h3>
 					<p>
 						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
@@ -61,9 +61,9 @@
 					<h2>Routing Tables and Routes</h2>
 					<p>The <strong>routing table</strong> contains informations about directly connected and remote networks reachability. The rows on this table are called <strong><em>routes</em></strong>.</p>
 					<p><u>Each router interface belongs to a different IP network</u>. A <strong>directly connected</strong> route is added when an interface is configured with an IP address and activated.</p>
-					<p><strong>Remote routes</strong> are paths to remote networks (<strong>not locally attached</strong> but connected to other routers). For not directly connected networks, the router can learn routes to them either:</p>
+					<p><strong>Remote routes</strong> are paths to remote networks (<strong>not locally attached</strong> but connected to other routers). For not directly connected networks, the router can learn routes:</p>
 					<ul>
-						<li><strong>statically</strong> - <u>manually entered</u> by the administrator. In this chapter we will <u>focus on static routes</u>.</li>
+						<li><strong>statically</strong> - <u>manually entered</u> by the administrator.</li>
 						<li><strong>dynamically</strong> - <u>automatically learned</u> through routing protocols.</li>
 					</ul>
 				</section>
@@ -72,8 +72,8 @@
 					<h2>Anatomy of a Route</h2>
 					<p>A route is a line on the routing table that contains all the information needed to reach the <u>specified network</u>.</p>
 					<p>It has <u>four main components</u>: destination network, subnet mask, next hop and route cost, also know as <em>metric</em>.</p>
-					<p>The next hop can be <strong>expressed in two forms</strong>: as the IP address of another router/gateway or the exit interface of the packet.</p>
-					<pre><code class="no-highlight">R0#show ip route
+					<p>The next hop can be <strong>expressed in two forms</strong>: as the IP of another router/gateway or the exit interface of the packet.</p>
+					<pre><code class="no-highlight" style="max-height: 250px;">R0#show ip route
 .....
 1.0.0.0/30 is subnetted, 4 subnets
  C    1.1.1.0 is directly connected, FastEthernet0/1
@@ -103,12 +103,12 @@
 					</section>
 					<section>
 						<h2>Types of routes</h2>
-						<h3>Dynamically Updated Routes (R, O, D, etc)</h3>
+						<h3>Dynamically Updated Routes (R, O, D, ...)</h3>
 						<ul>
 							<li><em>Dynamic routes</em>, for short.</li>
-							<li>Added, modified and removed <strong>automatically by routing protocols</strong>.</li>
-							<li>Routing protocols send and receive messages containing routing tables updates with other routers running the same protocol.</li>
-							<li>Multiple routing protocol can run on a router. The routes learned through them are labeled with a code specific to each.</li>
+							<li>Added, modified and deleted <strong>automatically by routing protocols</strong> (<em>protocols</em> from now on, for short).</li>
+							<li>Protocols send and receive messages containing updated routes with other routers using the same protocol.</li>
+							<li>Multiple protocols can run on a router. The routes learned through them are labeled with a code specific to each.</li>
 						</ul>
 						<h3>Default Route (*)</h3>
 						<ul>
@@ -122,16 +122,16 @@
 						<h2>Static vs Dynamic Routing</h2>
 						<p>The <u>advantages</u> of one are the shortcomings of the other.</p>
 						<ul>
-							<li><strong>Configuration</strong> - The bigger the network, the more time is spent on inital deployment of static routing. <u>Dynamic routing implementation time doesn’t grow with network size</u>.</li>
-							<li><strong>Maintainance</strong> - Every change in a static routing configuration requires manual intervention, keeping track of the topology, and it’s very easy to make mistakes. <u>Dynamic routing automatically adapts to changes in topology</u>.</li>
+							<li><strong>Configuration</strong> - The bigger the network, the more time is spent on inital implementation of static routing. <u>Dynamic routing deployment time doesn’t grow with network size</u>.</li>
+							<li><strong>Maintainance</strong> - Every change in a static routing config requires manual intervention, keeping track of the topology, and it’s very easy to make mistakes. <u>Dynamic routing automatically adapts to changes in topology</u>.</li>
 							<li><strong>Convergence</strong> - Static routing actually have the worst convergence time, because nothing is automated. <u>Dynamic routing is faster to converge</u>.</li>
-							<li><strong>Scaling</strong> - Static routing is just too complex to deploy and maintain in anything other than small networks and specific situations. <u>Dynamic routing can be used at larger scales</u>.</li>
 						</ul>
 					</section>
 					<section>
 						<h2>Static vs Dynamic Routing</h2>
 						<ul>
-							<li><strong>Security</strong> - <u>With static routes traffic can be routed on a path known to be secure</u>. Dynamic routing protocols could be hacked to divert traffic for interception and tampering.</li>
+							<li><strong>Scaling</strong> - Static routing is just too complex to deploy and maintain in anything other than small nets or specific tasks. <u>Dynamic routing can be used at larger scales</u>.</li>
+							<li><strong>Security</strong> - <u>With static routes traffic can be routed on a path known to be secure</u>. Routing protocols could be hacked to divert traffic for interception and tampering.</li>
 							<li><strong>Resource usage</strong> - <u>Static routing use no resources on topology changes</u>: none for recomputing the route, and none of the bandwidth dynamic routing needs to transmit the new topology informations.</li>
 							<li><strong>Predictability</strong> - <u>Static routes have no dependency on external factors</u>, while dynamic routes are never a given especially in fluctuating topologies.</li>
 						</ul>
@@ -144,8 +144,8 @@
 					<p>Static routes are typically deployed:</p>
 					<ul>
 						<li>In smaller networks.</li>
-						<li>In networks that only have one path to reach other networks. Such networks are known as <strong><em>stub networks/routers</em></strong>.</li>
-						<li>For specific types of traffic that we want on a specic path, perhaps for security or control reasons.</li>
+						<li>In networks that only have one path to reach other ones. Such networks are known as <strong><em>stub networks/routers</em></strong>.</li>
+						<li>For specific types of traffic that we want on a specific path, perhaps for security or control reasons.</li>
 						<li>For the default route/Gateway of Last Resort.</li>
 						<li>To provide backup (<em>floating</em>) routes.</li>
 						<li>To summarize multiple routes into a single one.</li>
@@ -162,7 +162,7 @@
 						</ul>
 						<h3>Default static route</h3>
 						<ul>
-							<li><strong>A route that applies to all packets</strong> in absence of a more specific (static or dynamic) route to the destination network.</li>
+							<li><strong>It applies to all packets</strong> in absence of a more specific (static or dynamic) route to the destination network.</li>
 							<li>It takes the form of a route to the <strong>destination network 0.0.0.0/0</strong> (or 0.0.0.0 0.0.0.0), which is <strong>least-specific possible route</strong> (Only 1 bits of network address needs to match to take precedence).</li>
 							<li>Useful on <strong>stub router, that only have one neighbour</strong> router to which packets could be sent.</li>
 						</ul>
@@ -182,9 +182,9 @@
 
 				<section>
 					<h2>Setting up a static route</h2>
-					<p>The <code>ip/ipv6 route</code> command is used in global configuration to add static routes to the routing table. <u>Based on how the next hop is specified</u>, we have:</p>
+					<p><code>ip/ipv6 route</code> inserts static routes to the routing table. <u>Based on how the next hop is specified</u>, we have:</p>
 					<ul>
-						<li><strong>Next-hop routes</strong> (only the IP address of the gateway to that network is entered):</li>
+						<li><strong>Next-hop routes</strong> (only the IP of the GW is entered):</li>
 						<pre><code class="no-highlight"># ip route [destination_network] [subnet_mask] [gateway_address]
 R1(config)#ip route 192.168.16.0 255.255.255.0 192.168.15.1</code></pre>
 						<li><strong>Directly connected static routes</strong> (outgoing interface only):</li>
@@ -193,31 +193,35 @@ R1(config)#ip route 192.168.16.0 255.255.255.0 S0/0/0</code></pre>
 						<li><strong>Fully specified static routes</strong> (both are entered):</li>
 						<pre><code class="no-highlight">ip route [destination_network] [mask] [exit_interface] [gateway_address]
 R1(config)#ip route 192.168.16.0 255.255.255.0 S0/0/0 192.168.15.1</code></pre>
+						<li><strong>Default static routes</strong> destination net/mask is 0.0.0.0/0.</li>
 					</ul>
-					<p>For <strong>default static route</strong>, destination network/mask is 0.0.0.0/0.</p>
 				</section>
 
 				<section>
-					<h2>Next Hop and recursive lookup</h2>
-					<p>Even if a static route matching an incoming packet is found, the packet is forwarded only when the route is <strong><em>resolved</em>, which means determining the outgoing interface</strong>.</p>
-					<p>When the static route matching is a next-hop route, <strong>to resolve it the router needs to search the routing table again</strong>, this time for a route matching the next-hop IP address.</p>
-					<p>This resolvability process will continue until either no route will match the next-hop IP examined, or an outgoing interface is finally determined. This is known as <strong><em>recursive lookup</em></strong>.</p>
-					<p>This recursion is very resource-intensive and should be avoided, for instance by <strong>entering only fully specified static routes</strong>.</p>
-					<p>It's not possible to add an <strong>invalid recursive route</strong>, that is a route that <strong>doesn’t directly or indirectly resolve</strong> at insertion-time.</p>
+					<section>
+						<h2>Next Hop and recursive lookup</h2>
+						<p>Even if a static route matching an incoming packet is found, the packet is forwarded only when the route is <strong><em>resolved</em>, which means determining the outgoing interface</strong>.</p>
+						<p>When the matching route is a next-hop route, <strong>to resolve it the router needs to search the routing table again</strong>, this time for a route matching the next-hop IP address.</p>
+						<p>This resolvability process will continue until either no route will match the next-hop IP examined, or an exit interface is finally determined. This is known as <strong><em>recursive lookup</em></strong>.</p>
+					</section>
+					<section>
+						<h2>Next Hop and recursive lookup</h2>
+						<p>This recursion is very resource-intensive and should be avoided, for instance by <strong>entering only fully specified static routes</strong>.</p>
+						<p>It's not possible to add an <strong>invalid recursive route</strong>, that is a route that <strong>doesn’t directly or indirectly resolve</strong> at insertion-time.</p>
+					</section>
 				</section>
 
 				<section>
-					<h2>Ethernet vs Serial Outgoing Interface</h2>
+					<h2>Ethernet vs Serial Next-Hop</h2>
 					<p><strong>To eliminate recursive lookups, a directly connected static routes can be entered</strong> instead of a next-hop one.</p>
-					<p>However <u>this may not work in certain topologies when the outgoing interface is an Ethernet</u>.</p>
-					<p>To forward the packet <strong>the router must determine the next-hop MAC address</strong>, but <u>ARP can't be used without the IP address</u>.</p>
+					<p>However <u>this may not work in certain topologies when the outgoing interface is an Ethernet</u>. To forward the packet <strong>the router must determine the next-hop MAC address</strong>, but <u>ARP can't be used without the IP address</u>.</p>
 					<p>This is a problem <strong>due to the multi-point/multi-access nature of Ethernet</strong>. On a serial, point-to-point connections there is <u>only one possible next-hop device on the medium</u>.</p>
 					<p>To avoid this potential issue, <u>only use fully specified static routes when the outgoing interface is an Ethernet</u>.</p>
 				</section>
 
 				<section>
 					<h2>Cisco Express Forwarding</h2>
-					<p>If the forwarding method enabled on a Cisco router is CEF, it means <strong>2 main data structures</strong> are used for the routing process:</p>
+					<p>If the forwarding method enabled on the router is CEF, <strong>2 main data structures</strong> are used for the routing process:</p>
 					<ul>
 						<li>a <strong>FIB</strong> (<em>Forwarding Information Base</em>), only storing next-hop informations.</li>
 						<li>an <strong>adjacency table</strong> maintaining Layer 2 switching informations.</li>
@@ -239,7 +243,7 @@ R1(config)#ip route 192.168.16.0 255.255.255.0 S0/0/0 192.168.15.1</code></pre>
 				</section>
 
 				<section>
-					<h2>IPv6 - Link-Local addresses as next-hop</h2>
+					<h2>IPv6 - Link-Local as next-hop</h2>
 					<p>There is <u>a situation when using static routing with IPv6 where it is not possible to specify a next-hop or directly connected route</u>: when using a IPv6 link-local address as the next-hop.</p>
 					<p>In such cases, <strong>a fully specified static route must be used</strong>, because:</p>
 					<ul>
@@ -252,11 +256,11 @@ R1(config)#ip route 192.168.16.0 255.255.255.0 S0/0/0 192.168.15.1</code></pre>
 					<section>
 						<h2>[R] Classful Addressing</h2>
 						<img src="http://i.imgur.com/fQAqxLy.jpg">
+						<small>RFC 1700 divides the unicast ranges into classes of a specific network size and assigned within specific IP blocks. </small>
 					</section>
 					<section>
-						<h2>Classful Addressing</h2>
-						<p>The RFC 1700 divides the unicast ranges into classes, specified in terms of network size and assigned specific IP blocks. </p>
-						<p><strong>Classful addressing</strong> refers to the (legacy) practice of assigning an entire network from one of this pre-defined classes.</p>
+						<h2>[R] Classful Addressing</h2>
+						<p><strong>Classful addressing</strong> refers to the (legacy) practice of assigning entire networks these pre-defined classes.</p>
 						<ul>
 							<li><strong>Class A</strong> [0.0.0.0/8 to 127.0.0.0/8]: designed for enormous networks, it divided 50% of the IPv4 space into 128 /8 networks supporting up to 16 mln hosts.</li>
 							<li><strong>Class B</strong> [128.0.0.0/16 to 191.255.0.0/16]: designed for medium and large networks, 25% of the space was divided into 16000 /16 networks supporting up to 65000 hosts.</li>
@@ -267,7 +271,7 @@ R1(config)#ip route 192.168.16.0 255.255.255.0 S0/0/0 192.168.15.1</code></pre>
 
 				<section>
 					<h2>Classful Routing Protocols</h2>
-					<p>The fact that each classfull class has its <strong>specific, fixed subnet mask allowed for routing protocols to be simpler</strong>: exchanged messaging didn’t need to report the subnet mask along with the network IP addresses.</p>
+					<p>The fact that each classful class has its <strong>specific, fixed subnet mask allowed for routing protocols to be simpler</strong>: exchanged messages <u>didn’t need to report the subnet mask</u> along with the network IP addresses.</p>
 					<p>When receiving an update, the router either:</p>
 					<ul>
 						<li>applied the <strong>same subnet mask that was applied on the ingress interface</strong>, if that interface had an address of the same classful class.</li>
@@ -276,10 +280,10 @@ R1(config)#ip route 192.168.16.0 255.255.255.0 S0/0/0 192.168.15.1</code></pre>
 				</section>
 
 				<section>
-					<h2>[R] Classless Inter-Domain Routing</h2>
+					<h2>[R] CIDR</h2>
 					<p>Classfull addressing was <strong>highly inefficient</strong>, leading to many wasted addresses, so it was progressively abandoned.</p>
-					<p><strong>Classless addressing</strong>, also known as <strong>Classless Inter-Domain Routing (CIDR)</strong>, allows to allocate address ranges from the public space with prefix lengths other than just /8, /16 or /24.</p>
-					<p>By "freeing" the subnet mask from a specif class, <strong>CIDR can then reduce the size of routing tables</strong> through 2 mechanism, both of which will be explained shortly:</p>
+					<p><strong>Classless addressing</strong>, also known as <strong>Classless Inter-Domain Routing (CIDR)</strong>, allows to allocate address ranges from the public space with prefix lengths other than /8, /16 or /24.</p>
+					<p>By "freeing" the subnet mask from a specific class, <strong>CIDR can then reduce the size of routing tables</strong> through 2 mechanisms, both of which will be explained shortly:</p>
 					<ul>
 						<li>Route summarization.</li>
 						<li>Supernetting, which is a specific type of route summarization.</li>
@@ -287,9 +291,9 @@ R1(config)#ip route 192.168.16.0 255.255.255.0 S0/0/0 192.168.15.1</code></pre>
 				</section>
 
 				<section>
-					<h2>[R] VLSM: Variable Length Subnet Mask</h2>
+					<h2>[R] VLSM</h2>
 					<p><strong>With basic</strong> (fixed-length) <strong>subnetting, every subnet has the same size</strong>. When the number of hosts needed in each is very different, that would lead to significant <strong>waste and unused addresses</strong>.</p>
-					<p>Subnets too large for the actual requirements will also <strong>limit growth</strong> by needlessly reducing the number of available subnets.</p>
+					<p>Subnets too large for the actual requirements will also <strong>limit growth</strong> by needlessly reducing available subnets.</p>
 					<p>The solution to these scenarios is a subnetting method called <em>Variable Length Subnet Mask (VLSM)</em>.</p>
 					<p>It does what the name says: the number of bits borrowed (hence, the subnet mask) <strong>varies with each subnet</strong>.</p>
 				</section>
@@ -297,22 +301,18 @@ R1(config)#ip route 192.168.16.0 255.255.255.0 S0/0/0 192.168.15.1</code></pre>
 				<section>
 					<h2>[R] How does VLSM work?</h2>
 					<img src="http://i.imgur.com/8JdgAJz.png">
-					<p>With VLSM:</p>
-					<ul>
-						<li>you still borrow bits to create subnets.</li>
-						<li>the subnetting formulas are still valid.</li>
-					</ul>
-					<p>The difference is that <strong>it's not a single-pass process</strong> anymore:</p>
+					<p>With VLSM, you still <strong>borrow bits</strong> to create subnets. The <strong>subnetting formulas</strong> are <u>still valid</u>.</li>
+					<p>The difference is <strong>it's not a single-pass process</strong> anymore:</p>
 					<ul>
 						<li>The network is subnetted, and <strong>subnets are subnetted again</strong>.</li>
-						<li>This <strong>process is repeated</strong> to create the various size needed.</li>
+						<li>This <strong>process repeats</strong>, creating the various sizes needed.</li>
 					</ul>
 				</section>
 
 				<section>
 					<section>
 						<h2>[R] VLSM Scenario</h2>
-						<img src="http://i.imgur.com/QMjXJ6M.jpg">
+						<img src="http://i.imgur.com/QMjXJ6M.jpg" style="width: 544px; height: 300px;">
 						<p>We need 9 subnets, so 4 bits to borrow: a /24 network into 16 subnets with a /28 prefix, each capable of 14 hosts.</p>
 						<p>This means <u>12 wasted address on each PtP link</u>, 48 total!</p>
 						<p>And 14 hosts/subnet are a bit low, aren't they?</p>
@@ -321,9 +321,7 @@ R1(config)#ip route 192.168.16.0 255.255.255.0 S0/0/0 192.168.15.1</code></pre>
 						<h2>[R] VLSM Scenario</h2>
 						<h3>Traditional Subnetting</h3>
 						<pre><code class="no-highlight">Original Network Address     192.168.1.0/24
-Original Subnet Mask         255.255.255.0
 New Subnet Mask              255.255.255.240 = /28
-
 Subnet 0                     192.168.1.0/28
 Subnet 1                     192.168.1.16/28
 Subnet 2                     192.168.1.32/28
@@ -331,7 +329,7 @@ Subnet 3                     192.168.1.48/28
 [...]
 Subnet 14                    192.168.1.224/28
 Subnet 15                    192.168.1.240/28</code></pre>
-						<p>Wasteful. So let's take the first /28 subnet and subnet it again:</p>
+						<p>Wasteful. So let's take the first /28 and subnet it again:</p>
 						<ul>
 							<li>2 hosts needed mean 2 host bits (2<sup>2</sup> - 2 = 2 hosts)</li>
 							<li>this left us with 2 bits to borrow: 2<sup>2</sup> = 4 subnets.</li>
@@ -358,25 +356,31 @@ Subnet 15               192.168.1.224/27 # 30 hosts capable</code></pre>
 					</section>
 					<section>
 						<h2>[R] VLSM Charts</h2>
-						<img src="http://i.imgur.com/WgSJYKv.jpg">
+						<img src="http://i.imgur.com/WgSJYKv.jpg" style="width:800px; height: 488px;">
 					</section>
 				</section>
 
 				<section>
-					<h2>Route Summarization and Supernetting</h2>
-					<p><strong><em>Route summarization</em></strong> (or <em>route aggregation</em>) is the process of <strong>replacing routes to a contiguous set of network addresses with a single route</strong> with a shorter (i.e. less-specific) subnet mask.</p>
-					<p>Routes candidate for summarization <strong><u>must have the same exit interface or next hop address</u></strong>. Advantages are:</p>
-					<ul>
-						<li>smaller number of entries in routing table and routing protocol updates, leading to</li>
-						<li>reduced bandwidth used for dynamic routing protocols and</li>
-						<li>faster routing table lookups.</li>
-					</ul>
-					<p><strong><em>Supernetting</em></strong> is now mainly used as a synonimous for route summarization, but it was first conceived to identify the situation <strong>when the summarization process produces a summary route that has a subnet mask shorter than the classfull class</strong>.</p>
+					<section>
+						<h2>Route Summarization</h2>
+						<p><strong><em>Route summarization</em></strong> (or <em>route aggregation</em>) is the process of <strong>replacing routes to a contiguous set of network addresses with a single route</strong> with a shorter (i.e. less-specific) subnet mask.</p>
+						<p>Routes candidate for summarization <strong><u>must have the same exit interface or next hop address</u></strong>. Advantages are:</p>
+						<ul>
+							<li>smaller number of entries in routing table and routing protocol updates, leading to</li>
+							<li>reduced bandwidth used for routing protocols and</li>
+							<li>faster routing table lookups.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Supernetting</h2>
+						<p><strong><em>Supernetting</em></strong> is nowadays mainly used as a <u>synonimous for route summarization</u>.</p>
+						<p>At first, it was conceived to identify the situation <strong>when the summarization process produces a summary route that has a subnet mask shorter than the classful class</strong>.</p>
+					</section>
 				</section>
 
 				<section>
 					<section>
-						<h2>Route Summarization process: IPv4</h2>
+						<h2>IPv4 Route Summarization</h2>
 						<ol>
 							<li>Translate networks in binary format:</li>
 							<pre><code class="no-highlight">129.20.0.0/16 -> 10000001.00010100.00000000.000000000
@@ -389,16 +393,20 @@ Subnet 15               192.168.1.224/27 # 30 hosts capable</code></pre>
 129.22.0.0/16 -> 10000001.00010110.00000000.000000000
 129.23.0.0/16 -> 10000001.00010111.00000000.000000000
                  {-- 14 bits --}</code></pre>
-							<li>Add zeros to the right of the matching bits. This will give you the summarized network address.</li>
-							<pre><code class="no-highlight">10000001.00010100.00000000.000000000 -> 129.20.0.0
-</code></pre>
-							<li>(If required) Translate the new network prefix in decimal dotted notiation:</li>
 						</ol>
 					</section>
 					<section>
-						<h2>Route Summarization process: IPv6</h2>
-						<p>Example:</p>
-						<pre>2001:BF8:1234:1::/64 - 2001:BF8:1234:2::/64 - 2001:BF8:1234:3::/64 - 2001:BF8:1234:4::/64</pre>
+						<h2>IPv4 Route Summarization</h2>
+						<ol start="3">
+							<li>Add zeros to the right of the matching bits. This will give you the summarized network address.</li>
+							<pre><code class="no-highlight">10000001.00010100.00000000.000000000 -> 129.20.0.0
+</code></pre>
+							<li>(If required) Translate the new network prefix in decimal dotted notiation.</li>
+						</ol>
+					</section>
+					<section>
+						<h2>IPv6 Route Summarization</h2>
+						<pre><code class="no-highlight">Example: 2001:BF8:1234:1::/64, 2001:BF8:1234:2::/64, 2001:BF8:1234:3::/64, 2001:BF8:1234:4::/64</code></pre>
 						<ol>
 							<li>Identify the differing part of the address.</li>
 							<li>If in abbreviated format, expand the differing octect.</li>
@@ -409,7 +417,7 @@ Subnet 15               192.168.1.224/27 # 30 hosts capable</code></pre>
 2001:BF8:1234:0000000000000100::/64
                            ^^^
                            --- Differing bits</code></pre>
-							<li>Then it’s the same as with IPv4, but with reconversion to hex.</li>
+							<li>Then it’s identical to IPv4, but converting back to hex.</li>
 						</ol>
 						<p>So the resulting summary is 2001:BF8:1234::/61, with addresses ranging from 2001:BF8:1234:: to 2001:BF8:1234:7::.</p>
 					</section>
@@ -425,7 +433,7 @@ Subnet 15               192.168.1.224/27 # 30 hosts capable</code></pre>
 							<li>adding the summarized route with the command:</li>
 							<pre><code class="no-highlight">ip route [network] [subnet mask] { next-hop | exit-intf }</code></pre>
 						</ul>
-						<p>They are the same for IPv4 and IPv6 (with the <code>ipv6</code> keyword).</p>
+						<p>They are the same for IPv4/IPv6 (with the <code>ipv6</code> keyword).</p>
 					</section>
 					<section>
 						<h2>Configure static summarization</h2>
@@ -440,22 +448,83 @@ R3(config)# ip route 129.20.0.0 255.252.0.0 FastEthernet 0/0</code></pre>
 				</section>
 
 				<section>
-					<h2>[R] Administrative Distance</h2>
-					<p>A router has multiple route sources, and <strong>many routing protocols can simultaneously be running</strong>. Routes to the same destination can be learned through 2 or more of them.</p>
-					<p>When this happens, the router has to decide wich of these "duplicates" to <em>install</em> in the routing table.</p>
-					<p>The router uses the <strong><em>administrative distance (AD)</em></strong>, which is a number used only to <strong>rank which route source is the most "trusted"</strong> when 2 of them are <u>competing for a specific route</u>.</p>
-					<img src="http://i.imgur.com/rFDnhYY.jpg">
+					<section>
+						<h2>[R] Administrative Distance</h2>
+						<p>A router has multiple route sources, and <strong>many routing protocols can simultaneously be running</strong>. Routes to the same destination can be learned through 2 or more of them.</p>
+						<p>When this happens, the router has to decide wich of these "duplicates" to <em>install</em> in the routing table.</p>
+						<p>The router uses the <strong><em>administrative distance (AD)</em></strong>, which is a number used only to <strong>rank which route source is the most "trusted"</strong> when 2 of them are <u>competing for a specific route</u>.</p>
+					</section>
+					<section>
+						<h2>[R] Administrative Distance</h2>
+						<small>
+							<table>
+								<tr>
+									<td><strong>Route Source</strong></td>
+									<td><strong>AD</strong></td>
+								</tr>
+								<tr>
+									<td>Directly Connected</td>
+									<td>0</td>
+								</tr>
+								<tr>
+									<td>Static</td>
+									<td>1</td>
+								</tr>
+								<tr>
+									<td>EIGRP Summary Route</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>External BGP</td>
+									<td>20</td>
+								</tr>
+								<tr>
+									<td>Internal EIGRP</td>
+									<td>90</td>
+								</tr>
+								<tr>
+									<td>IGRP</td>
+									<td>100</td>
+								</tr>
+								<tr>
+									<td>OSPF</td>
+									<td>110</td>
+								</tr>
+								<tr>
+									<td>IS-IS</td>
+									<td>115</td>
+								</tr>
+								<tr>
+									<td>RIP</td>
+									<td>120</td>
+								</tr>
+								<tr>
+									<td>External EIGRP</td>
+									<td>170</td>
+								</tr>
+								<tr>
+									<td>Internal BGP</td>
+									<td>200</td>
+								</tr>
+							</table>
+						</small>
+					</section>
 				</section>
 
 				<section>
-					<h2>Floating Static Routes</h2>
-					<p>A <em>floating static route</em> for a network is a static route <strong>with an administrative distance higher than the other</strong> (static or dynamic) routes toward the same network.</p>
-					<p>This route is <u>not used until the primary route with the lower administrative distance is active</u>.</p>
-					<p>It works as <strong>backup route</strong>: only when the preferred route disappear the floating route becomes active.</p>
-					<p>To configure a floating static route <strong>add the value of the administrative distance</strong> at the end of the <code>ip route</code> command:</p>
-					<pre><code class="no-highlight">R2# configure terminal
+					<section>
+						<h2>Floating Static Routes</h2>
+						<p>A <em>floating static route</em> for a network is a static route <strong>with an administrative distance higher than the other</strong> (static or dynamic) routes toward the same network.</p>
+						<p>This route is <u>not used until the primary route with the lower administrative distance is active</u>.</p>
+						<p>It works as <strong>backup route</strong>: only when the preferred route disappear the floating route becomes active.</p>
+					</section>
+					<section>
+						<h2>Floating Static Routes</h2>
+						<p>To configure a floating static route <strong>add the value of the administrative distance</strong> at the end of the <code>ip route</code> command:</p>
+						<pre><code class="no-highlight">R2# configure terminal
 R2(config)# ip route 10.55.10.0 255.255.255.0 10.62.21.1 200</code></pre>
-					<p><strong>Testing a floating static route</strong> takeover is very simple: just shut down the current outgoing interface.</p>
+						<p><strong>Testing a floating static route</strong> takeover is very simple: just shut down the current outgoing interface.</p>
+					</section>
 				</section>
 
 				<section>
