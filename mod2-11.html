@@ -43,8 +43,8 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
-					<h2>Routing and Switching Essentials</h2>
+					<h2>Routing &amp; Switching:<h2>
+					<h2>Routing &amp; Switching Essentials</h2>
 					<h3>Chapter 11: Network Address Translation for IPv4</h3>
 					<p>
 						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
@@ -52,7 +52,7 @@
 				</section>
 
 				<section>
-					<h2>[R] RFC 1918: IPv4 Private Address Space</h2>
+					<h2>[R] IPv4 Private Address Space</h2>
 					<p>In <a href="https://tools.ietf.org/html/rfc1918">RFC 1918</a>, several subnets from the whole IPv4 address space has been <strong>reserved for private use</strong>. They are the:</p>
 					<ul>
 						<li>10/8 address space (10.0.0.0 - 10.255.255.255).</li>
@@ -71,7 +71,7 @@
 				<section>
 					<h2>IPv4 Address Depletion</h2>
 					<!-- Maybe "map ip address to another" is better? -->
-					<p><strong>The entire IPv4 address space consists of a little more than 4 billion addresses</strong>. It seemed more than enough, but the incredible growth of the Internet proved this assumption wrong.</p>
+					<p><strong>The entire IPv4 address space consists of 4.3 billion addresses</strong>. It seemed more than enough, but the incredible growth of the Internet proved this assumption wrong.</p>
 					<p>Without a solution, all the IPv4 addresses would have been exhausted way before year 2000.</p>
 					<p><strong>IPv6 solves this</strong> problem, but only in the long term.</p>
 					<p>RFC 1918 allows to conserve a huge amount of public Internet addresses, but it has to be <strong>coupled with a mechanism to provide these private networks with access to the public Internet</strong>.</p>
@@ -81,10 +81,9 @@
 				<section>
 					<h2>What is NAT and Why We use It</h2>
 					<p><strong><em>Network Address Translation</em></strong> is a technique used in a routing device that <strong>rewrites the source and/or destination IP address of a packet</strong> before forwarding it.</p>
-					<p>Its main and most important use is to allow private networks to access the Internet, by replacing their RFC 1918 addresses with public IPv4 addresses.</p>
+					<p>Its <strong>main use</strong> is to allow private networks to access the Internet, by replacing their RFC 1918 addresses with public IPv4 addresses. We are using NAT <u>right now</u>.</p>
 					<p>To do this, it will use a set of one or more public IPv4 addresses (the <em>NAT pool</em>) that are configured on the NAT-enabled router.</p>
-					<p>These public IPv4 addresses are those assigned by the ISP, or directly assigned to an organization by an Internet Registry.</p>
-					<p>We are using NAT <u>right now</u>.</p>
+					<p>These public IPv4 addresses are assigned by the ISP, or directly assigned to an organization by an Internet Registry.</p>
 				</section>
 
 				<section>
@@ -126,10 +125,10 @@
 					<section>
 						<h2>NAT Terms</h2>
 						<ul>
-							<li><strong>Inside local</strong> - Address of inside host as seen from the inside.</li>
-							<li><strong>Inside global</strong> - Address of inside host as seen from the outside.</li>
-							<li><strong>Outside local</strong> - Address of outside host as seen from the inside.</li>
-							<li><strong>Outside global</strong> - Address of outside host as seen from the outside.</li>
+							<li><strong><em>Inside local</em></strong>: address of inside host as seen from inside.</li>
+							<li><strong><em>Inside global</em></strong>: address of inside host as seen from outside.</li>
+							<li><strong><em>Outside local</em></strong>: address of outside host as seen from inside.</li>
+							<li><strong><em>Outside global</em></strong>: address of outside host as seen from outside.</li>
 						</ul>
 						<p>The definitions <strong>only depends on the NAT operations</strong>, and are therefore valid for both outgoing and incoming traffic.</p>
 						<p>Almost always (and in every case we'll see), <strong>outside local and outside global addresses coincide</strong>.</p>
@@ -160,12 +159,12 @@
 				<section>
 					<section>
 						<h2>Static NAT</h2>
-						<img src="http://i.imgur.com/LG9bpHl.gif">
+						<img src="http://i.imgur.com/LG9bpHl.gif" style="width: 509px; height: 231px;">
 						<ul>
 							<li>In Static NAT, <strong>each local address is statically mapped by the administrator to a single global address</strong>.</li>
 							<li>This means that the number of public addresses must <strong>at least match</strong> the number of inside hosts to be NATted. </li>
 							<li>These mappings remain fixed as configured by the admin.</li>
-							<li>Ideal when having <strong>inside hosts that needs to be accessible from the Internet</strong> using reliable public addressing.</li>
+							<li>Ideal when <strong>inside hosts need to be accessible from the Internet</strong> using reliable public addressing.</li>
 						</ul>
 					</section>
 					<section>
@@ -176,29 +175,29 @@
 						<h2>Static NAT - Configuration</h2>
 						<ol>
 							<li>Specify a static mapping between a local and a global address.</li>
-							<pre><code class="no-highlight">Router(config)# ip nat inside source static {local_ip global_ip}</code></pre>
+							<pre><code class="no-highlight">R1(config)# ip nat inside source static {local_ip global_ip}</code></pre>
 							<li>Mark the <em>inside interface</em> of the NAT.</li>
-							<pre><code class="no-highlight">Router(config)# interface [id]
-Router(config-if)# ip nat inside
-Router(config-if)# exit</code></pre>
+							<pre><code class="no-highlight">R1(config)# interface [id]
+R1(config-if)# ip nat inside
+R1(config-if)# exit</code></pre>
 							<li>Mark the <em>outside</em> interface of the NAT.</li>
-							<pre><code class="no-highlight">Router(config)# interface [id]
-Router(config-if)# ip nat outside
-Router(config-if)# exit</code></pre>
+							<pre><code class="no-highlight">R1(config)# interface [id]
+R1(config-if)# ip nat outside
+R1(config-if)# exit</code></pre>
 							<li>Repeat for each address to be statically mapped.</li>
 						</ol>
 					</section>
 					<section>
 						<h2>Static NAT - Verification</h2>
 						<p>To show <strong>currently active translations</strong> (static one are always reported in the NAT table):</p>
-						<pre><code class="no-highlight">Router# show ip nat translations
+						<pre><code class="no-highlight">R1# show ip nat translations
 Pro Inside global   Inside local   Outside local   Outside global
 --- 203.31.218.208  192.168.0.1    160.97.54.39    160.97.54.39
 --- 203.31.218.209  192.168.0.2    ----            -----
 --- 203.31.218.210  192.168.0.3    149.3.176.11    149.3.176.11</code></pre>
 						<p>To verify that the NAT is working, we can check how many translation have occured:</p>
-						<pre><code class="no-highlight">Router# clear ip nat statistics
-Router# show ip nat statistics
+						<pre><code class="no-highlight">R1# clear ip nat statistics
+R1# show ip nat statistics
 Total active translations: 3 (3 statics, 0 dynamic; 0 extended)
 Peak translations: 2, occured 00:01:37 ago
 Outside interfaces:
@@ -212,42 +211,52 @@ Hits: 6 Misses: 0</code></pre>
 				<section>
 					<section>
 						<h2>Dynamic NAT</h2>
-						<img src="http://i.imgur.com/DN169eS.gif">
+						<img src="http://i.imgur.com/DN169eS.gif" style="width: 453px; height: 246px;">
 						<ul>
-							<li>Dynamic NAT works very similarly to Static NAT, except that <strong>the administrator doesn't configure the mapping explicitely</strong>.</li>
+							<li>Dynamic NAT works similarly to Static NAT, except that <strong>the admin doesn't configure the mapping explicitely</strong>.</li>
 							<li>Instead, the global addresses available (must be enough to match inside hosts) are <strong>added into a <em>NAT pool</em></strong>.</li>
-							<li>The available one-to-one mappings are assigned on a <em>first come, first served</em> basis, resulting in many-to-many mappings.</li>
+							<li>Available one-to-one mappings are assigned on a <em>first come, first served</em> basis, resulting in many-to-many mappings.</li>
 						</ul>
 					</section>
 					<section>
 						<h2>Dynamic NAT - Configuration</h2>
 						<ol>
 							<li>Create the NAT pool that will be used for translation:</li>
-							<pre><code class="no-highlight">Router(config)# ip nat pool {name start_ip end_ip} [netmask mask | prefix-length prefix]</code></pre>
-							<li>Allow inside hosts to be translated in a specific ACL:</li>
-							<pre><code class="no-highlight">Router(config)# access-list {acl_num} permit {source_ip} [source_wildcard]</code></pre>
-							<li>Bind the ACL to the pool </li>
-							<pre><code class="no-highlight">Router(config)# ip nat inside source list {acl_num} pool {name}</code></pre>
-							<li>Mark <em>inside</em> and <em>outside</em> interfaces:</li>
-							<pre><code class="no-highlight">Router(config)# interface [id]
-Router(config-if)# ip nat inside
-Router(config-if)# exit
-Router(config)# interface [id]
-Router(config-if)# ip nat outside</code></pre>
 						</ol>
+							<pre><code class="no-highlight">R1(config)# ip nat pool {name start_ip end_ip} [netmask mask | prefix-length prefix]</code></pre>
+						<ol start="2">
+							<li>Allow inside hosts to be translated in a specific ACL:</li>
+						</ol>
+							<pre><code class="no-highlight">R1(config)# access-list {acl_num} permit {src_ip} [src_wildcard]</code></pre>
+						<ol start="3">
+							<li>Bind the ACL to the pool </li>
+						</ol>
+							<pre><code class="no-highlight">R1(config)# ip nat inside source list {acl_num} pool {name}</code></pre>
+						<ol start="4">
+							<li>Mark <em>inside</em> and <em>outside</em> interfaces:</li>
+						</ol>
+							<pre><code class="no-highlight">R1(config)# interface [id]
+R1(config-if)# ip nat inside
+R1(config-if)# exit
+R1(config)# interface [id]
+R1(config-if)# ip nat outside</code></pre>
 					</section>
 					<section>
 						<h2>Dynamic NAT - Verification</h2>
 						<ul>
 							<li>To show active static translations and dyamic ones created when allowed host wants to reach outside networks:</li>
-							<pre><code class="no-highlight">Router# show ip nat translations
-Router# show ip nat translations verbose</code></pre>
-							<li>By default, dynamic translations expire after 24h. To edit this timeout:</li>
-							<pre><code class="no-highlight">Router(config)# ip nat translation timeout [seconds]</code></pre>
-							<li>To erase dynamic translations in the NAT table (<strong>static translations can't be deleted)</strong>:</li>
-							<pre><code class="no-highlight">Router(config)# clear ip nat translation *
-Router(config)# clear ip nat translation inside {glo_ip loc_ip} [outside loc_ip glo_ip]</code></pre>
 						</ul>
+							<pre><code class="no-highlight">R1# show ip nat translations
+R1# show ip nat translations verbose</code></pre>
+						<ul>
+							<li>By default, dynamic translations expire after 24h. To edit this timeout:</li>
+						</ul>
+							<pre><code class="no-highlight">R1(config)# ip nat translation timeout [seconds]</code></pre>
+						<ul>
+							<li>To erase dynamic translations in the NAT table (<strong>static translations can't be deleted)</strong>:</li>
+						</ul>
+							<pre><code class="no-highlight">R1(config)# clear ip nat translation *
+R1(config)# clear ip nat translation inside {glo_ip loc_ip} [outside loc_ip glo_ip]</code></pre>
 					</section>
 				</section>
 
@@ -257,7 +266,7 @@ Router(config)# clear ip nat translation inside {glo_ip loc_ip} [outside loc_ip 
 						<img src="http://i.imgur.com/W6THnd6.gif">
 						<ul>
 							<li>PAT (<em>NAT Overloading</em>) doesn't use static mappings or NAT pools, because multiple inside hosts are <strong>translated with a single global address</strong>.</li>
-							<li>By far <strong>the most common form of NAT</strong>, typical of home routers.</li>
+							<li>By far <strong>the most common form of NAT</strong> (home routers).</li>
 						</ul>
 					</section>
 					<section>
@@ -285,16 +294,15 @@ Router(config)# clear ip nat translation inside {glo_ip loc_ip} [outside loc_ip 
 						<h2>PAT - Configuration</h2>
 						<ol>
 							<li>Allow inside hosts to be translated in a specific ACL:</li>
-							<pre><code class="no-highlight">Router(config)# access-list {acl_num} permit {source_ip} [source_wildcard]</code></pre>
+							<pre><code class="no-highlight">R1(config)# access-list {acl_num} permit {src_ip} [src_wildcard]</code></pre>
 							<li>Bind the ACL to the pool </li>
-							<pre><code class="no-highlight">Router(config)# ip nat inside source list {acl_num} interface {id} overload</code></pre>
-							<li>Mark <em>inside</em> and <em>outside</em> interfaces:</li>
+							<pre><code class="no-highlight">R1(config)# ip nat inside source list {acl_num} interface {id} overload</code></pre>
+							<li>Mark <em>inside</em> and <em>outside</em> interfaces.</li>
 						</ol>
-						<p><strong>PAT can also be used to translate using more than one address</strong>: the needed variation are the creation of the pool</p>
-						<pre><code class="no-highlight">Router(config)# ip nat pool {name start_ip end_ip} [netmask mask | prefix-length prefix]</code></pre>
-						<p>and the enabling of NAT overloading on the pool:</p>
-						<pre><code class="no-highlight">Router(config)# ip nat inside source list {acl_num} pool {name} overload</code></pre>
-						<p>For PAT, <code>show ip nat translations</code> also show the port numbers involved in the translations.</p>
+						<p><strong>PAT can also be used to translate using more than one address</strong>: the needed variation are the creation of the pool and the enabling of NAT overloading on the pool:</p>
+						<pre><code class="no-highlight">R1(config)# ip nat pool {name start_ip end_ip} [netmask mask | prefix-length prefix]
+R1(config)# ip nat inside source list {acl_num} pool {name} overload</code></pre>
+						<p>For PAT, translation table also shows the port numbers involved.</p>
 					</section>
 				</section>
 
@@ -332,7 +340,7 @@ Router(config)# clear ip nat translation inside {glo_ip loc_ip} [outside loc_ip 
 					<section>
 						<h2>Port Forwarding: Configuration</h2>
 						<p>Port Forwarding is very similar to static NAT, only with the a TCP or UDP port number added as a parameter.</p>
-						<pre><code class="no-highlight">Router(config)# ip nat inside source static {tcp | udp local_ip local_port global_ip global_port} </code></pre>
+						<pre><code class="no-highlight">R1(config)# ip nat inside source static {tcp | udp local_ip local_port global_ip global_port} </code></pre>
 						<p>As usual, <em>inside</em> and <em>outside</em> interfaces need to be marked as such.</p>
 						<p>Basically <strong>every home router</strong> includes a section about port forwarding.</p>
 					</section>
