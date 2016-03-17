@@ -43,7 +43,7 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:<h2>
 					<h2>Scaling Networks</h2>
 					<h3>Chapter 1: Introduction to Scaling Networks</h3>
 					<p>
@@ -69,30 +69,30 @@
 
 				<section>
 					<h2>Hierarchical Networks</h2>
-					<p>Designing a network hierarchy aid in <strong>optimizing the traffic flow</strong>.</p>
+					<p>Designing a network hierarchy helps in <strong>optimizing the traffic flow</strong>.</p>
 					<p><strong>Traffic starts in the <em>access layer</em></strong>, which is the layer enabling a local network. Traffic can be <strong>distributed to different local networks</strong> by going through the <em>distribution layer</em>.</p>
 					<p>If required, a third layer (<em>core</em>) is provided as the <strong>backbone, to connect distant networks at speeds similar to the local ones</strong>.</p>
 				</section>
 
 				<section>
 					<section>
-						<h2>Cisco Enterprise Network Architecture</h2>
-						<img src="http://i.imgur.com/6Ajvmzo.png">
+						<h2>Enterprise Network Arch.</h2>
+						<img src="http://i.imgur.com/6Ajvmzo.png" style="width: 750px;">
 						<p>On top of the hierarchical structure, Cisco defines an architecture for enteprise networks <strong>based on functional blocks</strong> that is called <em>Cisco Enterprise Architecture</em>.</p>
 					</section>
 					<section>
 						<h2>Enterprise Campus</h2>
 						<p>Includes the <strong>access, distribution and core layers</strong> in a <em>Campus Infrastructure Module</em>.</p>
 						<ul>
-							<li><strong>Access</strong> - L2/L3 switches providing the needed port density.</li>
-							<li><strong>Access</strong> - VLANs, trunking and redundant links to the distribution switches.</li>
+							<li><strong>Access</strong> - L2/L3 switches with needed port density.</li>
+							<li><strong>Access</strong> - VLANs, trunks, redundant links to distribution.</li>
 							<li><strong>Distribution</strong> - L3 devices to aggregate campus access</li>
 							<li><strong>Distribution</strong> - Routing, QoS, security</li>
 							<li><strong>Core</strong> - High-speed backbone connectivity between</li>
 							<ul>
 								<li>Distribution Modules</li>
-								<li>Server and DataCenter Farms (Network Management takes place here)</li>
-								<li>Service Module (IP Telephony, wireless controlles, unified services)</li>
+								<li>Server and DataCenter Farms (Network Management)</li>
+								<li>Service Module (IP Telephony, wireless controllers, unified services)</li>
 								<li>Enterprise Edge</li>
 							</ul>
 						</ul>
@@ -111,9 +111,9 @@
 						<h2>Service Provider Edge</h2>
 						<p>Provides the <strong>connectivity solutions that power the enterprise edge</strong>, such as</p>
 						<ul>
-							<li>Internet (perhaps <em>multi-homed</em>, which means connection to 2 or more ISPs)</li>
+							<li>Internet (perhaps <em>multi-homed</em>, meaning 2 or more ISPs)</li>
 							<li>PSTN (traditional telephony)</li>
-							<li>Wide Area Networking (Frame Relay, ATM, MetroEthernet...)</li>
+							<li>Wide Area Networking (Frame Relay, ATM, MetroEthernet)</li>
 						</ul>
 						<p>All data entering and exiting these connectivity solution <strong>passes through a corresponding edge device in the Enterprise Edge</strong>.</p>
 						<p>It is therefore the perfect place to insepect traffic with <em>intrusion detection</em> (IDS) and <em>intrusion prevention</em> (IPS) systems.</p>
@@ -123,15 +123,18 @@
 				<section>
 					<section>
 						<h2>Failure Domains</h2>
-						<img src="http://i.imgur.com/AEEKiwD.jpg" width="66%" height="66%">
+						<img src="http://i.imgur.com/AEEKiwD.jpg" style="width:500px;">
 						<p>A <em>failure domain</em> is <strong>the area of a network that is impacted by a failure</strong> in a component, device, service or system.</p>
 						<p>Good network designs limit failure domains as much as possible.</p>
 					</section>
 					<section>
 						<h2>Failure Domains</h2>
-						<p>The failure domains is <strong>mostly determined by the function of the device</strong>: a failing L2 switch affects only a specific network segment, while a faulty router affects internetwork connectivy.</p>
-						<p>The <strong>reliability standard and features</strong> (redundant components, stackability, modularity, link aggregation, etc) are one of the main things separating enterprise-class devices from the consumer’s equivalent (as <strong>reflected by costs</strong>).</p>
-						<p>Providing <strong>redundancy at the core layer is highly difficult</strong> and expensive, so most designs <strong>focus on the distribution</strong> layer.</p>
+						<p>Failure domains are <strong>mostly determined by device function</strong>: a failing L2 switch affects only a specific network segment, while a faulty router affects internetwork connectivy.</p>
+						<p>The <strong>reliability standard and features</strong> (redundant components, stackability, modularity, link aggregation, etc) are the main thing separating enterprise-class devices from the consumer’s equivalent (as <strong>reflected by costs</strong>).</p>
+					</section>
+					<section>
+						<h2>Failure Domains</h2>
+						<p>Providing <strong>redundancy at the core layer is hard</strong> and expensive, so most designs <strong>focus on the distribution</strong> layer.</p>
 						<ul>
 							<li>L3 devices acting as <strong>gateways for a limited number of users</strong> limits the failure domain.</li>
 							<li>L3 devices are <strong>deployed in pairs</strong> (<em>switch block</em>), with redundant links to <strong>access devices splitted evenly</strong> between those.</li>
@@ -141,14 +144,14 @@
 
 				<section>
 					<h2>Scalability Recommendations</h2>
-					<p>Scalability is the <strong>capability of a network to accomodate growth</strong>.</p>
+					<p>Scalability is the <strong>capability to accomodate growth</strong>.</p>
 					<ul>
 						<li>Use expandable, modular, stackable devices.</li>
 						<li>Hierarchical network design.</li>
 						<li>Hierarchical addressing strategy.</li>
 						<li>Choose L3 devices as much as possible to be able to filter traffic as needed, especially broadcast.</li>
-						<li>Implement redundant links between the most critical devices.</li>
-						<li>Increase bandwidth using link aggregation technologies like EtherChannel (with significant savings compared to higher speed interfaces).</li>
+						<li>Implement redundant links for the most critical devices.</li>
+						<li>Increase bandwidth using link aggregation (with significant savings compared to higher speed interfaces).</li>
 						<li>Wireless is an easy way to expand a network.</li>
 						<li>Implement a routing protocol that is scalable, like a link-state routing protocol.</li>
 					</ul>
@@ -162,9 +165,8 @@
 					<section>
 						<h2>Redundancy</h2>
 						<p>Redundancy is the <strong>deployment of duplicate equipment</strong> to avoid <em>single point of failure</em> situations. It allows for <strong><em>failover</em></strong>, which is the <strong></em>automatic switch from a faulty system to a backup one</em></strong>.</p>
-					<p>Duplicate equipment calls for <strong>redundant links between devices</strong>, which can result in L2 <em>switching loops</em> (a frame starts circulating endlessly between these multiple paths) and <em>broadcast storms</em>.</p>
-					<p>Switching loops are prevented by a protocol called <strong><em>Spanning Tree Protocol</em></strong> (STP) which is required whenever multiple paths between switches are provided.</p>
-					<p>It’s a mechanism that <strong>disables redundant paths until they are needed</strong>. In any moment a single path to an L2 endpoint is active.</p>
+						<p>Duplicate equipment calls for <strong>redundant links between devices</strong>, which can result in L2 <em>switching loops</em> (a frame starts circulating endlessly between these multiple paths) and <em>broadcast storms</em>.</p>
+						<p>Switching loops are prevented by a protocol called <strong><em>Spanning Tree Protocol</em></strong> (STP) which is required whenever multiple paths between switches are provided.</p>
 					</section>
 				</section>
 
@@ -184,7 +186,7 @@
 				</section>
 
 				<section>
-					<h2>Routing in the Enterprise Network</h2>
+					<h2>Routing in the Enterprise</h2>
 					<p>Enteprise networks are comprised of many local networks dispersed in several locations, and as such require <strong>scalable routing protocols to handle end-to-end connectivity</strong>.</p>
 					<p>OSPF (link-state) and EIGRP (distance-vector) are two popular routing protocols used in Cisco’s L3 devices.</p>
 					<p>Both protocols have several settings to adapt to a range of situations. <strong>OSPF</strong>, for instance, can be <strong>used first in single-area mode, and then expanded into a multi-area configuration</strong> as the enterprise network expands.</p>
@@ -205,10 +207,10 @@
 
 				<section>
 					<h2>Port Density</h2>
-					<p><em>Port density</em> is the <strong>number of ports that are presents on a switch</strong>. Higher density switches optimize the use of power and space.</p>
+					<p><em>Port density</em> is the <strong>number of ports available on a switch</strong>. Higher density switches optimize power usage and space.</p>
 					<p>Remember that some ports <strong>(<em>uplinks</em>) are "wasted" because they are used to connect switches to the network infrastructure</strong> and thus are not available for users.</p>
 					<p>Switches may also have <strong>SFP</strong> (<em>Small Form-factor Pluggable</em>) ports to be used for installing <strong>faster interfaces for the uplinks</strong>. Another option, popular on fixed configuration switches, is link aggregation.</p>
-					<p>Modular switches can provide even <strong>more than 1000 ports</strong>, an order of magnitude higher than fixed configuration switches.</p>
+					<p>Modular switches can provide <strong>more than 1000 ports</strong>, an order of magnitude higher than fixed configuration switches.</p>
 				</section>
 
 				<section>
