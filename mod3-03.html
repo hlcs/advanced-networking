@@ -43,7 +43,7 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:<h2>
 					<h2>Scaling Networks</h2>
 					<h3>Chapter 3: Link Aggregation</h3>
 					<p>
@@ -62,7 +62,7 @@
 					<section>
 						<h2>EtherChannel</h2>
 						<img src="http://i.imgur.com/PnZyth0.jpg">
-						<p>EtherChannel is a <strong>Cisco technology for link aggregation</strong> that <em>bundles</em> multiple switch ports (anf their links) into a single <strong>virtual</strong> EtherChannel interface (and link) called <em>port channel</em>.</p>
+						<p>EtherChannel is a <strong>Cisco technology for link aggregation</strong> that <em>bundles</em> multiple switch ports (anf their links) into a single <strong>virtual</strong> EtherChannel interface (and link) called <em>port channel</em> or <em>channel group</em>.</p>
 					</section>
 					<section>
 						<h2>EtherChannel</h2>
@@ -78,15 +78,15 @@
 				<section>
 					<section>
 						<h2>EtherChannel Operation</h2>
-						<img src="http://i.imgur.com/9D6WA35.jpg">
+						<img src="http://i.imgur.com/9D6WA35.jpg" style="width: 600px;">
 						<p>port channel interfaces can bundle together <strong>up to 8 ports</strong>, but only if they are of the <strong>same type</strong> (Fast or Gigabit Ethernet). They don’t have to be contiguous, not even on the same module.</p>
 					</section>
 					<section>
 						<h2>EtherChannel Operation</h2>
 						<ul>
-							<li>On most Cisco IOS releases, <strong>up to 6 different EtherChannel links can be created</strong>, assuming the hardware platform has the capability to support them (always check).</li>
+							<li>On most Cisco IOS releases, <strong>up to 6 different EtherChannel links can be created</strong>, assuming the hardware platform has the capability to support them.</li>
 							<li>Configuration of <strong>individual members of the EtherChannel must be compatible and consistent</strong> (speed, duplex, switchport mode, VLAN), otherwise the aggregation will not operate.</li>
-							<li>port channel members must be <strong>configured as L2 ports</strong>. Aggregation of routed ports is only supported on Cisco MLS.</li>
+							<li>Port channel members must be <strong>configured as L2 ports</strong>. Routed ports aggregation is only supported on Cisco MLS.</li>
 							<li><strong>An EtherChannel links operates only between 2 devices</strong>. It is mainly use for switches, but there are also EtherChannel-enabled specialized hosts, e.g. servers.</li>
 						</ul>
 					</section>
@@ -95,23 +95,31 @@
 				<section>
 					<section>
 						<h2>Port Aggregation Protocols</h2>
-						<p>Just like <em>Dynamic Trunkin Protocol</em> makes switches automatically negotiate trunk status on links between them, two protocols can be <strong>used to automate link aggregation</strong>:</p>
+						<p>EtherChannel LAGs (called <em>channel group</em>) can be <strong>statically configured</strong> with the <strong>On</strong> mode.</p>
+						<ul>
+							<li>advantage: <strong>no delay</strong>, Etherchannel is immediately up.</li>
+							<li>disadvange: <strong>no protection</strong> in case of misconfigurations.</li>
+						</ul>
+						<p>More often we let the ports <em>autonegotiate</em> the creation of a LAG, through a protocol <strong>used to automate link aggregation</strong>:</p>
 						<ul>
 							<li><strong><em>Port Aggregation Protocol</em></strong> (PAgP), proprietary by Cisco.</li>
 							<li><strong><em>Link Aggregation Protocol</em></strong> (LACP), a standard (IEEE 802.3ad/802.1AX) suitable in a multi-vendor setup.</li>
 						</ul>
-						<p>They both (<em>PAgP/LACP</em>) operate very similarly, having 3 modes:</p>
+					</section>
+					<section>
+						<h2>Port Aggregation Protocols</h2>
+						<p>They both (<em>PAgP/LACP</em>) operate very similarly, having 2 modes:</p>
 						<ul>
-							<li>one (<em>On</em>) <strong>disable autonegotiation</strong> and always enable the aggregation;</li>
-							<li> another (<em>Desirable/Active</em>) will <strong>send protocol packets</strong> to the other side in order to obtain an agreement on the aggregation;</li>
-							<li>the third (<em>Auto/Passive</em>) will only <strong>wait for protocol packets</strong> and set the interface accordingly.</li>
+							<li> one (<em>Desirable/Active</em>) will <strong>send protocol packets</strong> to the other side in order to obtain an agreement on the aggregation;</li>
+							<li>the other (<em>Auto/Passive</em>) will only <strong>wait for protocol packets</strong> and set the interface accordingly.</li>
+							<li>There's also the <em>On</em> mode to <strong>disable autonegotiation</strong> and always enable the aggregation;</li>
 						</ul>
 					</section>
 					<section>
 						<h2>PAgP vs LACP</h2>
-						<img src="http://i.imgur.com/JY4Voqf.png">
+						<img src="http://i.imgur.com/2WA22nC.png">
 						<p>Aggregation protocol modes must be <strong>compatible between sides for aggregation to occur</strong>.</p>
-						<p>If an aggregation protocol is not configured or all its modes are explicitely disabled, then <strong>aggregation won’t take place regardless of the other side</strong> setting.</p>
+						<p>If an aggregation protocol is not configured or all its modes are explicitely disabled, then <strong>auto-aggregation won’t take place regardless of the other side</strong> setting.</p>
 					</section>
 				</section>
 
@@ -257,7 +265,7 @@ Age of the port in the current state: 0d:00h:24m:59s</code></pre>
 				</section>
 
 				<section>
-					<h2>EtherChannel Troubleshooting</h2>
+					<h2>Troubleshooting</h2>
 					<ul>
 						<li>Make sure EtherChannel interfaces belong to the <u>same VLAN</u>…</li>
 						<li>… or are <u>configured as trunk</u> with the compatible DTP trunk modes and…</li>
