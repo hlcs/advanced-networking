@@ -43,7 +43,7 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:<h2>
 					<h2>Scaling Networks</h2>
 					<h3>Chapter 8:</h3>
 					<h3>EIGRP Advanced Configurations and Troubleshooting</h3>
@@ -54,23 +54,17 @@
 
 				<section>
 					<h2>EIGRP Autosummarization</h2>
-					<p>Autosummarization is the practice of <strong>substituting several entries in the routing table with a single one</strong> that comprises all the substituted ones. This new entry is called <strong><em>summary route</em></strong>.</p>
-					<p>Autosummarization has several benefit, the most important one being the <strong>reduced size of routing tables</strong> (which means smaller routing updates and faster lookups, leading to less memory/CPU/bandwidth requirements).</p>
+					<p>Autosummarization is the practice of <strong>substituting several entries in the routing table with a single one</strong> (called <strong><em>summary route</em></strong>) that comprises all the substituted ones.</p>
+					<p>Autosummarization has several benefit, the most important one being the <strong>reduced size of routing tables</strong> (which means <u>smaller routing updates and faster lookups</u>, leading to less memory/CPU/bandwidth requirements).</p>
 					<p>Many routing protocols can be configured to do <strong>automatic summarization at classful network boundaries</strong>. EIGRP is one of those protocols.</p>
 				</section>
 
 				<section>
-					<h2>Autosummary at classful boundaries</h2>
-					<p>EIGRP recognizes multiple subnets as being a single</p>
+					<h2>Classful Autosummary</h2>
+					<p>EIGRP recognizes multiple subnets as being a single Class A (/8), or Class B (/16), or Class C network (/24) and <strong>will use the default classful subnet mask in the summary route for those networks</strong>.</p>
+					<p>EIGRP will <strong>only advertise the summary route</strong>, so neighbors won’t have <u>any information about specific subnets</u>.</p>
 					<ul>
-						<li>Class A network (/8), or</li>
-						<li>Class B network (/16), or</li>
-						<li>Class C network (/24)</li>
-					</ul>
-					<p>and <strong>will use the default classful subnet mask in the summary route for those networks</strong>.</p>
-					<p>EIGRP will <strong>only advertise the summary route</strong>, so neighbors won’t have any information about the single specific subnets.</p>
-					<ul>
-						<li>One summary route means <strong>only one path/one successor</strong>. Which may not be the optimal one for some or all of the summarized subnets</li>
+						<li>One summary route means <strong>only one path/one successor</strong>. Which <u>may not be the optimal one</u> for some or all of the summarized subnets</li>
 						<li>The only way to have <strong>per-subnet optimal routes</strong> is to have specific routes. In such occasions, <strong>automatic summarization should be disabled</strong>.</li>
 					</ul>
 				</section>
@@ -154,18 +148,18 @@ P 172.16.0.0/16, 1 successors, FD is 2170112, serno 9
 				<section>
 					<section>
 						<h2>The Null Interface</h2>
-						<p>Summary routes at classful boundaries can <strong>potentially be a match</strong> for packets having <strong>destinations that do not actually exist in the routing table but are included</strong> in the summary route.</p>
+						<p>Summary routes at classful boundaries can <strong>potentially be a match</strong> for packets to <strong>destinations that do not actually exist in the routing table but are included</strong> in the summary route.</p>
 						<p>In such cases <strong>a routing loop could take place</strong>.</p>
-						<img src="http://i.imgur.com/zpBxWk0.jpg">
+						<img src="http://i.imgur.com/zpBxWk0.jpg" style="width: 650px;">
 					</section>
 					<section>
 						<h2>The Null Interface</h2>
-						<p>To solve this kind of issues, EIGRP uses a special interface called the <strong>Null interface (Null0)</strong>, which is basically a <strong>virtual interface</strong> representing a <strong>route to nowhere</strong> (aka <em>the bit bucket</em>).</p>
+						<p>To solve this kind of issues, EIGRP uses a special interface called the <strong>Null interface (Null0)</strong>, which is a <strong>virtual interface</strong> representing a <strong>route to nowhere</strong> (aka <em>the bit bucket</em>).</p>
 						<pre><code class="no-highlight">D    172.16.0.0/16 is a summary, 00:05:28, Null0</code></pre>
 						<p><strong><u>Any packet that matches a route having a Null outgoing interface is discarded</u></strong>. A Null summary route is added <strong>on the router performing the summarization</strong> when</p>
 						<ul>
-							<li>at least one subnet was learned through an EIGRP routing update</li>
-							<li>2 or more subnet are announced through <code>network</code> statements.</li>
+							<li>at least one subnet was learned through EIGRP</li>
+							<li>2 or more subnet are announced with <strong><code>network</code></strong>.</li>
 							<li>Autosummarization is enabled (if disabled, the Null route is removed).</li>
 						</ul>
 					</section>
@@ -174,42 +168,42 @@ P 172.16.0.0/16, 1 successors, FD is 2170112, serno 9
 				<section>
 					<h2>Manual Summarization</h2>
 					<p>EIGRP is only able to perform automatic summarization at classful boundaries. <strong>This excludes summary routes for subnet masks different than the default Class A/B/C masks</strong>.</p>
-					<p>For instance, EIGRP is unable to automatically summarize 10.87.0.0/24, 10.87.1.0/24 and 10.87.2.0/23 into a 10.87.0.0/22 announcement.</p>
+					<p>For instance, EIGRP is unable to autosummarize 10.87.0.0/24, 10.87.1.0/24 and 10.87.2.0/23 <u>into 10.87.0.0/22</u>.</p>
 					<p>It is however still possible to <strong>do it manually</strong>. After calculating the summary subnet, on each interface where we want to send the summary route, use:</p>
 					<pre><code class="no-highlight">Router(config-if)# ip summary-address eigrp {as} {network_address subnet_mask}
 Router(config-if)# ipv6 summary-address eigrp {as} {prefix/prefix_lenght}</code></pre>
-					<p>Verification of the manual summary route propagation is done on the neighbor’s routing tables.</p>
+					<p>Verification of the manual summary route propagation is <u>done on the neighbor</u>’s routing tables.</p>
 				</section>
 
 				<section>
 					<h2>Propagating Default</h2>
 					<p>On the router with the configured default static route, in EIGRP config mode by using</p>
 					<pre><code class="no-highlight">RouterGW(config-router)# redistribute static</code></pre>
-					<p>EIGRP will start to <strong>include the 0.0.0.0/0 (::/0 for IPv6) route in its routing updates thoughout the routing domain</strong>. The propagated route will appear in the other EIGRP routers’ tables as something like</p>
+					<p>EIGRP will start to <strong>include the 0.0.0.0/0 (::/0 for IPv6) route in its routing updates thoughout the routing domain</strong>. The propagated route will appear in the other EIGRP routers:</p>
 					<pre><code class="no-highlight">Router# show ip route | include 0.0.0.0
 Gateway of last resort is 10.87.3.1 to network 0.0.0.0
 D*EX 0.0.0.0/0 [170/3021480] via 10.87.3.1. 00:11:15, FastEthernet0/1</code></pre>
 					<ul>
 						<li><strong>D</strong> - Learned through EIGRP</li>
 						<li><strong>*</strong> - Candidate as default route</li>
-						<li><strong>EX</strong> - A route to a subnet not part of the EIGRP routing domain</li>
+						<li><strong>EX</strong> - Network is not part of the EIGRP routing domain</li>
 						<li><strong>170</strong> - Default AD for EIGRP external routes</li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>Bandwidth Utilization</h2>
-					<p>By default <strong>EIGRP limits the bandwidth available for control traffic</strong> (EIGRP packets) to 50% of the configured link bandwidth.</p>
+					<p>By default <strong>EIGRP limits the bandwidth available for control traffic</strong> (EIGRP packets) to <u>50% of the configured link bandwidth</u>.</p>
 					<p>On slow links it might be important to reduce the bandwidth available to EIGRP in order to avoid running out of bandwidth for normal traffic.</p>
 					<pre><code class="no-highlight">Router(config-ig) ip/ipv6 bandwidth-percent eigrp {as} {%}</code></pre>
-					<p>The <strong>no version</strong> of the command restores the default value.</p>
+					<p>The <strong><code>no</code> version</strong> of the command restores the default value.</p>
 				</section>
 
 				<section>
 					<h2>Hello/Hold Timer Tuning</h2>
 					<p><strong>Hello and Hold timers</strong>, unlike OSPF’s equivalents, <strong>don’t have to match in EIGRP</strong> for adjacencies to form.</p>
 					<p><strong>By default</strong> Hold timer is 3x the Hello timer, which is 5s on broadcast networks and 60 on NBMA.</p>
-					<p>Although altering them is almost always not needed, or recommended, <strong>they can be per-interface configured</strong> with:</p>
+					<p>Although altering them is <u>almost always not needed, or recommended</u>, <strong>they can be per-interface configured</strong> with:</p>
 					<pre><code class="no-highlight">Router(config-if)# ip/ipv6 hello-interval eigrp {as} {seconds}
 Router(config-if)# ip/ipv6 hold-time eigrp {as} {seconds}</code></pre>
 				</section>
@@ -222,7 +216,10 @@ Router(config-if)# ip/ipv6 hold-time eigrp {as} {seconds}</code></pre>
 							<li><strong>Equal-cost</strong> - The multiple paths all have the same metric.</li>
 							<li><strong>Unequal-cost</strong> - Even non-best paths can be used.</li>
 						</ul>
-						<p>Notice that, because EIGRP uses the lowest bandwidth on the path for the metric calculation, <strong>multiple paths sharing that lowest-bandwidth link often results in equal-cost paths</strong>.</p>
+						<p>Due to EIGRP using the lowest bandwidth on the path for the metric calculation, <strong>multiple paths sharing that lowest-bandwidth link often results in equal-cost paths</strong>.</p>
+					</section>
+					<section>
+						<h2>EIGRP Load Balancing</h2>
 						<p>Load balancing is done on a</p>
 						<ul>
 							<li><strong>per-packet</strong> basis, when <strong>process-switching</strong> forwarding is enabled.</li>
@@ -232,7 +229,7 @@ Router(config-if)# ip/ipv6 hold-time eigrp {as} {seconds}</code></pre>
 					</section>
 					<section>
 						<h2>EIGRP Load Balancing</h2>
-						<p>There is a <strong>maximum paths</strong> value indicating how many paths (4, by default) can be involved in the load balancing process. It can be displayed with</p>
+						<p>There is a <strong>maximum paths</strong> value indicating <u>how many paths</u> (4, by default) can be involved in the load balancing process. It can be displayed with</p>
 						<pre><code class="no-highlight">Router# show ip protocols | include Maximum path
 Maximum path: 4</code></pre>
 						<p>and configured with</p>
@@ -241,7 +238,7 @@ Maximum path: 4</code></pre>
 					</section>
 					<section>
 						<h2>EIGRP Load Balancing</h2>
-						<p>Unequal-cost load balancing is supported through a <strong><code>variance</code></strong> command/parameter, which is an integer telling the maximum value for the metric to be <strong>usable for load balancing</strong>.</p>
+						<p>Unequal-cost load balancing is supported through a <strong><code>variance</code></strong> command/parameter, an integer telling the maximum value for the metric to be <strong>usable for load balancing</strong>.</p>
 						<p>A route is only installed in the routing table if its metric is less than <em>best_route_metric * variance</em>. With a <strong>variance of 1, only equal-cost load balancing</strong> is supported.</p>
 						<p>The <strong><code>traffic-share balanced</code></strong> command <strong>split the traffic load proportionately to the costs</strong>.</p>
 					</section>
@@ -252,8 +249,8 @@ Maximum path: 4</code></pre>
 						<h2>EIGRP Security</h2>
 						<p>Routing protocols can be attacked by</p>
 						<ul>
-							<li><strong>Disrupting peers</strong> - A router is brought down, but because <strong>routing protocols sel-heals</strong>, the disruption is almost always brief.</li>
-							<li><strong>Routing information falsification</strong> - Traffic is redirected in order to create routing loops, intercept it on an insecure path or discard it <strong>by altering the routing protocol messages</strong>.</li>
+							<li><strong>Disrupting peers</strong> - A router is brought down, but because <strong>routing protocols self-heals</strong>, the disruption is almost always brief.</li>
+							<li><strong>Routing information falsification</strong> - Traffic is redirected <u>in order to create routing loops</u>, intercept it on an insecure path or discard it <strong>by altering the routing protocol messages</strong>.</li>
 						</ul>
 						<p>The main method to avoid the second attack is by <strong>only accepting routing updates from trusted peers</strong>. This is done through <strong>authentication of protocol packets</strong>.</p>
 					</section>
@@ -261,23 +258,23 @@ Maximum path: 4</code></pre>
 						<h2>EIGRP Security</h2>
 						<p>Authentication has 3 elements: the <strong>encryption algorithm</strong> (public), the <strong>key</strong> (secret) and the <strong>content</strong> of the packet.</p>
 						<ul>
-							<li>Many routing protocols (and EIGRP) use the <strong>Message Digest 5 (MD5)</strong> algo.</li>
+							<li>Many routing protocols (and EIGRP) use the <strong>Message Digest 5 (MD5)</strong> algorithm.</li>
 							<li>The key is a <strong>shared secret</strong> between two peers.</li>
-							<li>Given the key and the content, the MD5 algo will <strong>compute a signature</strong> and EIGRP will attach it to the end of the packet.</li>
+							<li>Given the key and the content, MD5 will <strong>compute a signature</strong> and EIGRP will <em>append</em> it to the packet.</li>
 							<li>The receiver gets the packet, takes its content and <strong>recomputes the signature</strong>. Only If both the key (<u>trusted peer</u>) and the content (<u>unmodified packet</u>) are the same the <strong>signature will match</strong>. If so, the router accepts the information it contains.</li>
 						</ul>
 					</section>
 					<section>
 						<h2>EIGRP Security</h2>
-						<pre><code class="no-highlight" style="max-height: 300px;">## CREATE A KEY CHAIN ##
+						<pre><code class="no-highlight" style="max-height: 250px;">Router(config)# !!! CREATE A KEY CHAIN !!!
 Router(config)# key chain {CHAIN_NAME}
-## ID THE KEY. RANGE IS 0 - 2147483647 ##
+Router(config)# !! ID THE KEY. RANGE IS 0 - 2147483647 !!
 Router(config-keychain)# key 1
-## ENTER THE ACTUAL KEY ##
+Router(config-keychain-key)# !! ENTER THE ACTUAL KEY !!
 Router(config-keychain-key)# key-string {KEY_TEXT}
 Router(config-keychain-key)# exit
 Router(config-keychain)# exit
-## ENABLE AUTH ON INDIVIDUAL INTERFACES ##
+Router(config)# !! ENABLE AUTH ON INDIVIDUAL INTERFACES !!
 Router(config)# interface {type/id}
 Router(config-if)# ip/ipv6 authentication mode eigrp {as} md5
 Router(config-if)# ip/ipv6 authentication key-chain eigrp {as} {CHAIN_NAME}
@@ -285,9 +282,9 @@ Router(config)# interface {type/id}
 Router(config-if)# ip/ipv6 authentication mode eigrp {as} md5
 Router(config-if)# ip/ipv6 authentication key-chain eigrp {as} {CHAIN_NAME}</code></pre>
 						<p>For authentication to work, <strong>it has to be configured on both ends of a link</strong>. While configuring, often you’ll see this message warning adjacencies have been broken:</p>
-						<pre><code class="no-highlight">%DUAL-5-NBRCHANGE: EIGRP-IPv4 1: Neighbor 172.17.87.2 
+						<pre><code class="no-highlight">%DUAL-5-NBRCHANGE: EIGRP-IPv4 1: Neighbor 172.17.87.2
 (GigabitEthernet0/0/0) is down: authentication mode changed</code></pre>
-						<p>Adjacencies will be progressively restored while configuring the other routers.</p>
+						<p>Adjacencies will be <u>progressively restored</u> while configuring the other routers.</p>
 					</section>
 				</section>
 
@@ -322,7 +319,7 @@ Router(config-if)# ip/ipv6 authentication key-chain eigrp {as} {CHAIN_NAME}</cod
 *** IP Routing is NSF aware ***
 [output omitted]</code></pre>
 					<p>NSF stands for <strong><em>Nonstop Forwarding</em></strong>. It is a feature that allows routing protocols (such as EIGRP) to <strong>keep the routing informations advertised by a failed peer</strong> for a certain time.</p>
-					<p>This <strong>allows the peer to restore its operational status</strong> without its temporary unavailability affecting network operations.</p>
+					<p>This <strong>allows the peer to restore its operational status</strong> without its <u>temporary unavailability affecting network operations</u>.</p>
 				</section>
 
 				<section>
