@@ -43,7 +43,7 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:<h2>
 					<h2>Scaling Networks</h2>
 					<h3>Chapter 7: EIGRP</h3>
 					<p>
@@ -54,56 +54,62 @@
 				<section>
 					<h2>EIGRP Introduction</h2>
 					<p>EIGRP was released in 1992 by Cisco and until 2013 has only been available on Cisco devices.</p>
-					<p>In 2013 Cisco released an informational RFC to IETF covering <strong>basic functionality</strong> of EIGRP, thus making it an open standard able to interoperate with non-Cisco devices. However, advanced functionality of EIGRP remain Cisco-only.</p>
-					<p>EIGRP is at the core a <strong>distance-vector routing protocol</strong>, because it learns information about the topology only from directly connected EIGRP routers, but it also borrow features typical of a link-state routing protocol.</p>
-					<p>Because of this it has sometimes erroneously been called <strong><em>hybrid</em></strong> routing protocol, but it is a misnomer.</p>
+					<p>In 2013 Cisco released an informational RFC to IETF covering <strong>basic functionality</strong>, thus making EIGRP an open standard able to interoperate with non-Cisco devices. Advanced features of EIGRP remain Cisco-only.</p>
+					<p>EIGRP is at the core a <strong>distance-vector routing protocol</strong>, because it learns information about the topology only from directly connected EIGRP routers, but it also <u>borrow features typical of a link-state routing protocol</u>.</p>
 				</section>
 
 				<section>
-					<h2>EIGRP Features</h2>
-					<ul>
-						<li>The algorithm used by EIGRP is the <strong><em>Diffusing Update Algorithm</em> (DUAL)</strong>. One of its characteristics is that it holds every route learned through the protocol, keeping them for backup and avoiding expensive DUAL recomputations.</li>
-						<li>EIGRP routers establish <strong>adjancencies</strong>.</li>
-						<li>EIGRP use its own packet delivery protocol called <strong><em>Reliable Transport Protocol</em> (RTP)</strong>.</li>
-						<li>EIGRP updates and routes do not expire. They are:
+					<section>
+						<h2>EIGRP Features</h2>
 						<ul>
-							<li><strong>Partial</strong>: when a change occurs, only the information about the change is propagated.</li>
-							<li><strong>Bounded</strong>: the partial information is sent only to the neighbors that are affected by the change.</li>
+							<li>The algorithm used by EIGRP is the <strong><em>Diffusing Update Algorithm</em> (DUAL)</strong>. One of its characteristics is that it <u>holds every route learned through the protocol</u>, keeping them for backup and avoiding expensive DUAL recomputations.</li>
+							<li>EIGRP routers establish <strong>adjancencies</strong>.</li>
+							<li>EIGRP use its own packet delivery protocol called <strong><em>Reliable Transport Protocol</em> (RTP)</strong>.</li>
 						</ul>
-						<li>EIGRP is able to maintain and use multiple route to the same destination network and do both <strong>equal and unequal load balancing</strong> of traffic between them.</li>
-					</ul>
+					</section>
+					<section>
+						<h2>EIGRP Features</h2>
+						<ul>
+							<li>EIGRP updates and routes do not expire. They are:
+							<ul>
+								<li><strong>Partial</strong>: when a change occurs, <u>only the information about the change</u> is propagated.</li>
+								<li><strong>Bounded</strong>: the partial information is sent <u>only to the neighbors that are affected</u> by the change.</li>
+							</ul>
+							<li>EIGRP is able to maintain and <u>use multiple route to the same destination network</u> and do both <strong>equal and unequal load balancing</strong> of traffic between them.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
 					<h2>Protocol-Dependent Modules</h2>
-					<p>EIGRP is <strong>network-layer agnostic</strong>. What this means is that it’s able to perform a routing function for really any L3 protocol, even future ones, thanks to <strong><em>protocol-dependent modules</em> (PDMs)</strong>.</p>
-					<p>PDMs job is to "translate" the L3 protocol to the DUAL algo and to store the results of DUAL into tables specific to the L3 protocol. It works as an <strong>abstraction layer</strong> for:</p>
+					<p>EIGRP is <strong>network-layer agnostic</strong>:  it’s <u>able to perform a routing function for really any L3 protocol</u>, even future ones, thanks to <strong><em>protocol-dependent modules</em> (PDMs)</strong>.</p>
+					<p>PDMs "translate" the L3 protocol to the DUAL algo and to store the results of DUAL into tables specific to the L3 protocol. It works as an <strong>abstraction layer</strong> for:</p>
 					<ul>
-						<li>maintaining <strong>neighbor and topology tables</strong> specific to the L3 protocol.</li>
+						<li>maintaining protocol-specific <strong>neighbor/topology tables</strong>.</li>
 						<li>Rx/Tx EIGRP packets encapsulated in the L3 protocol.</li>
 						<li>handling the L3 protocol routing table for DUAL.</li>
 						<li>computing the metric and handling to DUAL.</li>
 						<li>handling ACLs specific to the L3 protocol.</li>
-						<li>redistribution of routes learned through other routing protocols into EIGRP and viceversa.</li>
+						<li>redistribution of routes to/from EIGRP.</li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>RTP and Authentication</h2>
-					<p>The consequences of being L3-agnostic is that EIGRP cannot use TCP and UDP, which are specific to IPv4/6.</p>
+					<p>The <u>consequences of being L3-agnostic</u> is that EIGRP cannot use TCP and UDP, which are specific to IPv4/6.</p>
 					<p>EIGRP uses its own transport protocol, the <em>Reliable Transport Protocol</em>. It obviously supports <strong>reliable delivery</strong> (requiring ACKs, similar to TCP), but <strong>it also does unrealiable delivery</strong> with no acknowledge requirements.</p>
-					<p>RTP supports <strong>both unicast and multicast</strong> for sending EIGRP packets. Multicast addresses for EIGRP are 224.0.0.10 (IPv4) and FF02::A (IPv6).</p>
+					<p>RTP supports <strong><u>both unicast and multicast</u></strong> for sending EIGRP packets. Multicast addresses for EIGRP are 224.0.0.10 (IPv4) and FF02::A (IPv6).</p>
 					<p>EIGRP <strong>supports MD5 authentication</strong> of routing packets as RIP and OSPF, but <strong>doesn’t encrypt them</strong>.</p>
 				</section>
 
 				<section>
 					<h2>EIGRP Messages</h2>
 					<ul>
-						<li><strong>Hello</strong> - Used to establish and maintain adjacencies with neighbors.</li>
+						<li><strong>Hello</strong> - To establish and maintain neighbor adjacencies.</li>
 						<ul>
-							<li>Sent with unreliable RTP, as multicast where supported.</li>
+							<li>Sent with unreliable RTP, as multicast if supported.</li>
 						</ul>
-						<li><strong>Update</strong> - Used to deliver routing information to neighbors.</li>
+						<li><strong>Update</strong> - To deliver routing information to neighbors.</li>
 						<ul>
 							<li>Sent with reliable RTP, unicast or multicast.</li>
 						</ul>
@@ -120,50 +126,58 @@
 							<li>Sent with reliable RTP, as unicast</li>
 						</ul>
 					</ul>
-					<p>All of these are encapsulated in IPv4 (with the <strong>Protocol</strong> field set to <strong>88</strong>) or IPv6 packets (with the <strong>Next Header</strong> field also <strong>88</strong>).</p>
+					<p>IPv4/6 encapsulation uses <u>88</u> in <strong>Protocol</strong>/<strong>Next Header</strong> fields.</p>
 				</section>
 
 				<section>
 					<h2>EIGRP Hello Packets</h2>
-					<p>Used to discover EIGRP neighbors and establish and maintain adjacencies with them. They are sent with unreliable RTP (so no ACK expected).</p>
-					<p>They are sent as multicast and <strong>every 5 seconds on broadcast-enabled networks</strong>, and <strong>every 60 seconds on NBMA networks</strong> (X.25, Frame Relay, T1).</p>
-					<p>An established adjacencies is considered broken when no Hello packet has been received for an <strong>Hold timer</strong>. The hold timer value is 3x the Hello timer (15s on broadcast, 180s on NBMA).</p>
-					<p><strong>After that, the routes through that neighbor are no longer viable</strong> to EIGRP, that starts to search for a new path by sending query packets.</p>
+					<p>Used to <u>discover EIGRP neighbors</u> and establish and maintain adjacencies with them. They are sent:
+					<ul>
+						<li>with unreliable RTP (so no ACK expected).</li>
+						<li>as multicast and <strong>every 5s on Ethernet networks</strong>, and <strong>every 60s on NBMA networks</strong> (X.25, Frame Relay, T1)</li>
+					</ul>
+					<p>An established adjacencies is considered <u>broken when no Hello packet has been received for an <strong>Hold timer</strong></u>. Default is 3x the Hello timer (15s on broadcast, 180s on NBMA).</p>
+					<p><strong>After that, the routes through that neighbor are no longer viable</strong> to EIGRP, that starts to <u>search for a new path by sending query packets</u>.</p>
 				</section>
 
 				<section>
-					<h2>EIGRP Update and Acknowledgement Packets</h2>
-					<p>EIGRP <strong>routing informations</strong> are propagated through its Update packets.</p>
-					<p>They are not periodic, but instead only sent incrementally (<strong>partial</strong>) and only to the affected EIGRP-neighbors (<strong>bounded</strong>). The net effect is a huge bandwidth saving achievable with EIGRP.</p>
+					<h2>EIGRP Update Packets</h2>
+					<p>EIGRP <u><strong>routing informations</strong> are propagated</u> through its Update packets.</p>
+					<p>They are <u>not periodic</u>, but instead only sent incrementally (<strong>partial</strong>) and only to the affected EIGRP-neighbors (<strong>bounded</strong>). The net effect is a <u>huge bandwidth saving</u> achievable with EIGRP.</p>
 					<p>When required by a single router, they are sent as unicast, otherwise as multicast (on supported networks). In any case they use reliable delivery so <strong>acknowledge is required</strong>.</p>
-					<p>EIGRP Acknowledge packets have the form of an <strong>Hello packet without any data</strong>. They are obviously sent with <strong>unreliable RTP</strong>, otherwise they would cause a loop of ACKs.</p>
+				</section>
+
+				<section>
+					<h2>EIGRP Acknowledgements</h2>
+					<p>Required any time reliable delivery is used.</p>
+					<p>EIGRP Acknowledge packets have the form of an <strong>Hello packet without any data</strong>. They are obviously <u>sent with <strong>unreliable RTP</strong></u>, otherwise they would cause a loop of ACKs.</p>
 				</section>
 
 				<section>
 					<h2>EIGRP Query and Reply</h2>
-					<p>Queries and Replies are used by EIGRP and DUAL when <strong>searching information</strong> in other neighbors.</p>
-					<p>Both use <strong>reliable delivery</strong>, so this means that both of them have to be acknowledged. Queries are sent as multicast, while Replies as unicast.</p>
-					<p>Replies have to be <strong>sent even for negative answers</strong>, that is when a neighbor doesn’t have the required information.</p>
-					<p>An EIGRP router send queries even for a network previously attached to it that it is now down, because there’s always the possibility of another path in the topology.</p>
+					<p>Queries and Replies are used by EIGRP and DUAL when <u><strong>searching information</strong> in other neighbors</u>.</p>
+					<p>Both use <strong>reliable delivery</strong>. Queries are sent as multicast, while Replies as unicast.</p>
+					<p>Replies have to be <strong>sent even for negative answers</strong>, that is when <u>a neighbor doesn’t have the required information</u>.</p>
+					<p>An EIGRP router send queries <u>even for a network previously attached</u> to it that it is now down, because there’s always the possibility of another path in the topology.</p>
 				</section>
 
 				<section>
 					<section>
 						<h2>EIGRP Packet Format</h2>
-						<img src="http://i.imgur.com/072dOCQ.gif">
+						<img src="http://i.imgur.com/072dOCQ.gif" style="width: 800px;">
 					</section>
 					<section>
 						<h2>EIGRP Header</h2>
-						<p>EIGRP data field is called <strong>TLV (<em>Type, Length and Value</em>)</strong>. There are many, but CCNA focuses on 3 of them. Regardless of the TLV, <strong>the same EIGRP packet header is used</strong>.</p>
+						<p>EIGRP data field is called <strong>TLV (<em>Type, Length and Value</em>)</strong>. <u>There are many, but CCNA focuses on 3 of them</u>. Regardless of the TLV, <strong>the same EIGRP packet header is used</strong>.</p>
 						<p>The important field in the EIGRP header are the <strong>OpCode</strong> and the <strong>Autonomous System Number</strong>.</p>
 						<ul>
-							<li><strong>OpCode specifies the packet type</strong>, by using 1 for Update, 3 for Query, 4 for Reply and 5 for Hello. Acknowledgments are Hello packets with no data.</li>
+							<li><strong>OpCode specifies the <u>packet type</u></strong>, by using 1 for Update, 3 for Query, 4 for Reply and 5 for Hello. Acknowledgments are Hello packets with no data.</li>
 							<li>The <strong>Autonomous System Number identifies the routing process</strong>, similar to OSPF Process ID.</li>
 						</ul>
 					</section>
 					<section>
 						<h2>EIGRP TLV - Parameter</h2>
-						<p>The <strong>EIGRP Parameter’s TLV</strong> (also known as General TLV, Type 0x0001) includes:</p>
+						<p>The <strong>EIGRP Parameter’s TLV</strong> (also known as <em>General TLV</em>, Type 0x0001) includes:</p>
 						<ul>
 							<li><strong>K1, K2, K3, K4, K5</strong> fields. Through them EIGRP knows which parameters to use as <strong><em>weights</em> to compute the composite metric</strong>.</li>
 							<li>The <strong>Hold timer</strong> is the time the neighor should wait <strong>before considering the adjancency broken</strong> and the sending router down.</li>
@@ -171,12 +185,12 @@
 					</section>
 					<section>
 						<h2>EIGRP TLV - IP Internal</h2>
-						<p>The <strong>IP Internal Route TLV</strong> (Type 0x0002) is a message used to <strong>advertise EIGRP routes</strong> in the autonomous system. It includes:</p>
+						<p>The <strong>IP Internal Route TLV</strong> (Type 0x0002) is used to <strong>advertise EIGRP routes</strong> <u>in the autonomous system</u>. It includes:</p>
 						<ul>
-							<li><strong>Bandwidth</strong> - The <strong>lowest</strong> configured bandwidth of an interface along that route.</li>
-							<li><strong>Delay</strong> - Measured in units of 10 microseconds, the <strong>sum of the delays</strong> of the interfaces along that route.</li>
-							<li><strong>Prefix Length</strong> - The subnet mask, measured in number of network bits.</li>
-							<li><strong>Destination</strong> - The address of the destination network. It only contains the network portion (172.17.0.0/16 = 172.17). The minimum length is 24 bits, so if necessary padding is added. If prefix length is more than 24, the field is extended another 32 bits.</li>
+							<li><strong>Bandwidth</strong> - The <strong>lowest</strong> configured bandwidth of an interface <u>along that route</u>.</li>
+							<li><strong>Delay</strong> - Measured in units of 10 microseconds, the <strong>sum of the delays</strong> of the interfaces <u>along that route</u>.</li>
+							<li><strong>Prefix Length</strong> - The subnet mask (number of bits).</li>
+							<li><strong>Destination</strong> - The address of the destination network. It only contains the network portion (172.17.0.0/16 = 172.17). The minimum length is 24 bits, so <u>if necessary padding is added</u>. If prefix length is more than 24, the field is extended another 32 bits.</li>
 						</ul>
 					</section>
 					<section>
@@ -191,28 +205,28 @@
 
 				<section>
 					<h2>Autonomous System Numbers</h2>
-					<p><strong>EIGRP’s autonomous system numbers are unrelated to the AS numbers assigned by IANA.</strong></p>
+					<p><strong>EIGRP’s autonomous system numbers are <u>unrelated to the AS numbers assigned by IANA</u>.</strong></p>
 					<ul>
-						<li>IANA’s Autonomous Systems are assigned (originally 16 bits, 0-65535, now 32 bits) to large collection of networks that are administered by a single entity.</li>
-						<li>Inside an AS, IGP routing protocols are used by that entity according to its own preferences, policies, network design.</li>
-						<li>The AS then interfaces with other ASes, presenting a single consistent Internet routing policy to them using BGP (the only routing protocol that use IANA’s AS numbers).</li>
-						<li><strong>EIGRP AS numbers works as process IDs to distinguish different EIGRP istances</strong> that might be running on the routers in a network. In some case it can be advisable to use independent EIGRP instances to handle different networks.</li>
+						<li>IANA’s AS are assigned to large collection of networks that are <u>administered by a single entity</u>.</li>
+						<li>Inside an AS, IGP routing protocols are used <u>according to AS own preferences</u>, policies, network design.</li>
+						<li>The <u>AS interfaces with other ASes</u>, presenting a single consistent Internet routing policy to them using <u>BGP</u> (the only routing protocol that <u>use IANA’s AS numbers</u>).</li>
+						<li><strong>EIGRP AS numbers works as process IDs to distinguish different EIGRP istances</strong>. It may be advisable to run independent EIGRP instances to handle different nets.</li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>IPv4 EIGRP Configuration</h2>
-					<p>To enter EIGRP configuration mode, use</p>
+					<p>To enter <u>EIGRP configuration mode</u>, use</p>
 					<pre><code class="no-highlight">Router(config)# router eigrp [autonomous_system]</code></pre>
 					<p>The AS number ranges between 1-65535. <strong>It has to be the same within the desidered EIGRP routing domain</strong>.</p>
-					<p>This command <strong>doesn’t start the EIGRP process</strong>, but only enters the configuration mode. The “no” version of this command stops the process and delete all existing config.</p>
+					<p>This command <strong>doesn’t start the EIGRP process</strong>, but only enters the configuration mode. The <code>no</code> version of this command stops the process and <u>delete all existing config</u>.</p>
 				</section>
 
 				<section>
 					<h2>EIGRP Router ID</h2>
 					<p>Everything is <strong>the same as with OSPF</strong>:</p>
 					<ul>
-						<li><strong>Expressed as 32 bit IPv4 addresses</strong>, but it is not an actual IP.</li>
+						<li><strong>Expressed as 32 bit IPv4 addresses</strong> (not an actual IP).</li>
 						<li>First, manually configured Router IDs with
 							<pre><code class="no-highlight">Router(config)# eigrp router-id [id]</code></pre>
 						</li>
@@ -220,7 +234,7 @@
 						<li>Third, highest IP on any active actual interface, EIGRP-enabled or not.</li>
 						<li>Displayed with <code>show ip protocols</code> command.</li>
 					</ul>
-					<pre><code class="no-highlight" style="max-height: 200px;">Router(config-router)# eigrp router-id 1.2.3.4
+					<pre><code class="no-highlight" style="max-height: 150px;">Router(config-router)# eigrp router-id 1.2.3.4
 Router(config-router)# end
 Router# show ip protocols
 *** IP Routing is NSF aware ***
@@ -244,23 +258,26 @@ Routing Protocol is "eigrp 1"
 						<h2>EIGRP Network Announcements</h2>
 						<p>The <strong><code>network</code></strong> command works just as in any IGP routing protocol and has the same effects:</p>
 						<ul>
-							<li>Any interface which has an address in that network gets EIGRP-enabled and start sending and processing EIGRP updates.</li>
-							<li>That network is announced in EIGRP routing updates.</li>
+							<li>Any interface which has an address in that network gets <u>EIGRP-enabled</u>, sending/processing EIGRP updates.</li>
+							<li>That <u>network is announced</u> in EIGRP routing updates.</li>
 						</ul>
 						<p>There are 2 versions of the network command:</p>
 						<ul>
-							<li><code>network {classful_address}</code> enables interfaces and announces subnets of that classful address.</li>
-							<li><code>network {network_address} [wildcard]</code> enables a specific subnet and the interface belonging in that subnet.</li>
-							<li>In some IOS version the subnet mask can also be used, but it will be converted to the wildcard in the config.</li>
+							<li><code>network {classful_addr}</code> enables interfaces and announces subnets of that classful address.</li>
+							<li><code>network {network_addr} [wildcard]</code> enables a specific subnet and the interface belonging in that subnet.</li>
+							<li>In some IOS version the subnet mask can also be used.</li>
 						</ul>
 					</section>
 					<section>
 						<h2>Passive Interfaces</h2>
-						<p>EIGRP also allows for <strong>passive interfaces</strong>, when we want to announce a subnet but sending routing updates would be useless (because there are no neighbors) or undesirable (because the other end of the link is not under our control).</p>
-						<pre><code class="no-highlight">Router(config-router)# passive-interface [if_id]</code></pre>
-						<pre><code class="no-highlight">Router(config-router)# passive-interface default
-Router(config-router)# no passive-interface [if_id]</code></pre>
-						<pre><code class="no-highlight">Router# show ip protocols
+						<p>EIGRP also allows for <strong>passive interfaces</strong>, when we want to announce a subnet but <u>sending routing updates would be useless</u> (because there are no neighbors) <u>or undesirable</u> (because the other end of the link is not under our control).</p>
+						<pre><code class="no-highlight">!!! Specific interface !!!
+Router(config-router)# passive-interface [if_id]
+!!! Passive by default, then exceptions !!!
+Router(config-router)# passive-interface default
+Router(config-router)# no passive-interface [if_id]
+Router(config-router)# end
+Router# show ip protocols
 *** IP Routing is NSF aware ***
 
 Routing Protocol is "eigrp 1"
@@ -299,7 +316,7 @@ Router#</code></pre>
 
 				<section>
 					<h2>EIGRP Neighbors</h2>
-					<p>The <strong>list of adjancencies established</strong> by an EIGRP router is stored in the <strong>neighbor table</strong>, which can be displayed with</p>
+					<p>The <strong>list of adjancencies established</strong> by an EIGRP router is <u>stored in the <strong>neighbor table</strong></u>, which can be displayed with</p>
 					<pre><code class="no-highlight">Router#show ip eigrp neighbors
 EIGRP-IPv4 neighbors for AS(1)
 H   Address                 Interface       Hold Uptime   SRTT   RTO  Q  Seq
@@ -309,9 +326,9 @@ H   Address                 Interface       Hold Uptime   SRTT   RTO  Q  Seq
 					<ul>
 						<!-- HARDCODED -->
 						<small>
-						<li><strong>H</strong> - The order in which the neighbor were discovered</li>
+						<li><strong>H</strong> - The <u>order</u> in which the neighbor were discovered</li>
 						<li><strong>Address</strong> - IP of the neighbour</li>
-						<li><strong>Interface</strong> - Local interface receiving neighbor's Hello packets.</li>
+						<li><strong>Interface</strong> - <u>Local</u> interface receiving neighbor's Hello packets.</u></li>
 						<li><strong>Hold</strong> - Hold time, if 0 is reached the neighbor is considered down; reset to Hold timer value if an Hello packet is received.</li>
 						<li><strong>Uptime</strong> - Time since the entry was added to the table.</li>
 						<li><strong>Smooth Round Trip Timer</strong> and <strong>Retransmission Timeout</strong>, used by RTP.</li>
@@ -323,7 +340,7 @@ H   Address                 Interface       Hold Uptime   SRTT   RTO  Q  Seq
 
 				<section>
 					<h2>EIGRP AD and Summarization</h2>
-					<p>EIGRP is the <strong>preferred IGP routing protocol</strong> on Cisco devices. Its routes have an <strong>AD of 90</strong> for internal routes and 170 for external ones (imported from non-EIGRP sources).</p>
+					<p>EIGRP is the <strong><u>preferred IGP routing protocol</u></strong> on Cisco devices. Its routes have an <strong>AD of 90</strong> for internal routes and 170 for external ones (imported from non-EIGRP sources).</p>
 					<p>There is also an AD of 5 for EIGRP summary route. However, <strong>EIGRP autosummarization is disabled by default since IOS 15.0</strong>. On previous IOS version, it can be disabled with</p>
 					<pre><code class="no-highlight">Router(config-router)# no auto-summary</code></pre>
 				</section>
@@ -331,22 +348,21 @@ H   Address                 Interface       Hold Uptime   SRTT   RTO  Q  Seq
 				<section>
 					<h2>EIGRP Adjacencies</h2>
 					<p>For 2 EIGRP-enabled routers to establish an adjancency, <strong>several parameters must match</strong>. Among them there are <strong>metric weights</strong> and <strong>AS number</strong>.</p>
-					<p>The <strong>exchange of Hello packets</strong> to establish adjacency goes as follows:</p>
+					<p><strong>Hellos exchange</strong>s to establish adjacency goes as follows:</p>
 					<ul>
-						<li>R1 sends an Hello packet on all of its EIGRP-enabled interfaces.</li>
-						<li>R2 receive the Hello packet and sends an Update packet with its routing information, except for routes learned through that interface (this technique is called <em>split horizon</em>).</li>
+						<li>R1 sends an Hello packet on all of its EIGRP interfaces.</li>
+						<li>R2 receive the Hello packet and sends an Update packet with its routing information, <u>except for routes learned through that interface</u> (<em>split horizon</em> technique).</li>
 						<li>However at this stage R1 and R2 are stil not neighbour. <strong>Only when R2 sends an Hello packet and R1 receives it the adjancency is established</strong> and neighbor tables updated.</li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>EIGRP Topology Table</h2>
-					<p>The content of EIGRP Update packets received from neighbors is included in routers’ <strong>topology table</strong>. There’s one topology table for every routable protocol.</p>
-					<p>It is different from the routing table because <strong>it contains every route to every destination network learned by EIGRP</strong>, even the ones that won’t be installed in the routing table.</p>
-					<p>The <strong>exchange of routing information</strong> goes as follows:</p>
+					<p>The content of EIGRP Update packets received from neighbors is included in routers’ <strong>topology table</strong>.</p>
+					<p>It is different from the routing table because <strong>it contains every route to every destination network learned by EIGRP</strong>, <u>even the ones that won’t be installed</u> in the RT. The <strong>exchange of routing information</strong> goes as follows:</p>
 					<ul>
 						<li>R1 receives the Update packet from R2 and updates the topology table with destinations and respective metrics.</li>
-						<li>R1 sends an Acknowledgment packet to R2, because Update uses reliable delivery.</li>
+						<li>R1 sends an Acknowledgment packet to R2.</li>
 						<li>R1 sends an Update packet to R2 with its complete routing information except those learned from R2.</li>
 						<li>R2 acknoledges the Update packet received from R1.</li>
 					</ul>
@@ -355,36 +371,36 @@ H   Address                 Interface       Hold Uptime   SRTT   RTO  Q  Seq
 				<section>
 					<section>
 						<h2>EIGRP Composite Metric</h2>
-						<p>EIGRP uses a <strong>composite metric</strong>: this means the cost of a path is the <strong>result of a formula</strong> that uses several combined parameters (<strong><em>weights</em></strong>).</p>
+						<p>EIGRP uses a <strong>composite metric</strong>: this means the cost of a path is the <strong>result of a formula</strong> that <u>uses several combined parameters</u> (<strong><em>weights</em></strong>).</p>
 						<p>For the composite metric to make sense, <strong>every EIGRP routers in the routing domain have to agree on the same weights</strong> to compute it. They do so with the K1, K2, K3, K4 and K5 parameters in the General TLV.</p>
 						<p>The <strong>general EIGRP composite metric formula</strong> is:</p>
-						<img src="http://i.imgur.com/vArSqGv.png">
+						<img src="http://i.imgur.com/vArSqGv.png" style="width: 700px;">
 					</section>
 					<section>
 						<h2>Parameters and Weights</h2>
 						<img src="http://i.imgur.com/vArSqGv.png">
 						<ul>
-							<li><strong>Bandwidth</strong> - The slowest bandwidth of any exit interface along the routing path. The value is used scaled (10000000 / actual bandwidth). <u>Weighted by default</u> (<strong>K1</strong> = 1).</li>
-							<li><strong>Load</strong> - The worst load on any link on the routing path, computed as exponential average over 5 minutes between bandwidth and packet rate of the interfaces. Ranges from 0 to 255 (255 is 100% load). <u>Not weighted by default</u> (<strong>K2</strong> = 0).</li>
-							<li><strong>Delay</strong> - The sum of all exiting interfaces’ delay along the routing path. Measured in 10s of microseconds (it takes a packet to travel that route). <u>Weighted by default</u> (<strong>K3</strong> = 1).</li>
+							<li><strong>Bandwidth</strong> - The <u>slowest bandwidth of any exit interface</u> along the route path. The value is used scaled (10000000 / actual bandwidth). <u>Weighted by default</u> (<strong>K1</strong> = 1).</li>
+							<li><strong>Load</strong> - The <u>worst load on any link on the routing path</u>, computed as exponential average over 5 minutes between bandwidth and packet rate of the interfaces. Ranges from 0 to 255 (255 is 100% load). <u>Not weighted by default</u> (<strong>K2</strong> = 0).</li>
+							<li><strong>Delay</strong> - The s<u>um of all exiting interfaces’ delay</u> along the routing path. Measured in 10s of microseconds (it takes a packet to travel that route). <u>Weighted by default</u> (<strong>K3</strong> = 1).</li>
 						</ul>
 					</section>
 					<section>
 						<h2>Parameters and Weights</h2>
 						<img src="http://i.imgur.com/vArSqGv.png">
 						<ul>
-							<li><strong>Reliability</strong> - The likelihood a packet will successfully be transmitted on a link on the routing path, based on previous keepalives, computed as exponential average over 5 minutes. Measured in the range of 0 (completely unreliable) to 255 (perfect reliability). <u>Not weighted by default</u> (<strong>K4</strong> = 0, <strong>K5</strong> = 0).</li>
+							<li><strong>Reliability</strong> - The likelihood a packet will successfully be transmitted on a link on the routing path, <u>based on previous keepalives</u>. Measured in the range of 0 (completely unreliable) to 255 (perfect reliability). <u>Not weighted by default</u> (<strong>K4</strong> = 0, <strong>K5</strong> = 0).</li>
 							<li><strong>MTU</strong>, while included in routing updates, is <strong>not a metric weight</strong>.</li>
 						</ul>
-						<p>With the default weights, the general formula simply becomes</p>
+						<p>With the default weights, the general formula becomes</p>
 						<img src="http://i.imgur.com/GCCffGo.png">
 					</section>
 					<section>
 						<h2>Altering the Weights</h2>
-						<p>The K parameters can be altered with the command</p>
+						<p>The <u>K parameters can be altered</u> with the command</p>
 						<pre><code class="no-highlight">Router(config-router)# metric weights {tos k1 k2 k3 k4 k5}</code></pre>
-						<p>and verified with <code>show ip protocols</code>. Nevertheless, modifying them is not advisable because <strong>normally not weighted parameters will result in frequent recalculation of the metric</strong>, and hence the topology table.</p>
-						<p>All of the metric parameters can be displayed in the output of:</p>
+						<p>and verified with <code>show ip protocols</code>. Nevertheless, modifying them is <u>not advisable</u> because <strong>normally not weighted parameters will result in frequent recalculation of the metric</strong>, and hence the topology table.</p>
+						<p>All of the metric parameters can be displayed with:</p>
 						<pre><code class="no-highlight">Router# show interfaces Fa0/1
 FastEthernet0/1 is up, line protocol is up
 [output omitted]
@@ -392,10 +408,10 @@ FastEthernet0/1 is up, line protocol is up
 [output omitted]</code></pre>
 					</section>
 					<section>
-						<h2>Bandwidth and Load</h2>
-						<p><strong>Bandwidth and load are not measured dynamically</strong>, and are instead fixed values that can be tuned.</p>
+						<h2>Bandwidth and Delay</h2>
+						<p><strong>Bandwidth and delay are not measured dynamically</strong>, and are instead pre-determined values that can be tuned.</p>
 						<ul>
-							<li>Bandwidth is altered with the <code>bandwidth [kbps_value]</code> interface command. This is especially important for serial links, because a speed of T1 (1544 Kbps) is often the default.</li>
+							<li>Bandwidth is altered with <pre><code>Router(config-if) bandwidth [kbps_value]</code></pre> This is especially important for serial links, because a speed of T1 (1544 Kbps) is often the default.</li>
 							<li>Default <strong>Delay values depend on the type of link</strong> (eg: 1000 for FastEthernet, 20000 for Serial links)</li>
 						</ul>
 					</section>
@@ -404,7 +420,11 @@ FastEthernet0/1 is up, line protocol is up
 				<section>
 					<h2>DUAL Overview</h2>
 					<p>EIGRP uses <strong>both split horizon and hold-down timers</strong> (an interval after a network goes down in which the router will refuse routes to that network, to avoid potential instability) <strong>to avoid routing loops</strong>.</p>
-					<p>The main loop-avoiding mechanism in EIGRP is <strong>DUAL</strong>. When there is a topology change, DUAL make sure that <strong>affected router re-synchronize at the same time</strong> while excluding unaffected routers from the topology recomputation.</p>
+					<p><u>The main loop-avoiding mechanism</u> in EIGRP is <strong>DUAL</strong>. When there is a topology change, DUAL make sure that <strong>affected router re-synchronize at the same time</strong> while excluding unaffected routers from the topology recomputation.</p>
+				</section>
+
+				<section>
+					<h2>DUAL FSM</h2>
 					<p>DUAL makes its decision about route recomputations with a <strong>workflow model</strong> known as <strong><em>DUAL Finite State Machine</em> (FSM)</strong>, which is made up of:</p>
 					<ul>
 						<li>A certain, finite, number of stages (<em>states</em>)</li>
@@ -416,8 +436,8 @@ FastEthernet0/1 is up, line protocol is up
 				<section>
 					<h2>DUAL: Successor and Feasible Distance</h2>
 					<ul>
-						<li><strong>Successor</strong> - A neighboring router that is the next hop for a certain destination network. Its IP is shown in the routing table after the "<strong>via</strong>" keyword.</li>
-						<li><strong>Feasible Distance (FD)</strong> - It’s the lowest metric available for a route to a certain destination network. It’s the second number in the square brackets in an EIGRP routing table entry.</li>
+						<li><strong>Successor</strong> - A neighboring router that is the <u>next hop for a certain destination network</u>. Its IP is shown in the routing table after the "<strong>via</strong>" keyword.</li>
+						<li><strong>Feasible Distance (FD)</strong> - It’s the <u>lowest metric available</u> for a route to a certain destination network. It’s the second number in the square brackets in an EIGRP entry.</li>
 					</ul>
 					<pre><code class="no-highlight">Router# show ip route
 [omitted]
@@ -427,26 +447,33 @@ D 10.18.12.0/24  [90/3012096] via 172.17.87.3, 02:11:10, Serial0/0/0</code></pre
 				</section>
 
 				<section>
-					<h2>DUAL: Feasibility Condition</h2>
-					<ul>
-						<li><strong>DUAL stores every learned route</strong>, to use them as backup paths and quickly achieve convergence with no need for recomputation, after a topology change.</li>
-						<li>A <strong>Feasible Successor (FS)</strong> is a backup route to a certain destination network that satisfies a certain condition known as <strong>Feasibility Condition (FC)</strong>. If the FC is met, the backup route is <strong>guaranteed to be loop-free</strong> and so can be a FS.</li>
-						<li>The <strong>Reported Distance (RD)</strong> to a destination network is simply the FD that a neighbor of a local router says it has to the same destination network. The <strong><u>FC is satisfied if the neighbour’s RD is less than the local router’s FD</u></strong>.</li>
-						<li>Why? If the RD is less than the FD, then <strong>it’s impossible that the local router is part of the path</strong> that the neighbor is advertising, which is the definition of a loop.</li>
-					</ul>
+					<section>
+						<h2>DUAL: Feasibility Condition</h2>
+						<ul>
+							<li><strong>DUAL stores every learned route</strong>, to <u>use them as backup</u> paths and quickly achieve convergence with no need for recomputation, after a topology change.</li>
+							<li>A <strong><em>Feasible Successor</em> (FS)</strong> is a backup route to a certain destination network that satisfies a certain condition known as <strong><em>Feasibility Condition</em> (FC)</strong>. If the FC is met, the backup route is <strong>guaranteed to be loop-free</strong> and so can be a FS.</li>
+							<li>The <strong><em>Reported Distance</em> (RD)</strong> to a destination network is simply the FD that a neighbor of a local router says it has to the same destination network.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>DUAL: Feasibility Condition</h2>
+						<ul>
+							<li>The <strong><u>FC is satisfied if the neighbour’s RD is less than the local router’s FD</u></strong>.</li>
+							<li>Why? If the RD is less than the FD, then <strong>it’s impossible that the local router is part of the path</strong> that the neighbor is advertising, <u>which is the definition of a loop</u>.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
 					<section>
-						<h2>Display EIGRP Feasible Successors</h2>
-						<p><strong>EIGRP topology table contains both successors and feasible successors</strong>. To display it:</p>
+						<h2>Display EIGRP FS</h2>
+						<p><strong>EIGRP topology table contains both successors and feasible successors</strong>. To display main and sub-entries:</p>
 						<pre><code class="no-highlight">Router# show ip eigrp topology
 [omitted]
 P 10.18.12.0/24, 1 successors, FD is 3012096
       via 172.17.87.3 (3012096/2816), Serial0/0/0
       via 192.168.43.1 (41024256/2170112), Serial0/1/0
 [omitted]</code></pre>
-						<p>Main line content:</p>
 						<ul>
 							<li><strong>P</strong> - Stands for <strong>passive state</strong>, which means that the <strong>route is stable</strong> and not subject to <strong>DUAL recomputations</strong>. When DUAL is recomputing metric or searching for alternate paths, the route is in an <strong>active (A) state</strong>.</li>
 							<li>The <strong>destination network</strong> and the number of alternative paths to it (before the “successors” keyword).</li>
@@ -454,7 +481,7 @@ P 10.18.12.0/24, 1 successors, FD is 3012096
 						</ul>
 					</section>
 					<section>
-						<h2>Display EIGRP Feasible Successors</h2>
+						<h2>Display EIGRP FS</h2>
 						<pre><code class="no-highlight">Router# show ip eigrp topology
 [omitted]
 P 10.18.12.0/24, 1 successors, FD is 3012096
@@ -470,64 +497,63 @@ P 10.18.12.0/24, 1 successors, FD is 3012096
 						</ul>
 					</section>
 					<section>
-						<h2>Display EIGRP Feasible Successors</h2>
+						<h2>Display EIGRP FS</h2>
 						<pre><code class="no-highlight">Router# show ip eigrp topology
 [omitted]
 P 10.18.12.0/24, 1 successors, FD is 3012096
       via 172.17.87.3 (3012096/2816), Serial0/0/0
       via 192.168.43.1 (41024256/2170112), Serial0/1/0
 [omitted]</code></pre>
-						<p>Other subentries are present if there are FSs:</p>
+						<p>Other subentries are present <u>if there are FSs</u>:</p>
 						<ul>
 							<li>The <strong>next-hop address of the FS</strong>.</li>
 							<li>The <strong>local router’s hypotetical new FD and metric</strong>, if this became the successor.</li>
-							<li>The <strong>RD of the FS</strong>. It meets the FC, so it is listed as FS.</li>
+							<li>The <strong>RD of the FS</strong>. <u>It meets the FC, so it is listed as FS</u>.</li>
 							<li><strong>Output interface</strong> to reach the FS.</li>
 						</ul>
 					</section>
 					<section>
 						<h2>EIGRP Non-Feasible Successors</h2>
 						<p>It could happen that <strong>a backup route it’s actually available, but that it doesn’t meet the FC</strong>.</p>
-						<p>If so, that backup route <strong>doesn’t enter the topology table</strong>. To display every link regardless of the FC requirements, the command <strong><code>show ip eigrp topology all-links</code></strong> is available.</p>
-						<p>Being a distance-vector routing protocol, <strong>EIGRP doesn’t build a map of the network topology</strong>. DUAL only way to guarantee no routing loop is to respect the FC. <strong>A non-FS route can still be used</strong>, but further processing by DUAL is required and a delay is inevitable.</p>
+						<p>If so, that backup route <strong>doesn’t enter the topology table</strong>. To display every link <u>regardless of the FC</u> requirements, use <strong><code>show ip eigrp topology all-links</code></strong>.</p>
+						<p>Being a distance-vector routing protocol, <strong>EIGRP doesn’t build a map of the network topology</strong>. <u>DUAL only way to guarantee no routing loop is to respect the FC</u>. <strong>A non-FS route can still be used</strong>, but further processing by DUAL is required and a delay is inevitable.</p>
 					</section>
 				</section>
 
 				<section>
 					<section>
 						<h2>DUAL FSM</h2>
-						<img src="http://i.imgur.com/WO8lCHq.png">
-						<p>DUAL route calculation engine is known as <strong><em>Finite State Machine</em></strong>, which is an abstract model used to descrive how a router react to input events to make decisions about routes.</p>
+						<img src="http://i.imgur.com/WO8lCHq.png" style="width: 720px;">
+						<small>DUAL route calculation engine is known as <strong><em>Finite State Machine</em></strong>, an abstract model used to descrive how a router react to input events to make decisions about routes.</small>
 					</section>
 					<section>
 						<h2>DUAL FSM</h2>
-						<p>FSM study is not part of CCNA. To understand how DUAL is operating, however, the output of the FSM can be enabled with the command <strong><code>debug eigrp fsm</code></strong>.</p>
+						<p>FSM study is <u>not part of CCNA</u>.</p>
+						<p>To understand how DUAL is operating, the output of the FSM can be enabled with the command <strong><code>debug eigrp fsm</code></strong>.</p>
 						<p>When DUAL cannot find a FS meeting the FC, it <strong>puts the route into active state</strong>. The router <strong>queries its neighbors</strong> for a route to that destination network and waits for replies. If the replies contain a route to that network, it can become a new successor.</p>
 					</section>
 				</section>
 
 				<section>
 					<h2>IPv4 vs IPv6 EIGRP</h2>
-					<p>IPv6 EIGRP has been available since IOS 12.4(6)T, by <strong>adding the IPv6 PDM</strong>. It runs <strong>independently from IPv4 EIGRP</strong>.</p>
-					<p>The <strong>differences are minimal</strong>. DUAL and FSM, RTP, EIGRP packet types, the composite metric are common traits.</p>
+					<p>IPv6 EIGRP has been available since IOS 12.4(6)T, by <strong>adding the IPv6 PDM</strong>. It runs <strong>independently from IPv4 EIGRP</strong>. The <strong>differences are minimal</strong>. DUAL and FSM, RTP, EIGRP packet types, the composite metric are <u>common traits</u>.</p>
 					<ul>
-						<li><strong>EIGRP-IPv6 still uses IPv4-like router IDs</strong>. So on an IPv6-only network it’s important to manually set the router ID.</li>
+						<li><strong>EIGRP-IPv6 still uses IPv4-like router IDs</strong>. On IPv6-only networks it’s important to manually set the router ID.</li>
 						<li><strong>EIGRP-IPv6 messages are sourced from IPv6 link-local addresses</strong>. Multicast address is FF02::A.</li>
 						<li><strong>EIGRP-IPv6 config mode</strong> is entered with</li>
 						<pre><code class="no-highlight">Router(config)# ipv6 router eigrp {as_number}</code></pre>
-						<li>As with many IPv6 routing protocols, it’s <strong>enabled directly on the interface</strong> config:</li>
+						<li>It’s <strong>enabled directly on the interface</strong> config:</li>
 						<pre><code class="no-highlight">Router(config-if)# ipv6 eigrp {as_number}</code></pre>
 					</ul>
 				</section>
 
 				<section>
 					<h2>Troubleshooting EIGRP</h2>
-					<p>EIGRP simply cannot operate correctly <strong>if the right adjacencies are not formed</strong>. By default, every adjacency change is displayed in the terminal thanks to the command</p>
+					<p>EIGRP simply cannot operate correctly <strong>if the right adjacencies are not formed</strong>. By default, <u>every adjacency change is displayed in the terminal</u> thanks to the command</p>
 					<pre><code class="no-highlight">Router(config-router)# eigrp log-neighbor-changes
 %DUAL-5-NBRCHANGE: EIGRP-IPv6 2: Neighbor FE80::1
 (Serial0/0/0) is up: new adjacency</code></pre>
-					<p>If an adjacency isn’t formed like it’s supposed of, <strong>first verify network connectivity to that neighbor</strong>, which is a prerequisite.</p>
-					<p>If the ping is successful but the adjacency isn’t formed, <strong>check that both routers are using the same AS number</strong> and that <strong>the network the neighbor belongs to is included in <code>network</code> statements</strong>.</p>
+					<p>If an adjacency isn’t formed like it’s supposed to, <strong>first verify network connectivity to that neighbor</strong>. Then, check that both routers have the <strong>same AS number</strong> and that neighbor's network is <strong>included in <code>network</code> statements</strong>.</p>
 					<p>For EIGRP-IPv6, <strong>manually set the link-local addresses</strong> to more easily identify the interfaces in debug/config (eg. FE80::2 for R2).</p>
 				</section>
 
