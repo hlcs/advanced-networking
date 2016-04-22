@@ -43,7 +43,7 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:<h2>
 					<h2>Scaling Networks</h2>
 					<h3>Chapter 9: IOS Images and Licensing</h3>
 					<p>
@@ -53,21 +53,26 @@
 
 				<section>
 					<h2>Cisco IOS Families and Trains</h2>
-					<p>Cisco IOS is the network operating system for almost all Cisco's networking devices. These hardware platforms enjoy the support of a <strong>family of software releases</strong> in their lifespan.</p>
-					<p>The various versions (12.3, 12.4, 15.0, 15.1, etc.) of Cisco IOS releases represent the <strong>advancement of the IOS codebase</strong> as a whole.</p>
+					<p>Cisco IOS is the OS for almost all Cisco's networking devices, which enjoy a <strong>family of software releases</strong> in their lifespan.</p>
+					<p>The <em>versions</em> (12.3, 12.4, 15.0, 15.1, etc.) of Cisco IOS releases represent the <strong>advancement of the codebase</strong> as a whole.</p>
 					<p>IOS releases <strong>overlaps in terms of support</strong>: some time before a IOS version goes <strong>EOL</strong> (<em>end of life</em>), one or more <strong>new versions are introduced and supported</strong>.</p>
 					<p>Whithin each IOS release, <strong>new features will be implemented and bugs fixed</strong>. All this new code is not immediately included in the main code base, but is rather <em>branched out</em> in a "version of the version" called <em><strong>train</strong></em>.</p>
 				</section>
 
 				<section>
-					<h2>Cisco IOS 12.x Trains</h2>
-					<p><stron><em>Trains</em></stron> are used in IOS releases to identify and deliver a specific set of new features and bug fixes.</p>
-					<p>There can be multiple trains currently active, but we will focus on the <em>Mainline</em> (<strong>M train</strong>) and <em>Technology</em> (<strong>T train</strong>).</p>
-					<ul>
+					<section>
+						<h2>Cisco IOS 12.x Trains</h2>
+						<p><stron><em>Trains</em></stron> are used in IOS releases to identify and deliver a specific set of new features and bug fixes.</p>
+						<p>There can be multiple trains currently active, but we will focus on the <em>Mainline</em> (<strong>M train</strong>) and <em>Technology</em> (<strong>T train</strong>).</p>
+					</section>
+					<section>
+						<h2>Cisco IOS 12.x Trains</h2>
+						<ul>
 						<li>The <strong>M train</strong> is intended to be the <strong>most mature release</strong> Cisco can offer, and its <u>feature set never expands</u> during its lifetime. <u>Updates are released only to address bugs</u>.</li>
 						<li>The <strong>T train</strong>, gets <u>new features and bug fixes</u> (in sync with the M train) throughout its life, and is therefore <u>potentially less stable</u> than the mainline. At some point <u>the current T train release becomes the foundation for the next Mainline release</u>.</li>
 						<li>M train releases are also dubbed as <em>Maintenance Deployment</em> (MD) releases, as opposed to <em>Early Deployments</em> (ED) T train releases.</li>
 					</ul>
+					</section>
 				</section>
 
 				<section>
@@ -96,7 +101,7 @@
 								<li><strong>3</strong> - Rebuild Identifier</li>
 							</ul>
 						</ul>
-						<p>The <strong>parenthesis are an obsolete notation</strong> and the aforementioned releases are also known as Cisco IOS 12.4.21a and 12.4.20T3, respectively.</p>
+						<p><small>The <strong>parenthesis are an obsolete notation</strong> and the aforementioned releases are also known as Cisco IOS 12.4.21a and 12.4.20T3, respectively.</small></p>
 					</section>
 					<section>
 						<h2>Cisco IOS 12.x Versioning</h2>
@@ -129,10 +134,10 @@
 						<img src="http://i.imgur.com/x3aazdW.jpg">
 						<ul>
 							<li>There is now a <u>single train</u>, the <strong>M/T train</strong>.</li>
-							<li>M (<em>Extended Maintenance</em>) releases are <u>16-20 months apart</u>.</li>
+							<li>M (<em>Extended Maintenance</em>) releases <u>every 16-20 months</u>.</li>
 							<li>An <u>M-release will include all the features and hardware support developed through the T-releases</u> (<em>Standard Maintenance</em>) during that 20-month timeframe.</li>
 							<li>Between M-releases there are <u>2-3 T-releases per year</u>.</li>
-							<li>After its release, <u>an M-release only receive bug fixes</u> and the development of new functionality starts over in the next T-release.</li>
+							<li>After release, <u>an M-release only receives bug fixes</u> and the development of new functionality starts over in the next T-release.</li>
 						</ul>
 					</section>
 				</section>
@@ -141,12 +146,12 @@
 					<h2>Cisco IOS 15 Versioning</h2>
 					<ul>
 						<li>Example: <strong>Cisco IOS 15.0(1)M1</strong> and <strong>Cisco IOS 15.1(3)T1</strong></li>
-						<ul>
+						<small><ul>
 							<li><strong>15.0/15.1</strong> -  Major.Minor release numbers</li>
 							<li><strong>1/3</strong> - New Feature release number.</li>
 							<li><strong>M/T</strong> - Extended or Standard Maintenance.</li>
 							<li><strong>1/1</strong> - Rebuild Number</li>
-						</ul>
+						</ul></small>
 						<li>(M) - <u>Based on the last T-release</u>, version has the feature release number bumped.</li>
 						<li>(M) - After release, <u>they remain stable and supported for an extended period</u> (about 4 years) only receiving bugfixes, identified by increasing rebuild numbers.</li>
 						<li>(T) - They are <u>used between M releases to develop and perfect new features</u> and hardware support.</li>
@@ -159,7 +164,7 @@
 					<p>With IOS 15, Cisco has greatly <strong>simplified the process of choosing and acquiring a license</strong>.</p>
 					<ul>
 						<li><strong>Feature sets have been consolidated</strong> and reduced to 4.</li>
-						<p><img src="http://i.imgur.com/TCGYlxZ.jpg"></p>
+						<img src="http://i.imgur.com/TCGYlxZ.jpg" style="width: 600px;">
 						<li>There is now a single, <strong><em>universal</em></strong> image/binary file for Cisco IOS that <strong>contains every feature</strong>.</li>
 						<li>The chosen feature set is <strong>activated though licensing</strong>, installing a license file provided by Cisco after purchasing the license. There is no need to install a different image.</li>
 					</ul>
@@ -170,14 +175,14 @@
 						<h2>Cisco IOS 12.x Image Files</h2>
 						<ul>
 							<li>Example: <strong>c2800nm-advipservicesk9-mz.124-6.T.bin</strong></li>
-							<li>Use <code>show flash</code> command to view image filename on most Cisco devices.</li>
+							<li><strong><code>show flash</code></strong> can be used to view image filename.</li>
 							<ul>
 								<li><strong>c2800nm</strong> - The <u>hardware</u> this image can run on.</li>
 								<li><strong>advipservicesk9</strong> - The <u>feature set</u> the image provides.</li>
 								<li><strong>mz</strong> - If present, it indicates <u>memory location</u> and <u>compression format</u>.</li>
 								<ul>
-									<li>f = run from flash; m = from RAM; r = from ROM; l = relocatable; z = ZIP compressed; x = MZIP compressed.</li>
-									<li>Note: Images are <strong>automatically unzipped</strong> before being loaded into run.</li>
+									<li>f = run from flash; m = from RAM; r = from ROM; l = relocatable; z = ZIP compressed; x = MZIP compr.</li>
+									<li>Note: Images are <strong>automatically unzipped</strong> before being loaded into memory.</li>
 								</ul>
 								<li><strong>124-6.T</strong> - IOS release <u>version</u>.</li>
 								<li><strong>bin</strong> - <u>File extension</u>, indicating this is an executable file.</li>
@@ -188,7 +193,6 @@
 						<h2>Cisco IOS 15.x Image Files</h2>
 						<ul>
 							<li>Example: <strong>c1900-universalk9-mz.SPA.152-4.M3.bin</strong></li>
-							<li>Use <code>show flash</code> command to view image filename on most Cisco devices.</li>
 							<ul>
 								<li><strong>c1900</strong> - The <u>hardware platform</u> this image can run on.</li>
 								<li><strong>universalk9</strong> - <u>Image designation</u>. This is a universal image, and feature set are controlled through licenses.</li>
@@ -196,7 +200,7 @@
 									<li><strong>universalk9_npe</strong> - A variant of the universal image that is compiled <u>without strong encryption features</u> to comply with import/export laws in certain countries.</li>
 								</ul>
 								<li><strong>mz</strong> - <u>Memory location</u> and <u>compression format</u>.</li>
-								<li><strong>SPA</strong> - This means that the <u>image is digitally signed</u> by Cisco.</li>
+								<li><strong>SPA</strong> - The <u>image is digitally signed</u> by Cisco.</li>
 								<li><strong>152-4.M3</strong> - The <u>IOS release contained</u> by the image.</li>
 								<li><strong>bin</strong> - File <u>extension</u>.</li>
 							</ul>
@@ -209,10 +213,10 @@
 					<p>In large networks, it could be useful to deploy a <strong>TFT Server to store every IOS image and configuration files</strong>.</p>
 					<p>The server can be <strong>used for backup</strong>, in the event an image file on a flash card is corrupted or configuration is lost.</p>
 					<p>Also, devices can be configured to <strong>boot searching the IOS on a TFTP server</strong>: <em>one image to boot them all...</em></p>
-					<p>After <strong>verifying connectivity</strong> (<code>ping</code>) to the TFTP server and/or ensuring the flash card has <strong>sufficient space</strong> to store the image (<code>show flash</code>), it can be copied to/from the server with the following commands:</p>
+					<p>After <strong>verifying connectivity</strong> (<code>ping</code>) to the TFTP server and/or ensuring the flash card has <strong>sufficient space</strong> to store the image (<code>show flash</code>), it can be copied:</p>
 					<ul>
-						<li><code>copy flash: tftp:</code></li>
-						<li><code>copy tftp: flash:</code></li>
+						<li>to the server - <strong><code>copy flash: tftp:</code></strong></li>
+						<li>from the server - <strong><code>copy tftp: flash:</code></strong></li>
 					</ul>
 				</section>
 
@@ -251,13 +255,23 @@ Router# reload</code></pre>
 						<ol start="2">
 							<li><strong>Obtain the corresponding license</strong></li>
 							<ul>
-								<li>This step involves acquiring a <em>Software Activation License</em>, which comes <strong>in the form of a file</strong>. This can be done through:</li>
+								<li>By acquiring a <em>Software Activation License</em>, which comes <strong>in the form of a file</strong>. This can be done through:</li>
 								<ul>
-									<li><strong>Cisco License Manager (CLM)</strong> - A standalone, freeware application that is able to <strong>generate and centrally manage license for multiple devices</strong> in a network.</li>
+									<li><strong>Cisco License Manager (CLM)</strong> - A standalone, freeware application, able to <strong>generate and centrally manage license for multiple devices</strong> in a network.</li>
 									<li><strong>Cisco License Registration Portal</strong> - A web site for <strong>registering licenses on an individual basis</strong>.</li>
 								</ul>
-								<li>For both, an <em>Unique Device Identifier</em>(UDI) is required together with a PAK to <strong>tie the license to a specific device</strong>. <small>UDI is a combination of the <em>Product ID</em> (PID, a number identifying the type of the device), the Serial Number (SN, unique to the device) and the hardware revision.</small></li>
-								<li>UDI can be found with the <code>show license udi</code> command or by the <strong>pull-out label</strong> on the device itself.</li>
+							</ul>
+						</ol>
+					</section>
+					<section>
+						<h2>Cisco Licensing Process</h2>
+						<ol start="2">
+							<li><strong>Obtain the corresponding license</strong></li>
+							<ul>
+								<li><em>(cont.)</em>:</li>
+								<li>For both, an <em>Unique Device Identifier</em>(UDI) is required together with a PAK to <strong>tie the license to a specific device</strong>.</li>
+								<li><u>UDI is a combination</u> of the <em>Product ID</em> (PID, a number identifying the type of the device), the Serial Number (SN, unique to the device) and the hardware revision.</li>
+								<li>UDI can be found with the <strong><code>show license udi</code></strong> command or by the <strong>pull-out label</strong> on the device itself.</li>
 								<li>The license (XML, .lic) file will be <strong>sent by email</strong>.</li>
 							</ul>
 						</ol>
@@ -267,23 +281,25 @@ Router# reload</code></pre>
 						<ol start="3">
 							<li><strong>Installing the License</strong></li>
 							<ul>
-								<li>The steps to install a <strong>permanent license</strong> (which will <u>never expire for the lifetime of the device</u>) are:
-								<pre><code class="no-highlight">Router# license install flash0:seck9-C1900-SPE150_K9-FAB12340099.xml
+								<li>The steps to install a <strong>permanent license</strong> (which <u>won't expire for the lifetime of the device</u>) are:</li>
+							</ul>
+							<pre><code class="no-highlight">Router# license install flash0:seck9-C1900-SPE150_K9-FAB12340099.xml
 Installing licenses from “seck9-C1900-SPE150_K9-FAB12340099.xml"
 Installing...Feature:seck9...Successful:Supported
 1/1 licenses were successfully installed
 0/1 licenses were existing licenses
 0/1 licenses were failed to install
 Router#
-*May 18 19:24:57.391: %LICENSE-6-INSTALL: Feature seck9 1.0 was installed in this
-device.
-UDI=1900-SPE150/K9:FAB12340099; StoreIndex=15:Primary License Storage
-*May 28 19:24:57.615: %IOS_LICENSE_IMAGE_APPLICATION-6-LICENSE_LEVEL: Module
+*May 18 19:24:57.391: %LICENSE-6-INSTALL: Feature seck9 1.0
+ was installed in this device.
+UDI=1900-SPE150/K9:FAB12340099; StoreIndex=15:Primary
+ License Storage
+*May 28 19:24:57.615: %IOS_LICENSE_IMAGE_APPLICATION-6-LICENSE_LEVEL:
+ Module
 name = c1900
 Next reboot level = seck9 and License = seck9
 R2# reload</code></pre>
-								<li>The steps <strong>don't need to be repeated after upgrading</strong> the IOS release.</li>
-							</ul>
+							<p>The steps <strong>don't need to be repeated after upgrading</strong> IOS.</p>
 						</ol>
 					</section>
 				</section>
@@ -319,15 +335,14 @@ Index 4 Feature: SSL_VPN
 					</section>
 					<section>
 						<h2>Evaluation Licenses</h2>
-						<p>Evaluation licenses and their successors, <strong>Evaluation Right-to-use (RTU)</strong> licenses allows customers to try certain features for a specified amount of time (typically 60 days).</p>
-						<p>To accept an evaluation license for a technology package:</p>
+						<p><strong>Evaluation Right-to-use (RTU)</strong> licenses allows customers to try features for some time (typically 60 days). To accept an evaluation license for a technology package:</p>
 					<pre><code class="no-highlight">Router# license boot module {module_name} technology-package {package_name}
 Router# reload</code></pre>
 						<p>To avoid having to accept the EULA of a license prior to activating it (useful for <strong>automated licensing</strong>), use:</p>
 						<pre><code class="no-highlight">Router(config)# license accept end user agreement</code></pre>
-						<p>To <strong>backupall licenses</strong> for a device:</p>
+						<p>To <strong>backup all licenses</strong> for a device:</p>
 						<pre><code class="no-highlight">Router# license save {file-sys://license_file.lic}</code></pre>
-						<p>Later they can be <strong>restored in one go</strong> with the <code>license install</code> command.</p>
+						<p>Later they can be <strong>restored in one go</strong> with <code>license install</code>.</p>
 					</section>
 					<section>
 						<h2>Uninstalling Licenses</h2>
