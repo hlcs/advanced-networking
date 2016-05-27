@@ -43,7 +43,7 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:<h2>
 					<h2>Connecting Networks</h2>
 					<h3>Chapter 1:</h3>
 					<h3>Hierarchical Network Design</h3>
@@ -60,8 +60,7 @@
 						<li><strong>Medium</strong> network - 200 to 1000 devices.</li>
 						<li><strong>Large</strong> network - More than 1000 devices.</li>
 					</ul>
-					<p>Different network sized means <strong>different requirements</strong>.</p>
-					<p>It is the job of the <strong>network designer</strong> to handle the complexities of these requirements and orchestrate connection of various-sized networks.</p>
+					<p>Different network sized means <strong>different requirements</strong>. It is the job of the <strong>network designer</strong> to handle their complexities.</p>
 					<p>Cisco has a certification dedicated to network design skills, which encompass a great deal of knowledge. It’s the <strong>CCDA, <em>Cisco Certified Design Associate</em></strong>.</p>
 				</section>
 
@@ -79,61 +78,65 @@
 
 				<section>
 					<section>
-						<h2>[R] Access, Distribution, Core Layers</h2>
-						<img src="https://i.imgur.com/uuLjIxm.jpg">
+						<!-- [R] mod2-01.html -->
+						<h2>[R] Access, Distribution, Core</h2>
+						<img src="http://i.imgur.com/ugMjfRW.jpg">
+						<p>Tiers In a Cisco network architecture are <em><strong>Access, Distrubution and Core</strong></em>, usually deployed in a 3-tier or 2-tier (with <em>collapsed</em> Distribution/Core) framework.</p>
 					</section>
 					<section>
-						<h2>[R] Access, Distribution, Core Layers</h2>
-						<p>Tiers In a hyerarchical network architectures are <strong><em>Access</em></strong>, <strong><em>Distrubution</em></strong> and <strong><em>Core</em></strong>, usually deployed in a 3-tier or 2-tier (with collapsed Distribution/Core) framework.</p>
+						<h2>[R] Access, Distribution, Core</h2>
+						<p>Tiers In a hyerarchical network architectures are <strong><em>Access</em></strong>, <strong><em>Distribution</em></strong> and <strong><em>Core</em></strong>, usually deployed in a 3-tier or 2-tier (with collapsed Distribution/Core) framework.</p>
 						<p>Main advantages: <strong>local traffic stays local</strong>; better boundary separation (perfect for limiting broadcast or filter traffic).</p>
 						<p><strong>Traffic starts in the <em>access</em> layer</strong>, which is the layer enabling a local network. Traffic can be <strong>distributed to different local networks</strong> by going through the distribution layer.</p>
 						<p>If required, a third layer (core) is provided as the backbone, to <strong>connect distant networks at speeds similar to the local ones</strong>.</p>
 					</section>
 				</section>
 
+				<!-- [R] mod2-01.html -->
 				<section>
 					<h2>[R] Access Layer</h2>
 					<ul>
-						<li>It's the network edge, where <strong>traffic enters or exits the network</strong>.</li>
-						<li>It's also where devices that <strong>extends the network out one more level</strong> are placed - IP phones, wifi APs, WAN connectivity.</li>
-						<li>Its primary function is to provide <strong>access to the network for most users</strong> (and thus generic computing devices, end stations access here, either from LAN or across a WAN connection.).</li>
+						<li>It's the network edge, where <strong>traffic enters or exits it</strong>.</li>
+						<li>It's also where devices that <strong>extend the network out one more level</strong> are placed - like IP phones, wireless APs, WAN connectivity.</li>
+						<li>It's primary function is to provide <strong>access to the network for most users</strong> (and thus generic computing devices, end stations access here).</li>
 						<li>This is the layer where <strong>most traffic originates</strong> from.</li>
-						<li>It provides the intelligent <strong>demarcation</strong> between the network infrastructure and the computing devices that leverage it.</li>
-						<li>The traditional focus at the access layer is <strong>minimizing cost-per-port</strong>.</li>
-						<li>Summary of its <strong>functions</strong>: L2 Switching, Spanning Tree, PoE; High Availability; Port Security; QoS Classification; ARP inspection; VLAN ACL, VoIP-dedicated VLANs.
-</li>
+						<li>It provides the <strong>demarcation</strong> between the network infrastructure and the computing devices that leverage it.</li>
+						<li>The traditional focus at the access layer is <strong>minimizing <em>cost-per-port</em></strong>.</li>
 					</ul>
 				</section>
 
+				<!-- [R] mod2-01.html -->
 				<section>
 					<h2>[R] Distribution Layer</h2>
 					<ul>
-						<li>It's the most "smart" layer, <strong>implementing network foundation technologies</strong> like routing, advanced switching, QoS and <strong>policy-based security</strong> (ACL, filtering).</li>
-						<li><strong>Interface</strong> between Access and Core Layers.</li>
-						<li><strong>Aggregation point for all access switches</strong> (large-scale wiring closet) and <strong>WAN links</strong>.</li>
-						<li><strong>Aggregating L2 broadcast domains, L3 routing boundaries and summarization boundaries</strong> for network control plane protocols (EIGRP, OSPF, Spanning Tree).</li>
-						<li><strong>Demarcation and isolation</strong> between the campus distribution building block and the rest of the network.</li>
+						<li>It's the most "smart" layer, <strong>implementing network foundation technologies</strong> like routing, advanced switching, filtering, QoS.</li>
+						<li><strong>Interface</strong> between Access and Core Layers:</li>
+						<ul>
+							<li><strong>Aggregation point for access switches</strong> (wiring closet).</li>
+							<li><strong>Aggregating L2 broadcast domains and L3 routing and summarization boundaries</strong> for network control plane protocols (EIGRP, OSPF, Spanning Tree).</li>
+							<li><strong>Demarcation and isolation</strong> between the campus distribution building block and the rest of the network.</li>
+						</ul>
 						<li><strong>Very little traffic originates</strong> directly from here.</li>
-						<li><strong>High availability</strong> through redundant distribution layer switches to the end-user and <strong>equal cost load balancing to the core</strong>.</li>
-					</ul>
+						<li><strong>High availability</strong> through redundant distribution layer switches and <strong>equal cost paths to the core</strong>.</li>
+						</ul>
 				</section>
 
+				<!-- [R] mod2-01.html -->
 				<section>
-					<h2>[R] Core Layer</h2>
+					<h2>[R] Core Layer (Backbone)</h2>
 					<ul>
-						<li>Also known as: <strong><em>network backbone</em></strong>.</li>
-						<li>Very limited set of services, provides 24/7 always-on (<em>Fault Isolation</em>) connectivity across the entire network (<em>end-to-end</em> connectivity).</li>
+						<li>Very limited set of services, provides <u>24/7 always-on</u> (<em>Fault Isolation</em>) connectivity <u>across the entire network</u> (<em>end-to-end</em> connectivity).</li>
 						<li>Basically <strong>no traffic originates</strong> from here.</li>
-						<li>It serves as the <strong>aggregator</strong> for all of the other campus <em>modules</em> and the traffic coming from all the campus distribution layer switches.</li>
-						<li>Very <strong>little processing</strong> is done on traffic, just collects as much as possible, moves it as fast and reliably as possible.</li>
+						<li>It serves as the <strong>aggregator</strong> for the other campus blocks and ties the campus together with the rest of the network.</li>
+						<li>Very little decisions about traffic, just <u>collects as much as possible, moves it as fast and reliably as possible</u>.</li>
 						<li>So: <strong>high-speed, high-redundancy forwarding</strong> services between "regions" (campus) of the network.</li>
-						<li>That means the <strong>most powerful switches</strong> and routers, capable of managing the fastest connections (e.g. 10 Gigabit Ethernet).</li>
+						<li>That means the <strong>most powerful switches</strong> and routers, capable of the fastest connections (e.g. 10 GiB Ethernet)</li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>2-Tier Collapsed Core Design</h2>
-					<p>Sometimes, in small enterprice networks, we can find another design. This design use only two layers with:</p>
+					<p>Sometimes, in small enterprise networks, we can find another design. This design use only two layers with:</p>
 					<ul>
 						<li>Access Layer</li>
 						<li>Collapsed Core Layer: <strong>a layer with the function of distribution and core</strong>.</li>
@@ -144,38 +147,42 @@
 				<section>
 					<h2>Modular Network Design</h2>
 					<p>In a modular network design, <strong>networks are separated into blocks</strong> (or <em>modules</em>) <strong>depending on their function</strong>.</p>
-					<p>Modules will then have <strong>different physical and/or logical connectivity</strong> in the overall network design. With modular design:</p>
+					<p>Modules will then have <strong>different physical and/or logical connectivity</strong> in the overall network design.</p>
 					<ul>
-						<li>in the event of a failure, <strong>the fault is easily isolated and detected</strong> in a single module.</li>
+						<li>In the event of a failure, <strong>the fault is easily isolated and detected</strong> in a single module.</li>
 						<li>Upgrades, changes, maintenance of the network can be <strong>staged progressively module by module</strong>.</li>
-						<li>Modules can be updated or <strong>completely replaced without the need to redesign the network</strong>, not even a portion of it.</li>
+						<li>Modules can be updated or <strong>completely replaced without the need to redesign the network</strong>, not even part of it.</li>
 					</ul>
-					<p>The modular network design reference recommended by <strong><em>Cisco is the Cisco Enterprise Architecture Model</em></strong>, which define several modules and their function.</p>
+					<p>The modular network design reference recommended by Cisco is the <strong><em>Cisco Enterprise Architecture Model</em></strong>.</p>
 				</section>
 
 				<section>
+					<!-- [R] mod3-01.html -->
 					<section>
-						<h2>Cisco Enterprise Architecture Model</h2>
-						<img src="https://i.imgur.com/udG9FNP.jpg">
-						<p>Includes the <strong>access, distribution and core layers</strong> in a <em>Campus Infrastructure Module</em>. The word <em>Campus</em> is common by loosely defined in Cisco’s literature.</p>
+						<h2>Enterprise Network Arch.</h2>
+						<p>It is defined on top of the hierarchical structure, and it's <strong>based on functional blocks</strong>.</p>
+						<img src="http://i.imgur.com/6Ajvmzo.png" style="width: 650px;">
+						<small>Includes the <strong>access, distribution and core layers</strong> in a <em>Campus Infrastructure Module</em>. The word <em>Campus</em> is common but loosely defined in Cisco’s literature.</small>
 					</section>
+					<!-- [R] mod3-01.html -->
 					<section>
 						<h2>[R] Enterprise Campus</h2>
-						<p>A <strong><em>campus</em></strong> is a fixed geographic area in which a network is deployed, but <strong>its span can vary</strong>: several buildings, an industrial area, the departments of a university. The submodules are:</p>
+						<p>Includes the <strong>access, distribution and core layers</strong> in a <em>Campus Infrastructure Module</em>.</p>
 						<ul>
-							<li><strong>Access</strong> - L2/L3 switches providing the needed port density.</li>
-							<li><strong>Access</strong> - VLANs, trunking and redundant links to the distribution switches.</li>
-							<li><strong>Distribution</strong> - L3 devices to aggregate campus access.</li>
-							<li><strong>Distribution</strong> - Routing, QoS, security.</li>
-							<li><strong>Core</strong> - High-speed backbone connectivity between.</li>
+							<li><strong>Access</strong> - L2/L3 switches with needed port density.</li>
+							<li><strong>Access</strong> - VLANs, trunks, redundant links to distribution.</li>
+							<li><strong>Distribution</strong> - L3 devices to aggregate campus access</li>
+							<li><strong>Distribution</strong> - Routing, QoS, security</li>
+							<li><strong>Core</strong> - High-speed backbone connectivity between</li>
 							<ul>
 								<li>Distribution Modules</li>
-								<li>Server and DataCenter Farms (Network Management happens here)</li>
-								<li>Service Module (IP Telephony, wireless controlles, unified services)</li>
+								<li>Server and DataCenter Farms (Network Management)</li>
+								<li>Service Module (IP Telephony, wireless controllers, unified services)</li>
 								<li>Enterprise Edge</li>
 							</ul>
 						</ul>
 					</section>
+					<!-- [R] mod3-01.html (partial) -->
 					<section>
 						<h2>[R] Enterprise Edge</h2>
 						<p>All the modules that <strong>extends the enterprise network to the outer networks</strong>, like remote sites, partner’s Intranets, and of course the Internet.</p>
@@ -201,16 +208,20 @@
 							</ul>
 						</small>
 					</section>
+					<!-- [R] mod3-01.html (partial) -->
 					<section>
 						<h2>[R] Service Provider Edge</h2>
-						<p>Provides the <strong>connectivity solutions that power the enterprise edge</strong>, in the forms of services from a <em>Service Provider</em>, such as</p>
+						<p>Provides the <strong>connectivity solutions that power the enterprise edge</strong>, such as</p>
 						<ul>
-							<li>Internet (perhaps <em>multi-homed</em>)</li>
+							<li>Internet (perhaps <em>multi-homed</em>, meaning 2 or more ISPs)</li>
 							<li>PSTN (traditional telephony)</li>
-							<li>Wide Area Networking (Frame Relay, ATM, MetroEthernet...)</li>
+							<li>Wide Area Networking (Frame Relay, ATM, MetroEthernet)</li>
 						</ul>
 						<p>All data entering and exiting these connectivity solution <strong>passes through a corresponding edge device in the Enterprise Edge</strong>.</p>
-						<p>It is therefore the perfect place to inspect traffic with <em>intrusion detection</em> (IDS) and <em>intrusion prevention</em> (IPS) systems.</p>
+						<p>It is therefore the perfect place to insepect traffic with <em>intrusion detection</em> (IDS) and <em>intrusion prevention</em> (IPS) systems.</p>
+					</section>
+					<section>
+						<h2>Service Provider Edge Redundancy</h2>
 						<p>Redundancy/failover by <strong>multiple connections to ISPs</strong> can be:</p>
 						<ul>
 							<li><strong>Single-homed</strong> - Single connection to a single ISP</li>
@@ -228,16 +239,16 @@
 								<li>A remote site belonging to the enterprise that allows employees to work on <strong>campus resources from a non-campus location</strong>.</li>
 								<li>Enabling edge devices can be WAN interfaces, or Internet+VPN as a backup.</li>
 							</ul>
-							<li><strong>Enterprise Teleworker</strong></li>
-							<ul>
-								<li>It enables to provide connectivity to employees that want or <strong>need to work from disperse locations</strong>, including non-enterprise ones such as homes, hotel, customer sites.</li>
-								<li>To enable edge devices: mostly local ISP connection + VPN.</li>
-							</ul>
 						</ul>
 					</section>
 					<section>
 						<h2>Remote Functional Area</h2>
 						<ul>
+							<li><strong>Enterprise Teleworker</strong></li>
+							<ul>
+								<li>It enables to provide connectivity to employees that want or <strong>need to work from disperse locations</strong>, including non-enterprise ones such as homes, hotel, customer sites.</li>
+								<li>To enable edge devices: mostly local ISP connection + VPN.</li>
+							</ul>
 							<li><strong>Enterprise Data Center</strong></li>
 							<ul>
 								<li>Same functions as campus data center, but in a remote location.</li>
@@ -248,29 +259,34 @@
 				</section>
 
 				<section>
-					<h2>Cisco Enterprise Architecture</h2>
-					<p>New technologies as</p>
-					<ul>
+					<section>
+						<h2>Cisco Enterprise Architecture</h2>
+						<p>New technologies as</p>
 						<ul>
-							<li>Cloud</li>
-							<li>Internet of the things (IoT)</li>
-							<li>Online collaboration</li>
-							<li>Bring Your Own Device (BYOD)</li>
+							<ul>
+								<li>Cloud</li>
+								<li>Internet of the things (IoT)</li>
+								<li>Online collaboration</li>
+								<li>Bring Your Own Device (BYOD)</li>
+							</ul>
+							<p>were a great challenge for network designer, because <strong>they make the border between networks’ components, areas, responsibilities and policies less clear</strong>.</p>
+					</section>
+					<section>
+						<h2>Cisco Enterprise Architecture</h2>
+							<p>Use scenarios change along with new technologies and the designer works to <strong>implement them without disrupting existing networks</strong>. To help designers Cisco has introduced 3 new network architectures</p>
+							<ul>
+								<li>Cisco Borderless Network Architecture</li>
+								<li>Collaboration Architecture</li>
+								<li>Data Center/Virtualization Architecture</li>
+							</ul>
 						</ul>
-						<p>were a great challenge for network designer, because <strong>they make the border between networks’ components, areas, responsibilities and policies less clear</strong>.</p>
-						<p>Use scenarios change along with new technologies and the designer works to <strong>implement them without disrupting existing networks</strong>. To help designers Cisco has introduced 3 new network architectures</p>
-						<ul>
-							<li>Cisco Borderless Network Architecture</li>
-							<li>Collaboration Architecture</li>
-							<li>Data Center/Virtualization Architecture</li>
-						</ul>
-					</ul>
+					</section>
 				</section>
 
 				<section>
-					<h2>Borderless Network Architecture</h2>
+					<h2>Borderless Network Arch.</h2>
 					<p>It’s a complete solution by Cisco to armonize <strong>the use of personal devices in the enterprise network</strong>.</p>
-					<p>It enables IT departments to configure personal devices in a seamless fashion, to <strong>bring them in compliance with the network policies while enabling employees</strong> to work with them.</p>
+					<p>It enables IT departments to configure personal devices in a seamless fashion, to <strong>bring them in compliance with the network policies</strong>, enabling employees to work with them.</p>
 					<p>A practical example: <em>how can personal devices such as laptop, tablets, phones, with many different operating system, can be easily configured to connect securely and easily to the enterprise network</em>?</p>
 					<p>The Cisco’s answer is using a multiplatform software developed for these end-devices, called <strong>Cisco AnyConnect</strong>.</p>
 				</section>
@@ -278,8 +294,9 @@
 				<section>
 					<section>
 						<h2>Collaboration Architecture</h2>
-						<p><strong><em>Groupware</em></strong> are software applications that are <strong>meant to be used by more than one user</strong> to achieve their purpose. Applications that let people <strong>collaborate to produce something</strong> (think of <em>Gooogle Doc</em>) are an example.</p>
-						<p>Cisco has an architecture to <strong>enable the creation and implementation of collaboration application</strong>, made by 3 layers:</p>
+						<p><strong><em>Groupware</em></strong> are software applications that are <strong>meant to be used by more than one user</strong> to achieve their purpose.</p>
+						<p>Applications that let people <strong>collaborate to produce something</strong> (think of <em>Google Doc</em>) are an example.</p>
+						<p>Cisco has a 3-layer architecture to <strong>enable the creation and implementation of collaboration application</strong>:</p>
 					</section>
 					<section>
 						<h2>Collaboration Architecture</h2>
@@ -287,11 +304,11 @@
 					<ul>
 						<li><strong>Ready to use applications and devices</strong></li>
 						<ul>
-							<li>Cisco WebEx Meetings/ Social, Jabber and a popular teleconference hardware line, TelePresence. They include voice, video, messaging, enterprise social networks, complete with mobile versions.</li>
+							<li>Cisco WebEx Meetings/Social, Jabber and TelePresence (a popular teleconference hardware line). They include voice, video, messaging, enterprise social networks.</li>
 						</ul>
 						<li><strong>Collaboration Services</strong></li>
 						<ul>
-							<li>API and SDK that allows developer to build custom application and features based on Cisco collaboration tech providing services such as contact, location, policy and session management, tagging, etc.</li>
+							<li>API and SDK allowing developer to build custom application based on Cisco collaboration tech providing services such as contact, location, policy and session management, tagging, etc.</li>
 						</ul>
 						<li><strong>Network and Computer Infrastructure</strong></li>
 						<ul>
@@ -302,23 +319,30 @@
 				</section>
 
 				<section>
+					<section>
 					<h2>DataCenter/Virtualization Arch.</h2>
 					<ul>
 						<li><strong>Cisco Unified Management Solutions</strong></li>
 						<ul>
-							<li>Automation for resource (both virtual and physical) management</li>
+							<li>Automation for (physical &amp; virtual) resource management</li>
 							<li>Provisioning and orchestration</li>
 						</ul>
 						<li><strong>Unified Fabric Solutions</strong></li>
 						<ul>
-							<li>Switches (Catalyst and Nexus) and their operating system (<strong>Cisco NX-OS</strong>, Linux-based), specific for data center operations.</li>
+							<li>Switches (Catalyst and Nexus) + OS (<strong>Cisco NX-OS</strong>, Linux-based), specific for data center operations.</li>
 							<li>It <strong>replaces many I/O systems on servers with a single high-bandwidth and low-latency network cable</strong>, simplifying data center architecture and improving resource usage and sharing.</li>
 						</ul>
-						<li><strong>Unified Computing Solutions</strong></li>
-						<ul>
-							<li>Cisco’s server solutions, designed to lower the TCO (<em>Total Cost of Ownership</em>) though virtualization technologies.</li>
-						</ul>
 					</ul>
+					</section>
+					<section>
+						<h2>DataCenter/Virtualization Arch.</h2>
+						<ul>
+							<li><strong>Unified Computing Solutions</strong></li>
+							<ul>
+								<li>Cisco’s server solutions, designed to lower the TCO (<em>Total Cost of Ownership</em>) though virtualization technologies.</li>
+							</ul>
+						</ul>
+					</section>
 				</section>
 
 				<section>
