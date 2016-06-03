@@ -43,7 +43,7 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:<h2>
 					<h2>Connecting Networks</h2>
 					<h3>Chapter 4:</h3>
 					<h3>Frame Relay</h3>
@@ -55,7 +55,7 @@
 				<section>
 					<section>
 						<h2>Leased Line Disadvantages</h2>
-						<img src="https://i.imgur.com/ls2Xkvr.png" style="background: white;">
+						<img src="https://i.imgur.com/ls2Xkvr.png" style="width: 650px; background: white;">
 					</section>
 					<section>
 						<h2>Leased Line Disadvantages</h2>
@@ -81,10 +81,9 @@
 					</section>
 					<section>
 						<h2>Frame Relay</h2>
-						<p>With Frame Relay,</p>
 						<ul>
-							<li>the subscriber only has to <strong>pay for the local loop</strong> (leased line) for each site, connecting them <strong>to the FR network</strong> of the provider. End-user <strong>configuration is minimal</strong>.</li>
-							<li>the provider creates the topology desired by the subscriber over its "<em>frame relay cloud</em>" of interconnected FR switches that is <strong>completely transparent to the users</strong>: they are effectively sharing it, but it appears as dedicated leased lines.</li>
+							<li>The subscriber only has to <strong>pay for the local loop</strong> (leased line) for each site, connecting them <strong>to the FR network</strong> of the provider. End-user <strong>configuration is minimal</strong>.</li>
+							<li>The provider creates the topology desired by the subscriber over its "<em>frame relay cloud</em>" of interconnected FR switches that is <strong>completely transparent to the users</strong>: they are effectively sharing it, but it appears as dedicated leased lines.</li>
 						</ul>
 						<p>Nowadays, FR is being <strong>supplanted by MPLS and MetroEthernet</strong>, but it’s still relied on in some locations using legacy connectivy solutions.</p>
 					</section>
@@ -92,20 +91,26 @@
 
 				<section>
 					<h2>The Frame Relay "Cloud"</h2>
-					<img src="https://i.imgur.com/djJMzW9.png" style="width: 50%; height: 50%;">
-					<p>Sites connect to the FR network with <strong>short dedicated lines</strong> between the local router (DTE, also FRAD, <em>FR Access Device</em>) and the <strong>FR switch</strong> (DCE).</p>
+					<img src="https://i.imgur.com/djJMzW9.png" style="width: 450px;">
+					<p>Sites connect to the FR network with <strong>short dedicated lines</strong> between the local router (DTE) and the <strong>FR switch</strong> (DCE).</p>
 					<p>The network <strong>topology is then configured <u>by the SP</u></strong> over the frame relay cloud using logical paths known as <em>virtual circuits</em>.</p>
 				</section>
 
 				<section>
-					<h2>Virtual Circuit</h2>
-					<p>A <strong><em>virtual circuit</em></strong> (VC) is a <u>connection made through the FR network between two DTEs</u>. To the DTEs, is <strong>equivalent to a leased line between them</strong>.</p>
-					<p>It is virtual because the <strong>path is configured logically</strong> in the FR switches, there isn’t a direct electical connection. This means it <strong>can be shared</strong>. VC are of two types:</p>
-					<ul>
-						<li><strong>Switched VCs (SVC)</strong> - It’s established <strong>on-the-fly</strong> and it’s terminated after transmission. Operational mode are CALL SETUP, DATA TRANSFER, IDLE, CALL TERMINATION.</li>
-						<li><strong>Permanent VCs (PVC)</strong> -  They are preconfigured by the provider and operate <strong>always-on</strong>. Operational Mode are DATA TRANSFER and IDLE.</li>
-					</ul>
-					<p>It is worth mentioning while we’re talking about (virtual) circuits that <strong>Frame Relay still is a packet-switching technology</strong>. VCs are used to emulate leased lines and <strong>hide the implementation details</strong> from DTEs.</p>
+					<section>
+						<h2>Virtual Circuit</h2>
+						<p>A <strong><em>virtual circuit</em></strong> (VC) is a <u>connection made through the FR network between two DTEs</u>. To the DTEs, is <strong>equivalent to a leased line between them</strong>.</p>
+						<p>It is virtual because the <strong>path is configured logically</strong> in the FR switches, there isn’t a direct electical connection. This means it <strong>can be shared</strong>.</p>
+					</section>
+					<section>
+						<h2>Virtual Circuit</h2>
+						<p>VC are of two types:</p>
+						<ul>
+							<li><strong>Switched VCs (SVC)</strong> - It’s established <strong>on-the-fly</strong> and it’s terminated after transmission. Operational mode are CALL SETUP, DATA TRANSFER, IDLE, CALL TERMINATION.</li>
+							<li><strong>Permanent VCs (PVC)</strong> -  They are preconfigured by the provider and operate <strong>always-on</strong>. Operational Mode are DATA TRANSFER and IDLE.</li>
+						</ul>
+						<p>It is worth mentioning while we’re talking about (virtual) circuits that <strong>Frame Relay still is a packet-switching technology</strong>. VCs are used to emulate leased lines and <strong>hide the implementation details</strong> from DTEs.</p>
+					</section>
 				</section>
 
 				<section>
@@ -123,7 +128,7 @@
 					</section>
 					<section>
 						<h2>DLCI Example</h2>
-						<img src="https://i.imgur.com/X8kypI0.png">
+						<img src="https://i.imgur.com/X8kypI0.png" style="width: 650px;">
 					</section>
 				</section>
 
@@ -133,7 +138,6 @@
 					<p>To correctly reach a destination a FR DTE must specify the L3 address of the other DTE (its IPv4 address for instance) <strong><u>and</u></strong> the DLCI of the PVC that connects it to the other DTE.</p>
 					<p>Consecutive FR frames are separated by the same <strong>start/end flag</strong>, 0x7E or binary 01111110.</p>
 					<p><strong>L1 layers in use by FR</strong> are EIA/TIA-232/449/530, V.35 or X.21.</p>
-					<img src="https://i.imgur.com/ss0Yw2b.gif">
 				</section>
 
 				<section>
@@ -159,7 +163,7 @@
 				<section>
 					<section>
 						<h2>Frame Relay Topologies</h2>
-						<img src="https://i.imgur.com/3oRZz8e.jpg">
+						<img src="https://i.imgur.com/3oRZz8e.jpg" style="width: 300px;">
 					</section>
 					<section>
 						<h2>Frame Relay Topologies</h2>
@@ -178,15 +182,15 @@
 						<h2>Address Mapping: Inverse ARP</h2>
 						<p>To be able to transmit through the FR network, a DTE must know <strong><u>both</u></strong>:</p>
 						<ul>
-							<li>The <strong>L3 address</strong> (IPv4/6/IPX/AppleTalk) of the destionation DTE;</li>
+							<li>The <strong>L3 address</strong> (IPv4/6/IPX/etc) of the destionation DTE;</li>
 							<li>The <strong>(local) DLCI</strong> of the PVC connecting to the destination DTE.</li>
 						</ul>
-						<p>To map the 2 elements, the DTE can use <strong>dynamic</strong> or <strong>static mappings</strong>.</p>
-						<p>In Ethernet networks, the ARP Protocols is used when you have the L3 IPv4 address of a client and you want to request its L2 address (<em>L3-to-L2</em>). <strong>Inverse ARP</strong> is a similar protocol used to achieve <em>L2-to-L3</em> mappings, which means <strong>the discovery of an IPv4 address of a node reachable through a known DLCI</strong>.</p>
+						<p>To map them, the DTE can use <strong>dynamic</strong> or <strong>static mappings</strong>.</p>
+						<p>In Ethernet networks, ARP is used when the L3 IPv4 address of a client is known and you want to request its L2 address (<em>L3-to-L2</em>). <strong>Inverse ARP</strong> is a similar protocol used to achieve <em>L2-to-L3</em> mappings, which means <strong>the discovery of an IPv4 address of a node reachable through a known DLCI</strong>.</p>
 					</section>
 					<section>
 						<h2>Address Mapping: Inverse ARP</h2>
-						<p>The equivalent of Inverse ARP for IPv4 is <strong><em>Inverse Neighbor Discovery</em> (IND)</strong>.</p>
+						<p>The equivalent of Inverse ARP for IPv6 is <strong><em>Inverse Neighbor Discovery</em> (IND)</strong>.</p>
 						<p>A router with a FR interface will send <strong>Inverse ARP requests to all configured DLCI</strong> to dynamically populate a L2-to-L3 mapping table with the corresponding replies.</p>
 						<p><strong>Inverse ARP is enabled by default</strong> on the FR interface of a Cisco router for every L3 protocol enabled on the interface.</p>
 					</section>
@@ -206,7 +210,7 @@
 					<section>
 						<h2>Static FR Address Mappings</h2>
 						<p>The command to configure static mappings in a Cisco router is:</p>
-						<pre><code>frame-relay map {protocol} {L3-address} {dlci-num} [broadcast] [ietf] [cisco]</code></pre>
+						<pre><code>frame-relay map {protocol} {L3-addr} {dlci-num} [broadcast] [ietf] [cisco]</code></pre>
 						<p>The <code>ietf</code> keyword is to be used when interfacing with a non-Cisco router, to avoid Cisco-specific encapsulation implementation details.</p>
 						<p>The <code>broadcast</code> keyword is used to “emulate” broadcast behaviours on the NMBA network. Useful to <strong>simplify configuration over FR for dynamic routing protocols that assume multiaccess</strong>, such as OSPF.</p>
 					</section>
@@ -227,21 +231,21 @@ Serial0/1/2 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), dynamic,
 
 				<section>
 					<section>
-						<h2>LMI - Local Management Interface</h2>
+						<h2>Local Management Interface</h2>
 						<p>The original concept of the Frame Relay protocol took <strong>little consideration of delay issues</strong>, which are a big problem in big networks.</p>
 						<p>Cisco and other vendors decided to <strong>extend FR</strong> in such a way that it could <strong>learn and react to the status of the network</strong>. These extension are known as the <em>Local Management Interface</em> (<strong>LMI</strong>).</p>
 					</section>
 					<section>
-						<h2>LMI - Local Management Interface</h2>
+						<h2>Local Management Interface</h2>
 						<p>LMI works as a <strong>keepalive</strong> between the DTE and the DCE:</p>
 						<ul>
-							<li>Every 10s, <strong>the router polls the FR switch</strong>, which can reply with either</li>
+							<li>Every 10s, <strong>the router polls the FR switch</strong>. It replies with:</li>
 							<ul>
 								<li>a simple <strong>response in sequence</strong> to the request.</li>
 								<li>informations about the <strong>status of the access channel</strong>.</li>
 							</ul>
 							<li>If the network <strong>doesn’t respond</strong>, the DTE could consider it to be <strong>down</strong>.</li>
-							<li>If the network replies with <strong>FULL STATUS response</strong>, it will contain information about <strong>all allocated DLCIs</strong> so the DTE can automatically know and configure all the available PVCs.</li>
+							<li>If the network replies with <strong>FULL STATUS response</strong>, it will contain information about <strong>all allocated DLCIs</strong> so the DTE can automatically configure all the available PVCs.</li>
 							<li>Interval between keepalives can be changed with the <code>keepalive</code> interface command. It must be <strong>sync’ed between adjacent FR interfaces</strong>.</li>
 						</ul>
 					</section>
@@ -252,13 +256,13 @@ Serial0/1/2 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), dynamic,
 						<h2>LMI Messages</h2>
 						<p>LMI is a <strong>definition for a message format</strong> used for <strong>link management</strong> between the DTE (the router) and the DCE (the SP’s FR switch).</p>
 						<p>LMI messages <strong>fits entirely in the variable-length data field</strong> of the FR encapsulation header.</p>
-						<img src="https://i.imgur.com/eAFZI2E.png">
+						<img src="https://i.imgur.com/eAFZI2E.png" style="width: 700px;">
 					</section>
 					<section>
 						<h2>LMI Messages</h2>
 						<p>DTE-DCE must use the <strong>same LMI’s message format</strong>. There are <strong>several, incompatible</strong> with each other: <strong>Cisco, Ansi, Q933A</strong>. It can be set with</p>
 						<pre><code>Router(config-if)# frame-relay lmi-type [cisco | ansi | q933a]</code></pre>
-						<p>It’s not necessary becaus new Cisco IOS releases support <strong>autosensing</strong>. LMI-type configured on a FR interface can be displayed with</p>
+						<p>It’s not necessary because new Cisco IOS releases support <strong>autosensing</strong>. LMI-type configured on a FR interface can be displayed with</p>
 						<pre><code>Router# show interfaces [interface-id]
 [...]
          LMI DLCI 1023  LMI type is CISCO [...]</code></pre>
@@ -266,22 +270,29 @@ Serial0/1/2 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), dynamic,
 				</section>
 
 				<section>
-					<h2>LMI Extensions</h2>
-					<p>The Frame Relay protocol itself deals with data transfer. LMI extensions take care of link management. Among them:</p>
-					<ul>
-						<li><strong>VC Status Messages</strong> - Synch of PVC informations between FR devices, thus <strong>deletion of old PVCs</strong> no longer existing and <strong>addition of new ones</strong>.</li>
-						<li><strong>Multicasting</strong> - Emulation of <strong>broadcast and multicasting behaviour on a NBMA network</strong> such as Frame Relay, necessary for scenario assuming multiaccess (e.g.: OSPF).</li>
-						<li><strong>Global Addressing</strong> - An extension of FR protocol <strong>giving DLCIs <u>global significance</u></strong>, which means they can be unique in the entire FR WAN. This turns FR into a Ethernet-like protocol, enabling ARP for instance.</li>
-						<li><strong>Basic Flow Control</strong> - For devices unable to use the congestion bits.</li>
-					</ul>
+					<section>
+						<h2>LMI Extensions</h2>
+						<p>The Frame Relay protocol itself deals with data transfer. LMI extensions take care of link management. Among them:</p>
+						<ul>
+							<li><strong>VC Status Messages</strong> - Synch of PVC informations between FR devices, thus <strong>deletion of old PVCs</strong> no longer existing and <strong>addition of new ones</strong>.</li>
+							<li><strong>Multicasting</strong> - Emulation of <strong>broadcast and multicasting behaviour on a NBMA network</strong> such as Frame Relay, necessary for scenario assuming multiaccess (e.g.: OSPF).</li>
+						</ul>
+					</section>
+					<section>
+						<h2>LMI Extensions</h2>
+						<ul>
+							<li><strong>Global Addressing</strong> - An extension of FR protocol <strong>giving DLCIs <u>global significance</u></strong>, which means they can be unique in the entire FR WAN. This turns FR into a Ethernet-like protocol, enabling ARP for instance.</li>
+							<li><strong>Basic Flow Control</strong> - For devices unable to use the congestion bits.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
 					<section>
 						<h2>LMI + InARP = Complete FR autoconf</h2>
 						<ul>
-							<li>At first, the <strong>DTE doesn’t know about the PVCs</strong> it has access to and the DTEs conntected at the other side of them.</li>
-							<li>DTE sends a <strong>LMI status inquiry</strong> to the FR network. Network replies with a <strong>LMI full response containing config details for every PVC available</strong> on the FR access link.</li>
+							<li>At first, the <strong>DTE doesn’t know about the PVCs</strong> it has access to and DTEs conntected at the other side of them.</li>
+							<li>DTE sends a <strong>LMI status inquiry</strong> to the FR network, which replies with a <strong>LMI full response containing config details for every PVC</strong> available on the FR access link.</li>
 							<li>DTE now knows and configures PVCs/DLCIs.</li>
 							<li>The next several status inquiries are only answered by <strong>abbreviated responses containing only changes</strong> in the link status.</li>
 							<li>After a <strong>set number of abbreviated exhanges</strong>, a full status reply is sent.</li>
@@ -376,7 +387,7 @@ Serial0/1/2 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), dynamic,
 					</section>
 					<section>
 						<h2>Access Rate and CIR</h2>
-						<img src="https://i.imgur.com/vTyz0bL.png">
+						<img src="https://i.imgur.com/vTyz0bL.png" style="width: 600px;">
 						<ul>
 							<li>If <strong>data on a PVC are sent above CIR are marked with the DE</strong> (<em>Discard Eligible</em>) bit: they might probably be delivered, but also be <strong>discarded if there’s a congestion</strong>: <u>no more guarantee</u>.</li>
 							<li><strong>Access rate is inherent</strong> to the purchased FR WAN service, but a CIR for each DLCI can be specified/customized by the subscriber.</li>
@@ -393,7 +404,7 @@ Serial0/1/2 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), dynamic,
 					</section>
 					<section>
 						<h2>Bursting</h2>
-						<p>The "rate above the CIR" up until the access rate is divided in:</p>
+						<p>The "rate above CIR" up until the access rate is divided in:</p>
 						<ul>
 							<li>Commited Burst Size (Bc) - It is the <strong>maximum rate at which a DTE can transmit for a short time and still (mostly) expect data to be delivered</strong>. It is a parameter negotiated with the SP.</li>
 							<ul>
@@ -407,8 +418,8 @@ Serial0/1/2 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), dynamic,
 					</section>
 					<section>
 						<h2>Bursting and Overbooking</h2>
-						<img src="https://i.imgur.com/xvq2ob9.png" style="background: white; width: 45%; height: 45%;">
-						<p>Service Providers greatly benefit from bursting capabilities of WAN protocols such as Frame Relay, because they can <strong>overbook/oversbuscribe</strong>, which means <strong>selling more bandwidth to more customers than they really have</strong>, <em><u>betting</u></em> that some of them will not use it entirely and/or all the time.</p>
+						<img src="https://i.imgur.com/xvq2ob9.png" style="background: white; width: 450px; float: left;">
+						<p>SPs greatly benefit from bursting capabilities of WAN protocols, because they can <strong>overbook/oversbuscribe</strong>, which means <strong>selling more bandwidth to more customers than they really have</strong>, <em><u>betting</u></em> that some of them will not use it entirely and/or all the time.</p>
 						<p>When in the overall FR WAN network, <strong>the sum of the CIRs is higher than the access circuit rates</strong>, somebody will pay the (lost bet) price.</p>
 					</section>
 				</section>
@@ -422,6 +433,9 @@ Serial0/1/2 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), dynamic,
 							<li>Set the <strong>BECN bit</strong> on frames flowing towards the source (upstream). It is meant to <strong>notify the sender</strong> that a transmission is occured.</li>
 							<li>Set the <strong>FECN bit</strong> on frames flowing towards the destination (downstream). It’s meant to <strong>notify the destination</strong> there’s a congestion.</li>
 						</ul>
+					</section>
+					<section>
+						<h2>Frame Relay Flow Control</h2>
 						<p>In a congestion situation, linked marked as DE can be <strong>dropped as needed</strong>. DTEs can mark <strong>low-priority data as DE</strong> as a precaution.</p>
 					</section>
 				</section>
@@ -471,7 +485,7 @@ Serial0/1/2 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), dynamic,
 					<section>
 						<h2>Static FR Map Config</h2>
 						<p>The broadcast keyword is a <strong>workaround to Frame Relay being a non-broadcast network</strong>, which is a big problem for routing protocols.</p>
-						<p>When specified, the FR interface <strong><em>allows</em> broadcast and multicast</strong> over the FR interface, <em>simultating</em> it by <strong>converting it to unicast traffic</strong> automatically.</p>
+						<p>When specified, the FR interface <strong><em>allows</em> broadcast and multicast</strong> over the FR interface, <em>simulating</em> it by <strong>converting it to unicast traffic</strong> automatically.</p>
 					</section>
 				</section>
 
@@ -515,7 +529,7 @@ Router(config-if)# frame-relay map [protocol] [address] [dlci] broadcast</code><
 					<h2>Split Horizon over NBMA</h2>
 					<p><em>Split horizon</em> is a technique used by distance vector routing protocols to avoid routing loops. It mandates that <strong>a route learned through an interface should never be advertised back on the same interface</strong>.</p>
 					<p>In frame relay, when a multipoint logical topology is realized, the <strong>various PVCs are all associated to the same, physical, FR interface</strong>.</p>
-					<p>Split horizon makes it impossible for distance-vector routing protocol to work, unless it is disabled (at the risk of routing loops).</p>
+					<p>Split horizon makes it impossible for DV routing protocol to work, unless it is disabled (at the risk of routing loops).</p>
 					<p>This <strong>isn’t true if only a single PVC is running</strong> on the physical interface, which makes it a PtP connection.</p>
 				</section>
 
@@ -540,7 +554,7 @@ Router(config-if)# frame-relay map [protocol] [address] [dlci] broadcast</code><
 						<p>A FR subinterface is configured with the command</p>
 						<pre><code>Router(config-if)# interface serial {num.sub} {multipoint | point-to-point}</code></pre>
 						<ul>
-							<li>In case of PtP subinterfaces, it’s best if sub is specified equal to the DLCI that will run on it, to ease troubleshooting.</li>
+							<li>In case of PtP subinterfaces, it’s best if <code>sub</code> is specified equal to the DLCI that will run on it, to ease troubleshooting.</li>
 							<li>multipoint if the routers reachable through that subinterface will be in the same subnet. Implies multiple DLCIs running on it and does not avoid the split horizon rule.</li>
 							<li>point-to-point when the single DLCI that will run on the subinterface will connect a pair of routers in a separate subnet.</li>
 						</ul>
