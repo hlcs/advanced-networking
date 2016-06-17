@@ -43,7 +43,7 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:<h2>
 					<h2>Connecting Networks</h2>
 					<h3>Chapter 9:</h3>
 					<h3>Troubleshooting the Network</h3>
@@ -57,17 +57,15 @@
 						<h2>Documentation</h2>
 						<h3>Network Configuration Files</h3>
 						<ul>
-							<li>As a record of informations on network HW and SW</li>
-							<li>Informations can be about:</li>
+							<li>As records of informations on network HW and SW, best expressed in <u>tabular form</u>:</li>
 							<ul>
 								<li>Type of device</li>
 								<li>IOS image name</li>
 								<li>Device network hostname</li>
 								<li>Location of the device (building, floor, room, rack, panel)</li>
 								<li>If it is a modular device</li>
-								<li>Data link layer addresses</li>
-								<li>Network layer addresses</li>
-								<li>Any additional important information about physical aspects of the device</li>
+								<li>Data link + Network layer addresses</li>
+								<li>Any additional important "notes" about the device</li>
 							</ul>
 						</ul>
 					</section>
@@ -76,7 +74,6 @@
 						<h3>End-System Configuration Files</h3>
 						<ul>
 							<li>A record of information on HW and SW used in end-system device as servers, network management consoles, and user workstations</li>
-							<li>Informations can be about:</li>
 							<ul>
 								<li>Device name</li>
 								<li>Operating system and version</li>
@@ -92,36 +89,40 @@
 				<section>
 					<section>
 						<h2>Network Topology Diagrams</h2>
-						<p>Best practice is create 2 diagrams with network topology.</p>
-						<p>A Physical diagram that include (Physical Connections):</p>
+						<p>A <strong>physical</strong> diagram that focuses on how the devices are physically connected:</p>
 						<ul>
-							<li>Device type, Model and manufacturer, Operating system version, Cable type and identifier, Cable specification, Connector type, Cabling endpoints.</li>
+							<li>Device type, Model and manufacturer, OS version, Cable type and identifier, Cable specification, Connector type, Cabling endpoints.</li>
 						</ul>
-						<p>A logical diagram that include(Logical Connections):</p>
+						<p>A <strong>logical</strong> diagram revealing how datas are moved when communicating:</p>
 						<ul>
 							<li>Device identifiers, IP address and prefix lengths, Interface identifiers, Connection type, DLCI for virtual circuits, Site-to-site VPNs, Routing protocols, Static routes, Data-link protocols, WAN technologies used.</li>
 						</ul>
 					</section>
 					<section>
 						<h2>Topology Example: Physical</h2>
-						<img src="https://i.imgur.com/nQWXTJ3.png">
+						<img src="https://i.imgur.com/8jDro0C.png" style="width: 750px;">
 					</section>
 					<section>
 						<h2>Topology Example: Logical</h2>
-						<img src="https://i.imgur.com/8jDro0C.png">
+						<img src="https://i.imgur.com/nQWXTJ3.png" style="width: 750px;">
 					</section>
 				</section>
 
 				<section>
-					<h2>Network Baselines</h2>
-					<p>It's best practice to measure the initial network’s performance in different conditions: this is the <strong><em>baseline</em></strong>.</p>
-					<p>The baseline is used to assess the performance of the network and to prevent possible problems. The analysis of the baseline in exercise help to discover hidden problems when the network is operational.</p>
-					<p>The measuring process of the first baseline can be performed using this step:</p>
-					<ol>
-						<li><strong>Determine what types of data to collect</strong>. - Good starting measures can be interface utilization and CPU utilization</li>
-						<li><strong> Identify devices and ports of interest</strong> - identify those devices and ports for which performance data should be measured.</li>
-						<li><strong> Determine the baseline duration</strong></li>
-					</ol>
+					<section>
+						<h2>Network Baselines</h2>
+						<p>Before putting a network into operativity, normal parameters and performance levels must be established. This is the <strong><em>baseline</em></strong>, the "optimum" level of the network.</p>
+						<p>The network is then compared to the baseline while operational to discover and throubleshoot issues.</p>
+					</section>
+					<section>
+						<h2>Network Baselines</h2>
+						<p>The measuring process of the first baseline can be performed using this step:</p>
+						<ol>
+							<li><strong>Determine what types of data to collect</strong>. - Too many variables, or the wrong ones, can spoil the baseline.</li>
+							<li><strong>Identify devices and ports of interest</strong> - The devices and ports for which performance data are the most telling about the network.</li>
+							<li><strong>Determine the baseline duration</strong> - You need to capture the typical operativity of the network, daily trends and traffic patterns.</li>
+						</ol>
+					</section>
 				</section>
 
 				<section>
@@ -245,9 +246,8 @@
 				<section>
 					<section>
 						<h2>Syslog Server</h2>
-						<p>syslog is a widely used standard for message logging. It permits separation of the software generating messages, the system storing them, and the software doing the reporting and analysis.</p>
-						<p>Designers can use syslog for system management and security auditing as well as general informational, analysis, and debugging messages. A wide variety of devices use the syslog standard.</p>
-						<p>Because of this, system designers can use syslog to integrate log data from different types of systems in a central repository. Implementations of syslog exist for many operating systems.</p>
+						<p>syslog is a widely used standard for message logging. It permits separation of messages generation, the system storing them, and the reporting and analysis softwares.</p>
+						<p>A wide variety of devices and OS implements the syslog standard. Because of this, system designers can use syslog to integrate log data from different types of systems in a central repository.</p>
 						<p>Messages can be sent on: console, terminal line, buffered logging...</p>
 						<pre><code>R1(config)# logging host ***.***.***.***
 R1(config)# logging trap notifications
@@ -285,7 +285,7 @@ R1(config)# logging on</code></pre>
 					<h2>Data Link Layer Troubleshooting</h2>
 					<p>Common Symptoms:</p>
 					<ul>
-						<li>No functionality or connectivity at the network layer or above</li>
+						<li>No functionality at the network layer or above</li>
 						<li>Network is operating below baseline performance levels</li>
 						<li>Excessive broadcasts</li>
 						<li>Console messages</li>
@@ -318,22 +318,16 @@ R1(config)# logging on</code></pre>
 
 				<section>
 					<h2>Transport Layer Troubleshooting</h2>
-					<p>Common Symptoms:</p>
-					<ul>
-						<li>Connectivity/Access issues</li>
-					</ul>
+					<p>Common Symptoms: Connectivity/Access issues.</p>
 					<p>Common Causes:</p>
 					<ul>
 						<li>Selection of traffic flow</li>
 						<li>Order of access control entries</li>
 						<li>Implicit deny all</li>
-						<li>Addresses and IPv4 wildcard masks</li>
+						<li>IPv4 addresses and wildmasks, src and dst ports</li>
 						<li>Selection of transport layer protocol</li>
-						<li>Source and destination ports</li>
 						<li>Use of the established keyword</li>
-						<li>Uncommon protocols </li>
-						<li>BOOTP and DHCP</li>
-						<li>DNS and WINS</li>
+						<li>Uncommon protocols; BOOTP and DHCP; DNS and WINS</li>
 						<li>Tunneling and encryption protocols</li>
 					</ul>
 				</section>
@@ -342,18 +336,7 @@ R1(config)# logging on</code></pre>
 					<h2>Application Layer Troubleshooting</h2>
 					<p>Applications layer issues depend by the application used by end-user. Problems in application layer can also be understood with other layer problems.</p>
 					<p>Application problem can occur when other layers don’t work.</p>
-					<p>Some common Application layer protocols are:</p>
-					<ul>
-						<li>SSH/Telnet</li>
-						<li>HTTP</li>
-						<li>FTP</li>
-						<li>TFTP</li>
-						<li>SMTP</li>
-						<li>POP</li>
-						<li>Simple Network Management Protocol (SNMP)</li>
-						<li>DNS</li>
-						<li>Network File System (NFS)</li>
-					</ul>
+					<p>Some common Application layer protocols are SSH/Telnet, HTTP, FTP, TFTP, SMTP, POP, Simple Network Management Protocol (SNMP), DNS, Network File System (NFS)</p>
 				</section>
 
 				<section>
