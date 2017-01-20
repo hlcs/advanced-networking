@@ -414,7 +414,7 @@ L   FF00::/8 [0/0] via Null0, receive</code></pre>
 						<h2>Static Routes Configuration</h2>
 						<p>There are two types of static routes in the routing table: <strong>static route to a specific network</strong> and <strong>default static route</strong>.</p>
 						<pre><code class="no-highlight">=== IPv4 Static Route ==
-Router(config)# ip route [mask] [next_hop_ip | exit_iface]
+Router(config)# ip route [net] [mask] [next_hop_ip | exit_iface]
 === IPv6 Static Route ==
 Router(config)# ipv6 route [ipv6_prefix/prefix-length]  [ipv6_addr | exit_iface]</code></pre>
 						<pre><code class="no-highlight">=== IPv4 Default Static Route ==
