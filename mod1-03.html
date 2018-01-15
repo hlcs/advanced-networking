@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/hlcs.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,12 +43,10 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:</h2>
 					<h2>Introduction to Networks</h2>
 					<h3>Chapter 3: Network Protocols and Communications</h3>
-					<p>
-						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-					</p>
+					<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 				</section>
 
 				<section>
@@ -150,7 +148,7 @@
 				<section>
 					<h2>TCP/IP Protocol Suite</h2>
 					<img src="http://i.imgur.com/bDGSrfQ.png">
-					<p><small>We will see all of these protocols throughout this course. :)</small></p>
+					<p>We will see all of these protocols throughout this course. :)</p>
 				</section>
 
 				<section>
@@ -187,6 +185,7 @@
 						<p>and <strong>Internet namespaces in general at the higher level</strong>.</p>
 						<p>The <strong>Internet Corporation for Assigned Names and Numbers
 (ICANN)</strong> is the non-profit that, over time, has carried over IANA duties under a contract with the US Gov.</p>
+						<p>Since 09/2016, USGov has relinquished control over ICANN, which is now managed by the global internet community.</p>
 					</section>
 					<section>
 						<h2>IEEE</h2>
@@ -197,7 +196,7 @@
 					</section>
 					<section>
 						<h2>ISO</h2>
-						<p>The <strong>Internation Organization for Standardization</strong> is the largest developer of standards, covering almost every possible field, products and services.</p>
+						<p>The <strong>International Organization for Standardization</strong> is the largest developer of standards, covering almost every possible field, products and services.</p>
 						<p>ISO is best known in networking for developing the <strong>OSI, Open System Interconnection reference model</strong>.</p>
 						<p>Its purposes was to produce a <strong>layered framework for networking protocols</strong> but also applying in a full protocol suite for the Internet. But <strong>TCP/IP already won</strong>...</p>
 						<p><strong>ISO 9660</strong> should ring a bell if you ever burned a CD.</p>
@@ -211,16 +210,28 @@
 				</section>
 
 				<section>
-					<h2>Layered Model</h2>
-					<img src="http://i.imgur.com/a0omhOa.gif" style="width: 33%; height: 33%;">
-					<p>A <strong>layered model</strong> for protocols helps to visualize what are their operation and the interactions between them.</p>
-					<p>A <strong>protocol model</strong> describes how an actual protocol suite operates. A <strong>reference model</strong> describes no particular suite, focusing on the highest possible level of <strong>abstraction</strong>.</p>
+					<section>
+						<h2>Layered Models</h2>
+						<img src="http://i.imgur.com/a0omhOa.gif" style="float: left; width: 50%; height: 50%;">
+						<p>A <strong>layered model</strong> for protocols helps to visualize what are their operation and the interactions between them.</p>
+						<p>A <strong>protocol model</strong> describes how an actual protocol suite operates. A <strong>reference model</strong> describes no particular suite, focusing on the highest possible level of <strong>abstraction</strong>.</p>
+					</section>
+					<section>
+						<h2>Benefits of Layered Models</h2>
+						<ul>
+							<li><strong>Reduced complexity</strong>: major concepts are distilled into smaller ones.</li>
+							<li><strong>Standard Interfaces</strong>: functions on one layer and interactions with other layers are clear.</li>
+							<li><strong>Easy to learn</strong>: Single, smaller aspects of protocols can be independently discussed.</li>
+							<li><strong>Easier interoperability</strong>: Hardware and software can be developed with the peace of mind that it will work with anything else.</li>
+							<li><strong>Modularity</strong>: implementations can be developed indipendently, by multiple parties, and easily replaced.</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
 					<h2>OSI Reference Model</h2>
-					<p>ISO's intention was to develop a <strong>framework for protocol suites</strong>, and also recommending a <strong>protocol suite for Internetworking</strong>. It was half a success, TCP/IP taking the second half.</p>
-					<p>OSI 7 Layers Model, defining <strong>functions, domains and interactions between each layer and the ones directly below and above</strong>, has helped developed all types of protocols and networks.</p>
+					<p>ISO's intention was to develop a <strong>framework for protocol suites</strong>, and also recommending a <strong>protocol suite for Internetworking</strong>. It was only half a success, TCP/IP taking the second half.</p>
+					<p>OSI 7 Layers Model, defining <strong>domains, functions and interactions between each layer and the ones directly below and above</strong>, has helped developed all types of protocols and networks.</p>
 					<p>Its <strong>7 Layers</strong> are: Physical, Data Link, Network, Transport, Session, Presentation, Application.</p>
 				</section>
 
@@ -228,7 +239,7 @@
 					<section>
 						<h2>OSI Reference Model</h2>
 						<h3>L1: Physical</h3>
-						<p>The Physical Layer deals with the hardware: it describes the mechanics of the actual, practical, <strong>activation and maintainance of a physical connection</strong> for transmitting and receiving digital bits.</p>
+						<p>The Physical Layer deals with the hardware: it describes the mechanics of the actual, practical, <strong>activation, maintainance and deactivation of a physical connection</strong> for transmitting and receiving digital bits.</p>
 					</section>
 					<section>
 						<h2>OSI Reference Model</h2>
@@ -259,7 +270,7 @@
 					<section>
 						<h2>OSI Reference Model</h2>
 						<h3>L7: Application</h3>
-						<p>The Application is the <strong>interface between people and the transmission of data over a network</strong>. It initiates the process of running through the stack of protocols on behalf of the user.</p>
+						<p>The Application is the <strong>interface between the software and the transmission of data over a network</strong>. It initiates the process of running through the stack of protocols on behalf of the user application.</p>
 						<p>Making two Application layers speak one another it's the ultimate goal: <strong>process-to-process</strong> communication.</p>
 					</section>
 				</section>
@@ -268,13 +279,16 @@
 					<section>
 						<h2>TCP/IP Protocol Model</h2>
 						<img src="http://i.imgur.com/DrBlKz8.gif">
-						<p>TCP/IP only defines 4 layers: <strong>Network/Link Access, Internet, Transport and Application</strong>.</p>
+						<p>TCP/IP only defines 4 layers: <strong>Network Access (Link), Internet, Transport and Application</strong>.</p>
 						<p>It closely match OSI model in Network and Transport layers, but it aggregates many functions in Network Access and Application layers.</p>
 					</section>
 					<section>
 						<h2>TCP/IP vs. ISO/OSI</h2>
 						<ul>
 							<li><u>TCP/IP Network (or Link) Layer</u> roughly includes <u>ISO/OSI L1+L2</u>, but it doesn't go into the same level of detail.</li>
+							<ul>
+								<li>In the TCP/IP <strong><em>Updated Model</em></strong> the original network access layer has been splitted and the ISO/OSI Data Link and Physical layers have been adopted.</li>
+							</ul>
 							<li><u>TCP/IP Internet Layer</u> can be mapped to <u>ISO/OSI L3</u>.</li>
 							<li><u>TCP/IP Transport Layer is ISO/OSI L4</u>, but also includes some session management from L5.</li>
 							<li>The functions of <u>TCP/IP Application Layer</u> are those of <u>L5+L6+L7</u> in the ISO/OSI model.</li>
@@ -296,21 +310,21 @@
 				<section>
 					<h2>Protocol Data Units (PDU)</h2>
 					<p>During the <em>encapsulation</em> process, application data gets <strong>additional information as it passes through layers</strong>.</p>
-					<p>After protocols add information to the data, the data as a whole will assume <strong>a form closely related to the protocol</strong>, called PDU (<em>Protocol Data Unit</em>).</p>
+					<p>After protocols add information to the data (in the form of <strong><em>headers</em></strong>), the data as a whole will assume <strong>a form closely related to the protocol</strong>, called PDU (<em>Protocol Data Unit</em>).</p>
 					<p>PDUs go by different names at different layers:</p>
 					<ul>
-						<li><strong>Data</strong> - General term for Application Layer
-						<li><strong>Segment</strong> - PDU of the Transport Layer
-						<li><strong>Packet</strong> - PDU of the Network Layer
-						<li><strong>Frame</strong> - PDU of the Data Link Layer
-						<li><strong>Bits</strong> - Physical Layer PDU
+						<li><strong>Data</strong> - General term for Application Layer (L7PDU).</li>
+						<li><strong>Segment</strong> - PDU of the Transport Layer (L4PDU).</li>
+						<li><strong>Packet</strong> - PDU of the Network Layer (L3PDU).</li>
+						<li><strong>Frame</strong> - PDU of the Data Link Layer (L2PDU).</li>
+						<li><strong>Bits</strong> - Physical Layer PDU.</li>
 					</ul>
 				</section>
 
 				<section>
 					<section>
 						<h2>Addresses</h2>
-						<p>Network and Data Link Layer are those responsible for <strong>uniquely identifying the source and destination</strong> of the data exchange.</p>
+						<p>Network and Data Link layers are those responsible for <strong>uniquely identifying the source and destination</strong> of the data exchange.</p>
 						<p>They <strong>both do that using addresses</strong>, but of different kind and for different purposes.</p>
 						<img src="http://i.imgur.com/xDdU0zT.gif">
 					</section>
@@ -380,10 +394,10 @@
 
 				<section>
 					<h2>How do I get to know these addresses?</h2>
-					<p>A host needs to <storng>know both the logical and physical addresses of the destination host</strong> to be able to generate and send the frame.</p>
+					<p>A host needs to <strong>know both the logical and physical addresses of the destination host</strong> to be able to generate and send the frame.</p>
 					<p>For IP addresses, you probably know IP addresses on your own network and you enter them <strong>manually</strong>.</p>
-					<p>For remote networks, you can learn IP address by configuring you r device to use <strong>DNS</strong> (<em>Domain Name System</em>).</p>
-					<p>Remembering MAC Addresses would be much more trickier, but fortunally <strong>ARP</strong> (<em>Address Resolution Protocol</em>) relieves you of that need.</p>
+					<p>For remote networks, you can learn IP address by configuring your device to use <strong>DNS</strong> (<em>Domain Name System</em>).</p>
+					<p>Remembering MAC Addresses would be much more trickier, but fortunately <strong>ARP</strong> (<em>Address Resolution Protocol</em>) relieves you of that need.</p>
 				</section>
 
 				<section>
@@ -391,22 +405,24 @@
 						<h2>Why Don't We Go MAC-only?</h2>
 						<p>Think about it: we have <u>2 different sets of addresses both able to globally and uniquely identify hosts</u>. Why?</p>
 						<ul>
-							<li>MAC addresses makes sense to use because you can't really skip <em>communicating in the same network</em>.</li>
-							<li>For MAC addresses to work globally, every router <u>would need to know every MAC address ever released</u>. Sloooow.</li>
+							<li>For MAC addresses to work globally, every router <u>would need to know every MAC address ever released</u> and where it is. Sloooow.</li>
 							<li>It would not be possible to shorten that list by <u>"grouping" MAC addresses: there is no criteria/structure</u> to do it.</li>
 							<li>You <u>can't move a MAC address</u> from a host to another.</li>
 							<li>There are <u>L2 protocols other than Ethernet</u>, you know...</li>
+							<!--
+							<li>MAC addresses makes sense to use because you can't really skip <em>communicating in the same network</em>.</li>
+							-->
 						</ul>
 					</section>
 					<section>
 						<h2>Why Don't We Go IP-only?</h2>
 						<ul>
 							<li>Actually, <em>we could</em>. There are vocal proposal for networking based on L3-only addressing.</li>
-							<li>There are <u>not enough IPv4 addresses for every NIC</u>. <strong>IPv6 would solve this</strong>, but we've been stuck with v4 for 30y+.</li>
+							<li>There are <u>not enough IPv4 addresses for every NIC</u>. <strong>IPv6 would solve this</strong>, but we've been stuck with IPv4 for 30+ years.</li>
 							<li>Also, <u>checking MAC addresses used to be much faster than checking IPs</u> (because of the lack of structure to analyze), but <strong>not anymore</strong>.</li>
 						</ul>
 						<p><strong>If we started from scratch today, we could probably just use IPs</strong>.</p>
-						<p>The reality is that the <strong>Ethernet+IP model has been working pretty well</strong> for ~40 years and almost everything has been based on it. So the urge to change it's minimal.</p>
+						<p>The reality is that the <strong>Ethernet+IP addressing has been working pretty well</strong> for ~40 years and almost everything has been based on it. So the urge to change it's minimal.</p>
 					</section>
 				</section>
 
