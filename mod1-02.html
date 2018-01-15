@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/hlcs.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,12 +43,10 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:</h2>
 					<h2>Introduction to Networks</h2>
 					<h3>Chapter 2: Configure a Network Operating System</h3>
-					<p>
-						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-					</p>
+					<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 				</section>
 
 				<section>
@@ -61,18 +59,18 @@
 
 				<section>
 					<h2>GUI vs CLI</h2>
-					<p>GUIs are, of course, much easier and user-friendly for the average user. It requires less knowledge.</p>
+					<p>GUIs are, of course, much easier and user-friendly for the average user. They require less knowledge.</p>
 					<p>A network technician, administrator or designer <u>it's not</u> the average user :-). <strong>CLIs provides tangible advantages for expert users</strong>:</p>
 					<ul>
 						<li>They are a <strong>standard, well-documented way of interacting with the OS</strong>, while GUIs have more variety.</li>
 						<li>A <strong>CLI is very lightweight</strong>, while a GUI it's a much more complex software (thus almost always less stable and slower).</li>
-						<li>GUIs don't always <strong>expose all of the feature set</strong>, while CLIs provide access to everything configurable.</li>
+						<li>GUIs don't always <strong>expose all of the feature set</strong>, while CLIs provide access to everything that is configurable.</li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>Cisco IOS</h2>
-					<p><strong>Cisco IOS</strong> (<em>Internetwork Operating System</em>) is a term that encompasses <strong>a number of different OSes</strong> that run on various networking devices.</p>
+					<p><strong>Cisco IOS</strong> (<em>Internetwork Operating System</em>) is a term for the <strong>family of different OSes</strong> that run on various Cisco networking devices.</p>
 					<p>There are many distinct <strong>variations of Cisco IOS</strong>:</p>
 					<ul>
 						<li>IOS for switches, routers, and other Cisco networking devices.</li>
@@ -84,11 +82,10 @@
 
 				<section>
 					<h2>GNU/Linux Operating System</h2>
-					<p>Gnu/Linux is a <strong>general purpose</strong> free operating system <strong>based on Linux Kernel</strong>.</p>
-					<p>The are other free operating systems based on many <strong>flavours of BSD kernel</strong>.</p>
+					<p>Gnu/Linux is a <strong>general purpose</strong> free (as in freedom) operating system <strong>based on Linux Kernel</strong>.</p>
+					<p>Other free operating systems based on many <strong>flavours of BSD kernel</strong>.</p>
 					<p>Different packaged OS are called <em>distributions</em>, like Fedora, Red Hat, Ubuntu, Debian, Arch and many more.</p>
-					<p>Some are for <strong>networking purpose</strong>, like: IPCop, PFSense, ZeroShell, CertOS, OpenWRT and many more.</p>
-					<p>In this course, you will focus on general purpose free OS.</p>
+					<p>Some are for <strong>networking purpose</strong>, like: IPCop, pfSense, ZeroShell, OpenWrt and many more.</p>
 				</section>
 
 				<section>
@@ -131,20 +128,20 @@
 
 				<section>
 					<h2>Cisco CLI modes of operation</h2>
-					<p>The IOS CLI uses a <strong>hierarchical structure for the modes.</strong> From most basic to most specialized, the major modes are:</p>
+					<p>The IOS CLI uses is <em>modal</em>, and uses a <strong>hierarchical structure for the modes.</strong> From most basic to most specialized, the major modes are:</p>
 					<ul>
 						<li><strong>User executive</strong> (User EXEC) mode</li>
 						<li><strong>Privileged executive</strong> (Privileged EXEC) mode</li>
 						<li><strong>Global configuration</strong> mode</li>
 						<li><strong>Other specific configuration modes</strong> (e.g. interface, line).</li>
 					</ul>
-					<p>Each mode has a <strong>distinctive prompt</strong> and is used to accomplish particular tasks with a <u>specific set of commands available only into that mode</u>.</p>
+					<p>Each mode has a <strong>distinctive prompt</strong> and a <u>specific set of commands available only into that mode</u>.</p>
 					<p>GNU/Linux CLI is not <em>modal</em>, but Cisco IOS modes can be emulated by <strong><a href="http://www.nongnu.org/quagga/">Quagga</a></strong>.</p>
 				</section>
 
 				<section>
 					<h2>User EXEC Mode</h2>
-					<p>The <strong>User EXEC mode</strong> is at the most basic level of the modal hierarchical structure, the <strong>first encountered upon entrance</strong> into the CLI of an IOS device.</p>
+					<p>The <strong>User EXEC mode</strong> is the most basic level of the hierarchical structure, the <strong>first encountered upon entrance</strong> into the CLI of an IOS device.</p>
 					<p>It allows <u>only a limited number of basic monitoring commands</u>. It's often referred to as <em>view-only mode</em>.</p>
 					<p>The user EXEC mode is identified by the <strong>CLI prompt ending with the ">" symbol</strong>, for instance:</p>
 					<pre><code data-trim class="bash">Switch></code></pre>
@@ -154,14 +151,14 @@
 					<section>
 						<h2>Privileged EXEC Mode</h2>
 						<p>The <strong>execution of configuration and management commands</strong> requires <u>entering the privileged EXEC mode or a more specific mode</u> in the hierarchy.</p>
-						<p>Of course <u>User EXEC mode monitoring command are also available</u> here.</p>
+						<p>Monitoring commands from the User EXEC mode are also available here.</p>
 						<p>The privileged EXEC mode can be identified by the <strong>prompt ending with the "<code>#</code>" symbol</strong>.</p>
 						<pre><code data-trim class="bash">Switch#</code></pre>
 					</section>
 					<section>
 						<h2>Privileged EXEC Mode</h2>
 						<p><strong>Global configuration mode</strong> and all other more specific configuration modes <u>can only be reached from the privileged EXEC mode.</u></p>
-						<p>Privileged EXEC mode <strong>does not require authentication by default</strong>, so it's considered <em>best practice</em> to configure it</strong>.</p>
+						<p>Privileged EXEC mode <strong>does not require authentication by default</strong>, so it's considered <em>best practice</em> to configure it.</p>
 						<p>The <code>enable</code> and <code>disable</code> commands are used to switch the CLI <strong>between the user EXEC mode and the privileged EXEC mode</strong>, entering and leaving them respectively.</p>
 						<p>It's sometimes referred to as the <em>enable mode</em>.</p>
 					</section>
@@ -181,8 +178,8 @@
 				<section>
 					<section>
 						<h2>Specific Configuration Modes</h2>
-						<p><u>From the global config mode</u>, the user can enter different <em>sub-modes</em> that allows for <u>configuration of specific parts or functionalities</u> of the device.</p>
-						<p>They're the CLI equivalent to the <em>applet</em> in the Windows Control Panel.</p>
+						<p><u>From the global config mode</u>, the user can enter different <em>sub-modes</em> that allows for <u>configuration of specific functionalities</u> of the device.</p>
+						<p>They're the CLI equivalent to the <em>applets</em> in the Windows Control Panel.</p>
 						<ul>
 							<li><strong>Interface mode</strong> - to configure a network interface.</li>
 							<pre><code data-trim class="bash">Switch(config)# interface fa0/1
@@ -194,7 +191,7 @@ Switch(config-line)#</code></pre>
 					</section>
 					<section>
 						<h2>Specific Configuration Modes</h2>
-						<p>To leave a sub-mode and <strong>return to the previous mode</strong>, use the <code>exit</code> command; to exit completely and <strong>return to privileged EXEC mode</strong>, enter <code>end</code> or <code>Ctrl-Z</code>.</p>
+						<p>To leave a sub-mode and <strong>return to the previous mode</strong>, use the <code>exit</code> command; to exit completely and <strong>return to privileged EXEC mode</strong>, enter <code>end</code> or type <code>Ctrl-Z</code>.</p>
 						<p>It is possible to switch <u>directly from a sub-mode to another</u>:</p>
 						<pre><code data-trim class="bash">Switch(config-if)# line console 0
 Switch(config-line)# interface S0/0/1
@@ -202,16 +199,18 @@ Switch(config-if)#</code></pre>
 					</section>
 				</section>
 
+				<!--
 				<section>
 					<h1>Intro to Packet Tracer</h1>
 				</section>
+				-->
 
 				<section>
 					<section>
 						<h2>Structure of IOS Commands</h2>
-						<p>Cisco IOS commands have a syntax composed of <u>a command combined with several keywords and arguments</u>.</p>
+						<p>Cisco IOS commands have a syntax composed of <u>a command combined with one or more keywords and arguments</u>.</p>
 						<ul>
-							<li>The <strong> command</strong> is actually the <u>first word</u>, describing the major action to perform.</li>
+							<li>The <strong> command</strong> is actually the <u>first word</u>, describing the major action to be performed.</li>
 							<li><strong>Keywords</strong> are <u>pre-defined words</u> that <em>specialize</em> the behaviour of the command.</li>
 							<li><strong>Arguments</strong> are <u>not pre-defined</u>, entered by the user to provide informations to the command.</li>
 						</ul>
@@ -221,7 +220,7 @@ Switch(config-if)#</code></pre>
 						<h2>Structure of IOS Commands</h2>
 						<p>Here an example of a keyword altering the behaviour of a command:</p>
 						<pre><code data-trim class="bash">Switch# show running-config</code></pre>
-						<p><strong>Note</strong>: very often, for simplicity, the command + keyword(s) combination is referred to as a <em>command</em>, so we talk about the <code>show running-config</code> command.</p>
+						<p><strong>Note</strong>: for simplicity, the command + keyword(s) combination is often referred to as a <em>command</em>, so we talk about the <code>show running-config</code> command.</p>
 						<p>Here's how user-submitted arguments can achieve the exact desired effect:</p>
 						<pre><code data-trim class="bash">Switch(config-if)# description [string]
 Switch(config-if)# description This is the Hacklab router</code></pre>
@@ -229,18 +228,25 @@ Switch(config-if)# description This is the Hacklab router</code></pre>
 					</section>
 					<section>
 						<h2>Show Command Keyword(s)</h2>
-						<p>Wow. Such Command. Much Keyword. Very Context.</p>
 						<img src="https://i.imgur.com/1h8NSvF.jpg">
 					</section>
 				</section>
 
 				<section>
-					<h2>Context-Sensitive Help</h2>
-					<p>The <em>context-sensitive</em> help provides <u>a list of commands and the arguments associated with those commands within the context</u> of the current mode. </p>
-					<p>To access context-sensitive help on Cisco IOS, <strong>enter a question mark</strong>, "?", <u>at any (point in the) prompt</u>.</p>
-					<p>There's an immediate response without the need to <code>Enter</code>.</p>
-					<p>On Gnu/Linux press <strong>TAB for command completion</strong>, or use <code>man</code> command for the included documentation.</p>
-					<p>IOS CLI evaluates <em>left-to-right</em>. If a command is entered incorrectly (mispellings, missing arguments, etc.), <strong>a marker to the precise point its evaluation failed</strong> will appear.</p>
+					<section>
+						<h2>Context-Sensitive Help</h2>
+						<p>The <em>context-sensitive</em> help provides <u>a list of commands and the arguments associated with those commands within the context</u> of the current mode. </p>
+						<p>To access context-sensitive help on Cisco IOS, <strong>enter a question mark</strong>, "?", <u>at any (point in the) prompt</u>.</p>
+						<p>There's an immediate response without the need to <code>Enter</code>.</p>
+						<p>On Gnu/Linux press <strong>TAB for command completion</strong>, or use <code>man</code> command for the included documentation.</p>
+					</section>
+
+					<section>
+						<h2>Syntax Check</h2>
+						<p>IOS CLI evaluates <em>left-to-right</em>.</p>
+						<p>Evaluation stops at the first syntax error encountered.</p>
+						<p>If a command is entered incorrectly (mispellings, missing arguments, etc.), <strong>a marker to the precise point its evaluation failed</strong> will appear.</p>
+					</section>
 				</section>
 
 				<section>
@@ -281,7 +287,7 @@ Switch# show pr</code></pre>
 				<section>
 					<h2>Device Hostname</h2>
 					<p><em>Hostnames</em> <u>allow devices to be identified</u> by network administrators over a network or the Internet.</p>
-					<p>By choosing the name wisely, it will become <strong>self-documenting</strong>. It helps to establish a <em>naming convention</em>.</p>
+					<p>By choosing the name wisely, it will become <strong>self-documenting</strong>. Establishing a <em>naming convention</em> also helps in this regard.</p>
 					<p>In the global configuration mode, enter the hostname:</p>
 					<pre><code data-trim class="bash">Switch(config)# hostname Sw-Floor-1</code></pre>
 					<p>After the command is executed, the prompt will change to:</p>
@@ -308,27 +314,27 @@ Switch# show pr</code></pre>
 					<pre><code data-trim class="bash">Router(config)# enable secret mypassword</code></pre>
 					<p>An older <u>not encrypted</u> variation of this command is the </p>
 					<pre><code data-trim class="bash">Router(config)#enable password mypassword</code></pre>
-					<p>In <strong>Gnu/Linux</strong> many users can be created with different privileges. To change a user password:</p>
+					<!--<p>In <strong>Gnu/Linux</strong> many users can be created with different privileges. To change a user password:</p>
 					<pre><code data-trim class="bash">passwd [name of the user]
-Enter password:</code></pre>
+Enter password:</code></pre>-->
 					<p>Use a <strong>strong password</strong>: the longer the better; special characters; but most of all: <u>don't reuse the same passwords</u> and <u>don't be predictable</u>.</p>
 				</section>
 
 				<section>
 					<h2>Secure User Access</h2>
-					<p>To secure User EXEC means <u>protecting the line used to access it</u>, mostly <strong>the console port</strong>, with a password. Use:</p>
+					<p>To secure User EXEC means <u>protecting the line used to access it</u>, mostly <strong>the console port</strong>, with a password.</p>
 					<pre><code data-trim class="bash">Switch(config)# line console 0
 Switch(config-line)# password cisco
 Switch(config-line)# login</code></pre>
 					<ul>
-						<li>The <strong>zero</strong> in <code>line console 0</code> represents the <strong>first</strong> (and almost always single) <strong>console interface</strong>.</li>
+						<li>The <strong>zero</strong> in <code>line console 0</code> represents the <strong>first</strong> (and, almost always, sole) <strong>console interface</strong>.</li>
 						<li>The <strong><code>login</code> command is mandatory</strong>, otherwise the password won't be prompted at the next access.</li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>Securing VTY/Telnet</h2>
-					<p>A <em>virtual terminal</em> is a virtual keyboard + screen combination which can be <strong>accessed over Telnet</strong>.</p>
+					<p>A <em>virtual terminal</em> is a virtual keyboard + screen combination which can be <strong>remotely accessed over Telnet</strong>.</p>
 					<p>There are <strong>multiple VTYs</strong> (up to 16 in a typical Cisco device), <strong>numbered from 0 to 15</strong>. The exact number depends on the device and IOS version. </p>
 					<p>To set a password on vty lines use the following commands:</p>
 					<pre><code data-trim class="bash">Switch(config)# line vty 0 15
@@ -349,7 +355,7 @@ Switch(config-line)# login</code></pre>
 				<section>
 					<section>
 						<h2>Banner Messages</h2>
-						<p>In many legal systems, <strong>unauthorized access is not prosecutable if there isn't an explicit notification</strong> that it's not allowed.</p>
+						<p>In many legal systems, <strong>unauthorized access is not prosecutable if there isn't an explicit notification</strong> that it's forbidden.</p>
 						<p>It is therefore vital to add a <em>banner</em>, a message that <strong>will be displayed in the device output after logging in</strong>.</p>
 						<p>In IOS, the best place for such legal disclaimers it's the <strong><em>message of the day</em> (MOTD)</strong>. It's displayed to all connected terminals, so choose <strong>careful wording</strong>.</p>
 					</section>
@@ -358,31 +364,42 @@ Switch(config-line)# login</code></pre>
 						<p>To configure a MOTD from global configuration mode:</p>
 						<pre><code class="bash">Switch(config)# banner motd #
 message #</code></pre>
-						<p>The "#" is the <strong>limiting character</strong>. It could be any character. its only purpose is to <strong>signal the end of our MOTD</strong>.</p>
+						<p>The "#" is the <strong>limiting character</strong>. It could be any character. Its only purpose is to <strong>signal the end of our MOTD</strong>.</p>
 					<p><strong>Select a limiting character that's not supposed to appear</strong> in the text.</p>
-						<p>On Linux one way to do it is by editing the <strong>/etc/motd</strong> file.</p>
+						<p>On Linux one way to do the same is by editing the <strong>/etc/motd</strong> file.</p>
 					</section>
 				</section>
 
 				<section>
-					<h2>Running ans Startup Config</h2>
-					<p>There are <strong>2 configuration files</strong> on Cisco IOS:</p>
-					<ul>
-						<li>The <strong>running configuration</strong> is the <u>currently active</u> configuration of the device. It's <strong>stored in RAM</strong>.</li>
-						<li>The <strong>startup configuration</strong> is the configuration that will be <u>loaded after each boot</u>. It's <strong>stored in the NVRAM</strong>.</li>
-					</ul>
-					<p><strong>Changes are immediately active</strong>, and stored in the running config. But if not saved, they'll be <strong>lost at the next boot</strong>.</p>
-					<p>To <strong>make the changes permanent</strong>:</p>
-					<pre><code class="bash">Switch# copy running-config startup-config</code></pre>
-					<p>To restore a saved configuration the command is:</p>
-					<pre><code class="bash">Switch# copy startup-config running-config</code></pre>
+					<section>
+						<h2>Running and Startup Config</h2>
+						<p>There are <strong>2 configuration files</strong> on Cisco IOS:</p>
+						<ul>
+							<li>The <strong>running configuration</strong> is the <u>currently active</u> configuration of the device. It's <strong>stored in RAM</strong>.</li>
+							<ul>
+								<li>It is shown with <code>(#)show running-config</code>.</li>
+							</ul>
+							<li>The <strong>startup configuration</strong> is the configuration that will be <u>loaded after each boot</u>. It's <strong>stored in the NVRAM</strong>.</li>
+							<ul>
+								<li>It is shown with <code>(#)show startup-config</code>.</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h2>Running and Startup Config</h2>
+						<p><strong>Configuration changes are immediately active</strong>, and stored in the running config. But if not saved, they'll be <strong>lost at the next boot</strong>.</p>
+						<p>To <strong>make the changes permanent</strong>:</p>
+						<pre><code class="bash">Switch# copy running-config startup-config</code></pre>
+						<p>To restore a saved configuration the command is:</p>
+						<pre><code class="bash">Switch# copy startup-config running-config</code></pre>
+					</section>
 				</section>
 
 				<section>
 					<section>
 						<h2>Config Backup and Restore</h2>
-						<p>Cisco IOS configuration have <u>a file format that is basically a list of commands</u> that will replicate that configuration.</p>
-						<pre><code>!
+						<p>Cisco IOS configuration uses <u>a file format that is basically a list of commands</u> that will replicate that configuration.</p>
+						<pre><code class="plain" style="max-height: 350px;">!
 version 12.2
 no service timestamps log datetime msec
 no service timestamps debug datetime msec
@@ -468,10 +485,15 @@ end</code></pre>
 					</section>
 					<section>
 						<h2>Config Backup and Restore</h2>
-						<p>The IOS configuration can be saved on your PC <strong>using the capture capabilities of the terminal</strong>.</p>
-						<p>Putty, Minicom, and the other terminals have a <em>log</em> or <em>capture</em> function to get the output as text.</p>
+						<p>Putty, Minicom, and the other terminals have a <em>log</em> or <em>capture</em> function to get the output as text. This can be used to <strong>save the IOS configuration</strong>.</p>
 						<p>Enable logging, execute <code>show running-config</code> and save the output in a file.</p>
 						<p>You can <strong>restore the saved configuration</strong> on a device by copy-paste into the terminal emulator, but <u>it will require some prior editing</u>.</p>
+					</section>
+					<section>
+						<h2>Reload and Reset</h2>
+						<p>If you want to <strong>discard changed to the (unsaved) running-config</strong>, use the <code>(#)reload</code> command.</p>
+						<p>The downside of using <code>reload</code> is that the device expierences a <strong>brief downtime</strong> while configuration is reloaded from startup-config.</p>
+						<p>To <strong>reset the device to its factory defaults</strong>, we use the <code>(#)erase startup-config</code> and restart (or reload) the device.</p>
 					</section>
 				</section>
 
@@ -479,29 +501,31 @@ end</code></pre>
 					<h2>IP Addressing</h2>
 					<p>IPv4 addresses are numbers assigned to individual devices in a network to <strong>uniquely identify them</strong>, thus enabling end-to-end communications.</p>
 					<p>The structure of an IPv4 address is called <em>dotted decimal notation</em> and consists of 4 <strong>decimal numbers</strong> ranged 0-255.</p>
-					<p>A <strong>subnet mask</strong> is a special type of IPv4 address that, coupled with the IP address, determines which particular subnet of a larger network the device is a member of.</p>
+					<p>A <strong>subnet mask</strong> is a special value that, coupled with the IP address, determines which subnet of a larger network the device is a member of.</p>
 					<p>For example: IP 192.168.1.1, Subnet Mask: 255.255.255.0</p>
 					<p><u>For the first lessons we'll always assume a 255.255.255.0 subnet mask</u>.</p>
 				</section>
 
+				<!--
 				<section>
 					<h2>Ethernet Basics</h2>
 					<p><strong>Ethernet</strong> is the most common <strong>local area network</strong> (LAN) technology used today.</p>
 					<p>Often we think of "Ethernet" as a cable, but <strong>it's much more than that</strong>: the voltage used, the shape and pins of the connector, the materials of the cables, the structure of the bit, the hardware addresses, etc.</p>
-					<p>In the CCNA material you will read something about "L2" and "L3" regarding Ethernet. Ignore it for now :-)</p>
+					<p>In the CCNA material (2.3.1.2) you will read something about "L2" and "L3" regarding Ethernet. Ignore it for now :-)</p>
 				</section>
+				-->
 
 				<section>
 					<section>
 						<h2>Switch Virtual Interfaces</h2>
 						<p><u>A switch always works without configuring it</u>: just plug something in its port and <strong>it will act as an (Ethernet) intermediary device</strong>, forming a LAN.</p>
-						<p>Usually a switch it's <strong>not a source or destination</strong> of traffic: but it must be if we want to access it through the network.</p>
+						<p>Usually a switch it's <strong>not a source or destination</strong> of traffic: but it must be if we want to access/manage it through the network.</p>
 						<p>To make a switch "part of the network" we must configure a special interface on it, called the <strong><em>Switch Virtual Interface</em> (SVI)</strong>.</p>
 						<p>It's virtual because <u>there is no physical port associated to it</u>. It's in the software. Cisco switches have a default SVI called <strong>VLAN1</strong>.</p>
 					</section>
 					<section>
 						<h2>Configuring VLAN 1</h2>
-						<p>To access the switch remotely, <strong>an IP address and a subnet mask must be configured on the SVI</strong>.</p>
+						<p>To access the switch from inside the LAN, <strong>an IP address and a subnet mask must be configured on the SVI</strong>.</p>
 						<p>To configure the SVI the commands are:</p>
 						<pre><code class="bash">Switch(config)# interface vlan 1
 Switch(config-if)# ip address 192.168.10.2 255.255.255.0
@@ -515,11 +539,11 @@ Switch(config-if)# no shutdown</code></pre>
 						<p>For an end device to communicate over a network, it must be provided with the correct IP information: <strong>IP address, Subnet Mask, Default Gateway and DNS server</strong>.</p>
 						<p>The <strong>default gateway</strong> address is the IP address of the router interface used for <strong>network traffic to exit the local network</strong>.</p>
 						<p>The <strong>DNS server</strong> is used to <strong>maintain the mapping between the IP addresses and names</strong> of various devices.</p>
-						<p>IP address information can be entered into the PC manually (<strong>static</strong> addressing), or using <strong>Dynamic Host Configuration Protocol (DHCP)</strong>. DHCP allows end devices to have IP information automatically configured.</p>
+						<p>IP address information can be entered into the PC manually (<strong>static</strong> addressing), or obtained automatically (<strong>Dynamic Host Configuration Protocol</strong>, DHCP).</p>
 					</section>
 					<section>
 						<h2>PC Network Settings</h2>
-						<p>Let's see <strong>Linux IP configuration</strong>!</p>
+						<p>On the material you will find how to configure IP settings through the Windows GUI.</p>
 						<p>To show IP configuration over the CLI in Linux:</p>
 						<pre><code>ifconfig
 ip address show</code></pre>
@@ -528,10 +552,11 @@ ip address show</code></pre>
 					</section>
 				</section>
 
+				<!--
 				<section>
 					<section>
 						<h2>Connectivity Test: Loopback</h2>
-						<p>The <code>ping</code> command is used whenever we want to <strong>test the IP configuration</strong> on a host.</p>
+						<p>The <code>ping</code> command is used to <strong>test the IP configuration</strong> of the local host and the <strong>end-to-end connectivity</strong> to a remote one.</p>
 						<p>When the ping command is executed on a particular <strong>reserved address called the <em>loopback</em></strong>, we are <u>testing the internal IP stack</u> of the host.</p>
 						<p>The loopback address, <strong>127.0.0.1</strong>, is defined by the TCP/IP protocol as a <strong>reserved address that routes packets back to the host</strong>.</p>
 						<p>The command is:</p>
@@ -560,6 +585,7 @@ ping 192.168.1.2</code></pre>
 						<p>If all packets are received the network is correctly working.</p>
 					</section>
 				</section>
+				-->
 
 				<section>
 					<h1>End of Lesson</h1>
