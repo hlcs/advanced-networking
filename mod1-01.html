@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/hlcs.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,14 +43,13 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:</h2>
 					<h2>Introduction to Networks</h2>
 					<h3>Chapter 1: Exploring the Network</h3>
-					<p>
-						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-					</p>
+					<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 				</section>
 
+				<!--
 				<section>
 					<section>
 						<h2>What this 1st chapter is about</h2>
@@ -80,16 +79,18 @@
 							<p>The improvements we make in terms of <strong>speed, features, stability, security, easyness of use, and more</strong> directly or indirectly <em>amplify</em> the scope of the Internet as an invention.</p>
 					</section>
 				</section>
+				-->
 
 				<section>
 					<h2>Internet of Things (IoT)</h2>
 					<!-- <p><iframe src="http://player.vimeo.com/video/94011734" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></p> -->
-					<img src="http://theconnectivist-img.s3.amazonaws.com/wp-content/uploads/2014/05/Unknown.png">
-					<small>Infographic by <a href="http://www.theconnectivist.com/2014/05/infographic-the-growth-of-the-internet-of-things/">The Connectivist</a> // <a href="http://vimeo.com/94011734">Video</a></small>
+					<img src="https://i.imgur.com/UcJ1jZ2.png">
+					<!-- DEAD LINKS -->
+					<!-- <small>Infographic by <a href="http://www.theconnectivist.com/2014/05/infographic-the-growth-of-the-internet-of-things/">The Connectivist</a> // <a href="http://vimeo.com/94011734">Video</a></small> -->
 				</section>
 
 				<section>
-					<h2>IoT: How on earth did we get here?</h2>
+					<h2>IoT: How did we get here?</h2>
 					<ul>
 						<li>We used to <strong>go to the connected device</strong>. Think PCs.</li>
 						<li>Now we bring our <strong>own device with us, and it connects us</strong>. Think Smartphones, tablets.</li>
@@ -99,6 +100,7 @@
 					</ul>
 				</section>
 
+				<!--
 				<section>
 					<h2>The Human Network</h2>
 					<p>Think for 1 minute about how much just the first 25 years of the Internet have changed, and then for another minute about what <strong>the impact of the next 25 years</strong> could possibly be.</p>
@@ -144,14 +146,14 @@
 						<li>Any niche market, no matter how small, can prosper with <strong>eCommerce and online payments</strong>.</li>
 					</ul>
 				</section>
+				-->
 
 				<section>
 					<h2>All sizes of Networks</h2>
 					<ul>
-						<li><strong>Small networks</strong>: think about your home.</li>
-						<li><strong>Small Office/Home Office (SOHO)</strong>: centralized resourced and dedicated devices.</li>
-						<li><strong>Medium Networks</strong>: think about the Unical island.</li>
-						<li><strong>Large Networks</strong>: let's talk about GARR.</li>
+						<li><strong>Small networks</strong>: think about your home setup to connect to the Internet.</li>
+						<li><strong>Small Office/Home Office (SOHO)</strong>: multiple computers and dedicated devices connecting to centralized resources for business purposes.</li>
+						<li><strong>Medium/Large Networks</strong>: multiple locations connecting hundreds/thousands computers.</li>
 						<li><strong>World Wide Networks</strong>: well, the Internet.</li>
 					</ul>
 						<p><strong>Internet is literally <em>Network of Networks</em></strong>. It's the largest network there is.</p>
@@ -159,11 +161,15 @@
 
 				<section>
 					<h2>Client-Server</h2>
-					<img src="http://www.webclasses.net/3ComU/intro/units/media/figures/unit01/ClientServer.gif">
+					<img src="https://i.imgur.com/QIkKReA.gif">
 					<ul>
 						<li><strong>Host</strong>: generic name for a device that participates in a network's communications.</li>
+						<ul>
+							<li>also called: <em>end devices</em> or <em>endpoints</em>.</li>
+						</ul>
 						<li><strong>Server</strong>: hosts that <em>provide</em> information through server software.</li>
 						<li><strong>Client</strong>: hosts that <em>request and display</em> this information through client software.</li>
+					</ul>
 				</section>
 
 				<section>
@@ -177,21 +183,21 @@
 
 				<section>
 					<h2>Peer to Peer (P2P)</h2>
-					<img src="http://pixabay.com/static/uploads/photo/2014/05/10/19/14/laptop-341419_640.png" style="background: white; width: 320px; height: 240px;">
+					<img src="https://i.imgur.com/Ivxn10D.png" style="background: white; width: 320px; height: 240px;">
 					<p>A network where hosts acts simultaneously as client and server for a specific type of information is called a <strong>Peer to Peer</strong> network.</p>
 					<p>This is much more a <strong>software</strong> distinction.</p>
 				</section>
 
 				<section>
 					<h2>Peer to Peer (P2P)</h2>
-					<p><strong>Advantages</strong></p>
+					<h3>Advantages</h3>
 					<ul>
 						<li>Easy configuration</li>
 						<li>Less complexity</li>
 						<li>Lower cost, doesn't need dedicated devices</li>
 						<li>Better for simple tasks</li>
 					</ul>
-					<p><strong>Disadvantages</strong></p>
+					<h3>Disadvantages</h3>
 					<ul>
 						<li>No centralized administration</li>
 						<li>Security</li>
@@ -204,11 +210,11 @@
 					<h2>Network Components</h2>
 					<p>Every network infrastructures has components that falls in one of these 3 categories:</p>
 					<ul>
-						<li>Devices</li>
-						<li>Media</li>
-						<li>Services</li>
+						<li><strong>Devices</strong> (router, servers, laptops, printers, etc.)</li>
+						<li><strong>Media</strong> (copper cable, fiber optics, RF waves, etc.)</li>
+						<li><strong>Services</strong> (firewalling, web sites, file transfers, etc.)</li>
 					</ul>
-					<p>Even the smaller one has them all. Let's say: this very room!</p>
+					<p>Even the smaller one has them all.</p>
 				</section>
 
 				<section>
@@ -223,6 +229,7 @@
 					<section>
 						<h2>Intermediary Devices</h2>
 						<p><strong>Intermediary devices</strong> carry the task to <strong>ensure data flows</strong> through the network to reach end devices, connecting them.</p>
+						<p>Their functions include <strong>signal regeneration</strong>, error handling, keeping track of pathways among and between networks, prioritizing and securing traffic.</p>
 						<p><strong>Network Access</strong> (switches, AP, hubs), <strong>Internetworking</strong> (routers), <strong>Security</strong> (firewalls) devices are all intermediary devices.</p>
 					</section>
 					<section>
@@ -248,18 +255,6 @@
 				</section>
 
 				<section>
-					<h2>Functions of Intermediary Devices</h2>
-					<ul>
-						<li>Regenerate and retransmit signals</li>
-						<li>Maintain information about pathways</li>
-						<li>Notify communication errors and failures</li>
-						<li>Direct data along alternate pathways</li>
-						<li>Classify and direct messages according to Quality of Service (QoS) priorities</li>
-						<li>Permit or deny the flow of data, based on security settings</li>
-					</ul>
-				</section>
-
-				<section>
 					<h2>Network Media</h2>
 					<p>The <strong>medium</strong> is the physical object that carries the signal from one point of the network to the other.</p>
 					<p>There are mostly 3 types of media:</p>
@@ -276,7 +271,7 @@
 					<p>Different media have <strong>different features, PROs and CONs</strong>. The most common criteria for choosing a media are:</p>
 					<ul>
 						<li><strong>Distance</strong> that can be covered by the media</li>
-						<li><strong>Environment</strong> in which the media will be operating.</strong></li>
+						<li><strong>Environment</strong> in which the media will be operating.</li>
 						<li><strong>Amount</strong> of data and requires <strong>speed</strong> of tranmission.</li>
 						<li><strong>Costs</strong>, of media itself and its installation.</li>
 					</ul>
@@ -286,7 +281,10 @@
 					<h2>Port vs. Interface</h2>
 					<ul>
 						<li><strong>Port</strong> - It's a physical connector that allows a cable to be plugged in and the communication circuit to be closed.</li>
-						<li><strong>Interface</strong> - It's the software (<em>logical</em>) equivalent of a port. Programs and OSes <em>see</em> physical port(s) through an interface.</li>
+						<li><strong>Interface</strong> - It's a specialized port that is used to connect to an individual network.</li>
+						<ul>
+							<li>It's also the name for the software (<em>logical</em>) equivalent of a port. Programs and OSes <em>see</em> physical port(s) through an interface.</li>
+						</ul>
 						<li><strong>NIC (<em>Network Interface Card</em>)</strong> - An extension available to certain devices (e.g. a PC) to provide additional networking capabilities.</li>
 					</ul>
 					<p>Very often there is a <strong>1:1 relation</strong> between a port and an interface, so they are (sometimes wrong) used as synonyms.</p>
@@ -305,11 +303,11 @@
 					</section>
 					<section>
 						<h2>Physical Topology</h2>
-							<img src="http://beautbelsblog.files.wordpress.com/2009/11/physical-toplogy1.jpg">
+							<img src="https://i.imgur.com/NUZfFQ8.jpg">
 					</section>
 					<section>
 							<h2>Logical Topology</h2>
-							<img src="http://beautbelsblog.files.wordpress.com/2009/11/logical.jpg">
+							<img src="https://i.imgur.com/eV3RAAm.jpg">
 					</section>
 				</section>
 
@@ -331,7 +329,7 @@
 					<ul>
 						<li>Devices participating in a LAN are located in a <strong>self-containing area</strong>, like a home, school, building.</li>
 						<li>They are <strong>administered by a single entity</strong> that controls access, features and policies in general.</li>
-						<li>Almost every time they provide the <strong>fastest bandwidth</strong> to end and intermediare devices, when compared to other type of networks.</li>
+						<li>Almost every time they provide the <strong>fastest bandwidth</strong> to end and intermediate devices, when compared to other type of networks.</li>
 					</ul>
 				</section>
 
@@ -339,9 +337,8 @@
 					<h2>WAN: Wide Area Networks</h2>
 					<p>The <strong>textbook definition</strong> is: a computer network spanning cities, regions, countries, or even the world.</p>
 					<p>WAN are more generally referred to as a <strong>set of technologies for trasmitting datas over long distances, between more localized types of networks</strong>. Typically LANs.</p>
-					<p>Another common (but not mandatory) feature of WANs: they're built using <strong>leased lines</strong> (often multiple kinds).</p>
 					<p>Either they're <strong>slower than LANs</strong>, or much <strong>more expensive</strong> for the same bandwidth.</p>
-					<p>Managed by <strong>single entities</strong>, for the <strong>private use</strong> of a single organization or for end users of <strong>service providers</strong>.</p>
+					<p>Generally managed by <strong>multiple entities</strong>, usually <strong>service providers</strong>.</p>
 				</section>
 
 				<section>
@@ -372,8 +369,9 @@
 				<section>
 					<h2>Connecting to the Internet: Users</h2>
 					<ul>
-						<li><strong>ADSL</strong>: Internet over telephone lines. Download speeds are higher than upload speeds.</li>
+						<li><strong>ADSL/VDSL</strong>: Internet over telephone lines. Download speeds are higher than upload speeds.</li>
 						<li><strong>Cable</strong>: Internet over TV cable (not italian stuff, really).</li>
+						<li><strong>Fiber Optics</strong>: Internet at the speed of light (sort of).</li>
 						<li><strong>Cellular</strong>: Internet over cell towers.</li>
 						<li><strong>Satellite</strong>: Internet over parabolic dishes.</li>
 						<li><strong>Dial-up</strong>: Internet over 20 years ago.</li>
@@ -411,9 +409,10 @@
 					<h2>#1: Fault Tolerance</h2>
 					<p><strong>Fault Tolerance</strong> is the ability to <strong>limit the impact of a failure</strong> in a network and to quickly recover from it.</p>
 					<p>Networks achieve this by having <strong>multiple paths</strong> on which communication can occur.</p>
-					<p>This is called <strong>redundancy. redundancy. redundancy</strong>.
+					<p>Only <strong><em>packet-switched</em> networks</strong> can take advantage of multiple paths, as opposed to old <strong><em>circuit-switched</em></strong> networks.</p>
 				</section>
 
+				<!--
 				<section>
 					<section>
 						<h2>Circuit-Switching and Faults</h2>
@@ -447,15 +446,17 @@
 						<img src="http://computing.dcu.ie/~humphrys/Notes/Networks/tanenbaum/2-40.jpg">
 					</section>
 				</section>
+				-->
 
 				<section>
 					<h2>#2: Scalability</h2>
-					<p><strong>Scalability</strong> is the ability of a network to grow in users, devices, traffic, etc without affecting performance levels.</p>
+					<p>Scalability is the <strong>ability of a network to grow</strong> in users, devices, traffic, etc <strong>without affecting performance</strong> levels.</p>
 					<p>The Internet could grow this much precisely because <strong>its architecture is scalable</strong> technically and politically.</p>
-					<p>The Internet is structured in <strong>Network Tiers (1+2+3)</strong>, exchanging <strong>peering or transit traffic</strong> between them.</p>
+					<!-- <p>The Internet is structured in <strong>Network Tiers (1+2+3)</strong>, exchanging <strong>peering or transit traffic</strong> between them.</p> -->
 					<p>Scalability without <strong>standards</strong> would be just too painful to achieve.</p>
 				</section>
 
+				<!--
 				<section>
 					<section>
 						<h2>Internet Tiers, Peering and Transit</h2>
@@ -471,11 +472,12 @@
 						</ul>
 					</section>
 				</section>
+				-->
 
 				<section>
 					<section>
 						<h2>#3: Quality of Service (QoS)</h2>
-						<img src="http://25.media.tumblr.com/tumblr_lxyzmufhr81r5lqooo1_500.gif">
+						<img src="https://i.imgur.com/skKIsGd.gif">
 						<small>What's this? A cat farting or a team of surgeons liveconferencing from the hospital? We'll find out soon (?)...</small>
 						<p>When you want <strong>predictable, measurable and guaranteed</strong> services on a network, you need to implement <strong>Quality of Service</strong> solutions.</p>
 					</section>
@@ -493,7 +495,7 @@
 					<p>Not just physical security but also <strong>information security</strong>.</p>
 					<p>Security is a matter of 3 basic requirements:</p>
 					<ul>
-						<li><strong>Confidentiality</strong>: data, processes, resources can only be <strong>accessed by authorized</strong> users. Authentication and Encryption to the rescue.<strong</li>
+						<li><strong>Confidentiality</strong>: data, processes, resources can only be <strong>accessed by authorized</strong> users. Authentication and Encryption to the rescue.</li>
 						<li><strong>Integrity</strong>: It's about ensuring the <strong>data haven't been altered during transmission</strong>, either by accident or maliciously. It could involve <em>checksums</em> and <em>signatures</em>.</li>
 						<li><strong>Availability</strong>: data and resources must be accessible to the legitimate users when they need them. <strong>Denial of Service (DoS)</strong> attacks can damage you without even breaking into your network.</li>
 					</ul>
