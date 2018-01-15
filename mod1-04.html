@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/hlcs.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,19 +43,17 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:</h2>
 					<h2>Introduction to Networks</h2>
 					<h3>Chapter 4: Network Access</h3>
-					<p>
-						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-					</p>
+					<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 				</section>
 
 				<section>
 					<h2>Getting Connected</h2>
 					<p>To use a network, you must first choose a <strong>way to connect</strong> to it.
 					Wirings and wireless are popular choices.</p>
-					<p>Thanks to <strong>Integrated Service Routers (ISR)</strong> and their multiple ports, switching, and Wireless <em>Access Point</em>, you have increasing flexibility.</p>
+					<p>Thanks to <strong>Integrated Service Routers (ISR)</strong> and their included multiple ports switch plus a Wireless <em>Access Point</em>, you have increasing flexibility.</p>
 					<img src="http://i.imgur.com/FTorMBU.jpg">
 				</section>
 
@@ -84,22 +82,29 @@
 						<h2>L1 Fundamentals: Signaling</h2>
 						<p><strong>The signaling method is the method of representing bits</strong>.</p>
 						<p>Common signaling methods in networking are changes in electromagnetics fields, voltage variations, or waves <em>modulation</em>.</p>
-						<img src="https://i.imgur.com/MuF9FFY.gif">
+						<img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Amfm3-en-de.gif">
 						<p>Signals can be <em>asynchronous</em> or <em>synchronous</em>. The difference is in the presence of an associated <strong>clock signal</strong>.</p>
 					</section>
 					<section>
 						<h2>L1 Fundamentals: Encoding</h2>
+						<p><strong>The encoding method is how you decide to use signals to represent information</strong>.</p>
 						<p>Bits need to be sent in a <strong>specific pattern that is recognizable</strong> at both ends. This is called a <em>code</em>.</p>
-						<p>Common codes are the <strong>Manchester Encoding</strong> (bits are represented by transitions) and the <strong>Non-Return to Zero</strong> (bits are represented by specific ranges).</p>
+					</section>
+					<section>
+						<h2>Signal vs Code: Morse Code</h2>
+						<ul>
+							<li><strong>Signaling</strong>: the signal can be sound, light, pulses ("clicks").</li>
+							<li><strong>Encoding</strong>: Patterns of "lines" and "dots".</li>
+						</ul>
 					</section>
 				</section>
 
 				<section>
 					<h2>Bandwidth and Throughput</h2>
-					<p>Data transfer speed usually is discussed in terms of
+					<p>Data transfer speed is usually discussed in terms of</p>
 					<ul>
-						<li><strong>Bandwidth</strong>: (maximum) <u>theoretical</u> capacity of a medium to carry data.</p>
-						<li><strong>Throughput</strong>: it's the <u>actual</u> measure of how many bits flow across the media in a perioid of time.</p>
+						<li><strong>Bandwidth</strong>: (maximum) <u>theoretical</u> capacity of a medium to carry data. It's a <u>fixed</u> value.</li>
+						<li><strong>Throughput</strong>: it's the <u>actual</u> measure of how many bits flow across the media in a period of time. It's a <u>variable</u> value.</li>
 					</ul>
 					<p>They are measured in <strong>bps</strong> (bit per seconds) and multiples.</p>
 					<p>A lot of factor contributes to <strong>throughput not being able to reach theoretical bandwidth</strong>: physics, media quality, amount and type of traffic, latency (delay).</p>
@@ -117,7 +122,7 @@
 						<li><strong>Electromagnetic</strong> (EMI) or <strong>radiofrequency</strong> (RFI) interferences from other sources.</li>
 						<li><strong>Crosstalk</strong> from one wire to an adjacent one.</li>
 					</ul>
-					<p>There are <strong>countermeasures</strong>: metallic shielding, cable twisting, cable twisting disparity, sensible cable-laying.</p>
+					<p>There are <strong>countermeasures</strong>: metallic shielding, cable twisting, twisting rate disparity, sensible cable-laying.</p>
 				</section>
 
 				<section>
@@ -162,17 +167,18 @@
 				<section>
 					<section>
 						<h2>UTP Cabling Standards</h2>
-						<img src="https://i.imgur.com/Hr9UTGZ.jpg">
-						<p>The <strong>TIA/EIA-568 standards</strong> specifies cable types, lengths, connector, pinouts, cable termination and testing method for LAN cable installations.</p>
+						<img src="https://i.imgur.com/rCvsp1Q.png">
+						<!--<img src="https://i.imgur.com/Hr9UTGZ.jpg">-->
+						<p>The <strong>TIA/EIA-568 standards</strong> specifies cable <strong>categories</strong>, lengths, connector, pinouts, cable termination, and testing method for LAN cable installations.</p>
 					</section>
 					<section>
 						<h2>UTP Cabling Standards</h2>
 						<p><strong>RJ45 is the 8P8C physical connector used by the Ethernet standard</strong> (and many others). Proper termination of cables at the RJ45 connectors is extremely important.</p>
-						<p><strong>UTP cables are ranked</strong> by IEEE into categories that are performance-based. Cat 5e is the most common LAN Category.
+						<p><strong>UTP cables are certified</strong> by IEEE into categories when they met certain requirements. Cat 5e is the minumum acceptable for LAN nowadays.
 							<ul>
-								<li><strong>Cat. 3</strong>, for voice/phone lines
-								<li><strong>Cat. 5 and 5e</strong>, up to 100 Mb/s and 1 Gb/s respectively
-								<li><strong>Cat. 6 and 6a</strong>, up to 10 Gb/s
+								<li><strong>Cat. 3</strong>, for voice/phone lines.</li>
+								<li><strong>Cat. 5 and 5e</strong>, up to 100 Mb/s and 1 Gb/s respectively.</li>
+								<li><strong>Cat. 6 and 6a</strong>, up to 10 Gb/s (55m and 100m respectively).</li>
 							</ul>
 						</section>
 						<section>
@@ -185,8 +191,8 @@
 						</section>
 						<section>
 							<h2>RJ45 Socket</h2>
-							<img src="https://i.imgur.com/sEHKUOH.jpg" style="width: 66%; height: 66%;">
-							<p>RJ45 8P8C female socket plug and wiring process.</p>
+							<img src="https://i.imgur.com/sEHKUOH.jpg" style="width: 50%; height: 50%;">
+							<p>RJ45 8P8C female socket plug and wiring process, which uses a tool called <em>punch-down</em>.</p>
 						</section>
 						<section>
 							<h2>UTP Wiring Conventions</h2>
@@ -201,14 +207,8 @@
 						<section>
 							<h2>UTP Cable Testing</h2>
 							<img src="http://i.imgur.com/NSbPbev.jpg" style="float: right; width: 50%; height: 50%;">
-							<p>For anything other than simple functional tests, such as
-							<ul>
-								<li>Wire map
-								<li>Cable length
-								<li>Signal attenuation
-								<li>Crosstalk
-							</ul>
-							<p>A <strong>UTP Cable tester</strong> should be used.</p>
+							<p>For anything other than simple functional tests, such as a <em>wire map</em>, a <strong>UTP Cable tester</strong> should be used.</p>
+							<p>For more advanced measurements such as cable length, signal attentuation, crosstalk, a <strong>cable certifier/verifier</strong> is required.</p>
 						</section>
 				</section>
 
@@ -249,22 +249,22 @@
 						<h2>Fiber Optic Connectors</h2>
 						<img src="http://i.imgur.com/L2UbGss.jpg">
 						<ul>
-							<li><strong>ST</strong>: bayonet-style (open/close with a twist) for MMF.
-							<li><strong>SC</strong>: it's the "standard" connector, used for SMF and MMF. It has a push-pull mechanism that keeps it in place.
-							<li><strong>LC</strong>: smaller sized connector, used mainly for SMF but also supports MMF.
+							<li><strong>ST</strong>: bayonet-style (open/close with a twist) for MMF.</li>
+							<li><strong>SC</strong>: it's the "standard" connector, used for SMF and MMF. It has a push-pull mechanism that keeps it in place.</li>
+							<li><strong>LC</strong>: smaller sized connector, used mainly for SMF but also supports MMF. It's probably the most popular nowadays.</li>
 						</ul>
 						<p>In fiber cabling <strong>light travels only in one direction</strong>. You need two bundled cables to be able to tx/rx simultaneously (even better: a <strong>Duplex Multimode LC Connector</strong>).</p>
 						<p>Unused fiber cables should be protected with a plastic cap.</p>
 					</section>
 					<section>
 						<h2>Fiber Optic Cabling: Testing</h2>
-						<p>Terminating and cutting fiber-optic cables is definitely not as easy as with copper. <strong>It requires special equipment and skills</strong>. Typical errors in FO termination and splicing:
+						<p>Terminating and cutting fiber-optic cables is definitely not as easy as with copper. <strong>It requires special equipment and skills</strong>.</p>
+						<p>Typical errors in termination and splicing (joining) are:</p>
 						<ul>
 							<li><strong>Misalignment</strong> of two joined fibers.</li>
 							<li><strong>End gap</strong>, the media does not touch at the connection point.</li>
 							<li><strong>End finish</strong>, the media has not a precise termination and presents some dirt.</li>
 						</ul>
-						<p>A quick test is to <strong>shine a light at one end</strong> and see if it comes to the other one: it doesn't tell you about performances, but it <strong>cheaply finds a broken fiber</strong>.</p>
 					</section>
 					<section>
 						<h2>Copper vs Fiber</h2>
@@ -305,11 +305,6 @@
 									<td>Lowest</td>
 									<td>Highest</td>
 								</tr>
-								<tr>
-									<td><strong>Safety precaution</strong></td>
-									<td>Lowest</td>
-									<td>Highest</td>
-								</tr>
 							</table>
 						</small>
 					</section>
@@ -318,13 +313,13 @@
 				<section>
 					<section>
 					<h2>Wireless Standards</h2>
-					<p>Wireless media that we commonly encounter includes:</p>
+					<p>Wireless transmissions that we commonly encounter includes:</p>
 					<ul>
 						<li><strong>IEEE 802.11</strong> - Wireless LAN (WLAN), we call it <u>Wi-Fi</u>.</li>
 						<li><strong>IEEE 802.15</strong> - Wireless Personal Area Network (WPAN), commonly known as <u>Bluetooth</u>.</li>
 						<li><strong>IEEE 802.16</strong> - WiMAX, uses a PtMP topology and was specifically developed to provide broadband access.</li>
 					</ul>
-					<p>Each standard dictates parameters such as <strong>encoding techniqu</strong>e of data into radio waves, transmission <strong>power</strong>, usable <strong>frequencies</strong>, <strong>antenna</strong> design, and many more.</p>
+					<p>Each standard dictates parameters such as techniques for <strong>encoding of data</strong> of data into radio waves, transmission <strong>power</strong>, usable <strong>frequencies</strong>, <strong>antenna</strong> design, and many more.</p>
 				</section>
 				<section>
 					<h2>Wireless LAN</h2>
@@ -364,9 +359,15 @@
 				<section>
 					<h2>Media Access Control</h2>
 					<p>The <strong>media access control method is the technique used for placing the frame on and off the media</strong>.</p>
-					<p>Example of MAC methods are CSMA, TDMA, Polling, etc. They <strong>depend on the (logical) topology</strong> and whether the media is to be <strong>contented or not</strong>.</p>
+					<p>Examples of MAC methods are CSMA, TDMA, Polling, etc. They <strong>depend on the (logical) topology</strong> and whether the media is to be <strong>contented or not</strong>.</p>
 					<p>While L3 protocols may stay largely the same, we are bound to see <strong>many different data link and media transitions</strong> over a remote communication.</p>
 					<p><strong>Routers de-encapsulate and re-encapsulate</strong> properly according to L1 and L2 protocols of that network segment.</p>
+				</section>
+
+				<section>
+					<h2>Data Link Layer Standards</h2>
+					<p>Because of the close relationship between L2 and L1, <strong>many Data Link standards actually defines both</strong>.</p>
+					<img src="http://i.imgur.com/MQJ1hQu.jpg">
 				</section>
 
 				<section>
@@ -378,16 +379,12 @@
 							<li>An <strong>Header</strong> at the beginning, containing addressing information.</li>
 							<li>then <strong>Data</strong>, in the form of the L3 PDU.</li>
 							<li>and at the end, a <strong>Trailer</strong> containing other control infos like error detection.</li>
+						</ul>
 					</section>
 					<section>
 						<h2>A Generic L2 Frame</h2>
 						<img src="http://i.imgur.com/ElcQ6yY.png">
 						<p>Structure of frame and fields contained in header and trailer <strong>vary according to the DLL protocol. There can't be a single one</strong> because needs of transportation across media types are very different.</p>
-					</section>
-					<section>
-						<h2>Data Link Layer Standards</h2>
-						<p>Because of the close relationship between L2 and L1, <strong>many Data Link standards actually defines both</strong>.</p>
-						<img src="http://i.imgur.com/MQJ1hQu.jpg">
 					</section>
 				</section>
 
@@ -415,24 +412,9 @@
 
 				<section>
 					<h2>Physical vs. Logical PtP</h2>
-					<p>When two nodes are physically connected in a PtP topology, <strong>media sharing is not a concern, and so isn't addressing</strong>. DLL protocols can therefore be much more simpler.</p>
+					<p>When two nodes are physically connected in a PtP topology, <strong>media sharing is not a concern, and so isn't addressing</strong>. DLL protocols can therefore be much more simple.</p>
 					<p>However when they don't have a direct physical connection, it can be possibile to establish <strong>a logical PtP connection though a virtual circuit</strong> and other intermediate devices.</p>
 					<p><strong>In logical PtP, the MAC method and the DLL still operate</strong> as if the connection was physical.</p>
-				</section>
-
-				<section>
-					<h2>Half and Full Duplex</h2>
-					<p>In a PtP topology, two devices can communicate:</p>
-					<ul>
-						<li><strong>Half-Duplex</strong>: both can TX/RX, but not simultaneously. This mandates for <strong>conflict resolution</strong> about media usage.</li>
-						<ul>
-							<li>Star topologies using hubs; bus topologies; WLANs.</li>
-						</ul>
-						<li><strong>Full-Duplex</strong>: both can TX/RX and can do that at the same time. This means the media is <strong><u>assumed uncontended</u></strong> by the DLL.</li>
-						<ul>
-							<li>Enabled by Ethernet switches.</li>
-						</ul>
-					</ul>
 				</section>
 
 				<section>
@@ -463,18 +445,34 @@
 				</section>
 
 				<section>
+					<h2>Half and Full Duplex</h2>
+					<p>The communication between 2 devices, regarding its direction, can be:</p>
+					<ul>
+						<li><strong>Half-Duplex</strong>: both can TX/RX, but not simultaneously. This mandates for <strong>conflict resolution</strong> about media usage.</li>
+						<ul>
+							<li>Star topologies using hubs; bus topologies; WLANs.</li>
+						</ul>
+						<li><strong>Full-Duplex</strong>: both can TX/RX and can do that at the same time. This means the media is <strong><u>assumed uncontended</u></strong> by the DLL.</li>
+						<ul>
+							<li>Enabled by Ethernet switches.</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
 					<h2>Sharing media on LAN topologies</h2>
-					<p>There are many MAC methods, but the two basic fall in these 2 categories:</p>
+					<p>When multiple nodes access the network through a common medium, it's called a <strong><em>multi-access network</em></strong>.</p>
+					<p>There are many MAC methods for such networks, but the two basic fall in these 2 categories:</p>
 					<ul>
 						<li><strong>Contention-based access</strong>: the medium is contested (hosts can send data when it has them), but nodes know what to do if a collision happens.</li>
-						<li><strong>Controlled access</strong>: each node has its own allocated time for medium usage.</li>
+						<li><strong>Controlled access</strong>: each node has its own allocated time (or turn) for medium usage.</li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>Carrier Sense Multiple Access</h2>
 					<p>The more nodes there are the less probable is to be able to use the media without collisions.</p>
-					<p>CSMA is used in contention-based medium access to <strong>detect if there's a signal (carrier) on the media</strong> before transmitting. Coupled with a mean for <strong>resolving collision</strong>:</p>
+					<p>CSMA is used in contention-based medium access to <strong>detect if there's a signal (carrier) on the media</strong> before transmitting. It works in combination with a <strong>collision resolution method</strong>:</p>
 					<ul>
 						<li><strong>CSMA/CD</strong> for Ethernet 802.3: if another signal is perceived while transmitting, colliding devices will stop to try later.</li>
 						<li><strong>CSMA/CA</strong> for 802.11: doesn't detect collisions, instead it sends notification of intent to use media and wait for clearance.</li>
