@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/hlcs.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,12 +43,10 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:</h2>
 					<h2>Introduction to Networks</h2>
 					<h3>Chapter 8: Subnetting IP Networks</h3>
-					<p>
-						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-					</p>
+					<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 				</section>
 
 				<section>
@@ -57,7 +55,7 @@
 					<p><small>The terms <em>network</em> and <em>subnet</em> both identify computer networks. <em>Subnet</em> is just used to imply that we are talking about <strong>a part of some larger address space</strong>.</small></p>
 					<ul>
 						<li><strong>Optimizing address space usage</strong> by wasting less.</li>
-						<li>By minimizing the definition of "local", we can <strong>reduce broadcast</strong> traffic.</li>
+						<li>By minimizing the definition of "local", we can <strong>reduce broadcast</strong> traffic (smaller <em>broadcast domain</em>).</li>
 						<li>A <strong>better packet delivery</strong> can be achieved by providing more network targets to meet our routing requirements. This is called <em>network segmentation</em>.</li>
 						<li>Creating more targets against which to define our policies can also <strong>improve security</strong>.</li>
 					</ul>
@@ -76,7 +74,7 @@
 
 				<section>
 					<h2>Planning Subnetting</h2>
-					<p>What we'll learn about <strong>subnetting would apply to both public and private IPv4 address space</strong>. Subnetting public addresses is an ISP concern, we'll focus on subnetting private blocks.</p>
+					<p>What we'll learn about <strong>subnetting will apply to both public and private IPv4 address space</strong>. Subnetting public addresses is an ISP concern, we'll focus on subnetting private blocks.</p>
 					<p>So we start with private IP address ranges:</p>
 					<ul>
 						<li>10.0.0.0/8 (subnet mask 255.0.0.0)</li>
@@ -273,6 +271,7 @@ Subnet0 Network Addr. 172. 20.0000000 0.00000000 = 172.20.0.0/23
 Subnet1 Network Addr. 172. 20.0000001 0.00000000 = 172.20.2.0/23
 Subnet2 Network Addr. 172. 20.0000010 0.00000000 = 172.20.4.0/23
 Subnet3 Network Addr. 172. 20.0000011 0.00000000 = 172.20.6.0/23
+[..............................CUT...............................]
 Subnet126 Netw. Addr. 172. 20.1111110 0.00000000 = 172.20.252.0/23
 Subnet127 Netw. Addr. 172. 20.1111111 0.00000000 = 172.20.254.0/23</code></pre>
 						<p>Subnetting is done in the 3rd octect, <strong>host bits share part of the 3rd</strong>, plus the whole 4th octect.</p>
@@ -392,7 +391,12 @@ Subnet15          192.168.1.224/27 # 30 hosts capable</code></pre>
 					</section>
 					<section>
 						<h2>VLSM Charts</h2>
-						<img src="http://i.imgur.com/WgSJYKv.jpg" style="width: 900px;">
+						<img src="http://i.imgur.com/WgSJYKv.jpg" style="width: 600px;">
+						<p>When using VLSM:</p>
+						<ul>
+							<li>Check that address ranges <strong>do not overlap</strong>.</li>
+							<li>It's easier to proceed from larger subnet to smaller.</li>
+						</ul>
 					</section>
 				</section>
 
@@ -412,7 +416,7 @@ Subnet15          192.168.1.224/27 # 30 hosts capable</code></pre>
 						<ul>
 							<li><strong>Clients</strong> - DHCP is the common assignment method.</li>
 							<li><strong>Servers &amp; peripherals</strong> - As they provide almost all network resources, they should have static addressing, with consistent numbering, making them easy to remember.</li>
-							<li><strong>Internet-accessible hosts</strong> - Both public and private static addressing. Public addresses are mostly associated to these by NAT on the perimeter.</li>
+							<li><strong>Internet-accessible hosts</strong> - Both public and private static addressing. Public addresses are mostly associated to these hosts by performing NAT on the perimeter.</li>
 						</ul>
 					</section>
 					<section>
@@ -431,7 +435,7 @@ Subnet15          192.168.1.224/27 # 30 hosts capable</code></pre>
 						<p>Subnetting IPv6 is done for an <u>entirely different reason</u>: to support <strong>hierarchical and logical network design</strong>.</p>
 						<img src="http://i.imgur.com/LGVfYS4.png">
 						<p>An IPv6 (public) address block with a /48 (Global Routing) prefix has <strong>16 bits for subnet ID</strong> (65536 /64 subnets).</p>
-						<p>There's <u>no need to borrow bits</u> from Interface ID (host portion), but that's also <strong>possible if needed</strong>.</p>
+						<p>A dedicated Subnet ID field means there's <u>no need to borrow bits</u> from Interface ID (host portion).</p>
 					</section>
 					<section>
 						<h2>IPv6 Subnetting Example</h2>
@@ -458,6 +462,11 @@ Subnet 65535    2001:0DB8:ACAD:FFFF::/64</code></pre>
 						<p>Subnetting IPv6 is not that much different from IPv4.</p>
 						<p>The leading practice is to receive at least a <strong>/48 prefix from an ISP</strong>. This leaves 2<sup>80</sup> bits to manipulate for subnetting.</p>
 						<p><a href="https://tools.ietf.org/html/rfc4291">RFC 4291</a> says the <strong>current smallest recommended prefix</strong> is /64. You can assign a /64 to PtP links and <em>not feel guilty</em>.</p>
+						<p>Using a prefix smaller than /64 is actually <u>strongly discouraged</u> because <strong>it breaks IPv6 features</strong> that rely on a 64-bit Interface ID, like SLAAC.</p>
+					</section>
+					<section>
+						<h2>IPv6 Subnetting Considerations</h2>
+						<p>Some ISPs insist to give customers a single /64 IPv6 subnet, so they can't use the Subnet ID field to do subnetting.</p>
 						<p>You can of course <strong>borrow bits from the Interface ID</strong> to have a deeper hierarchy. The best practice is to borrow <strong>4 bits at a time</strong> and used aligned netmasks (/68, /72, /76, etc.). Why?</p>
 						<p>A <strong>nibble</strong> is a 4 bit group, or <u>one hex digit</u>. By subnetting on <em>nibble boundaries</em> we create subnets <strong>just by adding 0x01</strong>.</p>
 					</section>
