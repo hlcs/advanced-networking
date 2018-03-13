@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/hlcs.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,28 +43,26 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:</h2>
 					<h2>Introduction to Networks</h2>
 					<h3>Chapter 7, Part 2: IPv6 Addressing</h3>
-					<p>
-						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-					</p>
+					<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 				</section>
 
 				<section>
 					<section>
 						<h2>Transition to IPv6</h2>
-					<p>An upgrade from IPv4 was badly needed for several reasons (address space exhaustion, performances, extendibility).</p>
-					<p>This upgrade is <strong>IPv6</strong> and has been in the works since 1993 and has been ready for several year.</p>
-					<p>However the transition from IPv4 to IPv6 will be slow and take years, so for a long time <strong>the two protocols will coexist</strong>, thanks to several <strong>transition mechanisms</strong>:</p>
-					<ul>
-						<li><strong>Dual Stack</strong>: every host on the network runs both IPv4/6.</li>
-						<li><strong>Tunneling</strong>: IPv6 packets encapsulated inside IPv4 packets.</li>
-						<li><strong>Translation</strong>: NAT64 translates IPv4 packets into IPv6 packets, and viceversa.</li>
-					</ul>
+						<p>An upgrade from IPv4 was badly needed for several reasons (address space exhaustion, performances, extendibility).</p>
+						<p>This upgrade is <strong>IPv6</strong> and has been in the works since 1993 and has been ready for several years.</p>
+						<p>However the transition from IPv4 to IPv6 will be slow and take years, so for a long time <strong>the two protocols will coexist</strong>, thanks to several <strong>transition mechanisms</strong>:</p>
+						<ul>
+							<li><strong>Dual Stack</strong>: every host on the network runs both IPv4/6.</li>
+							<li><strong>Tunneling</strong>: IPv6 packets encapsulated inside IPv4 packets.</li>
+							<li><strong>Translation</strong>: NAT64 translates IPv4 packets into IPv6 packets, and viceversa.</li>
+						</ul>
 					</section>
 					<section>
-						<h2>Transition to IPv6: Dual Stack</h2>
+						<h2>[E] Transition to IPv6: Dual Stack</h2>
 						<img src="https://i.imgur.com/k3f0jsb.jpg">
 						<ul>
 							<li>If (an) <u>entire route between two networks</u> runs <strong>both IPv4/IPv6</strong>, their hosts can use IPv6-only between them.</li>
@@ -74,7 +72,7 @@
 						</ul>
 					</section>
 					<section>
-						<h2>Transition to IPv6: Tunneling</h2>
+						<h2>[E] Transition to IPv6: Tunneling</h2>
 						<img src="https://i.imgur.com/GhiQBhC.jpg">
 						<ul>
 							<li>To traverse an IPv4-only network, a tunnel is created that <strong>makes it transparent to dual-stack hosts</strong>.</li>
@@ -84,7 +82,7 @@
 						</ul>
 					</section>
 					<section>
-						<h2>Transition to IPv6: NAT64</h2>
+						<h2>[E] Transition to IPv6: NAT64</h2>
 						<img src="https://i.imgur.com/cMLFJfE.jpg">
 						<ul>
 							<li>If IPv4 hosts need <strong>to traverse IPv6-only networks</strong>, an <em>IPv4-in-IPv6</em> tunnel is definitely a possibility.</li>
@@ -98,14 +96,14 @@
 					<section>
 						<h2>IPv6 Address Format</h2>
 						<img src="http://i.imgur.com/2Xf426J.gif" style="width: 600px;">
-						<p>An IPv6 address is <strong>128 bits long</strong>. It's not expressed with 16 decimal values, but instead <strong>32 hexadecimal values</strong> are used. Example: 2607:f0d0:1002:0051:0000:0000:0000:0004</p></p>
-						<p>Each group of 16 bits/4 hex values (unofficially called an <em>hextet</em>) is <strong>separated by a colon</strong> (<code>:</code>) instead of a dot (<code>.</code>).</p>
+						<p>An IPv6 address is <strong>128 bits long</strong>. It's not expressed with 16 decimal values, but instead <strong>32 hexadecimal digits</strong> are used. Example: 2607:f0d0:1002:0051:0000:0000:0000:0004.</p>
+						<p>Each group of 16 bits/4 hex digits (unofficially called an <em>hextet</em>) is <strong>separated by a colon</strong> (<code>:</code>) instead of a dot (<code>.</code>).</p>
 						<p>It's made of a <strong>Network Prefix</strong> (network part) and <strong>Interface ID</strong> (host part).</p>
 					</section>
 					<section>
 						<h2>IPv6 Preferred Format</h2>
 						<img src="http://i.imgur.com/2Xf426J.gif" style="width: 700px;">
-						<p>When we use all 32 hex values to write an IPv6 address, we are using the <strong><em>preferred format</em></strong>.</p>
+						<p>When we use all 32 hex digits to write an IPv6 address, we are using the <strong><em>preferred format</em></strong>.</p>
 						<p>It's not always ideal to use this many digits :(</p>
 						<p>But! There are rules to <strong>simplify the format</strong> than can be used often (but now always).</p>
 					</section>
@@ -172,8 +170,8 @@ Compressed - ::1</code></pre>
 						<p>As in IPv4, in IPv6 transmissions the <strong>source address must be an unicast address</strong> that uniquely identifies that interface.</p>
 						<p>There are 6 types of IPv6 unicast addresses:</p>
 						<ul>
-							<li><strong>Global Unicast</strong>: Similar to <u>public</u> IPv4 Internet addresses.</li>
-							<li><strong>Link-Local</strong>: Used only for tranmission to other IPv6 hosts on the same link (subnet). They only must be unique in a single link, because <u>IPv6 router will never forward packets with link-local addresses</u>.  Their range is <code>FE80::/10</code> - <code>FEBF::/10</code></code></li>
+							<li><strong>Global Unicast</strong>: Similar to <u>public</u> IPv4 Internet addresses, globally unique and routable.</li>
+							<li><strong>Link-Local</strong>: Used only for tranmission to other IPv6 hosts on the same link (subnet). They only must be unique in a single link, because <u>IPv6 router will never forward packets with link-local addresses</u>.  Their range is <code>FE80::/10</code> - <code>FEBF::/10</code></li>
 							<li><strong>Loopback</strong>: The IPv6 loopback address is <code>::1/128</code> or <code>::1</code>.</li>
 						</ul>
 					</section>
@@ -199,15 +197,22 @@ Compressed - ::1</code></pre>
 					<section>
 						<h2>IPv6 Global Unicast Address</h2>
 						<img src="http://i.imgur.com/LGVfYS4.png">
-						<p>These are the <strong>IPv6 Internet-routable addresses</strong>, assigned by the IANA and the RIRs. As of now, only addresses starting with <code>2000::/3</code> (first 3 bits 001) are being assigned.</p>
+						<p>These are the <strong>IPv6 Internet-routable addresses</strong>, assigned by the IANA to the RIRs and then to the users. As of now, only addresses starting with <code>2000::/3</code> (first 3 bits 001) are being assigned.</p>
 					</section>
 					<section>
 						<h2>IPv6 Global Unicast Address</h2>
 						<p>A global unicast address is made of 3 components:</p>
 						<ul>
 							<li><strong>Global Routing Prefix</strong>: Currently RIR assigns IPv6 blocks with a /48 routing prefix.</li>
-							<li><strong>Subnet ID</strong>: A field available for assignees of a GRP block to define their subnets/sites. GRP + Subnet ID must be 64 bits. This makes <strong>/64 the most used subnet mask</strong> for final users.</li>
+							<li><strong>Subnet ID</strong>: A field available for assignees of a GRP block to define their subnets/sites.</li>
+							<ul>
+								<li>GRP + Subnet ID must be 64 bits.</li>
+								<li>This makes <strong>/64 the most used subnet mask</strong> for IPv6 users.</li>
+							</ul>
 							<li><strong>Interface ID</strong>: Equivalent to the host portion of IPv4. It's called a generic "ID" because IPv6 can have multiple global addresses on multiple interfaces.</li>
+							<ul>
+								<li>It is strongly recommended never to use an Interface ID smaller than 64 bits.</li>
+							</ul>
 						</ul>
 					</section>
 					<section>
@@ -215,7 +220,7 @@ Compressed - ::1</code></pre>
 						<p>Unlike IPv4, in IPv6 it is possible to assign to hosts:</p>
 						<ul>
 							<li><strong>All-1s addresses</strong>, because IPv6 has no broadcast address.</li>
-							<li><strong>All-0s addresses</strong>, but they are reserved as anycast Subnet-routers address.</li>
+							<li><strong>All-0s addresses</strong>, but they are reserved as anycast Subnet-routers address (the routers residing in a subnet).</li>
 						</ul>
 					</section>
 				</section>
@@ -227,7 +232,7 @@ Compressed - ::1</code></pre>
 R1(config-if)# ipv6 address 2001:db8:acad:1::1/64
 R1(config-if)# no shutdown
 R1(config-if)# exit</code></pre>
-					<p><strong>On a host</strong> the configuration is identical to IPv4, except it's IPv6 addresses and prefixes. The <strong>default gateway can be configured with its link-local address</strong>.</p>
+					<p><strong>On a host</strong> the configuration is identical to IPv4, except it uses IPv6 addresses and prefixes. Optionally, the <strong>default gateway can be configured with its link-local address</strong>.</p>
 					<p>For automatic configuration of IPv6 addresses, there are two different ways: <strong>SLAAC and DHCPv6</strong>.</p>
 				</section>
 
@@ -345,9 +350,11 @@ Router(config-if)# exit</code></pre>
 						<p>These ICMP messages are common between v4 and v6:</p>
 						<ul>
 							<li><strong>Host Confirmation</strong>: an ICMP <em>Echo Request</em> is sent to <u>test if an host in operational</u>. If it is an <em>Echo Reply</em> is sent back.</li>
+							<ul>
+								<li>ICMP Echo messagges are fundamental to the <code>ping</code> network verification utility.</li>
+							</ul>
 							<li><strong>Destination or Service Unreachable</strong>: when a <u>gateway can't forward a packet</u>, it notifies the source with a code specifying if the net, host, protocol or port is unreachable.</li>
 							<li><strong>Time Exceeded</strong>: Used to notify the packet source that the <u>TTL counter in the header has reached 0</u> and the packet is being dropped.</li>
-							<li><strong>Route Redirection</strong>: It informs the packet source that <u>a better route to the destination</u> is available.</li>
 						</ul>
 					</section>
 					<section>
@@ -359,6 +366,42 @@ Router(config-if)# exit</code></pre>
 							<li><strong>Neighbor Solicitation (NS)</strong> -Sent by an host to another host to <u>discover its L2 address</u> or to <u>detect a duplicate address</u>.</li>
 							<li><strong>Neighbor Advertisement (NA)</strong> - <u>Sent by an host who received a NS</u> to comunicate its L2 address or that an IPv6 address is already in use.</li>
 						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Ping</h2>
+					<p>The <code>ping</code> testing utility uses <strong>ICMP Echo request/reply messages to test connectivity between hosts</strong>. There is a <em>timeout</em> and ping considers replies received within it as successful "pings".</p>
+					<p>It reports the success rate and the time it took between request and reply, important <u>measures of network performances</u>.</p>
+					<p>A successful ping means correct connectivity, but an unsuccessful one does not necessarily imply connectivity issues:</p>
+					<ul>
+						<li>The target host could be not operational.</li>
+						<li>ICMP messages could be blocked for security reasons.</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Traceroute</h2>
+						<p>While ping just test connectivity between 2 hosts, <code>traceroute</code> (<code>tracert</code> in Windows) <strong>details the path</strong> taken by the packet.</p>
+						<p><code>traceroute</code> provides its functions by <strong>exploiting the ICMP time exceeded messages caused by deliberately low TTL values</strong>.</p>
+						<p><strong>Each row in its output is the interface of a router (hop)</strong> the packet traversed. An asterisk (*) means a <strong>lost packet</strong>. Times represent the <strong>Round Trip Time (RTT)</strong> between sending the packet and getting the response. </p>
+						<p>Traceroutes can help identify <u>where in the path a problem occurs</u>.</p>
+					</section>
+					<section>
+						<h2>Traceroute</h2>
+						<pre><code class="no-highlight">stefanauss@barney:~$ traceroute -n google.it
+traceroute to google.it (173.194.40.15), 30 hops max, 60 byte packets
+ 1  10.87.23.1  0.257 ms  0.284 ms  0.346 ms
+ 2  * * *
+ 3  172.18.1.129  25.915 ms  28.067 ms  30.293 ms
+ 4  172.18.0.77  31.994 ms  40.412 ms 172.18.0.73  36.516 ms
+ 5  172.19.240.173  56.398 ms  58.932 ms  58.996 ms
+ 6  195.22.192.85  59.228 ms  63.312 ms  66.776 ms
+ 7  74.125.51.12  62.567 ms 72.14.196.141  41.077 ms  40.297 ms
+ 8  209.85.249.54  40.273 ms  40.186 ms  40.549 ms
+ 9  64.233.174.245  40.962 ms  40.498 ms  39.815 ms
+10  173.194.40.15  43.655 ms  43.748 ms  40.498 ms</code></pre>
 					</section>
 				</section>
 
