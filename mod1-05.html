@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/hlcs.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,12 +43,10 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:</h2>
 					<h2>Introduction to Networks</h2>
 					<h3>Chapter 5: Ethernet</h3>
-					<p>
-						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-					</p>
+					<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 				</section>
 
 				<section>
@@ -68,6 +66,21 @@
 							<li><strong>Data Encapsulation</strong>: frame delimiting, addressing, error detection.</li>
 							<li><strong>Media Access Control</strong>: CSMA/CD for modern Ethernet (not really needed with today's switches).</li>
 						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Ethernet Evolution</h2>
+					<ul>
+						<li><strong>1980-1990</strong>: 10 Mb/s over coaxial cable (802.3/a/i)</li>
+						<li><strong>1990-1994</strong>: 10 Mb/s over twister pair and fiber optic (802.3j/u) </li>
+						<li><strong>1995</strong>: 100 Mb/s (<em>FastEthernet</em>) over TP and FO (802.3u)</li>
+						<li><strong>1998-1999</strong>: 1000 Mb/s (<em>GigabitEthernet</em>) over TP and FO (802.3z/ab) </li>
+						<li><strong>2002</strong>: 10 Gb/s over FO (802.3ae)</li>
+						<li><strong>2006</strong>: 10 Gb/s over TP (802.3an)</li>
+						<li><strong>2003,2009</strong>: Power over Ethernet for 100/1000 Mb/s (802.af/at) </li>
+						<li><strong>2015</strong>: 40 Gb/s and 100 Gb/s over FO</li>
+						<li><strong>2016</strong>: 2.5 Gb/s and 5 Gb/s over TP</li>
 					</ul>
 				</section>
 
@@ -98,7 +111,7 @@
 				<section>
 					<h2>Ethernet Frame Attributes</h2>
 					<p>Composed by the L3 PDU, and a <strong>header+trailer of control informations</strong>, divided in <em>fields</em>.</p>
-					<p>There are two (minimally) different Ethernet frames: the <strong>Ethernet II</strong> (also called DIX) and <strong>IEEE 802.3</strong> Ethernet Standards.</p>
+					<p>There are two (minimally) different Ethernet frames: the <strong>Ethernet II</strong> (also called DIX) and <strong>IEEE 802.3</strong> Ethernet Standards. TCP/IP uses the Ethernet II frame type.</p>
 					<p>Ethernet frames minimum size is 64 bytes, max size is 1518 bytes. From IEEE 802.3ac, max size has been extended to 1522 to accomodate for VLANs (Virtual Area Networks).</p>
 					<p>Frames &lt; 64 bytes (<em>runt frames</em>) or &gt; 1522 bytes (<em>jumbo frames</em>) get discarded.</p>
 				</section>
@@ -113,7 +126,10 @@
 						<ul>
 							<li><strong>Preamble</strong>: not formally part of frame, it's a sequence of bytes telling the device to "get ready" for the frame.</li>
 							<li><strong>SFD</strong>: <em>Start Frame Delimiter</em>, breaks the preamble pattern and marks the start of the frame.</li>
-							<li><strong>Ethertype/Length</strong>: Ethertype in Ethernet II frames, Length of the data field in 802.3 standards. <u>Based on the value contained, the 2 framing styles are distinguished</strong> and can both be used.</u></li>
+							<li><strong>Ethertype/Length</strong>: Ethertype in Ethernet II frames, Length of the data field in 802.3 standards. <u>Based on the value contained, the 2 framing styles are distinguished and can both be used.</u></li>
+							<ul>
+								<li>0x800 IPv4, 0x86DD IPv6, 0x806 ARP. > 0x05DC means Ethernet II.</li>
+							</ul>
 							<li><strong>Data</strong>: if smaller than 64 bytes, <em>padding</em> is added to respect the minimum length.</li>
 							<li><strong>FCS</strong>: <em>Frame Check Sequence</em>, the result of a formula (CRC, <em>Cyclic Redundancy Check</em>) that allows to spot TX errors.</li>
 						</ul>
@@ -184,7 +200,7 @@ eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
 					<section>
 						<h2>Multicast MAC Address</h2>
 						<h3>01:00:5E:[00:00:00-7F:FF:FF]</h3>
-						<p>Combines with a <strong>multicast network address</strong>, like the multicast IP allocation (224.0.0.0 - 239.255.255.255), to deliver the frame to <u>a host group</u>.</p>
+						<p>Combines with a <strong>multicast network address</strong>, like the multicast IPv4 allocation (224.0.0.0 - 239.255.255.255), to deliver the frame to <u>a host group</u>.</p>
 					</section>
 				</section>
 
@@ -227,7 +243,7 @@ eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
 						<h2>How a Switch Works</h2>
 						<h3>Learning</h3>
 						<ul>
-							<li>The MAC table is empty when the switch is first turned on.</li>
+							<li>The MAC table is empty when the switch is first powered on.</li>
 							<li>When a frame is received, it looks at the <strong>source MAC address</strong>.</li>
 							<ul>
 								<li>If it's not on the table, <strong>an association is added</strong> between the source MAC and the incoming port.</li>
@@ -270,7 +286,7 @@ eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
 						<p>The actual forwarding process begins <strong>before the frame has been completely received</strong>.</p>
 						<p>There are two variants, both <strong>not verifying the checksum</strong>:</p>
 						<ul>
-							<li><strong>Rapid Frame</strong> - The switch forwards the frame <u>as soon as the destination MAC address is received</u>. This means it only needs the first 6 of the frame.</li>
+							<li><strong>Fast Forward</strong> - The switch forwards the frame <u>as soon as the destination MAC address is received</u>. This means it only needs the first 6 of the frame.</li>
 							<li><strong>Fragment Free</strong> - The switch waits for the first 64 bytes (<em>collision window</em>). <u>If no fragmentation is detected it then forwards the frame</u>.</li>
 						</ul>
 					</section>
@@ -281,7 +297,7 @@ eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
 							<li>Cut-Through forwards <strong>almost every invalid frame</strong>.</li>
 							<li>Cut-Through provides <strong>significantly better latencies</strong>.</li>
 							<li>In a network with a <strong>high error rate</strong>, C-T switching becomes counterproductive, wasting bandwidth with invalid frames.</li>
-							<li>Fragment-Free is usually the best <strong>compromise</strong>: a little better error checking with virtually no increase in latency.</li>
+							<li>Fragment-Free is usually the best <strong>compromise</strong>: a little bit better error checking with virtually no increase in latency.</li>
 						</ul>
 					</section>
 				</section>
@@ -315,6 +331,109 @@ eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
 							<li>However switches have <strong>Auto-MDIX</strong> capability that <strong>reconfigures the interfaces no matter the cable</strong> in use.</li>
 						</ul>
 					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>[R] Addresses</h2>
+						<p>Network and Data Link layers are those responsible for <strong>uniquely identifying the source and destination</strong> of the data exchange.</p>
+						<p>They <strong>both do that using addresses</strong>, but of different kind and for different purposes.</p>
+						<img src="http://i.imgur.com/xDdU0zT.gif">
+					</section>
+					<section>
+						<h2>[R] Network Address: IP Addresses</h2>
+						<p>Network addresses are <strong>logical</strong> addresses (not tied to a specific device) required to deliver <u>a packet</u> from source to destination, either on the same or <strong>different networks</strong>.</p>
+						<p><strong>IP addresses</strong> are <u>structured</u> and delivery operates by moving (<em>routing</em>) packets <u>according to their structure</u>.</p>
+						<ul>
+							<li>The <u>network part</u> (192.168.1) is used by router to identify and <strong>reach the destination network</strong>.
+							<li>The <u>host part</u> (.1) is used by the <strong>last router</strong> to reach the destination host.
+						</ul>
+						<p>You need two of those IP addresses: source and destination.</p>
+					</section>
+					<section>
+						<h2>[R] Data Link  Address: MAC Addresses</h2>
+						<p>Data Link Layer (DLL or L2) addresses, also known as <strong>physical addresses</strong> (tied to the NIC), are used to <strong>reach another network interface in the same network</strong> (<em>link</em>).</p>
+						<p>DLL addresses, like <strong>MAC addresses</strong>, have <u>no structure</u>: 00:AA:BB:11:FF:01 and 00:AA:BB:11:FF:02 could be on different planets, for all we know.</p>
+						<p>L2 delivery operates on the <u>assumption</u> that end devices can <strong>communicate directly over the same link</strong>, just by sending frames with correct addressing onto the wire.</p>
+						<p>You need 2 MAC addresses: source and destination.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>[R] Role of L2/L3 Addresses</h2>
+						<h3>In the same network</h3>
+						<div><img src="https://i.imgur.com/tTqWLbM.jpg"></div>
+						<ul>
+							<li><strong>L2 Src</strong>: 00:15:5F:3C:A2:68 (PC A NIC)</li>
+							<li><strong>L2 Dst</strong>: 00:44:C8:59:12:74 (PC B NIC)</li>
+							<li><strong>L3 Src</strong>: 192.168.1.3 (PC A IP)</li>
+							<li><strong>L3 Dst</strong>: 192.168.1.62 (PC B IP)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>[R] Role of L2/L3 Addresses</h2>
+						<h3>Over different networks (1)</h3>
+						<div><img src="https://i.imgur.com/tTqWLbM.jpg"></div>
+						<ul>
+							<li><strong>L2 Src</strong>: 00:15:5F:3C:A2:68 (PC A NIC)</li>
+							<li><strong>L2 Dst</strong>: 00:22:54:28:6F:FA (GW NIC, same net as PC A NIC)</li>
+							<li><strong>L3 Src</strong>: 192.168.1.3 (PC A IP)</li>
+							<li><strong>L3 Dst</strong>: 10.87.38.185 (PC C IP)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>[R] Role of L2/L3 Addresses</h2>
+						<h3>Over different networks (2)</h3>
+						<div><img src="https://i.imgur.com/tTqWLbM.jpg"></div>
+						<ul>
+							<li><strong>L2 Src</strong>: 00:85:CC:D3:E2:34 (GW NIC, same net as PC C)</li>
+							<li><strong>L2 Dst</strong>: 00:13:81:FC:F6:1A (PC C NIC)</li>
+							<li><strong>L3 Src</strong>: 192.168.1.3 (PC A IP, unchanged)</li>
+							<li><strong>L3 Dst</strong>: 10.87.38.185 (PC C IP, unchanged)</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>[R] Default Gateway</h2>
+					<p>A <strong><em>gateway</em></strong> is a host (a router, almost always) in a network that <strong>knows how to reach other (specific) networks</strong>.</p>
+					<p>The <strong><em>default gateway</em></strong> is the router to which a host on a network will send <strong>every frame for which it has no specific gateway</strong>.</p>
+					<p>The default gateway is <em>presumed</em> to know what to do.</p>
+					<p>Default gateway either <strong>routes the packet</strong> to final destination or to another router, called <strong>next hop</strong>.</p>
+					<p><u>L2 addressing information is rewritten</u> at every hop.</p>
+				</section>
+
+				<section>
+					<h2>[R] How do I get to know these addresses?</h2>
+					<p>A host needs to <strong>know both the logical and physical addresses of the destination host</strong> to be able to generate and send the frame.</p>
+					<p>For IP addresses, you probably know IP addresses on your own network and you enter them <strong>manually</strong>.</p>
+					<p>For remote networks, you can learn IP address by configuring your device to use <strong>DNS</strong> (<em>Domain Name System</em>).</p>
+					<p>Remembering MAC Addresses would be much more trickier, but fortunately <strong>ARP</strong> (<em>Address Resolution Protocol</em>) relieves you of that need.</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>[R] Why Don't We Go MAC-only?</h2>
+						<p>Think about it: we have <u>2 different sets of addresses both able to globally and uniquely identify hosts</u>. Why?</p>
+						<ul>
+							<li>For MAC addresses to work globally, every router <u>would need to know every MAC address ever released</u> and where it is. Sloooow.</li>
+							<li>It would not be possible to shorten that list by <u>"grouping" MAC addresses: there is no criteria/structure</u> to do it.</li>
+							<li>You <u>can't move a MAC address</u> from a host to another.</li>
+							<li>There are <u>L2 protocols other than Ethernet</u>, you know...</li>
+							<li>MAC addresses makes sense to use because you can't really skip <em>communicating in the same network</em>.</li>
+						</ul>
+					</section>
+					<section>
+						<h2>[R] Why Don't We Go IP-only?</h2>
+						<ul>
+							<li>Actually, <em>we could</em>. There are vocal proposal for networking based on L3-only addressing.</li>
+							<li>There are <u>not enough IPv4 addresses for every NIC</u>. <strong>IPv6 would solve this</strong>, but we've been stuck with IPv4 for 30+ years.</li>
+							<li>Also, <u>checking MAC addresses used to be much faster than checking IPs</u> (because of the lack of structure to analyze), but <strong>not anymore</strong>.</li>
+						</ul>
+						<p><strong>If we started from scratch today, we could probably just use IPs</strong>.</p>
+						<p>The reality is that the <strong>Ethernet+IP addressing has been working pretty well</strong> for ~40 years and almost everything has been based on it. So the urge to change it's minimal.</p>
+					</section>
 				</section>
 
 				<section>
@@ -366,7 +485,7 @@ eth0      Link encap:Ethernet  IndirizzoHW e8:11:32:4e:48:6b
 							<li>The original host <strong>can now create the appropriate entry</strong> in its ARP cache.</li>
 						</ul>
 						<p>ARP entries are <em>time stamped</em>, they <em>expire</em>, and can be <em>static</em>.</p>
-						<p>If no host replies to the ARP request, <strong>the encapsulation failes, the frame is aborted</strong> and an error might be reported to the upper layers.</p>
+						<p>If no host replies to the ARP request, <strong>the encapsulation fails, the frame is aborted</strong> and an error might be reported to the upper layers.</p>
 					</section>
 					<section>
 						<h2>How ARP operates for remote networks</h2>
