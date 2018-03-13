@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/hlcs.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,17 +43,15 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:</h2>
 					<h2>Introduction to Networks</h2>
 					<h3>Chapter 7, Part 1: IPv4 Addressing</h3>
-					<p>
-						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-					</p>
+					<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 				</section>
 
 				<section>
 					<h2>Network &amp; Host Part</h2>
-					<p>An IP address is hierarchical, and made by 2 parts: the <strong>network</strong> and the <strong>host</strong> part. The network part is <strong>used by each host to decide</strong> if the destination is in their local network or if is remote.</p>
+					<p>An <strong>IP address is hierarchical</strong>, and made by 2 parts: the <strong>network</strong> and the <strong>host</strong> part. The network part is <strong>used by each host to decide</strong> if the destination is in their local network or if it's remote.</p>
 					<p>So far we've simplified, by assuming that the first 3 decimals were the network part and the last one was the host part.</p>
 					<p>It could very well be that 172.16.2.4 and 172.18.58.9 belong in the same network (same network part)!</p>
 					<p>So how does the host know which is the network part of an address? Thanks to the <strong>binary representation</strong> of the address and the <strong>subnet mask</strong>.</p>
@@ -246,20 +244,8 @@ Address:   172.18.58.9          10101100.0001 0010.00111010.00001001</pre>
 						<h2>Network, Host, Broadcast Addresses</h2>
 						<p>Within the range of addresses belonging to an IPv4 (sub)network, we can identify 3 types:</p>
 						<ul>
-							<li><strong>Network Address</strong>: It's the first address in the range, because it's the one having all 0s in the host portion. It consists only of the network part, so it's a standard way to refer to a network.</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Network, Host, Broadcast Addresses</h2>
-						<p>Within the range of addresses belonging to an IPv4 (sub)network, we can identify 3 types:</p>
-						<ul>
+							<li><strong>Network Address</strong>: It's the first address in the range, because it's the one having all 0s in the host portion. It consists only of the network part, so <u>it's a standard way to refer to a network</u>.</li>
 							<li><strong>Broadcast Address</strong>: It's a special address that allows to reach every host in the network. It's the higher address in the range, because it consists of all 1s in the host portion.</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Network, Host, Broadcast Addresses</h2>
-						<p>Within the range of addresses belonging to an IPv4 (sub)network, we can identify 3 types:</p>
-						<ul>
 							<li><strong>Host Address</strong>: It's any address between the network and the broadcast addresses. They can be assigned to hosts and must be unique. They contain any combination of 0 and 1 in the host portion, except for all-0s and all-1s.</li>
 						</ul>
 					</section>
@@ -341,14 +327,23 @@ Hosts/Net: 254</code></pre>
 				<section>
 					<section>
 						<h2>Broadcast</h2>
-						<p>Using the broadcast address of the network, it is possibile to send packets to all its hosts. Each hosts will process the packet like it was sent to its unicast address, so <strong>the broadcast address is an address that is "common" to every host on the network</strong>.</p>
+						<p>Using the broadcast address of the network, it is possibile to send packets to all its hosts (the <strong><em>broadcast domain</em></strong>).</p>
+						<p>Each hosts will process the packet like it was sent to its unicast address, so <strong>the broadcast address is an address that is "common" to every host on the network</strong>.</p>
 						<p><strong>Broadcast packets are not routed by default</strong>, and stay confined in the local network. This means routers define the boundaries of the <em>broadcast domain</em>.</p>
 					</section>
 					<section>
 						<h2>Directed vs Limited Broadcast</h2>
 						<ul>
-							<li><strong>Directed Broadcast</strong>: a broadcast sent to <u>all hosts on a specific, non-local</u> network. Cisco routers don't enable directed broadcast forwarding by default. Linux doesn't support it.</li>
-							<li><strong>Limited Broadcast</strong>: intended for communication with every host on the local network only. Packets use <strong>255.255.255.255</strong> as destination address. <u>Routers never forward them</u>. </li>
+							<li><strong>Directed Broadcast</strong>: a broadcast sent to <u>all hosts on a specific network</u>, either local or remote.</li>
+							<ul>
+								<li>It's dangerous to allow sending broadcast to any remote network.</li>
+								<li>Cisco routers don't enable directed broadcast forwarding by default. Linux doesn't support it.</li>
+								<li>The destination address used for directed broadcast is the <strong>network's broadcast address</strong>.</li>
+							</ul>
+							<li><strong>Limited Broadcast</strong>: intended for communication with every host on the local network only. <u>Routers never forward them</u>. </li>
+							<ul>
+								<li>It uses the special broadcast address <strong>255.255.255.255</strong> as destination address.</li>
+							</ul>
 						</ul>
 					</section>
 				</section>
@@ -410,7 +405,7 @@ Hosts/Net: 254</code></pre>
 
 				<section>
 					<h2>Classless Addressing</h2>
-					<p>Classfull addressing was <strong>highly inefficient</strong>, leading to many wasted addresses, so it was progressively abandoned.</p>
+					<p>Classful addressing was <strong>highly inefficient</strong>, leading to many wasted addresses, so it was progressively abandoned.</p>
 					<p><strong>Classless addressing</strong>, also known as <strong>Classless Inter-Domain Routing (CIDR)</strong>, allows to allocate address ranges from the public space with prefix lengths other than /8, /16 or /24.</p>
 					<p>The various blocks of <strong>available public IPv4 addresses are assigned by the IANA, who delegates Regional Internet Registries</strong> to manage assignments in different areas.</p>
 					<p>IP addresses are allocated to ISPs by the RIRs. Most "final users" (companies, organizations, inviduals) <em>borrow</em> their Internet addresses from the ISP as part of some service.</p>
@@ -423,33 +418,9 @@ Hosts/Net: 254</code></pre>
 						<li><strong>Loopback</strong> - Useful for TCP/IP testing. Every 127.0.0.0/8 address will loop back to the local host Network Layer.</li>
 						<li><strong>Link-Local</strong> - Addresses in the 169.254.0.0/16 could be <strong>automatically assigned when no IPv4 configuration is available</strong> (e.g. when a DHCP server doesn't respond).</li>
 						<li><strong>TEST-NET</strong> - Block 192.0.2.0/24 is reserved for use in documentation, classes, etc, to provide examples.</li>
-						<li><strong>Experimental</strong> - Reserved address block from 240.0.0.0 to 255.255.255.254, are listed by RFC3330 for <strong>future use</strong>.</li>
+						<li><strong>Experimental</strong> - Reserved address block from 240.0.0.0 to 255.255.255.254, listed by RFC3330 for <strong>future use</strong>.</li>
 					</ul>
 					<p>All these addresses <u>must never appear on the public Internet</u>.</p>
-				</section>
-
-				<section>
-					<section>
-						<h2>Traceroute</h2>
-						<p>While ping just test connectivity between 2 hosts, <code>traceroute</code> (<code>tracert</code> in Windows) <strong>details the path</strong> taken by the packet.</p>
-						<p>traceroute provides its functions by <strong>exploiting the ICMP time exceeded messages caused by deliberately low TTL values</strong>.</p>
-						<p><strong>Each row in its output is a hop</strong> the packet traversed. An asterisk (*) means a <strong>lost packet</strong>. Times represent the <strong>Round Trip Time (RTT)</strong> between sending the packet and getting the response. </p>
-					</section>
-					<section>
-						<h2>Traceroute</h2>
-						<pre><code class="no-highlight">stefanauss@barney:~$ traceroute -n google.it
-traceroute to google.it (173.194.40.15), 30 hops max, 60 byte packets
- 1  10.87.23.1  0.257 ms  0.284 ms  0.346 ms
- 2  * * *
- 3  172.18.1.129  25.915 ms  28.067 ms  30.293 ms
- 4  172.18.0.77  31.994 ms  40.412 ms 172.18.0.73  36.516 ms
- 5  172.19.240.173  56.398 ms  58.932 ms  58.996 ms
- 6  195.22.192.85  59.228 ms  63.312 ms  66.776 ms
- 7  74.125.51.12  62.567 ms 72.14.196.141  41.077 ms  40.297 ms
- 8  209.85.249.54  40.273 ms  40.186 ms  40.549 ms
- 9  64.233.174.245  40.962 ms  40.498 ms  39.815 ms
-10  173.194.40.15  43.655 ms  43.748 ms  40.498 ms</code></pre>
-					</section>
 				</section>
 
 				<section>
