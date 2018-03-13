@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/hlcs.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,12 +43,10 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:</h2>
 					<h2>Introduction to Networks</h2>
 					<h3>Chapter 6: Network Layer</h3>
-					<p>
-						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-					</p>
+					<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 				</section>
 
 				<section>
@@ -67,7 +65,7 @@
 					<h2>The IP Protocol</h2>
 					<p>IP was designed as a protocol with <strong>low overhead</strong>. It <strong>doesn't track nor manage the flow of packets</strong> (delegates to upper layers). Its basic characteristics are:</p>
 					<ul>
-						<li><strong>Connectionless</strong>: no connection with the destination is established before sending data packets (like with a paper letter). It might be absent and/or not receiving.</li>
+						<li><strong>Connectionless</strong>: no connection with the destination is established before sending data packets. Like with a paper letter, the recipient might be absent, not receiving, unable to read.</li>
 						<li><strong>Best Effort (unreliable)</strong>: There is no acknowledgment or error control. Packet delivery and ordering are not guaranteed.</li>
 						<li><strong>Media Independent</strong>: Operation is independent of the medium carrying the data, except for the <strong>MTU (Maximum Transmission Unit)</strong> which L3 must coordinate with L2.</li>
 					</ul>
@@ -115,10 +113,12 @@
 					</section>
 				</section>
 
+				<!--
 				<section>
 					<h1>Practice IPv4 Packets</h1>
 					<h1>with WireShark</h1>
 				</section>
+				-->
 
 				<section>
 					<section>
@@ -145,9 +145,11 @@
 						<li><strong>Increased address space</strong>, 128-bit hierarchical addressing.</li>
 						<li><strong>Simplified but extendable header</strong> with fewer fields (8 fields in 40 bytes instead of IPv4's 12-in-20).</li>
 						<li><strong>No required</strong> fragmentation and header checksum.</li>
+						<li><strong>Address autoconfiguration</strong>.</li>
 						<li><strong>No need for NAT</strong>, every host gets a <strong>public IPv6</strong> address.</li>
 						<li><strong>More and integrated security</strong> with authentication and privacy extensions; mandatory <strong>IPsec</strong> in the protocol suite.</li>
-						<li><strong>Improved packet handling</strong> without the need to de-encapsulate the transport layer to identify the various traffic flows, thanks to a <strong>Flow Label</strong> field.</li>
+						<li><strong>Improved packet handling</strong> without the need to de-encapsulate the transport layer to identify traffic flows, thanks to a <strong>Flow Label</strong> field.</li>
+						<li><strong>Larger payload</strong> support for increasing efficiency.</li>
 					</ul>
 				</section>
 
@@ -177,16 +179,18 @@
 					</section>
 				</section>
 
+				<!--
 				<section>
 					<h1>Practice IPv6 Packets</h1>
 					<h1>with WireShark</h1>
 				</section>
+				-->
 
 				<section>
 					<h2>Routing for the host</h2>
 					<p>An host can send (<em>forward</em>) a packet to:</p>
 					<ul>
-						<li><strong>Itself</strong> - every host as a special IP address, 127.0.0.1, known as the <strong>loopback interface</strong>, that is useful for testing purposes. IPs in the network 127.0.0.0/8 are loopback IPs.</li>
+						<li><strong>Itself</strong> - every host has a special IP address, 127.0.0.1, known as the <strong>loopback interface</strong>, that is useful for testing purposes. IPs in the network 127.0.0.0/8 are loopback IPs.</li>
 						<li><strong>Local host</strong> - any host on the same network as the sender.</li>
 						<li><strong>Remote host</strong> - hosts beyond the local network segment.</li>
 					</ul>
@@ -240,7 +244,7 @@ Indirizzo rete     Mask             Gateway       Interfac.     Metric
    0.0.0.0         0.0.0.0          192.168.1.1   192.168.1.15  20
    192.168.1.0     255.255.255.0    192.168.1.15  192.168.1.15  20
    192.168.1.15    255.255.255.255  127.0.0.1     127.0.0.1     20
-   192.168.10.255  255.255.255.255  192.168.1.15  192.168.1.15  20
+   192.168.1.255   255.255.255.255  192.168.1.15  192.168.1.15  20
    127.0.0.0       255.0.0.0        127.0.0.1     127.0.0.1     1
    224.0.0.0       240.0.0.0        192.168.1.15  192.168.1.15  20
    255.255.255.255 255.255.255.255  192.168.1.15  192.168.1.15  1
@@ -278,7 +282,7 @@ fe80::/64 dev eth0  proto kernel  metric 256</code></pre>
 					<ul>
 						<li><strong>Directly-connected routes</strong> - Added when a router interface is configured with an IP address and activated. With these, routers maintain information about the network segments they belong to.</li>
 						<li><strong>Remote Routes</strong> - Manually added (<em>static routes</em>) or automatically learned (with <em>routing protocols</em>) from other routers connected to other networks.</li>
-						<li><strong>Default Route</strong> - Similarly to a host, a router can also have a route to a default gateway to be used as a last resort.</li>
+						<li><strong>Default Route</strong> - Similarly to a host, a router can also have a route to a default gateway to be used as a <em>last resort</em>.</li>
 					</ul>
 				</section>
 
@@ -319,10 +323,11 @@ R0#</code></pre>
 							<li><strong>Route source</strong> - Identifies how the route was learned.</li>
 							<li><strong>Destination network</strong> - Identifies the address of the remote network.</li>
 							<li><strong>Administrative distance</strong> - Identifies the trustworthiness of the route source.</li>
-							<li><strong>Metric</strong> - Identifies the value assigned to reach the remote network. Lower values indicate preferred routes.</li>
+							<li><strong>Metric</strong> - Identifies the value assigned to the "difficulty" of reaching the remote network. Lower values indicate preferred routes.</li>
 							<li><strong>Next-hop</strong> - Identifies the IP address of the next router (gateway to the network) to forward the packet.</li>
 							<li><strong>Route timestamp</strong> - When the route was last learned.</li>
 							<li><strong>Outgoing interface</strong> - Identifies the exit interface to use to forward a packet toward the final destination.</li>
+						</ul>
 					</section>
 				</section>
 
@@ -366,7 +371,7 @@ R0#</code></pre>
 				<section>
 					<h2>Behind a Router</h2>
 					<img src="http://i.imgur.com/n8J6bjl.jpg">
-					<p>Management ports don't forward packets, router interfaces do!</p>
+					<p>Management (<em>out-of-band</em>) ports don't forward packets, router (<em>in-band</em>) interfaces do!</p>
 					<img src="http://i.imgur.com/W0h8gIt.png">
 				</section>
 
