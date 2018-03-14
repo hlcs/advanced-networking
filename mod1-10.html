@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/hlcs.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,19 +43,17 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:</h2>
 					<h2>Introduction to Networks</h2>
 					<h3>Chapter 10: Application Layer</h3>
-					<p>
-						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-					</p>
+					<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 				</section>
 
 				<section>
 					<section>
 						<h2>The OSI L7: Application</h2>
 						<img src="http://i.imgur.com/DrBlKz8.gif" style="float: right;">
-						<p>The <strong>Application Layer</strong> involves the <strong>protocols used by programs</strong> to exchange data, regardless of the underlying network.</p>
+						<p>The <strong>Application Layer</strong> involves the <strong>protocols used by programs</strong> to exchange data, regardless of the underlying network(s).</p>
 						<p>L2 is <em>link-to-link</em>, L3 is <em>end-to-end</em>, L4 is <em>process-to-process</em>. <strong>L7 is <em>application-to-application</em></strong>.</p>
 						<p>It is the closest to the user and the one actually <strong>producing the data</strong> content.</p>
 					</section>
@@ -125,12 +123,20 @@
 						<h2>HyperText Transfer Protocol</h2>
 						<p>Browsers interpret the URL, recognize the type of data and organize retrieval with the server using the right protocol.</p>
 						<p>Web pages are identified by their <strong>URL (Uniform Resource Locator)</strong>. When we type an URL into our browser, <strong>pages are requested and served by the HTTP Protocol</strong>.</p>
-						<p>HTTP is a request/response protocol. It operates exchanging messages and status codes. The 3 most important messages are <strong>GET, POST and PUT</strong>. Releavant status codes include <strong>200 OK, 304 Not Modified, 404 Not Found</strong>.</p>
+						<p>HTTP is a request/response protocol. It operates exchanging messages and status codes. The 3 most important messages are <strong>GET, POST and PUT</strong>. Relevant status codes include <strong>200 OK, 304 Not Modified, 404 Not Found</strong>.</p>
+					</section>
+					<section>
+						<h2>HyperText Transfer Protocol</h2>
+						<ul>
+							<li><strong>GET</strong> - A request to retrieve the data for the specified resource.</li>
+							<li><strong>POST</strong> - A request to upload data related to the specified resource, example: form data, a comment, etc.</li>
+							<li><strong>PUT</strong> - A request to upload data and have it stored at the specified URL.</li>
+						</ul>
 					</section>
 					<section>
 						<h2>HyperText Transfer Protocol</h2>
 						<img src="http://i.imgur.com/DcUYaKW.png">
-						<p>HTTP is not a secure protocol and its exhanges are transmitted in plain text, easily interceptable. <strong>HTTPS</strong> combines HTTP with <strong>Secure Socket Layer (SSL)</strong> and <strong>Transport Secure Layer (TLS)</strong> to provide authentication and encryption.</p>
+						<p>HTTP is not a secure protocol and its exchanges are transmitted in plain text, easily interceptable. <strong>HTTPS</strong> combines HTTP with <strong>Secure Socket Layer (SSL)</strong> and <strong>Transport Secure Layer (TLS)</strong> to provide authentication and encryption.</p>
 					</section>
 				</section>
 
@@ -199,9 +205,9 @@
 					<section>
 						<h2>DNS Records</h2>
 						<ul>
-							<li><strong>A</strong> - Single host address.</li>
+							<li><strong>A/AAAA</strong> - Single host address.</li>
 							<li><strong>NS</strong> - Authoritative name server.</li>
-							<li><strong>CNAME</strong> - It maps a single network address to multiple names that act as an <strong>alias</strong>. It called <em>canonical name</em> or <em>Fully Qualified Domain Name</em>.</li>
+							<li><strong>CNAME</strong> - It maps a single network address to multiple names that act as an <strong>alias</strong>.</li>
 							<li><strong>MX</strong> - Used to list the mail servers associated and responsible for exchanging mail for that domain.</li>
 						</ul>
 					</section>
@@ -273,10 +279,10 @@ Address: 74.125.232.152</code></pre>
 				<section>
 					<h2>File Transfer Protocol (FTP)</h2>
 					<img src="http://i.imgur.com/Tmq2tsM.gif">
-					<p>FTP is a protocol that allows for <strong>pushing and pulling data</strong> to and from a server. FTP opens 2 connections:</p>
+					<p>FTP is a protocol that allows for <strong>pushing and pulling data</strong> to and from a server. FTP opens 2 TCP connections:</p>
 					<ul>
 						<li>One on port 21 is just for <strong>connection control</strong>, commands and replies between client and server.</li>
-						<li>A second one for the <strong>actual data transfer</strong>.</li>
+						<li>A second one on port 20 for the <strong>actual data transfer</strong>.</li>
 					</ul>
 				</section>
 
