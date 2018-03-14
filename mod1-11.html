@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/hlcs.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,12 +43,10 @@
 			<div class="slides">
 				<section>
 					<h1>Advanced Networking</h1>
-					<h2>Routing & Switching:<h2>
+					<h2>Routing &amp; Switching:</h2>
 					<h2>Introduction to Networks</h2>
-					<h3>Chapter 11: It's A Network</h3>
-					<p>
-						<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
-					</p>
+					<h3>Chapter 11: Build a Small Network</h3>
+					<small><a href="http://hlcs.it">Hacklab Cosenza</a> / Centro di Ricerca su Tecnologia e Innovazione</small>
 				</section>
 
 				<section>
@@ -134,7 +132,7 @@
 					<ul>
 						<li><strong>Information Theft</strong>: information is obtained that was meant to be confidential and it's now out of control and can be used, sold or otherwise damage the victim.</li>
 						<li><strong>Identity Theft</strong>: like the above, but the information allows the attacker to assume someone else's identity in order to achieve access or other type of unauthorized usage.</li>
-						<li><strong>Data Loss or Tampering</strong>: computer data that is purposefully damaged to harm the owener of the data, or altered to obtain an advantage.</li>
+						<li><strong>Data Loss or Tampering</strong>: computer data that is purposefully damaged to harm the owner of the data, or altered to obtain an advantage.</li>
 						<li><strong>Disruption of Service</strong>: even without breaking into a system, attackers can impede legitimate users of a service to access it.</li>
 					</ul>
 				</section>
@@ -294,7 +292,7 @@ Nmap done: 1 IP address (1 host up) scanned in 20.66 seconds
 					<p>There are many types of DoS attacks. They all target the <strong>exhaustion of system and network resources</strong> to the point where it's hard or impossible to legitimately use them.</p>
 					<p>Some kinds of Denial of Service attacks are:</p>
 					<ul>
-						<li><strong>Ping of Death</strong> - Malformed, large (more than IP max size) ICMP packets that are meant to crash receiving hosts.</li>
+						<li><strong>Ping of Death</strong> - Malformed, large (more than IP maximum size) ICMP packets that are meant to crash receiving hosts.</li>
 						<li><strong>SYN Flood</strong> - The attacker begins (SYN) a lot of TCP 3-Way Handshakes without ever completing them (SYN ACK).</li>
 						<li><strong>Distributed Denial of Service (DDoS)</strong> - When the attacker has a large number of compromised systems (<em>Handlers</em> and <em>Zombies</em>) at his disposal, simultaneously targeting a victim.</li>
 					</ul>
@@ -373,7 +371,7 @@ Nmap done: 1 IP address (1 host up) scanned in 20.66 seconds
 				<section>
 					<section>
 						<h2>Securing Cisco IOS - Attempts</h2>
-						<pre><code class="no-higlight">Router(config)# service password-encryption
+						<pre><code class="bash">Router(config)# service password-encryption
 Router(config)# security password min-length 8
 Router(config)# login block-for 240 attempts 3 within 60
 Router(config)# line console 0
@@ -383,7 +381,7 @@ Router(config-line)# end</code></pre>
 					</section>
 					<section>
 						<h2>Securing Cisco IOS - SSH</h2>
-						<pre><code class="no-higlight">Router(config)# ip domain-name hlcs.it
+						<pre><code class="bash">Router(config)# ip domain-name hlcs.it
 Router(config)# crypto key generate rsa general-keys modulus 2048
 The name for the keys will be: Router.hlcs.it
 % The key modulus is 2048 bits
@@ -402,16 +400,16 @@ Router(config-line)# transport input ssh</code></pre>
 				</section>
 
 				<section>
-					<section>
-						<h2>Network Baseline</h2>
-						<p>Establishing a <em>network baseline</em> means detailing network performances over time to create a <strong>reference point</strong>.</p>
-						<p>Basic performance tests like <code>ping</code> or <code>traceroute</code> should be executed at different times of the day, days of the week, and <strong>stored as documentation for future comparisons</strong>.</p>
-						<p>There are integrated softwares that manage the creation and storage of large and detailed baselines.</p>
-					</section>
-					<section>
-						<h2>Network Baseline</h2>
-						<p>On Cisco IOS, by typing <code>ping</code> in privileg EXEC mode, without an address, an <strong>extended ping</strong> mode is accessed.</p>
-						<pre><code class="no-highlight">R2# ping
+					<h2>Network Baseline</h2>
+					<p>Establishing a <em>network baseline</em> means detailing network performances over time to create a <strong>reference point</strong>.</p>
+					<p>Basic performance tests like <code>ping</code> or <code>traceroute</code> should be executed at different times of the day, days of the week, and <strong>stored as documentation for future comparisons</strong>.</p>
+					<p>There are integrated softwares that manage the creation and storage of large and detailed baselines.</p>
+				</section>
+
+				<section>
+					<h2>Extended Ping</h2>
+					<p>On Cisco IOS, by typing <code>ping</code> in privileg EXEC mode, without an address, an <strong>extended ping</strong> mode is accessed.</p>
+					<pre><code class="no-highlight">R2# ping
 
 Protocol [ip]:
 Target IP address: 10.87.7.1
@@ -431,7 +429,30 @@ Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 10.87.7.1, timeout is 2 seconds:
 !!!!!
 Success rate is 100 percent (5/5), round-trip min/avg/max = 36/97/132 ms </code></pre>
-					</section>
+				</section>
+
+				<section>
+					<h2>Extended Traceroute</h2>
+					<p>Cisco IOS <code>traceroute</code> implementation uses a different approach (as Linux does) than pure ICMP Echo Request/Reply. It sends <strong>UDP datagrams</strong>, always with incrementing TTL values.</p>
+					<pre><code class="no-highlight">R2#traceroute
+
+Protocol [ip]:
+Target IP address: 192.168.40.2
+Source address: 172.16.23.2
+Numeric display [n]:
+Timeout in seconds [3]:
+Probe count [3]:
+Minimum Time to Live [1]:
+Maximum Time to Live [30]:
+Port Number [33434]:
+Loose, Strict, Record, Timestamp, Verbose[none]:
+Type escape sequence to abort.
+Tracing the route to 192.168.40.2
+
+  1 172.31.20.2 16 msec 16 msec 16 msec
+  2 172.20.10.2 28 msec 28 msec 32 msec
+  3 192.168.40.2 32 msec 28 msec *
+</code></pre>
 				</section>
 
 				<section>
@@ -440,139 +461,63 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 36/97/132 ms </code>
 						<p>CDP is a <strong>proprietary protocol by Cisco</strong> that allows a device to learn hardware and software information about <strong>other devices directly connected</strong> to it.</p>
 						<p>CDP runs at L2, so it can operate <strong>even if there is no network layer connectivity</strong> or different L3 protocols are running.</p>
 						<p>It provides details like <strong>Device identifiers, address list, port identifiers, capabilities, platform</strong>.</p>
-						<p>CDP is <strong>enabled by default</strong> on Cisco IOS. It can be disabled globally with the command <code>no cdp run</code>, or per-interface with the command <code>no cdp enable</code>.</p>
+						<p>CDP is <strong>enabled by default</strong> on Cisco IOS, but it can represent a <strong>security risk</strong>. It can be disabled globally with the command <code>no cdp run</code>, or per-interface with the command <code>no cdp enable</code>.</p>
 					</section>
 					<section>
 						<h2>Cisco Discovery Protocol</h2>
-						<pre><code class="no-highlight" style="max-height: 250px;">Router# show cdp neighbors
+						<pre><code class="no-highlight" style="max-height: 250px;">Router1# show cdp neighbors
 Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
-                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
-                  D - Remote, C - CVTA, M - Two-port Mac Relay
+                  S - Switch, H - Host, I - IGMP, r - Repeater
 
-Device ID        Local Intrfce Holdtme  Capability  Platform  Port ID
-10.64.107.251    Gig 37/3      176            R I   CPT 600   Gig 36/41
-10.64.107.251    Gig 37/1      174            R I   CPT 600   Gig 36/43
-10.64.107.251    Gig 36/41     134            R I   CPT 600   Gig 37/3
-10.64.107.251    Gig 36/43     134            R I   CPT 600   Gig 37/1
-10.64.107.251    Ten 3/2       132            R I   CPT 600   Ten 4/2
-10.64.107.251    Ten 4/2       174            R I   CPT 600   Ten 3/2</code></pre>
-						<pre><code class="no-highlight" style="max-height: 250px;">R2# show cdp neighbors detail
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+Router2          Ser 0/0            179         R I       2621      Ser 0/1
+Switch1          Fas 1/0            152         S I       WS-C2924  Gig 2/2</code></pre>
+						<pre><code class="no-highlight" style="max-height: 250px;">Router1#show cdp neighbors detail
 -------------------------
-Device ID: R3
+Device ID: Router2
 Entry address(es):
-IP address: 10.2.2.3
-Platform: Cisco 3640, Capabilities: Router Switch IGMP
-Interface: FastEthernet1/0, Port ID (outgoing port): FastEthernet0/0
-Holdtime : 125 sec
+  IP address: 10.1.1.2
+Platform: cisco 2621,  Capabilities: Router
+Interface: Serial0/0,  Port ID (outgoing port): Serial0/1
+Holdtime : 136 sec
 
 Version :
-Cisco IOS Software, 3600 Software (C3640-JK9S-M), Version 12.4(16), RELEASE SOFTWARE (fc1)
-Technical Support: http://www.cisco.com/techsupport
-Copyright (c) 1986-2007 by Cisco Systems, Inc.
-Compiled Wed 20-Jun-07 11:43 by prod_rel_team
+Cisco Internetwork Operating System Software
+IOS (tm) C2600 Software (C2600-IK9O3S-M), Version 12.2(13), RELEASE SOFTWARE (fc1)
+Copyright (c) 1986-2002 by cisco Systems, Inc.
+Compiled Tue 19-Nov-02 22:27 by pwade
 
 advertisement version: 2
-VTP Management Domain: '
-Duplex: full
 
--------------------------
-Device ID: R1
+Device ID: Switch1
 Entry address(es):
-IP address: 10.1.1.1
-Platform: Cisco 3640, Capabilities: Router Switch IGMP
-Interface: FastEthernet0/0, Port ID (outgoing port): FastEthernet0/0
-Holdtime : 158 sec
+  IP address: 172.25.1.4
+Platform: WS-C2924,  Capabilities: Trans-Bridge Switch
+Interface: FastEthernet1/0,  Port ID (outgoing port): FastEthernet0/12
+Holdtime : 116 sec
 
 Version :
-Cisco IOS Software, 3600 Software (C3640-JK9S-M), Version 12.4(16), RELEASE SOFTWARE (fc1)
-Technical Support: http://www.cisco.com/techsupport
-Copyright (c) 1986-2007 by Cisco Systems, Inc.
-Compiled Wed 20-Jun-07 11:43 by prod_rel_team
+Cisco Internetwork Operating System Software
+IOS (tm) C2900XL Software (C2900XL-C3H2S-M), Version 12.0(5)WC3b, RELEASE SOFTWARE (fc1)
+Copyright (c) 1986-2002 by cisco Systems, Inc.
+Compiled Fri 15-Feb-02 10:14 by antonino
 
 advertisement version: 2
-VTP Management Domain: '
 Duplex: full</code></pre>
 					</section>
 				</section>
 
 				<section>
-					<h2>Interface Summary</h2>
-					<p>One of the most useful Cisco IOS commands:</p>
-					<pre><code class="no-highlight">Router# show ip interface brief
-Interface     IP-Address     OK?  Method  Status                  Protocol
-Ethernet0     10.108.00.5    YES  NVRAM   up                      up
-Ethernet1     unassigned     YES  unset   administratively down   down
-Loopback0     10.108.200.5   YES  NVRAM   up                      up
-Serial0       10.108.100.5   YES  NVRAM   up                      up
-Serial1       10.108.40.5    YES  NVRAM   up                      up
-Serial2       10.108.100.5   YES  manual  up                      up
-Serial3       unassigned     YES  unset   administratively down   down </code></pre>
-				</section>
-
-				<section>
-					<section>
-						<h2>Cisco IOS File System (IFS)</h2>
-						<p>The Cisco IOS File System is a <strong>unified interface to every file system</strong> that is available on a switch or a router.</p>
-						<p>Cisco IFS allows an administrator to operate on directory and files seamlessly, <strong>even when the file system is remote</strong>.</p>
-						<p>Cisco IOS supports <strong>standard UNIX commands</strong> to operate on files, like <code>cd</code>, <code>pwd</code> or <code>dir</code>.</p>
-						<p>The command <code>show file systems</code> list all available file system with their <strong>prefixes and permissions</strong> (e.g. ro/rw/wo)</p>
-					</section>
-					<section>
-						<h2>Cisco IOS File System (IFS)</h2>
-						<pre><code class="no-highlight">Router# show file systems
-
-File Systems:
-
-     Size(b)        Free(b)   Type     Flags  Prefixes
-           -           -    opaque     rw     null:
-           -           -    opaque     rw     system:
-           -           -    opaque     ro     xmodem:
-           -           -    opaque     ro     ymodem:
-           -           -   network     rw     tftp:
-           -           -   network     rw     rcp:
-           -           -   network     rw     ftp
-*    4194304     4190616     flash     rw     flash: flash:#
-      131066      129185     nvram     rw     nvram:
-           -           -    opaque     wo     lex:
-
-Router# pwd
-flash:
-Router# cd nvram:
-Router# dir
-Directory of nvram:/
-
-   27  -rw-           0                startup-config
-   28  ----           0                private-config
-
-29688 bytes total (29636 bytes free)
-Router#</code></pre>
-					<p>A pound (<code>#</code>) means a <strong>bootable</strong> filesystem, an asterisk (<code>*</code>) stands for the <strong>default</strong> file system.</p>
-					</section>
-				</section>
-
-				<section>
-					<h2>Backup & Restore IOS Config</h2>
-					<ul>
-						<li><strong>Using Text Files</strong> - The output of <code>show running-config</code> is basically a list of IOS command that generates the current configuration. Using our <strong>terminal emulator</strong> we can backup this output to a <strong>plain text file</strong>. We can also restore a configuration from that file, albeit it will <strong>require some editing</strong> for non-commands and encrypted passwords.</li>
-						<li><strong>Using a TFTP Server or USB</strong></li>
-						<pre><code class="no-highlight" style="max-height: 220px;">CE_2#copy running-config tftp:
-Address or name of remote host []? 64.104.207.171
-Destination filename [ce_2-confg]? backup_cfg_for_my_router
-!!
-1030 bytes copied in 2.489 secs (395 bytes/sec)
-CE_2#
-
-Router#copy tftp: running-config
-Address or name of remote host []? 64.104.207.171
-Source filename []? backup_cfg_for_my_router
-Destination filename [running-config]?
-Accessing tftp://10.66.64.10/backup_cfg_for_my_router...
-Loading backup_cfg_for_router from 64.104.207.171 (via FastEthernet0/0): !
-[OK - 1030 bytes]
-
-1030 bytes copied in 9.612 secs (107 bytes/sec)
-CE_2#</code></pre>
-					</ul>
+					<h2>Cisco IOS Debugging</h2>
+					<p>Processes and protocols running on Cisco IOS <strong>generate messages</strong> during their operation the can be helpful during troubleshooting.</p>
+					<p>The <code>(#) debug</code> command allows these messages to <strong>appear in real-time</strong> on the console. They can be quite a lot, so <strong>debug can be activated for each single feature</strong> or area of interest.</p>
+					<pre><code class="no-highlight">! Enable ICMP message logging
+Router# debug ip icmp
+! Disable it
+Router# no debug ip icmp
+! Disable all debug messages of all types
+Router# undebug all</code></pre>
+					<p>By default, Cisco IOS prints debug messages only on the console connection. To have them available over virtual terminals (SSH and Telnet connections), use <code>(#) terminal monitor</code>.</p>
 				</section>
 
 				<section>
